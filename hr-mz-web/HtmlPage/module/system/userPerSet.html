@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>用户权限配置</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+  <link rel="stylesheet" href="../../../Scripts/libs/jquery-ui/jquery-ui.css">
+</head>
+<body class="ToolbarFixed">
+<div class="toolbarH">
+  <div class="title-bar">
+    <div class="eui-btn-group float-right">
+      <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+      <a href="###" class="eui-btn">保存</a>
+      <a href="###" class="eui-btn eui-btn-primary">关闭</a>
+    </div>
+    <span class="title-main">
+      <i class="eui-icon eui-font24">&#xe62a;</i>
+      用户角色权限配置
+    </span>
+    <span class="title-sub">
+
+    </span>
+    <a href="###" class="eui-btn eui-btn-primary eui-btn-small eui-marginL10"><i class="eui-icon">&#xe613;</i>切换用户</a>
+
+
+
+  </div>
+</div>
+<!--layout start-->
+<!--one start-->
+<div class="outer-west eui-bg-white">
+  <h3 class="ui-widget-header">用户信息</h3>
+  <div class="ui-layout-content">
+    <div class="eui-textAlignC eui-paddingB10"><img src="../../../Styles/images/user/user.png" width="70%"/></div>
+
+    <div class="eui-form eui-form-read eui-form-sm">
+      <!--查询条件-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">用户编号：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">YD-0003</div>
+        </div>
+      </div>
+      <div class="eui-form-item">
+        <label class="eui-form-label">用户名称：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">张乙浩 <a href="###"><i class="eui-icon">&#xe612;</i></a> </div>
+        </div>
+      </div>
+      <div class="eui-form-item">
+        <label class="eui-form-label">用户账号：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">zhangyihao</div>
+        </div>
+      </div>
+      <div class="eui-form-item">
+        <label class="eui-form-label">用户状态：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">在职</div>
+        </div>
+      </div>
+      <!--华丽的分割线-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">所属部门：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">解决方案部</div>
+        </div>
+      </div>
+      <!--华丽的分割线-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">工作岗位：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">部门经理</div>
+        </div>
+      </div>
+      <div class="eui-form-item">
+        <label class="eui-form-label">账号状态：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">
+            <input type="checkbox" name="see" e-skin="switch" e-text="启用|禁用" e-filter="" checked disabled />
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+
+
+  </div>
+</div>
+<!--one end-->
+<div class="outer-center eui-bg-white">
+  <!--two start-->
+  <div class="middle-west">
+    <UL>
+      <LI><a href="#tab_1"><SPAN>已有角色</SPAN></a></LI>
+      <LI><a href="#tab_2"><SPAN>其它角色</SPAN></a></LI>
+    </UL>
+    <div class="ui-layout-content">
+      <div id="tab_1">
+        <a href="###" class="eui-btn eui-btn-primary block eui-btn-label">超级管理员<span class="eui-icon" title="删除角色">&#x1006;</span></a>
+        <a href="###" class="eui-btn eui-btn-primary block eui-btn-label">新闻专员<span class="eui-icon" title="删除角色">&#x1006;</span></a>
+        <a href="###" class="eui-btn eui-btn-primary block eui-btn-label">财务专员<span class="eui-icon" title="删除角色">&#x1006;</span></a>
+        <a href="###" class="eui-btn eui-btn-primary block eui-btn-label">人力专员<span class="eui-icon" title="删除角色">&#x1006;</span></a>
+      </div>
+      <div id="tab_2">
+        <a href="###" class="eui-btn eui-btn-primary block eui-btn-label">总经理<span class="eui-icon" title="添加角色">&#xe654;</span></a>
+        <a href="###" class="eui-btn eui-btn-primary block eui-btn-label">部门经理<span class="eui-icon" title="添加角色">&#xe654;</span></a>
+        <a href="###" class="eui-btn eui-btn-primary block eui-btn-label">部门副经理<span class="eui-icon" title="添加角色">&#xe654;</span></a>
+      </div>
+
+    </div>
+  </div>
+  <!--two end-->
+  <div class="middle-center">
+    <!--three start-->
+    <div class="inner-west">
+      <h3 class="ui-widget-header">菜单权限</h3>
+
+      <div class="ui-layout-content etree">
+        <ul id="treeDemo" class="ztree"></ul>
+      </div>
+    </div>
+    <!--three end-->
+    <!--four start-->
+    <div class="inner-center">
+      <h3 class="ui-widget-header">操作权限（不得修改角色已设定的权限）</h3>
+      <div class="ui-layout-content">
+        <!--权限 start-->
+
+        <div class="eui-collapse eui-form" e-filter="test">
+          <div class="eui-colla-item">
+            <h2 class="eui-colla-title">
+                <span class="title-main">
+                首页
+                </span>
+                <span class="title-sub">
+                 点击收缩/展开
+                </span>
+            </h2>
+            <div class="eui-colla-content eui-bg-white eui-show">
+
+              <input type="checkbox" name="like[look]" title="全部" e-skin="primary" checked disabled>
+
+            </div>
+          </div>
+          <div class="eui-colla-item">
+            <h2 class="eui-colla-title">
+                <span class="title-main">
+                系统管理
+                </span>
+              <span class="title-sub">
+                 点击收缩/展开
+                </span>
+            </h2>
+            <div class="eui-colla-content eui-bg-white eui-show">
+              <!--一个模块 start-->
+
+              <div class="title-main eui-color-red  eui-marginTB10">
+                菜单管理：
+              </div>
+
+              <dl class="DL eui-borderB eui-paddingB20">
+                <dt>
+                  <input type="checkbox" name="system[look]" title="全部" e-skin="primary">
+                </dt>
+                <dd>
+                  <input type="checkbox" name="system[look]" title="编辑当前菜单" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="新建" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="查看" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="编辑" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="启用" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="禁用" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="删除" e-skin="primary">
+                </dd>
+              </dl>
+
+              <!--一个模块 end-->
+
+              <!--一个模块 start-->
+
+              <div class="title-main eui-color-red  eui-marginTB10">
+                用户管理：
+              </div>
+
+              <dl class="DL eui-borderB eui-paddingB20">
+                <dt>
+                  <input type="checkbox" name="system[look]" title="全部" e-skin="primary">
+                </dt>
+                <dd>
+                  <input type="checkbox" name="system[look]" title="编辑当前菜单" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="新建" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="查看" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="编辑" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="启用" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="禁用" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="删除" e-skin="primary">
+                </dd>
+              </dl>
+
+              <!--一个模块 end-->
+
+              <!--一个模块 start-->
+
+
+                <div class="title-main eui-color-red  eui-marginTB10">
+                  用户管理：
+                </div>
+              <dl class="DL">
+                <dt>
+                  <input type="checkbox" name="system[look]" title="全部" e-skin="primary">
+                </dt>
+                <dd>
+                  <input type="checkbox" name="system[look]" title="编辑当前菜单" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="新建" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="查看" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="编辑" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="启用" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="禁用" e-skin="primary">
+                  <input type="checkbox" name="system[look]" title="删除" e-skin="primary">
+                </dd>
+              </dl>
+
+              <!--一个模块 end-->
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+
+        <!--权限 end-->
+      </div>
+    </div>
+    <!--four end-->
+
+  </div>
+
+
+</div>
+<!--layout end-->
+
+
+
+
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+
+<!-- ztree-->
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+<script>
+  eui.use(['jquery','element','form', 'layedit', 'laydate','table'], function(){
+    var jQuery = eui.jQuery
+            ,element = eui.element
+            ,form = eui.form
+            ,layer = eui.layer
+            ,layedit = eui.layedit
+            ,laydate = eui.laydate
+            ,table = eui.table;
+
+      var outerLayout, middleLayout, innerLayout;
+      outerLayout = $('body').layout({
+          center__paneSelector:	".outer-center"
+          ,	west__paneSelector:		".outer-west"
+          ,	west__size:				200
+          ,	spacing_open:			8 // ALL panes
+          ,	spacing_closed:			12 // ALL panes
+          ,	center__onresize:		"middleLayout.resizeAll"
+      });
+
+      middleLayout = $('div.outer-center').layout({
+          center__paneSelector:	".middle-center"
+          ,	west__paneSelector:		".middle-west"
+          ,	west__size:				200
+          ,	spacing_open:			8  // ALL panes
+          ,	spacing_closed:			12 // ALL panes
+          ,	center__onresize:		"innerLayout.resizeAll"
+      });
+
+      innerLayout = $('div.middle-center').layout({
+          center__paneSelector:	".inner-center"
+          ,	west__paneSelector:		".inner-west"
+          ,	west__size:				200
+          ,	spacing_open:			8  // ALL panes
+          ,	spacing_closed:			8  // ALL panes
+          ,	west__spacing_closed:	12
+      });
+      $(".middle-west").tabs();
+
+
+
+
+  });
+
+
+  /*--用户树--*/
+  $(function(){
+      $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+  });
+  // ztree
+  var setting = {
+      view: {
+      //    addHoverDom: addHoverDom,
+       //   removeHoverDom: removeHoverDom,
+          selectedMulti: false
+      },
+      async:{
+          enable:true,
+          type:"get",
+          dataType:"json",
+          url:"common/testTree.json",
+          //  autoParam:["id","name"],
+          dataFilter: null
+      },
+      check: {
+          enable: true
+      },
+      data:{
+          simpleData: {
+              enable: true,
+              idKey:"id",
+              pIdKey:"pId",
+              rootPid:"0"
+          }
+      },
+      edit: {
+          enable: false
+      }
+  };
+  var zNodes=[];
+
+  var newCount = 1;
+  function addHoverDom(treeId, treeNode) {
+      var sObj = $("#" + treeNode.tId + "_span");
+      if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+      var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+          + "' title='add node' onfocus='this.blur();'></span>";
+      sObj.after(addStr);
+      var btn = $("#addBtn_"+treeNode.tId);
+      if (btn) btn.bind("click", function(){
+          var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+          zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+          return false;
+      });
+  };
+  function removeHoverDom(treeId, treeNode) {
+      $("#addBtn_"+treeNode.tId).unbind().remove();
+  };
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

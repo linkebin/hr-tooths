@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>用户权限配置</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../../../Styles/themes/default/style.css"  media="all">
+  <link rel="stylesheet" href="../../../../Scripts/libs/jquery-ui/jquery-ui.css">
+</head>
+<body class="ToolbarFixed">
+<div class="toolbarH">
+  <div class="title-bar">
+    <div class="eui-btn-group float-right">
+      <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+   <!--   <a href="###" class="eui-btn">保存</a>
+      <a href="###" class="eui-btn eui-btn-primary">关闭</a>-->
+    </div>
+    <span class="title-main">
+      <i class="eui-icon eui-font24">&#xe62a;</i>
+      用户角色权限配置
+    </span>
+    <span class="title-sub">
+
+    </span>
+    <!--<a href="javaScript:void(0)" onclick="selectUser()" class="eui-btn eui-btn-primary eui-btn-small eui-marginL10"><i class="eui-icon">&#xe613;</i>切换用户</a>-->
+
+
+
+  </div>
+</div>
+<!--layout start-->
+<!--one start-->
+<div class="outer-west eui-bg-white">
+   <h3 class="ui-widget-header">用户信息</h3>
+   <div class="ui-layout-content">
+    <div class="eui-textAlignC eui-paddingB10"><img name="headImg" src="../../../../Styles/images/user/user.png" width="70%"/></div>
+
+    <div class="eui-form eui-form-read eui-form-sm">
+      <!--用户详情-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">用户名称：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid" name="userName"> <a href="javaScript:void(0)"><i class="eui-icon">&#xe612;</i></a> </div>
+        </div>
+      </div>
+      <div class="eui-form-item">
+        <label class="eui-form-label">用户账号：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid" name="account"></div>
+        </div>
+      </div>
+
+      <!--华丽的分割线-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">所属部门：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid" name="orgName"></div>
+        </div>
+      </div>
+      <!--华丽的分割线-->
+
+      <div class="eui-form-item">
+        <label class="eui-form-label">账号状态：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">
+            <div class="eui-form-mid" name="status" ></div>
+        </div>
+        </div>
+       <div class="clearfix"></div>
+      </div>
+
+
+
+  </div>
+</div>
+ </div>
+<!--one end-->
+<div class="outer-center eui-bg-white">
+  <!--two start-->
+  <div class="middle-west">
+    <UL>
+      <LI><a href="#tab_1"><SPAN>已有角色</SPAN></a></LI>
+      <LI><a href="#tab_2"><SPAN>其它角色</SPAN></a></LI>
+    </UL>
+    <div class="ui-layout-content">
+      <div id="tab_1">
+        <a href="javaScript:void(0)" class="eui-btn eui-btn-primary block eui-btn-label">超级管理员<span class="eui-icon" title="删除角色">&#x1006;</span></a>
+      </div>
+      <div id="tab_2">
+        <a href="javaScript:void(0)" class="eui-btn eui-btn-primary block eui-btn-label">总经理<span class="eui-icon" title="添加角色">&#xe654;</span></a>
+      </div>
+
+    </div>
+  </div>
+  <!--two end-->
+  <div class="middle-center">
+    <!--three start-->
+    <div class="inner-west">
+      <h3 class="ui-widget-header">菜单权限</h3>
+
+      <div class="ui-layout-content etree">
+        <ul id="treeDemo" class="ztree"></ul>
+      </div>
+    </div>
+    <!--three end-->
+    <!--four start-->
+    <div class="inner-center">
+      <h3 class="ui-widget-header">操作权限（不得修改角色已设定的权限）</h3>
+      <div class="ui-layout-content">
+        <!--权限 start-->
+        <div class="eui-collapse eui-form" e-filter="test">
+
+          <div class="">
+            <h2 class="eui-colla-title">
+                <span class="title-main" id="menuName">
+
+                </span>
+              <span class="title-sub">
+
+                </span>
+            </h2>
+            <div class="eui-colla-content eui-bg-white eui-show">
+              <!--一个模块 start-->
+              <dl class="DL">
+                <dt id="wholeCheckbox" style="display: none">
+                    <input   type="checkbox" e-filter="whole"  id="whole" title="全部" e-skin="primary">
+                </dt>
+                <dd id="menuBnt">
+
+                </dd>
+              </dl>
+
+              <!--一个模块 end-->
+            </div>
+          </div>
+        </div>
+        <!--权限 end-->
+      </div>
+    </div>
+    <!--four end-->
+
+  </div>
+
+
+</div>
+<!--layout end-->
+
+</body>
+<script src="../../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+
+<script type="text/javascript" src="../../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+<script type="text/javascript" src="../../../../Scripts/config.js"></script><!--开发者使用的js，可用于对ajax的拦截等-->
+
+<!-- ztree-->
+<script src="../../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+<script>
+    eui.use(['jquery','element','form', 'layedit', 'laydate','table'], function(){
+        var jQuery = eui.jQuery
+                ,element = eui.element
+                ,form = eui.form
+                ,layer = eui.layer
+                ,layedit = eui.layedit
+                ,laydate = eui.laydate
+                ,table = eui.table;
+
+        var outerLayout, middleLayout, innerLayout;
+        outerLayout = $('body').layout({
+            center__paneSelector:	".outer-center"
+            ,	west__paneSelector:		".outer-west"
+            ,	west__size:				200
+            ,	spacing_open:			8 // ALL panes
+            ,	spacing_closed:			12 // ALL panes
+            ,	center__onresize:		"middleLayout.resizeAll"
+        });
+
+        middleLayout = $('div.outer-center').layout({
+            center__paneSelector:	".middle-center"
+            ,	west__paneSelector:		".middle-west"
+            ,	west__size:				200
+            ,	spacing_open:			8  // ALL panes
+            ,	spacing_closed:			12 // ALL panes
+            ,	center__onresize:		"innerLayout.resizeAll"
+        });
+
+        innerLayout = $('div.middle-center').layout({
+            center__paneSelector:	".inner-center"
+            ,	west__paneSelector:		".inner-west"
+            ,	west__size:				200
+            ,	spacing_open:			8  // ALL panes
+            ,	spacing_closed:			8  // ALL panes
+            ,	west__spacing_closed:	12
+        });
+        $(".middle-west").tabs();
+
+        //监听checkbox
+        form.on('checkbox(whole)', function(data){
+
+                var child =  $("[name='menuBntIds']");
+                var array=new Array;
+                child.each(function (index, item) {
+                    item.checked = data.elem.checked;
+                    array[index]=item.getAttribute("menuId");
+                });
+            if(array.length>0){
+                if(data.elem.checked){
+
+                    addMenu (array.join(","));
+                }else{
+                    delMenu (array.join(","));
+                }
+            }
+            form.render();
+        });
+        form.on('checkbox(single)', function(data){
+            var menuId=data.elem.getAttribute("menuId")
+            if(data.elem.checked){
+                addMenu (menuId);
+            }else{
+                delMenu (menuId);
+            }
+            form.render();
+        });
+
+    });
+
+
+    var userId=getUserId();
+  $(function(){
+      getTree(userId);
+      getUserInfo(userId);
+      getRoleForUser(userId);
+  });
+  // 树形结构ztree
+  function getTree(userIds){
+      var setting = {
+          view: {
+              // addHoverDom: addHoverDom,
+              // removeHoverDom: removeHoverDom,
+              selectedMulti: false,
+              dblClickExpand: true // false屏蔽掉双击事件
+          },
+          async:{
+              enable:true,
+              type:"get",
+              dataType:"json",
+              url:basePath+'/sec/menu/getMenuForUserAll/',
+              //autoParam:["id","name"],
+              otherParam:{userId:userIds},
+              dataFilter: null
+          },
+          check: {
+              enable: true
+          },
+          data:{
+              simpleData: {
+                  enable: true,
+                  idKey:"id",
+                  pIdKey:"parentId",
+                  rootPid:"0"
+              }
+          },
+          callback:{
+              onClick:function(event,treeId, treeNode, clickFlag){
+                  //单击事件，单击展开
+                 // var zTree = $.fn.zTree.getZTreeObj(treeId);
+                //  zTree.expandNode(treeNode);
+                  //查询按钮
+                  getMenuForUserBntAll(treeNode.id,treeNode.name);
+              },
+              onCheck: function(event,treeId, treeNode, clickFlag){
+                  //单击事件，单击展开
+                  var zTree = $.fn.zTree.getZTreeObj(treeId);
+                  var changeNodes = zTree.getChangeCheckedNodes();
+                  var menuIds=new Array;
+                  var flg;
+                  for ( var i=0 ; i < changeNodes.length ; i++ ){
+                      var treeNode = changeNodes[i];
+                      console.log((treeNode?treeNode.id:"root") + "checked " +(treeNode.checked?"true":"false"));
+                      menuIds[i]=treeNode.id;
+                      flg=treeNode.checked;
+                  }
+                  if(flg){
+                      addMenu(menuIds.join(","));
+                  }else{
+                      delMenu(menuIds.join(","));
+                  }
+                  for (var i=0, l=changeNodes.length; i<l; i++) {
+                      changeNodes[i].checkedOld = changeNodes[i].checked;
+                  }
+
+              }
+          },
+          edit: {
+              enable: false
+          }
+      };
+      var zNodes=[];
+      console.info(setting);
+      $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+  }
+
+  //获取用户的详情信息
+  function getUserInfo(userIds){
+     eui.use(['jquery','element','form','table'], function(){
+
+          var jQuery = eui.jQuery
+                  ,element = eui.element
+                  ,form = eui.form
+                  ,layer = eui.layer
+                  ,table = eui.table;
+           var index=layer.load();
+          $.get(basePath+"/sec/user/getSecUserBYID",{userId:userIds},function(result){
+              console.info(result);
+              var data=result.data;
+
+              $("[name='userName']").text(data.USER_NAME);
+              $("[name='account']").text(data.ACCOUNT);
+              $("[name='orgName']").text(data.ORG_NAME==null?"":data.ORG_NAME);
+              $("[name='status']").text(data.STATUS);
+              if(data.STATUS=='启用'){
+                  $("[name='status']").css("color","#00B83F");
+              }else{
+                  $("[name='status']").css("color","red");
+              }
+              $("[name='headImg']").attr('src',basePath+data.HEAD_IMG);
+
+                layer.close(index);
+          });
+     });
+  }
+
+  //查询用户的所有角色和不属于用户的角色
+  function getRoleForUser(userIds){
+      eui.use(['jquery','element','form','table'], function(){
+          var    form = eui.form
+                  ,layer = eui.layer
+          var index=layer.load();
+          $.get(basePath+"/sec/role/getRoleForUser",{userId:userIds},function(result){
+              var data=result.data;
+              console.info(data);
+              var html_tab_1="";
+              var html_tab_2="";
+              for(var i=0;i<data.length;i++){
+                  var d=data[i];
+                  if(d.types==1){
+                      html_tab_1+='<a href="javaScript:void(0)" class="eui-btn eui-btn-primary block eui-btn-label">';
+                      html_tab_1+= d.ROLE_NAME+'<span class="eui-icon"  onclick="delRole(this,\''+ d.ID_+'\',\''+ d.ROLE_NAME+'\')" title="删除角色">&#x1006;</span>';
+                      html_tab_1+=' </a>';
+                  }else{
+                      html_tab_2+='<a href="javaScript:void(0)"  class="eui-btn eui-btn-primary block eui-btn-label">';
+                      html_tab_2+=d.ROLE_NAME+'<span class="eui-icon" onclick="addRole(this,\''+  d.ID_+'\',\''+ d.ROLE_NAME+'\')" title="添加角色">&#xe654;</span>';
+                      html_tab_2+='</a>';
+                  }
+              }
+              $("#tab_1").html(html_tab_1);
+              $("#tab_2").html(html_tab_2);
+              layer.close(index);
+          });
+      });
+
+  }
+  //添加角色
+  function addRole(dom,id,name){
+
+      eui.use(['jquery','element','form','table'], function(){
+          var form = eui.form
+             ,layer = eui.layer
+          var index=layer.load();
+          $.post(basePath+"/sec/role/member/add",{idStr:userId,roleId:id},function(result){
+                layer.close(index);
+                if(result.code==200){
+                     layer.msg("操作成功");
+                    $(dom).parent().remove();
+                    var html_tab_1="";
+                    html_tab_1+='<a href="javaScript:void(0)" class="eui-btn eui-btn-primary block eui-btn-label">';
+                    html_tab_1+= name+'<span class="eui-icon"  onclick="delRole(this,\''+ id+'\',\''+ name+'\')" title="删除角色">&#x1006;</span>';
+                    html_tab_1+=' </a>';
+                    $("#tab_1").append(html_tab_1);
+                    getTree(userId);
+                    cleanBnt();
+                }else{
+                    layer.msg("操作失败");
+                }
+          });
+      });
+  }
+  //删除角色
+  function delRole(dom,id,name){
+      eui.use(['jquery','element','form','table'], function(){
+          var form = eui.form
+              ,layer = eui.layer
+          var index=layer.load();
+          $.post(basePath+"/sec/role/member/delete",{idStr:userId,roleId:id},function(result){
+              layer.close(index);
+              if(result.code==200){
+                  layer.msg("操作成功");
+                  $(dom).parent().remove();
+                  var html_tab_2="";
+                  html_tab_2+='<a href="javaScript:void(0)"  class="eui-btn eui-btn-primary block eui-btn-label">';
+                  html_tab_2+=name+'<span class="eui-icon" onclick="addRole(this,\''+  id+'\',\''+ name+'\')" title="添加角色">&#xe654;</span>';
+                  html_tab_2+='</a>';
+                  $("#tab_2").append(html_tab_2);
+                  getTree(userId);
+                  cleanBnt();
+              }else{
+                  layer.msg("操作失败");
+              }
+          });
+      });
+  }
+  //切换用户
+  function selectUser() {
+      var iframeWin;
+      eui.use(['jquery','element','form','table'], function(){
+          var form = eui.form
+                  ,layer = eui.layer
+          var pageU = layer.open({
+              type: 2
+              , title: "选择用户"
+              , area: ['800px', '600px']  //宽度
+              , id: 'selectUser' //防止重复弹出
+              , content:'checkUser.html'
+              , btn: ['确定', '取消']
+              , btnAlign: 'c' //按钮居中
+              , shade: 0 //不显示遮罩
+              , maxmin: true
+              ,success: function(layero, index){
+
+                  var body = layer.getChildFrame('body', index);
+                  iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
+                  //  body.find('input').val('Hi，我是从父页来的')
+              }
+              , yes: function () {
+                  var userStr=iframeWin.getCheckUser();
+                  console.info(userStr);
+                  if(userStr!=null&&userStr!=""){
+                      var a=  userStr.split("|")
+                      layer.close(pageU);
+                      userId= a[0];
+
+                      getTree(userId);
+                      getUserInfo(userId);
+                      getRoleForUser(userId);
+
+                      cleanBnt();
+
+                  }else {
+                      layer.msg("请选择人员");
+                  }
+              }, btn2: function () {
+                  layer.close(pageU);
+              }
+          });
+      });
+  }
+
+  //查询用户所选菜单的所有子按钮《角色菜单,组织菜单,用户菜单》
+  function getMenuForUserBntAll(parentId,menuName){
+      eui.use(['jquery','element','form','table'], function(){
+          var form = eui.form
+                ,layer = eui.layer
+          var index=layer.load();
+          $.get(basePath+"/sec/menu/getMenuForUserBntAll",{userId:userId,parentId:parentId},function(result){
+              layer.close(index);
+              var htmls="";
+              var datas=result.data;
+               var  num=0;
+               for(var i=0;i<datas.length;i++){
+                   htmls+= '<input type="checkbox" e-filter="single"  menuId="'+datas[i].id+'" title="'+datas[i].name+'" e-skin="primary"  ';
+                   if(datas[i].checked=='true'){
+                       htmls+=' checked ';
+                       num++;
+                   }
+                   if(datas[i].chkDisabled=='true'){
+                       htmls+=' disabled ';
+                   }else{
+                       htmls+=' name="menuBntIds" ';
+                   }
+                   htmls+=' >';
+               }
+
+              if(datas.length>0){
+                  $("#wholeCheckbox").show();
+                  if(datas.length==num){
+                      $("#whole").attr('checked','checked');
+                       document.getElementById("whole").checked=true;
+
+                  }else{
+                      document.getElementById("whole").checked=false;
+                      //$("#whole").removeAttr('checked');
+                  }
+
+              }else{
+                  $("#wholeCheckbox").hide();
+              }
+              $("#menuBnt").html(htmls);
+              $("#menuName").text(menuName);
+              form.render();
+          });
+      });
+
+
+  }
+  //给用户添加菜单
+  function addMenu(menuIds){
+      eui.use(['jquery','element','form','table'], function(){
+          var form = eui.form
+                  ,layer = eui.layer
+          var index=layer.load();
+          $.post(basePath+"/sec/menu/member/addMenuMember",{userId:userId,menuIds:menuIds},function(result){
+              layer.close(index);
+              if(result.code==200){
+                  layer.msg("操作成功");
+              }else{
+                  layer.msg("操作失败");
+              }
+          });
+      });
+
+  }
+  //给用户删除菜单
+  function delMenu(menuIds){
+        eui.use(['jquery','element','form','table'], function(){
+            var form = eui.form
+                    ,layer = eui.layer
+            var index=layer.load();
+            $.post(basePath+"/sec/menu/member/delMemberMapper",{userId:userId,menuIds:menuIds},function(result){
+                layer.close(index);
+                if(result.code==200){
+                    layer.msg("操作成功");
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+        });
+
+    }
+  function  cleanBnt(){
+      $("#menuBnt").children().remove();
+      $("#wholeCheckbox").hide();
+      $("#menuName").text("");
+  }
+
+
+
+  //截取url传来的参数
+  function getUserId(){
+      //截取url传来的参数
+      var thisURL = document.URL;
+      var  getval =thisURL.split('?')[1];
+      var id= getval.split("=")[1];
+      return id;
+  }
+</script>
+
+
+</html>

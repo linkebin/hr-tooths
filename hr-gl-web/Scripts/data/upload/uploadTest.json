@@ -1,0 +1,7 @@
+{
+    "code": 200,
+    "msg":"上传成功",
+    "data": {
+        "src":"http://cdn.layui.com/123.jpg"
+    }
+}

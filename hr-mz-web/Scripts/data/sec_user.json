@@ -1,0 +1,24 @@
+{
+    "code": 0,
+    "msg":"",
+    "data": [
+        {
+            "ID":"001"
+            ,"USER_NAME": "张乙浩"
+            ,"ACCOUNT": "zhangyihao"
+            ,"USER_PASS": "123"
+        }
+        ,{
+            "ID":"002"
+        ,"USER_NAME": "李成"
+        ,"ACCOUNT": "lichen"
+        ,"USER_PASS": "123"
+        }
+        ,{
+            "ID":"003"
+        ,"USER_NAME": "测试员"
+        ,"ACCOUNT": "admin"
+        ,"USER_PASS": "admin"
+        }
+    ]
+}

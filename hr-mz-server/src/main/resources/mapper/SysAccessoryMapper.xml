@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.SysAccessoryMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.SysAccessory">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id_" jdbcType="VARCHAR" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="acc_name" jdbcType="VARCHAR" property="accName" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="re_id" jdbcType="VARCHAR" property="reId" />
+    <result column="yw" jdbcType="VARCHAR" property="yw" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="zl" jdbcType="VARCHAR" property="zl" />
+  </resultMap>
+</mapper>

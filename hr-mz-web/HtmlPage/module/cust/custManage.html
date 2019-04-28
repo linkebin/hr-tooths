@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户管理</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+		<link rel="stylesheet" href="../../../Styles/themes/default/cover-style.css" media="all">
+	</head>
+
+	<body>
+		<div id="add_table" align="center" style="display: none">
+			<form>
+				<div class="eui-form">
+					<div class="eui-form-item" style="margin-left: -60px;width: 300px;margin-top: 10px;">
+						<label class="eui-form-label">就诊医生：</label>
+						<div class="eui-input-block">
+							<select name="city" e-verify="required" e-search id="yyDoctor">
+								<option value="">带搜索的选择框</option>
+								<option value="1">选项一</option>
+								<option value="2">选项二</option>
+								<option value="3">选项三</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="add_tables" align="center" style="display: none">
+			<form>
+				<div class="eui-form">
+					<div class="eui-form-item" style="margin-left: -60px;width: 300px;margin-top: 10px;">
+						<label class="eui-form-label">余额：</label>
+						<div class="eui-input-block">
+							<input type="text" class="eui-input" name="money" id="money" placeholder="" readonly="readonly">
+						</div>
+					</div>
+					<div class="eui-form-item" style="margin-left: -60px;width: 300px;margin-top: 10px;">
+						<label class="eui-form-label">充值：</label>
+						<div class="eui-input-block">
+							<input type="text" class="eui-input" name="cz_money" id="cz_money" placeholder="请输入充值金额">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!--条件搜索 start-->
+		<div class="eui-form eui-form-search">
+			<!-- 查询重置按钮-->
+			<div class="eui-btn-group">
+				<button class="eui-btn" onclick="cust_cx()">查询</button>
+				<button class="eui-btn eui-btn-primary" onclick="cust_cz()">重置</button>
+			</div>
+			<!--查询条件-->
+			<div class="eui-form-item">
+				<label class="eui-form-label">客户姓名/电话：</label>
+				<div class="eui-input-block">
+					<input type="text" id="mohu" class="eui-input" placeholder="请输入查询关键字">
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<!--条件搜索 end-->
+
+		<div class="infoList">
+			<!--标题 start-->
+
+			<div class="title-bar">
+				<div class="eui-btn-group float-right">
+					<!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+					<a href="###" class="eui-btn eui-btn-small" data-method="custAdd"><i class="eui-icon">&#xe654;</i>新建</a>
+					<!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe615;</i>查看</a>-->
+					<a href="###" class="eui-btn eui-btn-small" onclick="Enable()"><i class="eui-icon">&#xe642;</i>启用</a>
+					<!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe601;</i>导入</a>-->
+					<a href="###" class="eui-btn eui-btn-small" onclick="expor()"><i class="eui-icon">&#xe61f;</i>导出</a>
+					<a href="###" class="eui-btn eui-btn-bug eui-btn-small" onclick="deleted()">隐藏</a>
+				</div>
+				<span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      客户管理
+    </span>
+				<span class="title-sub">
+      客户基本信息
+    </span>
+			</div>
+
+			<!--标题 end-->
+			<!--表格 start-->
+			<script type="text/html" id="barDemo">
+				<div class="eui-btn-group">
+					<a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>
+					<a class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit"><i class="eui-icon" title="编辑">&#xe642;</i></a>
+					<a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+					<a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="zhuan">转</a>
+					<a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="chong">充</a>
+				</div>
+			</script>
+			<table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+			<!--表格 end-->
+
+		</div>
+		<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+		<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../../Scripts/config.js"></script>
+		<script type="text/javascript" src="../../../Scripts/date2format.js"></script>
+		<script>
+			eui.use(['element', 'form', 'layedit', 'laydate', 'table'], function() {
+				var element = eui.element,
+					form = eui.form,
+					layer = eui.layer,
+					layedit = eui.layedit,
+					laydate = eui.laydate,
+					table = eui.table;
+
+				//日期选择
+				laydate.render({
+					elem: '#dateTest'
+				});
+				//日期范围
+				laydate.render({
+					elem: '#dateTest2',
+					range: true
+				});
+
+				//实例1:简单表格
+				var tables = table.render({
+					elem: '#tableDemo'
+						//   ,height: 350
+						//  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+						,
+					even: true //开启隔行背景
+						,
+					skin: 'row',
+					data: Customerlist,
+					cols: [
+						[
+                            {type: 'checkbox', fixed: 'left'},
+                            {field: 'cust_name',	width: 100,title: '客户姓名',sort: true	},
+                            {
+                                field: 'cust_sex',
+                                width: 60,
+                                title: '性别'
+                            } //增加 edit 表示开户了编辑状态
+                            , {
+                            field: 'cust_tell',
+                            width: 110,
+                            title: '联系电话'
+                        }, {
+                            field: 'cust_code',
+                            width: 90,
+                            title: '病历号'
+                        }, {
+                            field: 'deleted',
+                            width: 80,
+                            title: '状态',
+                            templet: function(d) {
+                                if(d.deleted == 1) {
+                                    return "隐藏";
+                                } else {
+                                    return "显示"
+                                }
+                            }
+                        }, {
+                            field: 'cust_remark',
+                            title: '备注（来源）',
+                            minWidth: 160
+                        },  {
+                            field: 'early_doctor_name',
+                            title: '初诊医生',
+                            minWidth: 80
+                        }, {
+                            field: 'early_clinic_name',
+                            title: '初诊门诊',
+                            minWidth: 120
+                        }, {
+                            field: 'bl_time',
+                            title: '最近到诊时间',
+                            minWidth: 100,
+                            templet: function(d) {
+                                if(d.bl_time != null && d.bl_time != "") {
+                                    return new Date(d.bl_time).Format('yyyy-MM-dd hh:mm:ss')
+                                } else {
+                                    return "";
+                                }
+                            }
+                        },{
+                            field: 'USER_NAME',
+                            title: '接诊医生',
+                            minWidth: 80
+                        }, {
+								field: 'filed7',
+								title: '操作',
+								width: 150,
+								toolbar: '#barDemo',
+								unresize: true,
+								fixed: 'right'
+							}
+						]
+					],
+					page: true,
+					limits: [10, 20, 30],
+					limit: 10 //每页默认显示的数量
+				});
+
+				//监听表格复选框选择
+				table.on('checkbox(tableDemoFilter)', function(obj) {
+
+				});
+
+				//监听工具条
+				table.on('tool(tableDemoFilter)', function(obj) {
+					var data = obj.data;
+					if(obj.event == 'detail') {
+						layer.open({
+							type: 2,
+							title: '客户视图',
+							shadeClose: true,
+							shade: 0.3,
+							maxmin: true, //开启最大化最小化按钮
+							area: ['1100px', '680px'],
+							content: 'custInfo.html',
+							success: function(layero, index) {
+								var iframeWin = window[layero.find('iframe')[0]['name']];
+								iframeWin.getcustName(obj.data);
+							}
+						});
+					} else if(obj.event == 'del') {
+						layer.confirm('确认隐藏该用户？', function(index) {
+							obj.data.deleted = 1;
+							update(obj.data);
+							layer.close(index);
+						});
+					} else if(obj.event == 'edit') {
+						layer.open({
+							type: 2,
+							title: '新建客户',
+							shadeClose: true,
+							shade: 0.3,
+							maxmin: true, //开启最大化最小化按钮
+							area: ['70%', '70%'],
+							content: 'cust-add.html',
+							success: function(layero, index) {
+								var iframeWin = window[layero.find('iframe')[0]['name']];
+								iframeWin.getcustName(obj.data);
+                                iframeWin.show();
+							},
+							end: function(index, layero) {
+								shuaxin();
+							}
+						});
+					} else if(obj.event == 'zhuan') {
+						layer.open({
+							type: 1 //此处以iframe举例
+								,
+							title: '转就诊医生',
+							area: ['400px', '400px'],
+							shade: 0,
+							maxmin: true,
+							content: $('#add_table'),
+							btn: ['保存', '关闭'],
+							btn1: function(index) {
+								obj.data.doctor = $('#yyDoctor').val();
+								$.ajax({
+									type: "post",
+									url: basePath + "/customer/update",
+									async: true,
+									data: {
+										param: JSON.stringify(obj.data)
+									},
+									success: function(data) {
+										shuaxin();
+										layer.close(index);
+										layer.msg('操作成功', {
+											icon: 1,
+											time: 2000 //2秒关闭（如果不配置，默认是3秒）
+										});
+									}
+								});
+
+							}
+						});
+					} else if(obj.event == 'chong') {
+						$('#money').val(obj.data.money);
+						$('#cz_money').val("");
+						layer.open({
+							type: 1 //此处以iframe举例
+								,
+							title: '账户余额充值',
+							area: ['400px', '250px'],
+							shade: 0,
+							maxmin: true,
+							content: $('#add_tables'),
+							btn: ['保存', '关闭'],
+							btn1: function(index) {
+								$.ajax({
+									type: "post",
+									url: basePath + "/customer/updates",
+									async: true,
+									data: {
+										id: obj.data.cust_id,
+										money: $('#cz_money').val()
+									},
+									success: function(data) {
+										shuaxin();
+										layer.close(index);
+										layer.msg('操作成功', {
+											icon: 1,
+											time: 2000 //2秒关闭（如果不配置，默认是3秒）
+										});
+									}
+								});
+
+							}
+						});
+					}
+				});
+
+				active = {
+					custAdd: function() {
+						layer.open({
+							type: 2,
+							title: '新建客户',
+							shadeClose: true,
+							shade: 0.3,
+							maxmin: true, //开启最大化最小化按钮
+							area: ['1100px', '680px'],
+							content: 'cust-add.html',
+							end: function(index, layero) {
+								shuaxin();
+							}
+						});
+					}
+				};
+				$('.eui-btn').on('click', function() {
+					var othis = $(this),
+						method = othis.data('method');
+					active[method] ? active[method].call(this, othis) : '';
+				});
+
+			});
+
+			$(function() {
+				getdoc();
+				shuaxin(); //进入后刷新
+			});
+
+			//刷新列表
+			function shuaxin() {
+				$.ajax({
+					type: "post",
+					url: basePath + "/customer/lista",
+					async: true,
+					data: {
+						str: $("#mohu").val()
+					},
+					success: function(data) {
+						Customerlist = data.data;
+						if(eui.table != null) {
+							eui.table.reload('tableDemo', {
+								data: Customerlist
+							});
+						}
+
+					}
+				});
+			}
+
+			//修改
+			function update(obj) {
+				$.ajax({
+					type: "post",
+					url: basePath + "/customer/update",
+					async: true,
+					data: {
+						param: JSON.stringify(obj)
+					},
+					success: function(data) {
+						shuaxin();
+
+					}
+				});
+			}
+
+			//启用事件
+			function Enable() {
+				var checkStatus = eui.table.checkStatus('tableDemo');
+				for(var i in checkStatus.data) {
+					var customer = checkStatus.data[i];
+					customer.deleted = 0;
+					update(customer);
+				}
+			}
+
+			//禁用事件
+			function deleted() {
+				var checkStatus = eui.table.checkStatus('tableDemo');
+				for(var i in checkStatus.data) {
+					var customer = checkStatus.data[i];
+					customer.deleted = 1;
+					update(customer);
+				}
+			}
+
+			//导出事件
+			function expor() {
+				window.location.href = basePath + '/customer/exportCust';
+			}
+
+			//模糊查询
+			function cust_cx() {
+				shuaxin();
+			}
+
+			//重置
+			function cust_cz() {
+				$('#mohu').val("");
+			}
+
+			//获取医生
+			function getdoc() {
+				$.ajax({
+					type: "post",
+					url: basePath + "/sec/user/getAllDoc",
+					async: true,
+					success: function(data) {
+						var str = '<option value="">带搜索的选择框</option>';
+						var list = data.data;
+						console.log(data.data)
+						for(var i in list) {
+							var user = list[i];
+							str = str + '<option value="' + user.id + '">' + user.userName + '</option>';
+						}
+						$('#yyDoctor').html(str);
+						if(eui.form != null) {
+							eui.form.render();
+						}
+					}
+				});
+			}
+
+			var active;
+			var Customerlist = [];
+		</script>
+
+	</body>
+
+</html>

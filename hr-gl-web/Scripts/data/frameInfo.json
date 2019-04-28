@@ -1,0 +1,17 @@
+{
+    "webInfo":{
+          "系统标题":"华仁牙科管理平台"
+        , "系统名称":"华仁牙科管理平台"
+        , "系统LOGO":"Styles/images/logo.png"
+        , "系统地址":"http://www.yidusoft.net"
+        , "系统描述":"该系统是最牛*的。"
+        ,"网站关键词":"此处是放META关键词的，有助于网站的SEO。"
+        ,"版权信息":"Copyright @  易度软件  版权所有"
+        ,"ICP备案号":"粤ICP备12040276号-1"
+    },
+
+    "list2":[
+        { "平台名称":"" , "平台LOGO":"Styles/images/logo.png"}
+    ]
+
+}

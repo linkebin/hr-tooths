@@ -1,0 +1,12 @@
+{
+    "carState":{
+        "state1":"空闲中",
+        "state2":"出车中",
+        "state3":"维修中"
+    },
+
+    "list2":[
+        { "平台名称":"车辆综合管理平台" , "平台LOGO":"../Styles/images/logo.png"}
+    ]
+
+}

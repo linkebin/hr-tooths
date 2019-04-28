@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>华仁牙科门诊平台</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Le styles -->
+		<link href="Styles/themes/default/style.css" rel="stylesheet" type="text/css" />
+		<link href="Styles/themes/default/modules/pageLogin/login-base/login.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div class="Login">
+			<div class="loginIn">
+				<div id="login1" class="login1">
+					<h3>华仁牙科</h3>
+					<!--   <p class="loginTxt"><input type="text" id="username" placeholder="账户名" /></p>
+          <p class="loginPword"><input type="password" id="password" placeholder="密码" /></p>-->
+					<!--<div class="eui-form">
+                <select id="userType" name="interest" e-filter="aihao">
+                    <option value="系统管理员">系统管理员</option>
+                </select>
+            </div>-->
+					<div class="eui-form">
+						<div class="eui-form-item ">
+							<input type="text" id="username" placeholder="账户名" class="eui-input loginTxt" />
+						</div>
+						<div class="eui-form-item">
+							<input type="password" id="password" placeholder="密码" class="eui-input loginPword" />
+						</div>
+						<div class="eui-form-item">
+							<div class="eui-input-inline">
+								<input type="radio" name="type" value="1" title="门诊端" checked>
+								<input type="radio" name="type" value="2" title="管理端">
+							</div>
+						</div>
+						<div class="eui-form-item">
+							<input type="text" id="Txtidcode" placeholder="请输入验证码" class="txtVerification eui-input eui-width150 float-left" />
+							<span id="idcode"></span>
+							<!--    上面的验证码生成后是一段HTML代码，极不安全，这里仅作为演示使用，正式开发时切勿使用！-->
+
+						</div>
+					</div>
+
+					<!--       <a class="loginB" href="###" >登 录</a>-->
+
+					<a href="###" class="eui-btn eui-btn-bug block" id="loginSystem">登录 </a>
+
+					<!--<div class="loginForget eui-padding5">-->
+						<!--<a class="register" href="#">注册用户</a>-->
+						<!--<a href="#">忘记密码？</a>-->
+					<!--</div>-->
+
+					<!--<div class="loginO">-->
+					<!--<p>———— 其他登录方式 ————</p>-->
+					<!--<div class="loginOther">-->
+					<!--<a href="###"><img src="Styles/images/iconStyle3/iconImg-weichat.png" alt=""></a>-->
+					<!--<a href="###"><img src="Styles/images/iconStyle3/iconImg-QQ.png" alt=""></a>-->
+					<!--<a href="###"><img src="Styles/images/iconStyle3/iconImg-xinlang.png" alt=""></a>-->
+					<!--<a href="###"><img src="Styles/images/iconStyle3/iconImg-zhifubao.png" alt=""></a>-->
+					<!--<a href="###"><img src="Styles/images/iconStyle3/iconImg-taobao.png" alt=""></a>-->
+					<!--</div>-->
+					<!--</div>-->
+				</div>
+				<div id="login2" class="login2">
+					<img src="Styles/themes/default/modules/pageLogin/login-base/images/code.png" alt="" width="230">
+					<p class="eui-font18 eui-paddingT10">请通过企业APP扫码登录</p>
+				</div>
+				<!--<div id="loginImg" class="loginimg"><img id="img1" src="Styles/themes/default/modules/pageLogin/login-base/images/QRcode.png" alt=""></div>-->
+			</div>
+		</div>
+		<input type="hidden" value="login" id="thisHtml">
+		<!-- 用户登录信息 end-->
+		<script type="text/javascript" src="Scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="Scripts/plugins/md5/md5.min.js"></script>
+		<script type="text/javascript" src="Scripts/config.js"></script>
+		<!--开发者使用的js，可用于对ajax的拦截等-->
+		<script src="Scripts/module/eui.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			//登录配置，将名称传入首页
+			var basePath = "http://120.76.57.222";
+			var mzPort = ":8080";
+			var glPort = ":8081";
+
+
+
+			$(document).keyup(function(event) {
+				if(event.keyCode == 13) {
+					$("#loginSystem").trigger("click");
+				}
+			});
+
+			eui.use(['form', 'layedit', 'laydate', 'jquery', 'idCode'], function() {
+				var form = eui.form,
+					layer = eui.layer,
+					layedit = eui.layedit,
+					jquery = eui.jquery,
+					laydate = eui.laydate,
+					idCode = eui.idCode;
+				//验证码生成
+				$.idcode.setCode();
+
+				$(".loginOther a").click(function() {
+					layer.msg("体验账号，暂未联通，请使用体验账号直接登录")
+				});
+
+				$("#loginSystem").click(function() {
+					var username = $('#username').val(),
+						password = md5($('#password').val()),
+						txtidCode = $('#Txtidcode').val();
+
+					//用户登录，仅作前端测试用，不能最作最终的逻辑
+
+					var IsBy = $.idcode.validateCode();
+
+					if(IsBy) {
+						if(username == "" || password == "") {
+							layer.msg("用户名或密码不能为空!");
+							return false;
+						} else {
+                            var loginPath = $('input[name="type"]:checked').val() === "1"? basePath+mzPort:basePath+glPort ;
+							$.ajax({
+								type: "POST",
+								url: loginPath + "/login/authorize",
+								data: {
+									username: username,
+									password: password
+								},
+								dataType: 'json',
+								success: function(result, status, xhr) {
+									//                            var sessionId = xhr.getResponseHeader("SESSIONID");
+									//
+									layer.msg(result.message);
+									if(result.code == 200) {
+										var userStr = JSON.stringify(result.data);
+										if(window.sessionStorage) {
+											window.sessionStorage.setItem("user", userStr);
+										} else {
+											$.cookie('userId', result.data.id, {
+												path: "/"
+											});
+											$.cookie('userName', result.data.userName, {
+												path: "/"
+											});
+											$.cookie('account', result.data.account, {
+												path: "/"
+											});
+										}
+                                        window.sessionStorage.setItem("lockcms", false);
+										var href = $('input[name="type"]:checked').val() === "1"?basePath+ "/hr-mz-web/index.html":basePath+"/hr-gl-web/index.html";
+										window.location.href = href;
+									}
+								},
+								error: function() {
+									layer.msg("登录失败");
+								}
+							});
+						}
+					} else {
+						layer.msg("验证码错误！")
+					}
+				});
+			});
+
+			// 登录的切换
+
+			var oImg = document.getElementById('img1');
+			var oLoginImg = document.getElementById('loginImg');
+			var oLogin1 = document.getElementById('login1');
+			var oLogin2 = document.getElementById('login2');
+			var onOff = true;
+			oLogin2.style.display = 'none';
+		</script>
+	</body>
+
+</html>

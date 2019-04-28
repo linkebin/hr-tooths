@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户病历</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+		<link rel="stylesheet" href="../../../Styles/themes/default/cover-style.css" media="all">
+		<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="../../../Scripts/pack.ajax.js"></script>
+		<script type="text/javascript" src="../../../Scripts/config.js"></script>
+		<style type="text/css">
+			.yw_table_a {
+				border: solid #000000!important;
+				border-width: 0px 1px 1px 0px!important;
+				width: 50%;
+				height: 18px;
+			}
+
+			.yw_table_b {
+				border: solid #000000!important;
+				border-width: 1px 0px 0px 1px!important;
+				width: 50%;
+				height: 18px
+			}
+			.bl-tbody textarea{
+				width: 100%;
+				height: auto;
+			}
+
+			.yw_table{
+				width: 100%;
+				height: auto;
+			}
+
+			#searchFrom td {
+				width: 70px;
+				height: 20px;
+			}
+			.rights {
+				text-align: right;
+			}
+			.case-head p {
+				font-size: 30px!important;
+				text-align: center;
+				padding-top: 40px;
+				margin-bottom: 50PX;
+			}
+			.bl-tbody{
+				border-collapse:separate!important;
+				border-spacing:0px 10px!important;
+			}
+			.bl-tbody td{
+				width: 150px!important;
+				white-space: pre-line!important;
+			}
+		</style>
+	</head>
+	<body>
+	<div class="eui-paddingLR20">
+		<div class="case-head">
+			<p id="orgCode">病历信息</p>
+		</div>
+		<div>
+			<table class=" bills-table">
+				<colgroup>
+					<col width="200">
+					<col width="200">
+					<col width="200">
+					<col width="200">
+					<col width="200">
+					<col width="200">
+				</colgroup>
+				<tbody>
+				<tr>
+					<td colspan="2" class="eui-textAlignL">
+						<p>
+							<span class="eui-marginR5">电话</span>
+							<span class="eui-marginR5" id="custTell"></span>
+						</p>
+					</td>
+					<td colspan="4" class="eui-textAlignL">
+						<p id="time">
+							<span class="eui-marginR5">地址</span>
+							<span class="eui-marginR5" id="addr"></span>
+						</p>
+					</td>
+				</tr>
+				<tr class="bills-blank">
+					<td colspan="6">
+						<hr class="eui-bg-black">
+					</td>
+				</tr>
+				<tr class="projectFeel">
+					<td class="eui-textAlignL" ><nobr>姓名</nobr></td>
+					<td class="eui-textAlignL"><nobr id="custName"></nobr></td>
+					<td class="eui-textAlignL"><nobr>性别</nobr></td>
+					<td class="eui-textAlignL"><nobr id="custSex"></nobr></td>
+					<td class="eui-textAlignL"><nobr>年龄</nobr></td>
+					<td class="eui-textAlignL"><nobr id="custAge"></nobr></td>
+				</tr>
+				<tr class="projectFeel">
+					<td class="eui-textAlignL" ><nobr >医生</nobr></td>
+					<td class="eui-textAlignL"><nobr id="doctor"></nobr></td>
+					<td class="eui-textAlignL"><nobr>就诊日期</nobr></td>
+					<td class="eui-textAlignL"><nobr id="jzDate">2019年3月6日</nobr></td>
+				</tr>
+				</tbody>
+				<tbody class="bills-blank-tbody ">
+				<tr class="bills-blank">
+					<td colspan="6">
+						<hr class="eui-bg-black">
+					</td>
+				</tr>
+				</tbody>
+				<tbody class="centre-tbody eui-marginT10" id="detail">
+						<tr id="y1">
+							<td class="eui-textAlignL eui-font24">主诉</td>
+							<td class="eui-textAlignL" colspan="5" id="blZs"></td>
+						</tr>
+						<tr id="y2">
+							<td class="eui-textAlignL eui-font24">现病史</td>
+							<td class="eui-textAlignL" colspan="5" id="blXbs"> </td>
+						</tr>
+						<tr id="y3">
+							<td class="eui-textAlignL eui-font24">既往史</td>
+							<td class="eui-textAlignL" colspan="5" id="blJws"> </td>
+						</tr>
+						<tr id="y4">
+							<td class="eui-textAlignL eui-font24">复诊</td>
+							<td class="eui-textAlignL" colspan="5" id="visit"></td>
+						</tr>
+						<tr id="y5">
+							<td class="eui-textAlignL eui-font24">过敏史</td>
+							<td class="eui-textAlignL" colspan="5" id="blGms"></td>
+						</tr>
+				</tbody>
+				<tbody class="bl-tbody" id="kqjc"></tbody>
+				<tbody class="bl-tbody" id="fzjc"></tbody>
+				<tbody class="bl-tbody" id="blzd"></tbody>
+				<tbody class="bl-tbody" id="zlfa"></tbody>
+				<tbody class="bl-tbody" id="blcz"></tbody>
+				<tbody class="centre-tbody eui-marginT10">
+				<tr id="y6">
+					<td class="eui-textAlignL eui-font24">医嘱</td>
+					<td class="eui-textAlignL" colspan="5" id="blYz"></td>
+				</tr>
+				<tr id="y7">
+					<td class="eui-textAlignL eui-font24">备注</td>
+					<td class="eui-textAlignL" colspan="5" id="blBz"> </td>
+				</tr>
+				</tbody>
+				<tr>
+					<td colspan="6">
+						<hr class="eui-bg-black">
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	</body>
+	<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../../../Scripts/date2format.js"></script>
+	<script>
+		var td3 = '';
+		//展示信息
+		window.show = function(cust_bl_id) {
+			//1、根据病历ID获取病历详情
+            $.ajax({
+                type: "post",
+                url: basePath + "/cust/bl/detail/dy",
+                async: true,
+                data: {
+                    id: cust_bl_id
+                }, success: function (res){
+						var data = res.data;
+						//填充病历内容
+                	    $("#custTell").text(data.cust_tell);
+                	    $("#addr").text(data.cust_addr);
+                	    $("#custName").text(data.cust_name);
+                	    $("#custSex").text(data.cust_sex);
+                	    $("#custAge").text(data.cust_age);
+                	    $("#doctor").text(data.doctor_name);
+                	    $("#jzDate").text( new Date(data.bl_time).Format("yyyy-MM-dd"));
+                	    $("#blZs").text(data.bl_zs);
+                	    $("#blXbs").text(data.bl_xbs);
+                	    $("#blJws").text(data.bl_jws);
+                	    $("#visit").text(data.visit);
+                	    $("#blGms").text(data.bl_gms);
+                	    $("#blYz").text(data.bl_yz);
+                	    $("#blBz").text(data.bl_bz);
+                	    $("#orgCode").text(data.org_name);
+						//根据病历类型来显示隐藏部分内容
+						showOrHide(data.type);
+             	     }
+
+          		  });
+			//2、病历详情 同步获取
+            $.ajax({
+                type: "post",
+                url: basePath + "/cust/bl/de/getByBlId",
+                async: true,
+                data: {
+                    id: cust_bl_id
+                },
+                success: function(data) {
+                    var delist = data.data;
+                    for(var i in delist) {
+                        var cust_bl_de = delist[i];
+
+                        if(cust_bl_de.type == '1') {
+                            var td1 =  '<td  class="eui-textAlignL eui-font24">口腔检查</td>'
+                            if($("#kqjc").html()!=""){
+                                td1 =   '<td  class="eui-textAlignL eui-font24"></td>'
+                            }
+                            //牙位填充
+                            tcYw(cust_bl_de.toothAddr);
+                            var htmStr = '<tr class="eui-marginT10">' + td1+
+                           		  td3 +
+                                '<td  colspan="4">'+cust_bl_de.content.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ')+'</td>'+
+								'</tr>'
+							$("#kqjc").append(htmStr)
+                        } else if(cust_bl_de.type == '2') {
+                            var td1 =  '<td  class="eui-textAlignL eui-font24">辅助检查</td>'
+                            if($("#fzjc").html()!=""){
+                                td1 =   '<td  class="eui-textAlignL eui-font24"></td>'
+                            }
+                            //牙位填充
+                            tcYw(cust_bl_de.toothAddr);
+                            var htmStr = '<tr class="eui-marginT10">' + td1+
+                                td3 +
+                                '<td  colspan="4">'+cust_bl_de.content.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ')+'</td>'+
+                                '</tr>'
+
+                            $("#fzjc").append(htmStr)
+                        } else if(cust_bl_de.type == '3') {
+                            var td1 =  '<td  class="eui-textAlignL eui-font24">诊断</td>'
+                            if($("#blzd").html()!=""){
+                                td1 =   '<td  class="eui-textAlignL eui-font24"></td>'
+                            }
+                            //牙位填充
+                            tcYw(cust_bl_de.toothAddr);
+                            var htmStr = '<tr class="eui-marginT10">' + td1+
+                                td3 +
+                                '<td  colspan="4">'+cust_bl_de.content.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ')+'</td>'+
+                                '</tr>'
+
+                            $("#blzd").append(htmStr)
+                        } else if(cust_bl_de.type == '4') {
+                            var td1 =  '<td  class="eui-textAlignL eui-font24" id="zlName">治疗</td>'
+                            if($("#zlfa").html()!=""){
+                                td1 =   '<td  class="eui-textAlignL eui-font24"></td>'
+                            }
+                            //牙位填充
+                            tcYw(cust_bl_de.toothAddr);
+                            var htmStr = '<tr class="eui-marginT10">' + td1+
+                                td3 +
+                                '<td  colspan="4">'+cust_bl_de.content.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ')+'</td>'+
+                                '</tr>'
+
+                            $("#zlfa").append(htmStr)
+                        } else if(cust_bl_de.type == '5') {
+
+                            var td1 =  '<td  class="eui-textAlignL eui-font24">处置</td>'
+                            if($("#blcz").html()!=""){
+                                td1 =   '<td  class="eui-textAlignL eui-font24"></td>'
+                            }
+                            //牙位填充
+                            tcYw(cust_bl_de.toothAddr);
+                            var htmStr = '<tr class="eui-marginT10">' + td1+
+                                td3 +
+                                '<td  colspan="4">'+cust_bl_de.content.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ')+'</td>'+
+                                '</tr>'
+
+                            $("#blcz").append(htmStr)
+                        }
+                    }
+                    //3、防止内容不完整过几秒再打印
+                    setTimeout(function () {
+                        preview()
+                    }, 1000);
+                }
+            });
+
+
+            };
+		function tcYw(yw) {
+		    if(yw==null){
+		        yw=",,,"
+			}
+			td3= '<td>'
+                + '<table class="yw_table">'
+                + '<tr>'
+                + ' <td class="yw_table_a eui-textAlignR">' + yw.split(",")[0] + '</td>'
+                + ' <td>' + yw.split(",")[1] + '</td>'
+                + '</tr>'
+                + '<tr>'
+                + '<td class="eui-textAlignR">' + yw.split(",")[2] + '</td>'
+                + '<td class="yw_table_b">' + yw.split(",")[3] + '</td>'
+                + '</tr>'
+                + '</table>'
+				'</td>'
+        }
+		function showOrHide(flag){
+            if(flag == "初诊") {
+                $("#y4").hide();
+            } else {
+                $("#y1").hide();
+                $("#y2").hide();
+                $("#y3").hide();
+                $("#y5").hide();
+                $("#blcz").hide();
+            }
+		}
+
+
+
+
+
+
+
+		function blde(ids) {
+			$.ajax({
+				type: "post",
+				url: basePath + "/cust/bl/de/getByBlId",
+				async: true,
+				data: {
+					id: ids
+				},
+				success: function(data) {
+					var delist = data.data;
+					var flag1 = 0;
+					var flag2 = 0;
+					var flag3 = 0;
+					var flag4 = 0;
+					var flag5 = 0;
+					for(var i in delist) {
+						var cust_bl_de = delist[i];
+						if(cust_bl_de.type == '1') {
+							if(flag1 > 0) {
+								tanchu('kq');
+							}
+							flag1++;
+							$("#kq_context" + flag1).html(cust_bl_de.content);
+							if(cust_bl_de.toothAddr != null) {
+								bianse_Str.set('kq_shizi' + flag1, cust_bl_de.toothAddr);
+								zsyw('kq_shizi' + flag1, cust_bl_de.toothAddr);
+							}
+						} else if(cust_bl_de.type == '2') {
+							if(flag2 > 0) {
+								tanchu('fz');
+							}
+							flag2++;
+							$("#fz_context" + flag2).html(cust_bl_de.content);
+							if(cust_bl_de.toothAddr != null) {
+								bianse_Str.set('fz_shizi' + flag2, cust_bl_de.toothAddr);
+								zsyw('fz_shizi' + flag2, cust_bl_de.toothAddr);
+							}
+						} else if(cust_bl_de.type == '3') {
+							if(flag3 > 0) {
+								tanchu('zd');
+							}
+							flag3++;
+							$("#zd_context" + flag3).html(cust_bl_de.content);
+							if(cust_bl_de.toothAddr != null) {
+								bianse_Str.set('zd_shizi' + flag3, cust_bl_de.toothAddr);
+								zsyw('zd_shizi' + flag3, cust_bl_de.toothAddr);
+							}
+						} else if(cust_bl_de.type == '4') {
+							if(flag4 > 0) {
+								tanchu('zl');
+							}
+							flag4++;
+							$("#zl_context" + flag4).html(cust_bl_de.content);
+							if(cust_bl_de.toothAddr != null) {
+								bianse_Str.set('zl_shizi' + flag4, cust_bl_de.toothAddr);
+								zsyw('zl_shizi' + flag4, cust_bl_de.toothAddr);
+							}
+						} else if(cust_bl_de.type == '5') {
+							if(flag5 > 0) {
+								tanchu('cz');
+							}
+							flag5++;
+							$("#cz_context" + flag5).html(cust_bl_de.content);
+							if(cust_bl_de.toothAddr != null) {
+								bianse_Str.set('cz_shizi' + flag5, cust_bl_de.toothAddr);
+								zsyw('cz_shizi' + flag5, cust_bl_de.toothAddr);
+							}
+						}
+
+					}
+				}
+			});
+		}
+
+
+		var type_flag = 0;
+
+        window.showDoctor = function () {
+			$.post(basePath+"/sec/user/getDoctor",function (res) {
+			    var doctor = "<option value=''>请选择医生</option>";
+			    if(res.data != null){
+			        $.each(res.data,function (index,val) {
+                        doctor = doctor + "<option value='"+val.id+"'>"+val.name+"</option>\n";
+                    });
+				}
+				$("#doctor").html(doctor);
+                eui.form.render();
+            })
+        }
+
+		//打印病历
+		function preview() {
+				bdhtml = window.document.body.innerHTML; //获取当前页的html代码
+			console.log($('body').html())
+				window.document.body.innerHTML = $('body').html();
+				window.print();
+				window.document.body.innerHTML = bdhtml;
+		}
+
+	</script>
+
+</html>

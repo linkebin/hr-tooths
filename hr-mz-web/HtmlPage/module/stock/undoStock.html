@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>退领</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+    <link rel="stylesheet" href="../../../Scripts/libs/jquery-ui/jquery-ui.css">
+</head>
+<body>
+<div class="div">
+
+</div>
+<div class="eui-row">
+    <div class="eui-col-xs2">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+    <div class="eui-col-xs10">
+        <!--右边内容 start-->
+        <!--条件搜索 start-->
+        <div class="eui-form eui-form-search">
+            <!-- 查询重置按钮-->
+            <div class="eui-btn-group">
+                <button class="eui-btn" onclick="doSearch()">查询</button>
+                <button class="eui-btn eui-btn-primary" onclick="reset()">重置</button>
+            </div>
+            <!--查询条件-->
+            <div class="eui-form-item">
+                <label class="eui-form-label">物品编号/名称：</label>
+                <div class="eui-input-block">
+                    <input type="text" class="eui-input" id="code" placeholder="请输入物品编号/名称">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!--条件搜索 end-->
+
+        <!--  <div class="nodataArea">暂无相关数据 !</div>-->
+
+        <div class="infoList">
+            <!--标题 start-->
+
+            <div class="title-bar">
+                <div class="eui-btn-group ">
+                    <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+                    <!--<a href="###" class="eui-btn eui-btn-small" onclick="addUpdate('add')" id="add"><i class="eui-icon">&#xe654;</i>新增物品</a>-->
+                </div>
+                <span class="title-main float-left">
+                  <i class="eui-icon eui-font20">&#xe62d;</i>
+                  物品列表 &nbsp; &nbsp; &nbsp; &nbsp;
+              </span>
+            </div>
+
+            <!--标题 end-->
+
+
+            <!--表格 start-->
+            <script type="text/html" id="barDemo">
+                <div class="eui-btn-group">
+                    <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="添加">
+                        &#xe654;</i></a>
+                </div>
+            </script>
+            <!--表格 start2-->
+            <script type="text/html" id="barDemo1">
+                <div class="eui-btn-group">
+                    <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">
+                        &#xe640;</i></a>
+                </div>
+            </script>
+            <script type="text/html" id="switchTpl">
+                <!-- 这里的 checked 的状态只是演示 -->
+                <input type="checkbox" name="see" e-skin="switch" e-text="启用|禁用" e-filter="" checked>
+            </script>
+            <table id="tableDemo" e-filter="tableDemoFilter"></table>
+            <!--表格 end-->
+
+        </div>
+
+        <!--右边内容 end-->
+
+        <!--弹出信息-->
+
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="div">
+    <div class="title-bar">
+        <div class="eui-btn-group float-right">
+            <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe615;</i>删除</a>-->
+        </div>
+        <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      已选物品
+    </span>
+        <span class="title-sub">
+    </span>
+    </div>
+    <table id="tableDemo1" e-filter="tableDemoFilter"></table>
+</div>
+<div class="clearfix"></div>
+<div class="div">
+    <p class="eui-font20" id="num"></p>
+    <p class="eui-font20" id="money"></p>
+</div>
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+<script src="../../../Scripts/plugins/jquery.cookie.js" type="text/javascript"></script>
+<script src="../../../Scripts/config.js" type="text/javascript"></script>
+<script src="../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+<script src="../../../Scripts/date2format.js" type="text/javascript"></script>
+
+<!-- ztree-->
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+<script>
+    var form = null;
+    var table= null;
+    var txt = "";
+
+    function reset(){
+        $("#code").val("");
+    }
+    /*--用户树--*/
+    $(function () {
+        var setting = {
+            view: {
+                selectedMulti: false,
+                dblClickExpand: true//false屏蔽掉双击事件
+                // addHoverDom: addHoverDom,
+                // removeHoverDom: removeHoverDom,
+                // selectedMulti: false
+            },
+            async:{
+                enable:true,
+                type:"post",
+                dataType:"json",
+                url:basePath+'/stock/product/type/findTree',
+                //  autoParam:["id","name"],
+                dataFilter: null
+            },
+            check: {
+                enable: false
+            },
+            data:{
+                simpleData: {
+                    enable: true,
+                    idKey:"typeId",
+                    pIdKey:"parentId",
+                    rootPid:"0"
+                }
+            },
+            callback:{
+                onClick:function(event,treeId, treeNode, clickFlag){
+                    //单击事件，单击展开
+                    // var zTree = $.fn.zTree.getZTreeObj(treeId);
+                    // zTree.expandNode(treeNode);
+                    //查询某个部门的所有用户信息
+                    if(treeNode.code === 'CD0001'){
+                        doSearch();
+                    }else{
+                        doSearch(treeNode.code);
+                        $("#search").attr("onclick","doSearch('"+treeNode.code+"')");
+                    }
+                    $("#add").attr("onclick","addUpdate('add','"+treeNode.code+"','"+treeNode.name+"')");
+                    //设置部门的名称
+                    // $("#orgNameTitle").text(treeNode.name);
+                }
+            },
+            edit: {
+                enable: false
+            }
+        };
+        var zNodes = [];
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+    // ztree
+
+    function doSearch(typeId){
+        eui.use(['jquery', 'element', 'form', 'layedit', 'laydate', 'table', 'laytpl'], function () {
+            table = eui.table;
+            form = eui.form;
+            var jQuery = eui.jQuery
+                , element = eui.element
+                , layer = eui.layer
+                , layedit = eui.layedit
+                , laydate = eui.laydate
+                , laytpl = eui.laytpl;
+
+            //实例1:简单表格
+            table.render({
+                elem: '#tableDemo'
+                //   ,height: 350
+                //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+                , even: true //开启隔行背景
+                , skin: 'row'
+                , url: basePath+'/stock/in/out/de/findUndoStock' //数据接口
+                ,where:{
+                    type_id:typeId,
+                    code:$("#code").val()
+                }
+                ,method: 'post'
+                , page: true
+                , cols: [[
+                    {field: 'filed7', title: '退领', width: 80, toolbar: '#barDemo', unresize: true, fixed: 'left'}
+                    , {field: 'batch_id', width: 140, title: '物品批次'}
+                    , {field: 'in_out_code', width: 100, title: '物品编号'}
+                    , {field: 'p_name', width: 120, title: '物品名称 ', sort: true}  //增加 edit 表示开户了编辑状态
+                    , {field: 'p_type', width: 100, title: '物品类型'}
+                    , {field: 'end_time', width: 110, title: '过期时间',templet:'<div>{{ new Date(d.end_time).Format("yyyy-MM-dd")}}</div>'}
+                    , {field: 'p_model', width: 120, title: '型号'}
+                    , {field: 'p_spe', width: 100, title: '规格'}
+                    , {field: 'p_brand', width: 90, title: '品牌'}
+                    , {field: 'num', width: 90, title: '领用数量'}
+                    , {field: 'unit', width: 90, title: '单位'}
+                ]]
+            });
+
+            table.render({
+                elem: '#tableDemo1'
+                , even: true //开启隔行背景
+                , skin: 'row'
+                , url: basePath+'/items/temp/getItemsTemp' //数据接口
+                ,where:{
+                    batch:GetRequest()["batch"]
+                }
+                ,method: 'post'
+                , page: true
+                , cols: [[
+                    {field: 'filed7', title: '删除', width: 60, toolbar: '#barDemo1', unresize: true, fixed: 'left'}
+                    , {field: 'batch', width: 90, title: '批次号'}
+                    , {field: 'code', width: 120, title: '物品编码'}
+                    , {field: 'name', width: 120, title: '物品名称 ', sort: true}  //增加 edit 表示开户了编辑状态
+                    , {field: 'type', width: 120, title: '物品类型'}
+                    , {field: 'model', width: 120, title: '型号'}
+                    , {field: 'specifications', width: 120, title: '规格'}
+                    , {field: 'brand', width: 90, title: '品牌'}
+                    , {field: 'inventoryNum', width: 90, title: '入库数量'}
+                    , {field: 'inventoryCost', width: 90, title: '入库单价'}
+                    , {field: 'unit', width: 90, title: '单位'}
+                    , {field: 'retailPrice', width: 90, title: '零售单价'}
+                    , {field: 'money', width: 90, title: '金额'}
+                ]]
+            });
+
+            //监听表格复选框选择
+            table.on('checkbox(tableDemoFilter)', function (obj) {
+                console.log(obj)
+            });
+
+            //监听工具条
+            table.on('tool(tableDemoFilter)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'detail') {
+                    layer.prompt({title: '请输入 《'+data.p_name+'》 退领数量'}, function(text, index){
+                        layer.close(index);
+                        $.ajax({
+                            type: "post",
+                            url: basePath + "/items/temp/removeItems",
+                            data: {
+                                num:text,
+                                code:data.in_out_code,
+                                batch:data.batch_id,
+                                order: GetRequest()["batch"],
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result.code == 200) {
+                                    doSearch(typeId);
+                                    if(result.data ===null){
+                                        layer.msg("退领添加成功！");
+                                    }else{
+                                        layer.msg(result.data);
+                                    }
+                                } else {
+                                    layer.msg(result.message);
+                                }
+                            },
+                            error: function () {
+                                layer.msg("添加失败");
+                            }
+                        });
+                    });
+                } else if (obj.event === 'del') {
+                    layer.confirm('确定删除 《'+data.name+'》 已选物品吗？', function (index) {
+                        $.ajax({
+                            type: "POST",
+                            url: basePath + "/items/temp/delete",
+                            data: {
+                                id:data.id
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result.code == 200) {
+                                    doSearch(typeId);
+                                    layer.msg("删除成功");
+                                } else {
+                                    layer.msg("删除失败，请联系管理员处理");
+                                }
+                            },
+                            error: function () {
+                                layer.msg("更新失败");
+                            }
+                        });
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'edit') {
+                    layer.alert('编辑行：<br>' + JSON.stringify(data))
+
+                }
+            });
+
+            //日期选择
+            laydate.render({
+                elem: '#dateTest'
+            });
+            //日期范围
+            laydate.render({
+                elem: '#dateTest2'
+                , range: true
+            });
+        });
+    }
+
+    $(function () {
+        doSearch();
+    })
+</script>
+
+</body>
+</html>

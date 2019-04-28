@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.SysOptionMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.SysOption">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="OPTION_ID" jdbcType="VARCHAR" property="optionId" />
+    <result column="OPTION_FATHER" jdbcType="VARCHAR" property="optionFather" />
+    <result column="OPTION_CODE" jdbcType="VARCHAR" property="optionCode" />
+    <result column="OPTION_NAME" jdbcType="VARCHAR" property="optionName" />
+    <result column="OPTION_VALUE" jdbcType="VARCHAR" property="optionValue" />
+    <result column="OPTION_TYPE" jdbcType="INTEGER" property="optionType" />
+    <result column="OPTION_STAUTS" jdbcType="INTEGER" property="optionStauts" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATE_TIME" jdbcType="DATE" property="createTime" />
+    <result column="DELETED" jdbcType="INTEGER" property="deleted" />
+    <result column="CODE_PREFIX" jdbcType="VARCHAR" property="codePrefix" />
+    <result column="OPTION_CATEGORY" jdbcType="VARCHAR" property="optionCategory" />
+  </resultMap>
+</mapper>

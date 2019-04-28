@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.StockAuditMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.StockAudit">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="audit_id" jdbcType="VARCHAR" property="auditId" />
+    <result column="in_out_id" jdbcType="VARCHAR" property="inOutId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_pass" jdbcType="INTEGER" property="isPass" />
+  </resultMap>
+
+</mapper>

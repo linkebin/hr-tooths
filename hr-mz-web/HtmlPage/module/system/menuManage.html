@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>菜单管理</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+  <link rel="stylesheet" href="../../../Scripts/libs/jquery-ui/jquery-ui.css">
+</head>
+<body>
+
+
+<div class="ui-layout-west">
+  <h3 class="ui-widget-header">菜单结构</h3>
+  <div class="ui-layout-content etree">
+        <ul id="treeDemo" class="ztree"></ul>
+  </div>
+</div>
+<div class="ui-layout-center eui-bg-white ">
+
+  <!--右边内容 start-->
+<div class="infoList">
+  <div class="eui-font18 eui-color-red eui-paddingB10">
+    <a href="###" data-method="editCurmenu" data-type="rt" class="eui-btn eui-btn-small float-right"><i class="eui-icon">&#xe642;</i>编辑当前菜单</a>
+    当前菜单信息
+  </div>
+
+  <div class="eui-form eui-form-base eui-form-read eui-form-col2 eui-bg-lightGray eui-marginB20">
+    <!--查询条件-->
+    <div class="eui-form-item">
+      <label class="eui-form-label">菜单名称：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid">系统管理</div>
+      </div>
+    </div>
+    <div class="eui-form-item">
+      <label class="eui-form-label">菜单编号：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid">M00800</div>
+      </div>
+    </div>
+    <!--华丽的分割线-->
+    <div class="eui-form-item">
+      <label class="eui-form-label">创建人：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid">李成 <i class="eui-icon">&#xe612;</i></div>
+      </div>
+    </div>
+    <div class="eui-form-item">
+      <label class="eui-form-label">上级菜单：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid">易度UI快速原型</div>
+      </div>
+    </div>
+    <!--华丽的分割线-->
+
+    <div class="eui-form-item">
+      <label class="eui-form-label">是否可见：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid">
+          <input type="checkbox" name="see" e-skin="switch" e-text="可见|不可" e-filter="" checked>
+        </div>
+      </div>
+    </div>
+    <div class="eui-form-item">
+      <label class="eui-form-label">状态：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid">
+          <input type="checkbox" name="see" e-skin="switch" e-text="启用|禁用" e-filter="" checked>
+        </div>
+      </div>
+    </div>
+    <!--华丽的分割线-->
+    <div class="eui-form-item item-colspan2">
+    <label class="eui-form-label">菜单图标：</label>
+    <div class="eui-input-block ">
+      <div class="eui-form-mid">暂无</div>
+    </div>
+  </div>
+    <div class="eui-form-item item-colspan2">
+      <label class="eui-form-label">菜单地址：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid">module/system/menu.html</div>
+      </div>
+    </div>
+    <!--华丽的分割线-->
+    <div class="eui-form-item item-colspan2">
+      <label class="eui-form-label">菜单说明：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid">
+          暂无
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <!--标题 start-->
+
+  <div class="title-bar eui-marginB10">
+    <div class="eui-btn-group float-right">
+      <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+      <a href="###" data-method="editCurmenu" data-type="rt" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe654;</i>新建</a>
+      <a href="###" data-method="editCurmenu" data-type="rt" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe615;</i>查看</a>
+      <a href="###" data-method="editCurmenu" data-type="rt" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe642;</i>编辑</a>
+      <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe7d0;</i>启用</a>
+      <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe6d8;</i>禁用</a>
+      <a href="###" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>删除</a>
+    </div>
+    <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      所属下级菜单
+    </span>
+    <span class="title-sub">不包括当前菜单
+    </span>
+  </div>
+
+  <!--标题 end-->
+
+  <!--  <div class="nodataArea">暂无相关数据 !</div>-->
+
+  <!--条件搜索 start-->
+  <div class="eui-form eui-form-base eui-form-search eui-form-col2">
+
+    <!-- 查询重置按钮-->
+    <div class="eui-btn-group">
+      <button class="eui-btn">查询</button>
+      <button class="eui-btn eui-btn-primary">重置</button>
+    </div>
+    <!--查询条件-->
+    <div class="eui-form-item">
+      <label class="eui-form-label">菜单名称：</label>
+      <div class="eui-input-block">
+        <input type="text" class="eui-input" placeholder="">
+      </div>
+    </div>
+    <div class="eui-form-item">
+      <label class="eui-form-label">状态：</label>
+      <div class="eui-input-block">
+        <select name="city" e-verify="required">
+          <option value="1">请选择</option>
+          <option value="2">启用</option>
+          <option value="3">禁用</option>
+        </select>
+      </div>
+    </div>
+    <!--华丽的分割线-->
+
+    <div class="clearfix"></div>
+  </div>
+
+
+
+  <!--条件搜索 end-->
+  <!--表格 start-->
+  <script type="text/html" id="barDemo">
+    <div class="eui-btn-group">
+      <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>
+      <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit"><i class="eui-icon" title="编辑">&#xe642;</i></a>
+      <a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+    </div>
+  </script>
+  <script type="text/html" id="switchTpl">
+
+    <input type="checkbox" name="see" e-skin="switch" e-text="启用|禁用" e-filter="" checked>
+  </script>
+  <table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+  <!--表格 end-->
+  <!--右边内容 end-->
+
+  <!--弹出信息-->
+  <script type="text/html" id="layerContent">
+    <div class="eui-form eui-padding20">
+
+      <div class="eui-form-item">
+        <label class="eui-form-label">菜单名称：</label>
+        <div class="eui-input-block ">
+          <input type="text" class="eui-input" value="系统管理"/>
+        </div>
+      </div>
+      <div class="eui-form-item">
+        <label class="eui-form-label">菜单编号：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid eui-word-aux">M00800</div>
+        </div>
+      </div>
+
+      <div class="eui-form-item">
+        <label class="eui-form-label">上级菜单：</label>
+        <div class="eui-input-block input-btn-1em">
+          <a href="###" class="inputAfter"><i class="eui-icon">&#xe671;</i></a>
+          <input type="text" class="eui-input" value="易度UI快速原型">
+        </div>
+      </div>
+      <!--华丽的分割线-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">菜单图标：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">
+
+            <!-- <i class="eui-icon eui-marginL10">&#xe612;</i>
+             <a href="###" class="eui-btn-font">修改图标</a>
+ -->
+            暂无图标
+          </div>
+        </div>
+      </div>
+      <div class="eui-form-item">
+        <label class="eui-form-label">是否可见：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">
+            <input type="checkbox" name="see" e-skin="switch" e-text="可见|不可" e-filter="" checked>
+          </div>
+        </div>
+      </div>
+      <div class="eui-form-item">
+        <label class="eui-form-label">状态：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">
+            <input type="checkbox" name="see" e-skin="switch" e-text="启用|禁用" e-filter="" checked>
+          </div>
+        </div>
+      </div>
+      <!--华丽的分割线-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">菜单地址：</label>
+        <div class="eui-input-block input-btn-1em">
+          <a href="###" class="inputAfter"><i class="eui-icon">&#xe64c;</i></a>
+          <input type="text" class="eui-input" value="module/system/menu.html">
+        </div>
+      </div>
+      <!--华丽的分割线-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">菜单说明：</label>
+        <div class="eui-input-block ">
+          <textarea class="eui-textarea">暂无说明
+
+          </textarea>
+
+
+
+        </div>
+      </div>
+      <!--华丽的分割线-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">创建人：</label>
+        <div class="eui-input-block">
+          <div class="eui-form-mid eui-word-aux"> <a href="###" class="">李成<i class="eui-icon eui-marginL10">&#xe612;</i></a></div>
+        </div>
+
+      </div>
+      <div class="eui-form-item">
+        <label class="eui-form-label">创建时间：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid eui-word-aux">2018-01-01 12:06</div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+  </script>
+
+</div>
+</div>
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+
+<!-- ztree-->
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+<script>
+  eui.use(['jquery','element','form', 'layedit', 'laydate','table','laytpl'], function(){
+    var jQuery = eui.jQuery
+            ,element = eui.element
+            ,form = eui.form
+            ,layer = eui.layer
+            ,layedit = eui.layedit
+            ,laydate = eui.laydate
+            ,table = eui.table
+            ,laytpl = eui.laytpl;
+
+      $("body").layout({
+          //   applyDemoStyles: true,
+          spacing_open:8,
+          spacing_closed:10,
+          west__size:230,             //左侧初始宽度
+          north__size:60,             //上侧初始宽度
+          north__resizable:false,    //上侧关闭大小调整
+          north__closable:false,      //上侧关闭收缩
+          north__spacing_open: 0,       //上侧边框为0, 一般这个设置了上面的north__resizable和north__closable可以不用设置
+          south__spacing_open: 0,
+          south__size:30
+      });
+
+      //操作事件
+      var active = {
+          //当前菜单编辑
+          editCurmenu: function(othis){
+              var type = othis.data('type')
+                  ,text = othis.text();
+
+              var data={};
+              var txt="";
+              var getTpl= $("#layerContent").html();
+              laytpl(getTpl).render(data,function (html) {
+                  txt = html;
+              });
+
+              layer.open({
+                  type: 1
+                  ,title:"标题"
+                  ,area: ['400px','100%']  //宽度
+                  ,offset:type              //类型,注意点击按钮的data-type属性，然后配合宽高度
+                  ,id: 'pop'+type //防止重复弹出
+                  ,content: txt
+                  ,btn: ['保存','取消']
+                  ,btnAlign: 'c' //按钮居中
+                  ,shade: 0.3 //不显示遮罩
+                  ,maxmin: true
+                  ,yes: function(){
+                      layer.closeAll();
+                      layer.msg("保存成功！")
+                  },btn2: function(){
+                      layer.closeAll();
+                  }
+              });
+              //如有表单类的，请带上相关的JS预加载，并在以下加上重新渲染
+              form.render();
+          }
+
+      };
+
+      $('.eui-btn').on('click', function(){
+          var othis = $(this), method = othis.data('method');
+          active[method] ? active[method].call(this, othis) : '';
+      });
+
+
+
+      var tableOtherHeight
+//实例1:简单表格
+      table.render({
+          elem: '#tableDemo'
+          //   ,height: 350
+         // ,height: 'full-410'       //该项为设置表格最大化自适应高度
+          ,even: true //开启隔行背景
+          ,url: '../../../Scripts/data/test.json' //数据接口
+          ,page: true
+          ,cols: [[
+              {type:'checkbox',fixed:'left'}
+              ,{field:'sn', width:60, title: '序号'}
+              ,{field:'id', width:120, title: '菜单编号', sort: true}  //增加 edit 表示开户了编辑状态dd
+              ,{field:'name',width:120, title: '菜单名称'}
+              ,{field:'parent', width: 100, title: '上级菜单'}
+              ,{field:'icon', width:100, title: '菜单图标'}
+              ,{field:'adress', width:150, title: '菜单地址'}
+              ,{field:'see', width:90, title: '状态',templet: '#switchTpl'}
+              ,{field:'creater', width:100, title: '创建人'}
+              ,{field:'createTime', width:150, title: '创建时间', sort: true}
+              ,{field:'opear', title:'操作', width:120, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+          ]]
+      });
+
+      //监听表格复选框选择
+      table.on('checkbox(tableDemoFilter)', function(obj){
+          console.log(obj)
+      });
+
+      //监听工具条
+      table.on('tool(tableDemoFilter)', function(obj){
+          var data = obj.data;
+          if(obj.event === 'detail'){
+              layer.msg('ID：'+ data.id + ' 的查看操作');
+          } else if(obj.event === 'del'){
+              layer.confirm('真的删除行么', function(index){
+                  obj.del();
+                  layer.close(index);
+              });
+          } else if(obj.event === 'edit'){
+              layer.alert('编辑行：<br>'+ JSON.stringify(data))
+
+          }
+      });
+
+      //日期选择
+      laydate.render({
+          elem: '#dateTest'
+      });
+      //日期范围
+      laydate.render({
+          elem: '#dateTest2'
+          ,range: true
+      });
+
+
+
+
+
+  });
+
+
+/*--用户树--*/
+  $(function(){
+      $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+  });
+  // ztree
+  var setting = {
+      view: {
+          addHoverDom: addHoverDom,
+          removeHoverDom: removeHoverDom,
+          selectedMulti: false
+      },
+      async:{
+          enable:true,
+          type:"get",
+          dataType:"json",
+          url:"common/testTree.json",
+          //  autoParam:["id","name"],
+          dataFilter: null
+      },
+      check: {
+          enable: true
+      },
+      data:{
+          simpleData: {
+              enable: true,
+              idKey:"id",
+              pIdKey:"pId",
+              rootPid:"0"
+          }
+      },
+      edit: {
+          enable: true
+      }
+  };
+  var zNodes=[];
+
+  var newCount = 1;
+  function addHoverDom(treeId, treeNode) {
+      var sObj = $("#" + treeNode.tId + "_span");
+      if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+      var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+          + "' title='add node' onfocus='this.blur();'></span>";
+      sObj.after(addStr);
+      var btn = $("#addBtn_"+treeNode.tId);
+      if (btn) btn.bind("click", function(){
+          var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+          zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+          return false;
+      });
+  };
+  function removeHoverDom(treeId, treeNode) {
+      $("#addBtn_"+treeNode.tId).unbind().remove();
+  };
+
+
+
+
+
+</script>
+
+</body>
+</html>
+

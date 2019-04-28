@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.Customer">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="cust_id" jdbcType="VARCHAR" property="custId" />
+    <result column="cust_code" jdbcType="VARCHAR" property="custCode" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="cust_sex" jdbcType="VARCHAR" property="custSex" />
+    <result column="cust_birth" jdbcType="TIMESTAMP" property="custBirth" />
+    <result column="cust_age" jdbcType="VARCHAR" property="custAge" />
+    <result column="cust_num" jdbcType="VARCHAR" property="custNum" />
+    <result column="cust_tell" jdbcType="VARCHAR" property="custTell" />
+    <result column="cust_mail" jdbcType="VARCHAR" property="custMail" />
+    <result column="cust_qq" jdbcType="VARCHAR" property="custQq" />
+    <result column="cust_wechat" jdbcType="VARCHAR" property="custWechat" />
+    <result column="cust_open_id" jdbcType="VARCHAR" property="custOpenId" />
+    <result column="cust_pro" jdbcType="VARCHAR" property="custPro" />
+    <result column="cust_el" jdbcType="VARCHAR" property="custEl" />
+    <result column="cust_jyxg" jdbcType="VARCHAR" property="custJyxg" />
+    <result column="cust_jzjl" jdbcType="VARCHAR" property="custJzjl" />
+    <result column="cust_gms" jdbcType="VARCHAR" property="custGms" />
+    <result column="cust_addr" jdbcType="VARCHAR" property="custAddr" />
+    <result column="cust_class" jdbcType="VARCHAR" property="custClass" />
+    <result column="cust_source" jdbcType="VARCHAR" property="custSource" />
+    <result column="cust_type" jdbcType="VARCHAR" property="custType" />
+    <result column="cust_remark" jdbcType="VARCHAR" property="custRemark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="cust_clinic" jdbcType="VARCHAR" property="custClinic" />
+    <result column="doctor" jdbcType="VARCHAR" property="doctor" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="early_doctor" jdbcType="VARCHAR" property="earlyDoctor" />
+    <result column="early_clinic" jdbcType="VARCHAR" property="earlyClinic" />
+  </resultMap>
+
+    <update id="updateCustomer" parameterType="com.yidusoft.project.system.domain.Customer">
+        UPDATE customer SET
+        <if test="custCode!=null">
+            cust_code=#{custCode},
+        </if>
+        <if test="custClinic!=null">
+            cust_clinic=#{custClinic},
+        </if>
+        <if test="custName!=null">
+            cust_name=#{custName},
+        </if>
+        <if test="custSex!=null">
+            cust_sex=#{custSex},
+        </if>
+        <if test="custBirth!=null">
+            cust_birth=#{custBirth},
+        </if>
+        <if test="custAge!=null">
+            cust_age=#{custAge},
+        </if>
+        <if test="custNum!=null">
+            cust_num=#{custNum},
+        </if>
+        <if test="custTell!=null">
+            cust_tell=#{custTell},
+        </if>
+        <if test="custMail!=null">
+            cust_mail=#{custMail},
+        </if>
+        <if test="custQq!=null">
+            cust_qq=#{custQq},
+        </if>
+        <if test="custWechat!=null">
+            cust_wechat=#{custWechat},
+        </if>
+        <if test="custOpenId!=null">
+            cust_open_id=#{custOpenId},
+        </if>
+        <if test="custPro!=null">
+            cust_pro=#{custPro},
+        </if>
+        <if test="custEl!=null">
+            cust_el=#{custEl},
+        </if>
+        <if test="custJyxg!=null">
+            cust_jyxg=#{custJyxg},
+        </if>
+        <if test="custJzjl!=null">
+            cust_jzjl=#{custJzjl},
+        </if>
+        <if test="custGms!=null">
+            cust_gms=#{custGms},
+        </if>
+        <if test="custAddr!=null">
+            cust_addr=#{custAddr},
+        </if>
+        <if test="custClass!=null">
+            cust_class=#{custClass},
+        </if>
+        <if test="custSource!=null">
+            cust_source=#{custSource},
+        </if>
+        <if test="custType!=null">
+            cust_type=#{custType},
+        </if>
+        <if test="custRemark!=null">
+            cust_remark=#{custRemark},
+        </if>
+        <if test="createTime!=null">
+            create_time=#{createTime},
+        </if>
+        <if test="deleted!=null">
+            deleted=#{deleted},
+        </if>
+        <if test="doctor!=null">
+            doctor=#{doctor},
+        </if>
+        <if test="money!=null">
+            money=#{money},
+        </if>
+        <if test="earlyDoctor!=null">
+            early_doctor=#{earlyDoctor},
+        </if>
+        <if test="earlyClinic!=null">
+            early_clinic=#{earlyClinic},
+        </if>
+        <if test="custBirth==null">
+            cust_birth=NULL ,
+        </if>
+        cust_id=#{custId}
+        WHERE cust_id=#{custId}
+    </update>
+
+    <select id="findCustomer" parameterType="String" resultType="java.util.Map">
+        select c.*,o.ORG_NAME,(select u.USER_NAME from sec_user u where u.ID_=c.doctor) as USER_NAME,(select b.bl_time from cust_bl b where b.cust_id=c.cust_id ORDER BY b.bl_time LIMIT 1) as bl_time
+        ,(select u.USER_NAME from sec_user u where u.ID_=c.early_doctor) as early_doctor_name,(select a.org_name from sec_org a where a.ID_ = c.early_clinic) as early_clinic_name
+        from customer c,sec_org o where c.cust_clinic=o.ID_
+        <if test="clinic!=null and clinic!=''">and o.ID_= #{clinic}</if>
+        <if test="code!=null and code!=''">and (c.cust_name like '%${code}%' or c.cust_tell like '%${code}%')</if>
+    </select>
+
+</mapper>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>角色权限配置</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../../../Styles/themes/default/style.css"  media="all">
+</head>
+<body class="ToolbarFixed">
+
+<div class="toolbarH">
+  <div class="title-bar">
+    <div class="eui-btn-group float-right">
+      <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+      <a href="###" class="eui-btn">保存</a>
+      <a href="###" class="eui-btn eui-btn-primary">关闭</a>
+    </div>
+    <span class="title-main">
+      <i class="eui-icon eui-font24">&#xe620;</i>
+      角色权限配置：
+    </span>
+    <span class="title-sub">
+
+    </span>
+    <span class="eui-font20 eui-color-red">系统管理员</span>
+    <a href="###" class="eui-btn eui-btn-primary eui-btn-small eui-marginL10"><i class="eui-icon">&#xe613;</i>切换角色</a>
+
+  </div>
+</div>
+
+<div class="form-body eui-padding10 eui-widthAuto">
+
+<div class="eui-row eui-layout-body">
+  <div class="eui-col-xs2">
+    <div class="eui-col-child">
+        <div class="layoutT">
+           当前用户
+        </div>
+        <div class="layoutC layout-search layout-footer">
+          <input type="text" class="eui-input" placeholder="搜索关键字，回车搜索">
+          <div class="eui-form layout-SBody checkbox-list">
+            <!--查询条件-->
+
+
+
+              <input type="checkbox" name="perSet" title="全部" e-skin="primary">
+              <input type="checkbox" name="perSet" title="李成 [chenglee]" e-skin="primary">
+              <input type="checkbox" name="perSet" title="张乙浩 [zhangyihao]" e-skin="primary">
+
+
+
+
+
+          </div>
+
+          <div class="eui-btn-group footBtn-pos footBtn-pos-num2">
+            <a href="###" class="eui-btn eui-btn-primary eui-btn-small"><i class="eui-icon">&#xe654;</i>添加用户</a>
+            <a href="###" class="eui-btn eui-btn-primary eui-btn-small"><i class="eui-icon">&#xe640;</i>删除用户</a>
+          </div>
+
+        </div>
+
+
+
+    </div>
+  </div>
+  <div class="eui-col-xs2">
+    <div class="eui-col-child">
+      <div class="layoutT">
+        菜单权限
+      </div>
+      <div class="layoutC layout-search">
+        <input type="text" class="eui-input" placeholder="搜索关键字，回车搜索">
+        <div class="eui-form layout-SBody">
+          <!--查询条件-->
+          <ul id="treeDemo" class="ztree"></ul>
+        </div>
+
+<!--        <div class="eui-btn-group footBtn-pos footBtn-pos-num2">
+          <a href="###" class="eui-btn eui-btn-primary eui-btn-small"><i class="eui-icon">&#xe654;</i>添加用户</a>
+          <a href="###" class="eui-btn eui-btn-primary eui-btn-small"><i class="eui-icon">&#xe640;</i>删除用户</a>
+        </div>-->
+
+      </div>
+
+
+
+    </div>
+  </div>
+  <div class="eui-col-xs8">
+    <div class="eui-col-child">
+      <div class="layoutT">
+        操作权限
+      </div>
+      <div class="layoutC eui-form">
+
+
+
+
+        <!--标题 start-->
+        <div class="title-bar eui-marginTB10">
+          <div class="float-right eui-marginT5">
+            <input type="checkbox" name="perSet" title="菜单访问" e-skin="primary">
+          </div>
+          <span class="title-main">
+            <i class="eui-icon">&#xe614;</i>
+            系统管理
+          </span>
+          <span class="inline-block eui-marginL10">
+            <input type="checkbox" class="float-left" name="roleUser" title="全选" e-skin="primary">
+          </span>
+        </div>
+
+        <!--标题 end-->
+        <div class="checkbox-list-left">
+          <input type="checkbox" name="perSet" title="查询" e-skin="primary">
+          <input type="checkbox" name="perSet" title="新建" e-skin="primary">
+          <input type="checkbox" name="perSet" title="编辑" e-skin="primary">
+          <input type="checkbox" name="perSet" title="删除" e-skin="primary">
+          <div class="clearfix"></div>
+        </div>
+
+
+        <!--标题 start-->
+        <div class="title-bar eui-marginTB10">
+          <div class="float-right eui-marginT5">
+            <input type="checkbox" name="perSet" title="菜单访问" e-skin="primary">
+          </div>
+          <span class="title-main">
+            <i class="eui-icon">&#xe614;</i>
+            组织管理
+          </span>
+          <span class="inline-block eui-marginL10">
+            <input type="checkbox" class="float-left" name="roleUser" title="全选" e-skin="primary">
+          </span>
+        </div>
+
+        <!--标题 end-->
+        <div class="checkbox-list-left">
+          <input type="checkbox" name="perSet" title="查询" e-skin="primary">
+          <input type="checkbox" name="perSet" title="新建" e-skin="primary">
+          <input type="checkbox" name="perSet" title="编辑" e-skin="primary">
+          <input type="checkbox" name="perSet" title="删除" e-skin="primary">
+          <div class="clearfix"></div>
+        </div>
+
+        <!--标题 start-->
+        <div class="title-bar eui-marginTB10">
+          <div class="float-right eui-marginT5">
+            <input type="checkbox" name="perSet" title="菜单访问" e-skin="primary">
+          </div>
+          <span class="title-main">
+            <i class="eui-icon">&#xe614;</i>
+            用户管理
+          </span>
+          <span class="inline-block eui-marginL10">
+            <input type="checkbox" class="float-left" name="roleUser" title="全选" e-skin="primary">
+          </span>
+        </div>
+
+        <!--标题 end-->
+        <div class="checkbox-list-left">
+          <input type="checkbox" name="perSet" title="查询" e-skin="primary">
+          <input type="checkbox" name="perSet" title="权限配置" e-skin="primary">
+          <input type="checkbox" name="perSet" title="角色配置" e-skin="primary">
+          <input type="checkbox" name="perSet" title="导入" e-skin="primary">
+          <input type="checkbox" name="perSet" title="导出" e-skin="primary">
+          <input type="checkbox" name="perSet" title="启用" e-skin="primary">
+          <input type="checkbox" name="perSet" title="禁用" e-skin="primary">
+          <input type="checkbox" name="perSet" title="移动" e-skin="primary">
+          <input type="checkbox" name="perSet" title="新建" e-skin="primary">
+          <input type="checkbox" name="perSet" title="编辑" e-skin="primary">
+          <input type="checkbox" name="perSet" title="查看" e-skin="primary">
+          <input type="checkbox" name="perSet" title="删除" e-skin="primary">
+          <div class="clearfix"></div>
+        </div>
+
+        <!--标题 start-->
+        <div class="title-bar eui-marginTB10">
+          <div class="float-right eui-marginT5">
+            <input type="checkbox" name="perSet" title="菜单访问" e-skin="primary">
+          </div>
+          <span class="title-main">
+            <i class="eui-icon">&#xe614;</i>
+            角色管理
+          </span>
+          <span class="inline-block eui-marginL10">
+            <input type="checkbox" class="float-left" name="roleUser" title="全选" e-skin="primary">
+          </span>
+        </div>
+
+        <!--标题 end-->
+        <div class="checkbox-list-left">
+          <input type="checkbox" name="perSet" title="查询" e-skin="primary">
+          <input type="checkbox" name="perSet" title="新建" e-skin="primary">
+          <input type="checkbox" name="perSet" title="编辑" e-skin="primary">
+          <input type="checkbox" name="perSet" title="删除" e-skin="primary">
+          <div class="clearfix"></div>
+        </div>
+
+        <!--标题 start-->
+        <div class="title-bar eui-marginTB10">
+          <div class="float-right eui-marginT5">
+            <input type="checkbox" name="perSet" title="菜单访问" e-skin="primary">
+          </div>
+          <span class="title-main">
+            <i class="eui-icon">&#xe614;</i>
+            权限管理
+          </span>
+          <span class="inline-block eui-marginL10">
+            <input type="checkbox" class="float-left" name="roleUser" title="全选" e-skin="primary">
+          </span>
+        </div>
+
+        <!--标题 end-->
+        <div class="checkbox-list-left">
+          <input type="checkbox" name="perSet" title="查询" e-skin="primary">
+          <input type="checkbox" name="perSet" title="新建" e-skin="primary">
+          <input type="checkbox" name="perSet" title="编辑" e-skin="primary">
+          <input type="checkbox" name="perSet" title="删除" e-skin="primary">
+          <div class="clearfix"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+</div>
+
+<!--弹出层信息-->
+
+<div class="eui-hide" id="addRoleTxt">
+  <div class="eui-padding10">
+    <div class="eui-row eui-layout-body">
+      <div class="eui-col-xs9">
+
+        角色列表
+
+      </div>
+      <div class="eui-col-xs3">
+
+        已选角色
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+<!--树需要用到的js-->
+<script type="text/javascript" src="../../../../Scripts/jquery-1.9.0.min.js"></script>
+<!-- ztree -->
+<script src="../../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+<script>
+
+  //表单
+  eui.use(['jquery','element','form', 'laydate','table'], function(){
+
+    var $ = eui.$
+        ,element = eui.element
+            ,form = eui.form
+            ,layer = eui.layer
+            ,laydate = eui.laydate
+            ,table = eui.table;
+
+
+
+    //操作事件
+    var active = {
+      //当前菜单编辑
+      addRole: function(othis){
+
+
+
+        var type = othis.data('type')
+                ,text = othis.text();
+
+           var txt=$("#addRoleTxt").html();
+
+        layer.open({
+          type: 1
+          ,title:"添加角色"
+          ,area: ['800px','500px'] //宽度
+        //  ,offset:c
+          ,id: 'pop'+type //防止重复弹出
+          ,content: txt
+          ,btn: ['保存','取消']
+          ,btnAlign: 'c' //按钮居中
+          ,shade: 0.3 //不显示遮罩
+          ,maxmin: true
+          ,yes: function(){
+            layer.closeAll();
+            layer.msg("添加成功！")
+          },btn2: function(){
+            layer.closeAll();
+          }
+        });
+        //如有表单类的，请带上相关的JS预加载，并在以下加上重新渲染
+
+        form.render();
+
+
+      }
+
+    };
+
+    $('.eui-btn').on('click', function(){
+      var othis = $(this), method = othis.data('method');
+      active[method] ? active[method].call(this, othis) : '';
+    });
+
+
+    table.render({
+      elem: '#tableDemo'
+       ,height: "full-240"
+      ,even: true //开启隔行背景
+      //  ,url: 'dataPage.json' //数据接口
+
+      ,cols: [[
+        {type:'checkbox',fixed:'left'}
+        ,{field:'id', width:120, title: '角色编号', sort: true}
+        ,{field:'name', width:120, title: '角色名称'}  //增加 edit 表示开户了编辑状态
+        ,{field:'des', title: '角色描述'}
+        ,{field:'creater', width:120, title: '创建人'}
+        ,{field:'createTime', width:150, title: '创建时间', sort: true}
+        ,{field:'opear', title:'操作', width:80, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+      ]]
+      ,data: [{
+        "id":"JS201801010"
+        ,"name":"超级管理员"
+        ,"des":"超有系统最高权限"
+        ,"creater":"超级管理员"
+        ,"createTime":"2018-01-01 21:10"
+      },{},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}]
+      ,page: true
+    });
+
+    //监听表格复选框选择
+    table.on('checkbox(tableDemoFilter)', function(obj){
+      console.log(obj)
+    });
+
+    //监听工具条
+    table.on('tool(tableDemoFilter)', function(obj){
+      var data = obj.data;
+      if(obj.event === 'detail'){
+        layer.msg('ID：'+ data.id + ' 的查看操作');
+      } else if(obj.event === 'del'){
+        layer.confirm('真的删除行么', function(index){
+          obj.del();
+          layer.close(index);
+        });
+      } else if(obj.event === 'edit'){
+        layer.alert('编辑行：<br>'+ JSON.stringify(data))
+
+      }
+    });
+
+
+  });
+
+  /*--用户树--*/
+  $(function(){
+    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+  });
+
+  // ztree
+  var setting = {
+    view: {
+      addHoverDom: addHoverDom,
+      removeHoverDom: removeHoverDom,
+      selectedMulti: false
+    },
+    async:{
+      enable:true,
+      type:"get",
+      dataType:"json",
+      url:"menuTree.json",
+      //  autoParam:["id","name"],
+      dataFilter: null
+    },
+    check: {
+      enable: true
+    },
+    data:{
+      simpleData: {
+        enable: true,
+        idKey:"id",
+        pIdKey:"pId",
+        rootPid:"0"
+      }
+    },
+    edit: {
+      enable: true
+    }
+  };
+  var zNodes=[];
+
+  var newCount = 1;
+  function addHoverDom(treeId, treeNode) {
+    var sObj = $("#" + treeNode.tId + "_span");
+    if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+    var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+            + "' title='add node' onfocus='this.blur();'></span>";
+    sObj.after(addStr);
+    var btn = $("#addBtn_"+treeNode.tId);
+    if (btn) btn.bind("click", function(){
+      var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+      zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+      return false;
+    });
+  };
+  function removeHoverDom(treeId, treeNode) {
+    $("#addBtn_"+treeNode.tId).unbind().remove();
+  };
+
+
+
+</script>
+</body>
+</html>

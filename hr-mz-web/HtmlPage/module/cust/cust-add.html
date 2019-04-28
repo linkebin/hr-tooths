@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>客户视图</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+		<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="../../../Scripts/pack.ajax.js"></script>
+		<script type="text/javascript" src="../../../Scripts/config.js"></script>
+	</head>
+
+	<body class="">
+		<div id="tanc" hidden="hidden" class="eui-form">
+			<div class="eui-form-item" style="width: 300px;margin-top: 20px;">
+				<label class="eui-form-label">客户名称：</label>
+				<div class="eui-input-block">
+					<select name="custid" e-verify="" id="custid" e-search>
+						<option value="">带搜索的选择框</option>
+					</select>
+				</div>
+			</div>
+			<div class="eui-form-item" style="width: 300px;margin-top: 20px;">
+				<label class="eui-form-label">客户关系：</label>
+				<div class="eui-input-block">
+					<input type="text" class="eui-input" name='relation' id="relation" placeholder="">
+				</div>
+			</div>
+
+		</div>
+
+		<div class="toolbarH">
+			<div class="title-bar">
+				<div class="eui-btn-group float-right">
+					<!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+					<a href="###" class="eui-btn" onclick="add()">保存</a>
+					<a href="###" id="closs" class="eui-btn eui-btn-primary" onclick="clos()">关闭</a>
+				</div>
+				<span class="title-main">
+					<i class="eui-icon eui-font24">&#xe62a;</i>
+					客户信息
+				</span>
+			</div>
+		</div>
+		<div class="form-body eui-padding20">
+			<!--  <div class="form-title">XXXXX信息管理</div>-->
+			<!--tab页 start-->
+			<div class="eui-tab eui-tab-card">
+				<ul class="eui-tab-title">
+					<li class="eui-this">基本信息</li>
+					<li>客户关系</li>
+				</ul>
+				<div class="eui-tab-content eui-bg-white">
+					<div class="eui-tab-item eui-show">
+
+						<div class="eui-form eui-form-base eui-form eui-form-col3">
+							<form id="searchFrom">
+								<!--查询条件-->
+								<div class="eui-form-item">
+									<label class="eui-form-label">病历号：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_code" placeholder="自动获取" readonly="readonly">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">姓名：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name='cust_name' placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item" id="earlyDoc" style="display: none">
+									<label class="eui-form-label">初诊医生：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" readonly name="early_doctor_name" placeholder="">
+										<input type="hidden" class="eui-input" name="early_doctor">
+									</div>
+								</div>
+								<div class="eui-form-item" id="earlyCli" style="display: none">
+									<label class="eui-form-label">初诊诊所：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" readonly name="early_clinic_name" placeholder="">
+										<input type="hidden" class="eui-input" name="early_clinic">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">就诊医生：</label>
+									<div class="eui-input-block">
+										<select e-verify="required" name="doctor" id="doctor" e-search>
+											<option value="">带搜索的选择框</option>
+										</select>
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">性别：</label>
+									<div class="eui-input-block">
+										<select name="cust_sex" e-verify="required">
+											<option value="">请选择性别</option>
+											<option value="男">男</option>
+											<option value="女">女</option>
+										</select>
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">身份证号：</label>
+									<div class="eui-input-block">
+										<input type="text" onchange="verify()" class="eui-input" name="cust_num" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">联系电话：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_tell" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">年龄：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_age" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">职业：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_pro" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">学历：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_el" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">QQ：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_qq" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">微信：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_wechat" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">邮箱：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_mail" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">出生年月：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_birth" id="dateTest" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">洁牙习惯：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_jyxg" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">就诊经历：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_jzjl" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">过敏史：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_gms" placeholder="">
+									</div>
+								</div>
+								<!--华丽的分割线-->
+								<div class="eui-form-item">
+									<label class="eui-form-label">客户等级：</label>
+									<div class="eui-input-block">
+										<select e-verify="required" name="cust_class" id="cust_class" e-search>
+											<option value="">带搜索的选择框</option>
+											<option value="1">选项一</option>
+											<option value="2">选项二</option>
+										</select>
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">联系地址：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_addr" placeholder="">
+									</div>
+								</div>
+								<!--华丽的分割线-->
+								<div class="eui-form-item item-colspan3">
+									<label class="eui-form-label">备注：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" name="cust_remark" placeholder="">
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</form>
+						</div>
+
+					</div>
+					<div class="eui-tab-item">
+
+						<div class="eui-btn-group float-right">
+							<!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+							<a href="###" class="eui-btn eui-btn-small" onclick="guanxi()"><i class="eui-icon">&#xe654;</i>新建</a>
+						</div>
+						<span class="title-main">
+							<i class="eui-icon eui-font20">&#xe62d;</i>
+							客户关系记录
+						</span>
+						<span class="title-sub">
+							<!--二级标题-->
+						</span>
+						<!--标题 end-->
+						<!--表格 start-->
+						<script type="text/html" id="barDemoq">
+							<a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+					</script>
+						<table id="tableDemoq" e-filter="tableDemoFilterq"></table>
+
+						<!--表格 end-->
+					</div>
+				</div>
+			</div>
+
+			<!--tab页 end-->
+
+		</div>
+
+		<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../../Scripts/card.js"></script>
+		<script type="text/javascript" src="../../../Scripts/date2format.js"></script>
+		<script>
+			//表单
+			eui.use(['element', 'form', 'layedit', 'laydate', 'table'], function() {
+
+				var element = eui.element,
+					form = eui.form,
+					layer = eui.layer,
+					layedit = eui.layedit,
+					laydate = eui.laydate,
+					table = eui.table;
+				//常规用法
+				laydate.render({
+					elem: '#dateTest'
+				});
+				//日期范围
+				laydate.render({
+					elem: '#dateTest2',
+					range: true
+				});
+
+				table.render({
+					elem: '#tableDemoq'
+						//   ,height: 350
+						,
+					even: true //开启隔行背景
+						//  ,url: 'dataPage.json' //数据接口
+
+						,
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left'
+						}, {
+							field: 'cust_name',
+							width: 120,
+							title: '客户姓名',
+							sort: true
+						}, {
+							field: 'relation',
+							title: '客户关系',
+							minWidth: 150
+						}, {
+							field: 'filed7',
+							title: '操作',
+							width: 150,
+							toolbar: '#barDemoq',
+							unresize: true,
+							fixed: 'right'
+						}]
+					],
+					data: tablaData,
+					page: true
+				});
+
+				//监听工具条
+				table.on('tool(tableDemoFilterq)', function(obj) {
+					if (lsflag == 1) {
+						$.ajax({
+							type: "post",
+							url: basePath + "/customer/relations/delete",
+							data: {
+								id: obj.data.id_
+							},
+							async: true,
+							success: function(res) {
+								if (res.code === 200) {} else {
+									layer.msg("删除失败！请联系管理员。");
+								}
+							}
+						});
+					} else {
+						var tablelist = tablaData;
+						tablaData = [];
+						for (var item in tablelist) {
+							var objs = tablelist[item]
+							if (objs.cust_id_bd != obj.data.cust_id_bd) {
+								tablaData.push(objs);
+							}
+						}
+					}
+
+
+					obj.del();
+				});
+			});
+
+			var tablaData = [];
+
+			//新建关系
+			function guanxi() {
+				layer.open({
+					type: 1,
+					title: '添加客户关系',
+					shadeClose: true,
+					shade: 0.3,
+					maxmin: true, //开启最大化最小化按钮
+					area: ['33%', '50%'],
+					content: $('#tanc'),
+					btn: ['保存', '关闭'],
+					btn1: function(index) {
+						if (lsflag == 1) {
+							var flag = $("#custid").val().split(",");
+							$.ajax({
+								type: "post",
+								url: basePath + "/customer/relations/add",
+								data: {
+									cust_id: customer.cust_id,
+									cust_id_bd: flag[0],
+									relation: $("#relation").val()
+								},
+								async: true,
+								success: function(res) {
+									if (res.code === 200) {
+										$.ajax({
+											type: "post",
+											url: basePath + "/customer/relations/list",
+											async: true,
+											data: {
+												cust_id: customer.cust_id
+											},
+											success: function(data) {
+												tablaData = data.data;
+												if (data.data == null) {
+													tablaData = [];
+												}
+												eui.table.reload('tableDemoq', {
+
+													data: tablaData
+
+												});
+											}
+										});
+									} else {
+										layer.msg("保存失败！请联系管理员。");
+									}
+								}
+							});
+						} else {
+							var flag = $("#custid").val().split(",");
+							var list = {
+								id_: '',
+								cust_id: '',
+								cust_name: flag[1],
+								cust_id_bd: flag[0],
+								relation: $("#relation").val()
+							};
+							tablaData.push(list);
+							eui.table.reload('tableDemoq', {
+								data: tablaData
+							});
+						}
+
+						layer.close(index);
+					}
+
+				});
+			}
+
+			var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+			function add() {
+				if ($("#searchFrom input[name='cust_name']").val() == "") {
+					layer.msg('请输入名称', {
+						icon: 2,
+						time: 2000 //2秒关闭（如果不配置，默认是3秒）
+					});
+					return false;
+				}
+				if (idCardNoUtil.check18IdCardNo($("#searchFrom input[name='cust_num']").val()) == false && $(
+						"#searchFrom input[name='cust_num']").val() != "") {
+					layer.msg('身份证号码有误，请重填', {
+						icon: 2,
+						time: 2000 //2秒关闭（如果不配置，默认是3秒）
+					});
+					return false;
+				}
+				if (!(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test($("#searchFrom input[name='cust_tell']").val()))) {
+					layer.msg('手机号码有误，请重填', {
+						icon: 2,
+						time: 2000 //2秒关闭（如果不配置，默认是3秒）
+					});
+					return false;
+				}
+				var params = $("#searchFrom").serializeObject();
+				var str = 'add';
+				if (lsflag == 1) {
+					params.cust_id = customer.cust_id;
+					str = 'update';
+				}
+				$.ajax({
+					type: "post",
+					url: basePath + "/customer/" + str,
+					data: {
+						param: JSON.stringify(params),
+					},
+					async: true,
+					success: function(res) {
+						if (lsflag == 1) {
+							if (res.code === 200) {
+								layer.msg("保存成功！");
+								setTimeout(function() {
+									parent.layer.close(index)
+								}, 2000);
+							} else {
+								layer.msg("保存失败！请联系管理员。");
+							}
+						} else {
+							if (res.code === 200) {
+								console.log(tablaData)
+								var list = tablaData;
+								for (var item in list) {
+									var objs = list[item]
+									submitgx(objs, res.data);
+								}
+                                layer.msg("保存成功！");
+                                setTimeout(function() {
+                                    parent.layer.close(index)
+                                }, 2000);
+							} else {
+								layer.msg("保存失败！请联系管理员。");
+							}
+						}
+
+					}
+				});
+			}
+
+			function clos() {
+				parent.layer.close(index); //关闭弹出的子页面窗口
+			}
+
+			//提交关系
+			function submitgx(obj, flag) {
+				$.ajax({
+					type: "post",
+					url: basePath + "/customer/relations/add",
+					data: {
+						cust_id: flag,
+						cust_id_bd: obj.cust_id_bd,
+						relation: obj.relation
+					},
+					async: true,
+					success: function(res) {
+						if (res.code === 200) {
+							layer.msg("保存成功！");
+							setTimeout(function() {
+								parent.layer.close(index)
+							}, 2000);
+						} else {
+							layer.msg("保存失败！请联系管理员。");
+						}
+					}
+				});
+			}
+
+			//初始化
+			$(function() {
+				getdj(); //获取等级
+				getdoc(); //获取医生
+
+				//获取客户
+				$.ajax({
+					type: "post",
+					url: basePath + "/customer/getAllNotDel",
+					async: true,
+					success: function(data) {
+						var str = '<option value="">带搜索的选择框</option>';
+						var list = data.data;
+						for (var i in list) {
+							var user = list[i];
+							str = str + '<option value="' + user.cust_id + ',' + user.cust_name + '">' + user.cust_name + '</option>';
+						}
+						$('#custid').html(str);
+						if (eui.form != null) {
+							eui.form.render();
+						}
+					}
+				});
+			});
+
+			//获取客户等级
+			function getdj() {
+				$.ajax({
+					type: "post",
+					url: basePath + "/cust/level/list",
+					async: true,
+					success: function(data) {
+						var list = data.data.list;
+						var str = '<option value="">带搜索的选择框</option>';
+						for (var i in list) {
+							var obj = list[i];
+							str = str + '<option value="' + obj.levelId + '">' + obj.levelName + '</option>';
+						}
+						$('#cust_class').html(str);
+						if (eui.form != null) {
+							eui.form.render('select');
+						}
+
+					}
+				});
+			}
+
+			//身份证验证
+			function verify() {
+				if (idCardNoUtil.checkIdCardNo($("#searchFrom input[name='cust_num']").val()) == true) {
+					var obj = idCardNoUtil.getBirthDaySexAge($("#searchFrom input[name='cust_num']").val());
+					$("#searchFrom input[name='cust_age']").val(obj.age);
+					$("#searchFrom input[name='cust_birth']").val(obj.birthday);
+					if (obj.sex == 1) {
+						obj.sex = "男";
+					} else {
+						obj.sex = "女";
+					}
+					$("#searchFrom select[name='cust_sex']").val(obj.sex);
+					eui.form.render('select');
+				}
+			}
+			var lsflag = 0;
+
+			var customer;
+
+			window.getcustName = function(obj) {
+				lsflag = 1;
+				customer = obj;
+				$("#searchFrom input[name='cust_code']").val(customer.cust_code);
+				$("#searchFrom input[name='cust_name']").val(customer.cust_name);
+				$("#searchFrom select[name='cust_sex']").val(customer.cust_sex);
+				$("#searchFrom input[name='cust_birth']").val(getTime(customer.cust_birth));
+				$("#searchFrom input[name='cust_age']").val(customer.cust_age);
+				$("#searchFrom input[name='cust_num']").val(customer.cust_num);
+				$("#searchFrom input[name='cust_tell']").val(customer.cust_tell);
+				$("#searchFrom input[name='cust_mail']").val(customer.cust_mail);
+				$("#searchFrom input[name='cust_qq']").val(customer.cust_qq);
+				$("#searchFrom input[name='cust_wechat']").val(customer.cust_wechat);
+				$("#searchFrom input[name='cust_pro']").val(customer.cust_pro);
+				$("#searchFrom input[name='cust_el']").val(customer.cust_el);
+				$("#searchFrom input[name='cust_jyxg']").val(customer.cust_jyxg);
+				$("#searchFrom input[name='cust_jzjl']").val(customer.cust_jzjl);
+				$("#searchFrom input[name='cust_gms']").val(customer.cust_gms);
+				$("#searchFrom input[name='cust_addr']").val(customer.cust_addr);
+				$("#searchFrom input[name='cust_source']").val(customer.cust_source);
+				$("#searchFrom input[name='cust_remark']").val(customer.cust_remark);
+				$("#searchFrom select[name='cust_class']").val(customer.cust_class);
+				$("#searchFrom select[name='doctor']").val(customer.doctor);
+				$("#searchFrom input[name='early_doctor']").val(customer.early_doctor);
+				$("#searchFrom input[name='early_doctor_name']").val(customer.early_doctor_name);
+				$("#searchFrom input[name='early_clinic']").val(customer.early_clinic);
+				$("#searchFrom input[name='early_clinic_name']").val(customer.early_clinic_name);
+				eui.form.render('select');
+
+				$.ajax({
+					type: "post",
+					url: basePath + "/customer/relations/list",
+					async: true,
+					data: {
+						cust_id: customer.cust_id
+					},
+					success: function(data) {
+						tablaData = data.data;
+						if (data.data == null) {
+							tablaData = [];
+						}
+						eui.table.reload('tableDemoq', {
+
+							data: tablaData
+
+						});
+					}
+				});
+			};
+
+			window.getcustNames = function(id) {
+				lsflag = 1;
+				$.ajax({
+					type: "post",
+					url: basePath + "/customer/details",
+					data: {
+						id: id
+					},
+					async: true,
+					success: function(res) {
+						customer = res.data;
+						$("#searchFrom input[name='cust_code']").val(customer.cust_code);
+						$("#searchFrom input[name='cust_name']").val(customer.cust_name);
+						$("#searchFrom select[name='cust_sex']").val(customer.cust_sex);
+						$("#searchFrom input[name='cust_birth']").val(getTime(customer.cust_birth));
+						$("#searchFrom input[name='cust_age']").val(customer.cust_age);
+						$("#searchFrom input[name='cust_num']").val(customer.cust_num);
+						$("#searchFrom input[name='cust_tell']").val(customer.cust_tell);
+						$("#searchFrom input[name='cust_mail']").val(customer.cust_mail);
+						$("#searchFrom input[name='cust_qq']").val(customer.cust_qq);
+						$("#searchFrom input[name='cust_wechat']").val(customer.cust_wechat);
+						$("#searchFrom input[name='cust_pro']").val(customer.cust_pro);
+						$("#searchFrom input[name='cust_el']").val(customer.cust_el);
+						$("#searchFrom input[name='cust_jyxg']").val(customer.cust_jyxg);
+						$("#searchFrom input[name='cust_jzjl']").val(customer.cust_jzjl);
+						$("#searchFrom input[name='cust_gms']").val(customer.cust_gms);
+						$("#searchFrom input[name='cust_addr']").val(customer.cust_addr);
+						$("#searchFrom input[name='cust_source']").val(customer.cust_source);
+						$("#searchFrom input[name='cust_remark']").val(customer.cust_remark);
+						$("#searchFrom select[name='cust_class']").val(customer.cust_class);
+						$("#searchFrom select[name='doctor']").val(customer.doctor);
+						$("#searchFrom input[name='early_doctor']").val(customer.early_doctor);
+						$("#searchFrom input[name='early_doctor_name']").val(customer.early_doctor_name);
+						$("#searchFrom input[name='early_clinic']").val(customer.early_clinic);
+						$("#searchFrom input[name='early_clinic_name']").val(customer.early_clinic_name);
+						eui.form.render('select');
+						$("#closs").html("跳过，下次再补");
+					}
+				});
+
+			};
+
+			window.show = function() {
+				$("#earlyDoc").show();
+				$("#earlyCli").show();
+			};
+
+			//获取时间
+			function getTime(time) {
+				if (time != '' && time != null && time != 'undefined') {
+					return new Date(time).Format('yyyy-MM-dd');
+				} else {
+					return "";
+				}
+
+			}
+
+			//获取医生
+			function getdoc() {
+				$.ajax({
+					type: "post",
+					url: basePath + "/sec/user/getAllDoc",
+					async: true,
+					success: function(data) {
+						var str = '<option value="">带搜索的选择框</option>';
+						var list = data.data;
+						for (var i in list) {
+							var user = list[i];
+							str = str + '<option value="' + user.id + '">' + user.userName + '</option>';
+						}
+						$('#doctor').html(str);
+						if (eui.form != null) {
+							eui.form.render();
+						}
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

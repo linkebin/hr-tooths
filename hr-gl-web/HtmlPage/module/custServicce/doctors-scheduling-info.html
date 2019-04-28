@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+</head>
+<body>
+
+<div class="eui-tab-card eui-margin20 eui-bg-white">
+    <div class="eui-row eui-form eui-tab-card">
+        <div class="eui-form-item">
+            <label class="eui-form-label eui-font20">计划月份：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="选择月份">
+            </div>
+        </div>
+    </div>
+    <div class="eui-row eui-col-md2 eui-tab-content eui-paddingTB20 eui-bg-white">
+                           <span class="title-main">
+                              <i class="eui-icon eui-font20">&#xe613;</i>
+                              医生
+                            </span>
+        <span class="title-sub">
+                                 点击医生完成排班
+                           </span>
+        <table id="tableDemo1" e-filter="tableDemoFilter"></table>
+    </div>
+
+    <div class="eui-col-md10 eui-tab-content eui-bg-white">
+        <div class="eui-row eui-marginLR20">
+              <span class="title-main">
+              <i class="eui-icon eui-font28">&#xe612;</i>
+              当前排班医生：
+            </span>
+            <span class="eui-font-bold eui-font18 eui-color-red">
+                  刘医生
+            </span>
+        </div>
+        <div class="eui-row  eui-margin10">
+            <button class="eui-btn eui-marginL10 eui-btn-small  ">复制计划</button>
+            <button class="eui-btn eui-btn-small  ">粘贴计划</button>
+            <button class="eui-btn eui-btn-small ">完成</button>
+        </div>
+        <div class="eui-row eui-marginLR20 eui-tab-card eui-bg-white">
+            <table class="eui-table">
+                <colgroup>
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                    <th>10</th>
+                    <th>11</th>
+                    <th>12</th>
+                    <th>13</th>
+                    <th>14</th>
+                    <th>15</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td class="eui-color-green">休息</td>
+                    <td class="eui-color-green">休息</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td class="eui-color-green">休息</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="eui-table">
+                <colgroup>
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>16</th>
+                    <th>17</th>
+                    <th>18</th>
+                    <th>19</th>
+                    <th>20</th>
+                    <th>21</th>
+                    <th>22</th>
+                    <th>23</th>
+                    <th>24</th>
+                    <th>25</th>
+                    <th>26</th>
+                    <th>27</th>
+                    <th>28</th>
+                    <th>29</th>
+                    <th>30</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td class="eui-color-green">休息</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td class="eui-color-green">休息</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                    <td>上班</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 配合栅格系统和图文混合按钮组合 -->
+    </div>
+    <div class="eui-btn-verify eui-paddingT10 eui-textAlignC eui-paddingB15">
+        <button class="eui-btn ">保存计划</button>
+    </div>
+
+</div>
+
+</body>
+<script type="text/html" id="barDemo">
+    <div class="eui-btn-group">
+        <a class="eui-btn  eui-btn-duplicate  eui-btn-mini" e-event="del"><i class="eui-icon" title="选择">&#xe642;</i></a>
+    </div>
+</script>
+<!-- 引入代码高亮显示文件 -->
+<script src="../../../Scripts/plugins/prism/prism.js"></script>
+<script src="../../../Scripts/plugins/prism/line-numbers.js"></script>
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+    //表单
+    eui.use(['form', 'layedit', 'laydate','table','element'], function () {
+        var form = eui.form
+            , layer = eui.layer
+            , layedit = eui.layedit
+            , laydate = eui.laydate
+            ,  element = eui.element;
+        table = eui.table;
+        //常规用法
+        laydate.render({
+            elem: '#test1'
+        });
+        //实例1:简单表格
+        table.render({
+            elem: '#tableDemo1'
+            //   ,height: 350
+            //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+            , even: true //开启隔行背景
+            , skin: 'row'
+
+            , cols: [[
+                {field: 'filed1', width: 75, title: '医生', sort: true}
+                ,{field: 'filed2', width: 70, title: '状态', sort: true}
+                ,{field:'filed7', title:'编辑',width: 55, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+            ]]
+            ,data: [
+                {
+                "filed1": "张乙浩"
+                ,"filed2": "已完成"
+                },{
+                "filed1": "林大校"
+                ,"filed2": "已完成"
+                },{
+                "filed1": "李医生"
+                ,"filed2": "已完成"
+                },{
+                "filed1": "刘医生"
+                ,"filed2": "已完成"
+                }
+            ]
+            , page: true
+            , limits: [10, 20, 30]
+            , limit: 10 //每页默认显示的数量
+        });
+    });
+</script>
+</html>

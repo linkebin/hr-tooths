@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>参数配置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+    <link rel="stylesheet" href="../../../Styles/themes/default/cover-style.css"  media="all">
+    
+    <link rel="stylesheet" href="../../../Scripts/libs/jquery-ui/jquery-ui.css">
+</head>
+<body>
+
+
+<!--<div class="ui-layout-west">-->
+    <!--<h3 class="ui-widget-header">客户等级</h3>-->
+    <!--<div class="ui-layout-content etree ">-->
+        <!--<ul id="treeDemo" class="ztree"></ul>-->
+    <!--</div>-->
+<!--</div>-->
+<div class="ui-layout-center  ">
+
+    <!--右边内容 start-->
+
+    <!--标题 start-->
+    <div class="infoList">
+        <div class="title-bar">
+            <div class="eui-btn-group float-right">
+                <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+                <a href="###" onclick="addUpdate('add')" id="add" data-method="add" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe615;</i>新增</a>
+                <!--<a href="###" data-method="edit" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe615;</i>编辑</a>-->
+                <a href="###" class="eui-btn eui-btn-small eui-btn-bug"><i class="eui-icon">&#xe640;</i>删除</a>
+            </div>
+            <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      等级列表
+    </span>
+            <span class="eui-font-bold eui-font18 eui-color-red" id="listSetName">
+
+    </span>
+        </div>
+
+        <!--标题 end-->
+
+
+        <!--  <div class="nodataArea">暂无相关数据 !</div>-->
+
+
+        <!--表格 start-->
+        <script type="text/html" id="barDemo">
+            <div class="eui-btn-group">
+                <!--<a href="###" class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>-->
+                <a href="###" class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit"><i class="eui-icon" title="编辑">&#xe615;</i></a>
+                <a href="###" class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+            </div>
+        </script>
+        <script type="text/html" id="switchTpl">
+            <input type="checkbox" name="see" e-skin="switch" e-text="启用|禁用" e-filter="" checked>
+        </script>
+        <table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+        <!--表格 end-->
+        <!--右边内容 end-->
+    </div>
+</div>
+
+<script type="text/html" id="layerContent">
+    <form id="levelForm">
+        <div class="eui-form eui-padding20">
+            <input type="hidden" class="eui-input" name="levelId" id="levelId">
+            <div class="eui-form-item">
+                <label class="eui-form-label">等级名称：</label>
+                <div class="eui-input-block ">
+                    <input type="text" class="eui-input" name="levelName" id="levelName"/>
+                    <label  id="nameLabel" class="error" style="display: none">请输入等级名称</label>
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">备注：</label>
+                <div class="eui-input-block ">
+                    <textarea class="eui-textarea" id="remark" name="remark">
+                    </textarea>
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">创建人：</label>
+                <div class="eui-input-block">
+                    <a href="###" class="inputAfter"><i class="eui-icon">&#xe612;</i></a>
+                    <input type="text" id="userName" readonly class="eui-input" style="outline:none">
+                    <input type="hidden" name="parentId" id="parentId" class="eui-input">
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">创建时间：</label>
+                <div class="eui-input-block">
+                    <input type="text" id="addTimeShow" readonly class="eui-input" style="outline:none">
+                    <input type="hidden" name="addTime" id="addTime" class="eui-input">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <input type="hidden" id="roleId" name="id">
+    </form>
+</script>
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+<script src="../../../Scripts/plugins/jquery.cookie.js" type="text/javascript"></script>
+<script src="../../../Scripts/config.js" type="text/javascript"></script>
+<script src="../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+<script src="../../../Scripts/date2format.js" type="text/javascript"></script>
+
+<!-- ztree-->
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+<script>
+
+    var form = null;
+    var table= null;
+    var txt = "";
+
+    function doSearch(pId){
+        eui.use(['jquery','element','form', 'layedit', 'laydate','table','laytpl'], function(){
+            table = eui.table;
+            form = eui.form;
+            var jQuery = eui.jQuery
+                ,element = eui.element
+                ,layer = eui.layer
+                ,layedit = eui.layedit
+                ,laydate = eui.laydate
+                ,laytpl = eui.laytpl;
+
+            var getTpl = $("#layerContent").html();
+            laytpl(getTpl).render({}, function (html) {
+                txt = html;
+            });
+
+            $("body").layout({
+                //   applyDemoStyles: true,
+                spacing_open:8,
+                spacing_closed:10,
+//                west__size:230,             //左侧初始宽度
+                north__size:60,             //上侧初始宽度
+                north__resizable:false,    //上侧关闭大小调整
+                north__closable:false,      //上侧关闭收缩
+                north__spacing_open: 0,       //上侧边框为0, 一般这个设置了上面的north__resizable和north__closable可以不用设置
+                south__spacing_open: 0,
+                south__size:30
+            });
+
+//实例1:简单表格
+            table.render({
+                elem: '#tableDemo'
+                //   ,height: 350
+                //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+                ,even: true //开启隔行背景
+                ,url: basePath+'/cust/level/findCustLevel' //数据接口
+                ,where:{
+                    id:pId
+                }
+                ,method: 'get'
+                ,skin:'row'
+                ,page: true
+                ,cols: [[
+                    {type:'checkbox',name:'kgd',fixed:'left'}
+                    ,{type:'numbers', width:60, title: '序号'}
+                    ,{field:'levelName', width:200, title: '等级名称'}
+                    ,{field:'remark', width:300, title: '备注'}
+                    ,{field:'userName', width:100, title: '创建人'}
+                    ,{field:'addTime', width:150, title: '创建时间', sort: true,templet:'<div>{{ new Date(d.addTime).Format("yyyy-MM-dd") }}</div>'}
+                    ,{field:'opear', title:'操作', width:120, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+                ]]
+            });
+
+            //监听表格复选框选择
+            table.on('checkbox(tableDemoFilter)', function(obj){
+                console.log(obj)
+            });
+
+            //监听工具条
+            table.on('tool(tableDemoFilter)', function(obj){
+                var data = obj.data;
+                if(obj.event === 'detail'){
+                    layer.msg('ID：'+ data.id + ' 的查看操作');
+                } else if(obj.event === 'del'){
+                    layer.confirm('确定要删除《'+data.levelName+'》该客户等级吗？', function(index){
+                        delLevel(data.levelId);
+                        layer.close(index);
+                    });
+                } else if(obj.event === 'edit'){
+                    addUpdate(data);
+                }
+            });
+
+            //日期选择
+            laydate.render({
+                elem: '#dateTest'
+            });
+            //日期范围
+            laydate.render({
+                elem: '#dateTest2'
+                ,range: true
+            });
+        });
+    }
+    
+    function addLevel(pId) {
+        var obj = $("#levelForm").serializeObject();
+        $.ajax({
+            type: "POST",
+            url: basePath + "/cust/level/add",
+            data: {
+                json: JSON.stringify(obj),
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    doSearch(pId);
+                    layer.msg("更新成功");
+                } else {
+                    layer.msg("更新失败，请联系管理员处理");
+                }
+            },
+            error: function () {
+                layer.msg("更新失败");
+            }
+        });
+    }
+    
+    function updateLevel() {
+        var obj = $("#levelForm").serializeObject();
+        $.ajax({
+            type: "POST",
+            url: basePath + "/cust/level/update",
+            data: {
+                json: JSON.stringify(obj),
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    layer.msg("更新成功");
+                    doSearch($("#parentId").val());
+                } else {
+                    layer.msg("更新失败，请联系管理员处理");
+                }
+            },
+            error: function () {
+                layer.msg("更新失败");
+            }
+        });
+    }
+
+    function addUpdate(data,pId) {
+        layer.open({
+            type: 1
+            , title: "客户等级管理"
+            , area: ['400px', '100%']  //宽度
+            , offset: "rt"              //类型,注意点击按钮的data-type属性，然后配合宽高度
+            , id: 'popPage' //防止重复弹出
+            , content: txt
+            , btn: ['保存', '取消']
+            , btnAlign: 'c' //按钮居中
+            , shade: 0.3 //不显示遮罩
+            , maxmin: true
+            , yes: function () {
+                if($("#levelForm  [ name='nameLabel']").val()==''){
+                    $("#nameLabel").show();
+                    return;
+                }
+                if (data == "add") {
+                    addLevel(pId);
+                } else {
+                    updateLevel(pId);
+                }
+                layer.closeAll();
+            }, btn2: function () {
+                layer.closeAll();
+            }
+        });
+
+        if(data=="add"){
+            $("#levelId").val("");
+            $("#levelName").val("");
+            $("#userName").val(getUserName());
+            $("#remark").val("");
+            $("#addTime").val(new Date().getTime());
+            $("#addTimeShow").val(dateForm(new Date()));
+            $("#parentId").val(pId);
+        }else {
+            $("#levelId").val(data.levelId);
+            $("#levelName").val(data.levelName);
+            $("#userName").val(data.userName);
+            $("#remark").val(data.remark);
+            $("#addTime").val(data.addTime);
+            $("#addTimeShow").val(dateForm(data.addTime));
+            $("#parentId").val(data.parentId);
+        }
+        form.render();
+    }
+
+    function delLevel(delIds){
+        $.ajax({
+            type: "POST",
+            url: basePath + "/cust/level/delete",
+            data: {
+                id: delIds
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    layer.msg("删除成功");
+                    doSearch($("#parentId").val());
+                } else {
+                    layer.msg(result.message);
+                }
+            },
+            error: function () {
+                layer.msg("删除失败");
+            }
+        });
+    }
+
+    $(function () {
+        getTree();
+        doSearch();
+    });
+    //用户的树形结构ztree
+    function getTree(){
+        var setting = {
+            view: {
+                showLine: false,
+                showIcon: false,
+                addDiyDom: addDiyDom,
+                selectedMulti: false,
+                dblClickExpand: true//false屏蔽掉双击事件
+
+            },
+            async:{
+                enable:true,
+                type:"post",
+                dataType:"json",
+                url: basePath+'/cust/level/getCustLevel',
+                otherParam:{'param':''},
+                dataFilter: null,
+                //   data:"",
+                success:function(data){
+                    alert("yes");
+
+                }
+            },
+            check: {
+                enable: false   //是否显示checkbox
+            },
+            data:{
+                simpleData: {
+                    enable: true,
+                    idKey:"id",
+                    pIdKey:"pId",
+                    rootPid:"0"
+                }
+            },
+            callback:{
+                beforeClick: beforeClick,
+                onClick: zTreeOnClick
+            },
+            edit: {
+                enable: false
+            }
+        };
+        var zNodes=[];
+
+        /*--用户树--*/
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    }
+
+    // ztree
+
+
+    var newCount = 1;
+
+    function addDiyDom(treeId, treeNode) {
+        var spaceWidth = 5;
+        var switchObj = $("#" + treeNode.tId + "_switch"),
+            icoObj = $("#" + treeNode.tId + "_ico");
+        switchObj.remove();
+        icoObj.before(switchObj);
+
+        if (treeNode.level > 1) {
+            var spaceStr = "<span style='display: inline-block;width:" + (spaceWidth * treeNode.level)+ "px'></span>";
+            switchObj.before(spaceStr);
+        }
+    }
+
+    function beforeClick(treeId, treeNode) {
+        if (treeNode.level == 0 ) {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            zTree.expandNode(treeNode);
+            return false;
+        }
+        return true;
+    }
+    function zTreeOnClick(event,treeId,treeNode) {
+        //   layer.msg(treeNode.tId + ", " + treeNode.name);
+
+        $("#listSetName").text(treeNode.name);
+        $("#add").attr("onclick","addUpdate('add','"+treeNode.id+"')");
+        doSearch(treeNode.id);
+    }
+</script>
+
+</body>
+</html>

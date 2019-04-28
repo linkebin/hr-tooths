@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.StockProductMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.StockProduct">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="product_type" jdbcType="VARCHAR" property="productType" />
+    <result column="product_model" jdbcType="VARCHAR" property="productModel" />
+    <result column="product_spec" jdbcType="VARCHAR" property="productSpec" />
+    <result column="product_brand" jdbcType="VARCHAR" property="productBrand" />
+    <result column="product_unit" jdbcType="VARCHAR" property="productUnit" />
+    <result column="in_stock_price" jdbcType="VARCHAR" property="inStockPrice" />
+    <result column="out_stock_price" jdbcType="VARCHAR" property="outStockPrice" />
+    <result column="sell_price" jdbcType="VARCHAR" property="sellPrice" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <select id="getStockProduct" parameterType="String" resultMap="BaseResultMap">
+      select * from (select * from stock_product where 1=1
+      <if test="typeId!=null and typeId!=''">and type_id like '%${typeId}%' </if>
+      <if test="code!=null and code!=''">and product_code like '%${code}%' </if>
+      ) t LIMIT ${limit} OFFSET ${page}
+  </select>
+
+  <select id="getStockProductCount" parameterType="String" resultType="int">
+    select count(*) from stock_product where 1=1
+    <if test="typeId!=null and typeId!=''">and type_id = #{typeId} </if>
+    <if test="code!=null and code!=''">and product_code = #{code} </if>
+  </select>
+
+  <select id="findStockProduct" parameterType="String" resultMap="BaseResultMap">
+      select * from stock_product where product_code = #{code}
+  </select>
+
+</mapper>

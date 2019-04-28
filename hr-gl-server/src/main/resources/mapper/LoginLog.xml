@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.LoginLogMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.LoginLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+      <id column="log_id" jdbcType="VARCHAR" property="logId" />
+      <result column="user_id" jdbcType="VARCHAR" property="userId" />
+      <result column="user_name" jdbcType="VARCHAR" property="userName" />
+      <result column="account_type" jdbcType="VARCHAR" property="accountType" />
+      <result column="login_addr" jdbcType="VARCHAR" property="loginAddr" />
+      <result column="login_type" jdbcType="VARCHAR" property="loginType" />
+      <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+      <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+      <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+      <result column="success" jdbcType="VARCHAR" property="success" />
+      <result column="error_msg" jdbcType="VARCHAR" property="errorMsg" />
+  </resultMap>
+
+  <select id="getLoginLog" parameterType="String" resultMap="BaseResultMap">
+    select * from login_log where 1=1
+    <if test="account!=null and account!=''">
+      and userAccount = #{account}
+    </if>
+    <if test="success!=null and success!=''">
+      and success = #{success}
+    </if>
+
+    order by login_time desc
+  </select>
+
+</mapper>

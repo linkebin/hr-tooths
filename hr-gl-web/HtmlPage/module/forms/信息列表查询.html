@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>信息列表查询</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+</head>
+<body>
+
+<div class="eui-bg-white eui-padding20">
+
+    <fieldset class="eui-elem-field eui-field-title">
+        <legend>常见选项提供参考</legend>
+    </fieldset>
+    <div class="eui-font18 eui-color-red">
+        PS：该部分为常见的条件查询组件，提供参考，另外该部分的组件为宽度固定，会根据大小改变排列的列数。
+    </div>
+
+<div class="eui-form eui-form-base eui-form-search">
+   <!-- 查询重置按钮-->
+    <div class="eui-btn-group">
+        <button class="eui-btn">查询</button>
+        <button class="eui-btn eui-btn-primary">重置</button>
+    </div>
+
+    <!--查询条件-->
+    <div class="eui-form-item">
+        <label class="eui-form-label">文本输入：</label>
+        <div class="eui-input-block">
+        <input type="text" class="eui-input" placeholder="请输入查询关键字">
+    </div>
+    </div>
+    <div class="eui-form-item">
+        <label class="eui-form-label">文本输入：</label>
+        <div class="eui-input-block">
+            <input type="text" class="eui-input" placeholder="请输入查询关键字">
+        </div>
+    </div>
+    <div class="eui-form-item">
+        <label class="eui-form-label">文本输入：</label>
+        <div class="eui-input-block">
+            <input type="text" class="eui-input" placeholder="请输入查询关键字">
+        </div>
+    </div>
+    <div class="eui-form-item">
+        <label class="eui-form-label">下拉选择：</label>
+        <div class="eui-input-block">
+            <select name="city" e-verify="required" e-search>
+                <option value="">带搜索的选择框</option>
+                <option value="1">易度软件</option>
+                <option value="2">广州市</option>
+                <option value="3">天河区</option>
+            </select>
+        </div>
+    </div>
+    <div class="eui-form-item">
+        <label class="eui-form-label">日期选择：</label>
+        <div class="eui-input-block">
+            <input type="text" class="eui-input" id="dateTest" placeholder="选择日期">
+        </div>
+    </div>
+    <div class="eui-form-item">
+        <label class="eui-form-label">日期范围：</label>
+        <div class="eui-input-block">
+            <input type="text" class="eui-input" id="dateTest2" placeholder="选择日期范围">
+        </div>
+    </div>
+    <div class="eui-form-item">
+        <label class="eui-form-label">单项选择：</label>
+        <div class="eui-input-block">
+            <input type="checkbox" name="like[write]" title="选项一" e-skin="primary" checked>
+            <input type="checkbox" name="like[read]" title="选项二" e-skin="primary">
+        </div>
+    </div>
+    <div class="eui-form-item">
+        <label class="eui-form-label">多项选择：</label>
+        <div class="eui-input-block">
+            <input type="radio" name="sex" value="nan" title="选项一">
+            <input type="radio" name="sex" value="nv" title="选项二" checked>
+        </div>
+    </div>
+
+    <div class="eui-form-item item-colspan2">
+        <label class="eui-form-label">跨2列3组件：</label>
+        <div class="eui-input-block select-col3">
+            <select name="quiz1">
+                <option value="">请选择省</option>
+                <option value="浙江" selected="">浙江省</option>
+                <option value="你的工号">江西省</option>
+                <option value="你最喜欢的老师">福建省</option>
+            </select>
+            <div class="ctl-space">-</div>
+            <select name="quiz2">
+                <option value="">请选择市</option>
+                <option value="杭州">杭州</option>
+                <option value="宁波" disabled="">宁波</option>
+                <option value="温州">温州</option>
+                <option value="温州">台州</option>
+                <option value="温州">绍兴</option>
+            </select>
+            <div class="ctl-space">-</div>
+            <select name="quiz3">
+                <option value="">请选择县/区</option>
+                <option value="西湖区">西湖区</option>
+                <option value="余杭区">余杭区</option>
+                <option value="拱墅区">临安市</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="eui-form-item item-colspan3">
+        <label class="eui-form-label">跨3列3组件：</label>
+        <div class="eui-input-block input-col3">
+            <input type="text" class="eui-input" placeholder="内有 3 个组件">
+            <div class="ctl-space">-</div>
+            <input type="text" class="eui-input" placeholder="内有 3 个组件">
+            <div class="ctl-space">-</div>
+            <input type="text" class="eui-input" placeholder="内有 3 个组件">
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+
+    <br/>
+
+    <fieldset class="eui-elem-field eui-field-title">
+        <legend>百分比</legend>
+    </fieldset>
+
+    <div class="eui-font18 eui-color-red">
+    PS：“label+控件”为一列，样式中预留了4列的情况，但建议最好不要超过3列。以下仅列出部分情况，请根据实际情况进行使用。
+    </div>
+<!--一列 START-->
+    <fieldset class="eui-elem-field eui-field-title">
+        <legend>一列</legend>
+    </fieldset>
+
+    <div class="eui-form eui-form-base eui-form-search eui-form-col1">
+        <!-- 查询重置按钮-->
+        <div class="eui-btn-group">
+            <button class="eui-btn">查询</button>
+            <button class="eui-btn eui-btn-primary">重置</button>
+        </div>
+        <!--查询条件-->
+        <div class="eui-form-item">
+            <label class="eui-form-label">文本输入：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字">
+            </div>
+        </div>
+        <div class="eui-form-item">
+            <label class="eui-form-label">文本输入：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <!--一列 END-->
+
+    <!--两列 START-->
+    <fieldset class="eui-elem-field eui-field-title">
+        <legend>两列</legend>
+    </fieldset>
+
+    <div class="eui-form eui-form-base eui-form-search eui-form-col2">
+        <!-- 查询重置按钮-->
+        <div class="eui-btn-group">
+            <button class="eui-btn">查询</button>
+            <button class="eui-btn eui-btn-primary">重置</button>
+        </div>
+        <!--查询条件-->
+        <div class="eui-overflowH">   <!--该DIV用来包住如果出现长字段的情况下，避免影响到后续的浮动流-->
+            <div class="eui-form-item">
+                <label class="eui-form-label">字段名称：</label>
+                <div class="eui-input-block">
+                    <input type="text" class="eui-input" placeholder="请输入查询关键字">
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">默认 1 列：</label>
+                <div class="eui-input-block">
+                    <input type="text" class="eui-input" placeholder="请输入查询关键字">
+                </div>
+            </div>
+        </div>
+        <!--华丽的分割线-->
+        <div class="eui-form-item">
+            <label class="eui-form-label">文本输入：</label>
+            <div class="eui-input-block">
+                <select name="">
+                    <option value="">-请选择-</option>
+                    <option value="选项一" selected="">选项一</option>
+                    <option value="选项二">选项二</option>
+                </select>
+            </div>
+        </div>
+        <div class="eui-form-item">
+            <label class="eui-form-label">内有 2 项：</label>
+            <div class="eui-input-block select-col2">
+                <select name="">
+                    <option value="">-请选择-</option>
+                    <option value="选项一" selected="">选项一</option>
+                    <option value="选项二">选项二</option>
+                </select>
+                <div class="ctl-space">-</div>
+                <select name="">
+                    <option value="">-请选择-</option>
+                    <option value="选项一" selected="">选项一</option>
+                    <option value="选项二">选项二</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="eui-form-item">
+            <label class="eui-form-label">内有2组件：</label>
+            <div class="eui-input-block input-col2">
+                <input type="text" class="eui-input" placeholder="内有 2 个组件">
+                <div class="ctl-space">-</div>
+                <input type="text" class="eui-input" placeholder="内有 2 个组件">
+            </div>
+        </div>
+        <!--华丽的分割线-->
+
+        <div class="eui-form-item item-colspan2">
+            <label class="eui-form-label">跨2列3组件：</label>
+            <div class="eui-input-block input-col3">
+                <input type="text" class="eui-input" placeholder="内有 3 个组件">
+                <div class="ctl-space">-</div>
+                <input type="text" class="eui-input" placeholder="内有 3 个组件">
+                <div class="ctl-space">-</div>
+                <input type="text" class="eui-input" placeholder="内有 3 个组件">
+            </div>
+        </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <!--两列 END-->
+
+    <!--三列 START-->
+    <fieldset class="eui-elem-field eui-field-title">
+        <legend>三列</legend>
+    </fieldset>
+    <div class="eui-form eui-form-base eui-form-search eui-form-col3">
+        <!-- 查询重置按钮-->
+        <div class="eui-btn-group">
+            <button class="eui-btn">查询</button>
+            <button class="eui-btn eui-btn-primary">重置</button>
+        </div>
+        <!--查询条件-->
+        <div class="eui-form-item">
+            <label class="eui-form-label">默认 1 列：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字">
+            </div>
+        </div>
+
+        <div class="eui-form-item item-colspan2">
+            <label class="eui-form-label">横跨 2 列：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字">
+            </div>
+        </div>
+        <!--华丽的分割线-->
+        <div class="eui-form-item item-colspan3">
+            <label class="eui-form-label">横跨 3 列：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+
+    <!--三列 END-->
+
+
+    <!--四列 START-->
+    <fieldset class="eui-elem-field eui-field-title">
+        <legend>四列</legend>
+    </fieldset>
+    <div class="eui-form eui-form-base eui-form-search eui-form-col4">
+        <!-- 查询重置按钮-->
+        <div class="eui-btn-group">
+            <button class="eui-btn">查询</button>
+            <button class="eui-btn eui-btn-primary">重置</button>
+        </div>
+        <!--查询条件-->
+        <div class="eui-form-item">
+            <label class="eui-form-label">默认 1 列：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字">
+            </div>
+        </div>
+
+        <div class="eui-form-item item-colspan2">
+            <label class="eui-form-label">横跨 2 列：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字">
+            </div>
+        </div>
+        <div class="eui-form-item">
+            <label class="eui-form-label">默认 1 列：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字">
+            </div>
+        </div>
+        <!--华丽的分割线-->
+        <div class="eui-form-item item-colspan3">
+            <label class="eui-form-label">横跨 3 列：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字">
+            </div>
+        </div>
+        <div class="eui-form-item">
+            <label class="eui-form-label">默认 1 列：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+
+    <!--四列 END-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+<script>
+
+    //表单
+    eui.use(['element','form', 'layedit', 'laydate'], function(){
+
+        var element = eui.element
+                ,form = eui.form
+                ,layer = eui.layer
+                ,layedit = eui.layedit
+                ,laydate = eui.laydate;
+        //常规用法
+        laydate.render({
+            elem: '#dateTest'
+        });
+        //日期范围
+        laydate.render({
+            elem: '#dateTest2'
+            ,range: true
+        });
+    });
+
+
+
+</script>
+
+</body>
+</html>

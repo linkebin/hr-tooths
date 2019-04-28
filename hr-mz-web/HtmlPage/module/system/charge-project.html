@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>信息列表查询</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+    <link rel="stylesheet" href="../../../Styles/themes/default/cover-style.css"  media="all">
+</head>
+<body>
+<!--条件搜索 start-->
+<form class="eui-form eui-form-search" id="formId">
+    <!-- 查询重置按钮-->
+    <div class="eui-btn-group">
+        <a href="###" class="eui-btn" onclick="doSearch()">查询</a>
+        <a href="###" class="eui-btn eui-btn-primary" onclick="resetForm()">重置</a>
+    </div>
+    <!--查询条件-->
+    <div class="eui-form-item">
+        <label class="eui-form-label">项目名称：</label>
+        <div class="eui-input-block">
+            <input type="text" id="findName" class="eui-input" placeholder="请输入查询关键字">
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</form>
+<!--条件搜索 end-->
+<div class="infoList">
+    <!--标题 start-->
+
+    <div class="title-bar">
+        <div class="eui-btn-group float-right">
+            <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+            <a href="javaScript:addUpdate('add')" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe654;</i>新建</a>
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe615;</i>查看</a>-->
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe642;</i>编辑</a>-->
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe601;</i>导入</a>-->
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe61f;</i>导出</a>-->
+            <!--<a href="###" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>删除</a>-->
+        </div>
+        <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      收费项目管理
+    </span>
+    </div>
+
+    <!--标题 end-->
+    <!--表格 start-->
+    <script type="text/html" id="barDemo">
+        <div class="eui-btn-group">
+            <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit"><i class="eui-icon" title="编辑">&#xe642;</i></a>
+            <a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+        </div>
+    </script>
+    <table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+    <!--表格 end-->
+</div>
+<script type="text/html" id="layerContent">
+    <form id="potentialForm">
+        <div class="eui-form eui-padding20">
+            <input id="projectId" type="hidden" name="id">
+			<div class="eui-form-item">
+			    <label class="eui-form-label">项目编号：</label>
+			    <div class="eui-input-block">
+			        <input type="text" name="code" class="eui-input" id="code">
+			    </div>
+			</div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">项目名称：</label>
+                <div class="eui-input-block">
+                    <input type="text" name="projectName" class="eui-input" id="projectName">
+                </div>
+            </div>
+			<div class="eui-form-item">
+			    <label class="eui-form-label">类型：</label>
+			    <div class="eui-input-block">
+			        <input type="text" name="type" class="eui-input" id="type">
+			    </div>
+			</div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">价格：</label>
+                <div class="eui-input-block">
+                    <input type="text" name="price" class="eui-input" id="price">
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">备注：</label>
+                <div class="eui-input-block">
+                    <textarea class="eui-textarea" id="remark" name="remark">
+                    </textarea>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </form>
+</script>
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+<script src="../../../Scripts/date2format.js" type="text/javascript"></script>
+<!-- ztree-->
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+<script type="text/javascript" src="../../../Scripts/config.js"></script><!--开发者使用的js，可用于对ajax的拦截等-->
+<script src="../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+<script>
+    var form = null;
+    var table= null;
+    var txt = "";
+    function doSearch(){
+        eui.use(['element','form', 'layedit', 'laydate','table'], function(){
+            table = eui.table;
+            form = eui.form;
+            var element = eui.element
+
+                ,layer = eui.layer
+                ,layedit = eui.layedit
+                ,laytpl = eui.laytpl
+                ,laydate = eui.laydate;
+
+            var getTpl = $("#layerContent").html();
+            laytpl(getTpl).render({}, function (html) {
+                txt = html;
+            });
+            //日期选择
+            laydate.render({
+                elem: '#dateTest'
+            });
+            //日期范围
+            laydate.render({
+                elem: '#dateTest2'
+                ,range: true
+            });
+            table.render({
+                elem: '#tableDemo'
+                //   ,height: 350
+                //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+                ,even: true //开启隔行背景
+                ,skin:'row'
+                ,where:{
+                    findName:$("#findName").val()
+                }
+                ,url: basePath+'/charge/project/list' //数据接口
+                ,method: 'get'
+                ,cols: [[
+                     {field:'code', width:120, title: '编号'}
+                     ,{field:'projectName', width:180, title: '项目名称'}
+                     ,{field:'price', width:120, title: '价钱'}
+                     ,{field:'type', width:120, title: '类型'}
+                     ,{field:'remark',width:350, title: '备注'}
+                    ,{field:'operation', title:'操作', width:120, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+                ]]
+                ,page: true
+                , limits: [10, 20, 30]
+                , limit: 10 //每页默认显示的数量
+            });
+
+            //监听表格复选框选择
+            table.on('checkbox(tableDemoFilter)', function(obj){
+                console.log(obj)
+            });
+
+            //监听工具条
+            table.on('tool(tableDemoFilter)', function(obj){
+                var data = obj.data;
+                if(obj.event === 'detail'){
+                    layer.msg('ID：'+ data.id + ' 的查看操作');
+                } else if(obj.event === 'del'){
+                    layer.confirm('确认删除《'+data.projectName+'》吗？', function(index){
+                        delPotential(data.id);
+                        layer.close(index);
+                    });
+                } else if(obj.event === 'edit'){
+                    addUpdate(data);
+                }
+            });
+        });
+    }
+
+    function delPotential(delId) {
+        $.ajax({
+            url: basePath + "/charge/project/delete/"+delId,
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    layer.msg("删除成功");
+                    doSearch();
+                } else {
+                    layer.msg(result.message);
+                }
+            },
+            error: function () {
+                layer.msg("删除失败");
+            }
+        });
+    }
+
+    function addUpdate(data) {
+        layer.open({
+            type: 1
+            , title: "收费项目"
+            , area: ['400px', '100%']  //宽度
+            , offset: "rt"              //类型,注意点击按钮的data-type属性，然后配合宽高度
+            , id: 'popPage' //防止重复弹出
+            , content: txt
+            , btn: ['保存', '取消']
+            , btnAlign: 'c' //按钮居中
+            , shade: 0.3 //不显示遮罩
+            , maxmin: true
+            , yes: function () {
+                if($("#potentialForm  [ name='nameLabel']").val()==''){
+                    $("#nameLabel").show();
+                    return;
+                }
+                if (data == "add") {
+                    addPotential();
+                } else {
+                    updatePotential();
+                }
+                layer.closeAll();
+            }, btn2: function () {
+                layer.closeAll();
+            }
+        });
+
+        if(data=="add"){
+            $("#projectName").val("");
+            $("#price").val("");
+            $("#remark").val("");
+			$("#code").val("");
+			$("#type").val("");
+        }else {
+            $("#projectId").val(data.id);
+            $("#projectName").val(data.projectName);
+            $("#price").val(data.price);
+            $("#remark").val(data.remark);
+			$("#code").val(data.code);
+			$("#type").val(data.type);
+        }
+        form.render();
+    }
+    function updatePotential() {
+        var obj = $("#potentialForm").serializeObject();
+        $.ajax({
+            type: "POST",
+            url: basePath + "/charge/project/update",
+            data: {
+                param: JSON.stringify(obj),
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    layer.msg("更新成功");
+                    doSearch();
+                } else {
+                    layer.msg("更新失败，请联系管理员处理");
+                }
+            },
+            error: function () {
+                layer.msg("更新失败");
+            }
+        });
+    }
+
+    function addPotential() {
+        var obj = $("#potentialForm").serializeObject();
+        $.ajax({
+            type: "POST",
+            url: basePath + "/charge/project/add",
+            data: {
+                param: JSON.stringify(obj),
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    doSearch();
+                    layer.msg("更新成功");
+                } else {
+                    layer.msg("更新失败，请联系管理员处理");
+                }
+            },
+            error: function () {
+                layer.msg("更新失败");
+            }
+        });
+    }
+    function resetForm(){
+        document.getElementById("formId").reset();
+        doSearch();
+    }
+
+    $(function () {
+        doSearch();
+    })
+
+</script>
+
+</body>
+</html>

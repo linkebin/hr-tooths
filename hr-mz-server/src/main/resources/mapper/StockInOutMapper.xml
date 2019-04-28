@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.StockInOutMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.StockInOut">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="in_out_id" jdbcType="VARCHAR" property="inOutId" />
+    <result column="in_out_code" jdbcType="VARCHAR" property="inOutCode" />
+    <result column="in_out_time" jdbcType="TIMESTAMP" property="inOutTime" />
+    <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="in_obj" jdbcType="VARCHAR" property="inObj" />
+    <result column="out_obj" jdbcType="VARCHAR" property="outObj" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="clinic_id" jdbcType="VARCHAR" property="clinicId" />
+  </resultMap>
+
+  <select id="findInOrder" parameterType="String" resultType="java.util.Map">
+    select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator,b.num,b.money,c.user_name,c.audit_time,c.remark
+    ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过'  when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state
+    from (
+      select t.* from (
+      select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator,a.num,a.money,a.state
+      from stock_in_out a
+      where a.clinic_id = #{clinic} and (a.type='进货' or a.type='退领')
+      <if test="code!=null and code!=''">and a.order_id = #{code}</if>
+      <if test="time!=null and time!=''">and date_format(a.in_out_time,'%Y-%m-%d') = #{time}</if>
+      <if test="type!=null and type!=''">and a.type = #{type}</if>
+      order by a.in_out_time desc,a.state) t LIMIT ${limit} OFFSET ${page}
+    ) b left join stock_audit c on b.in_out_id = c.in_out_id
+    order by date_format(b.in_out_time,'%Y-%m-%d') desc,b.state
+  </select>
+
+  <select id="findInOrderAll" parameterType="String" resultType="java.util.Map">
+    select b.in_out_code,b.in_out_time,b.type,b.creator,b.num,b.money,c.user_name,c.audit_time,c.remark
+    ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过'  when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state
+    from (
+    select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator,a.num,a.money,a.state
+    from stock_in_out a
+    where a.clinic_id = #{clinic} and (a.type='进货' or a.type='退领')
+    <if test="code!=null and code!=''">and a.order_id = #{code}</if>
+    <if test="time!=null and time!=''">and date_format(a.in_out_time,'%Y-%m-%d') = #{time}</if>
+    <if test="type!=null and type!=''">and a.type = #{type}</if>
+    order by a.state,a.in_out_time desc
+    ) b left join stock_audit c on b.in_out_id = c.in_out_id
+  </select>
+
+  <select id="findInOrderCount" parameterType="String" resultType="int">
+    select count(*) from(
+    select a.in_out_code
+    from stock_in_out a
+    where a.clinic_id = #{clinic} and (a.type='进货' or a.type='退领')
+    <if test="code!=null and code!=''">and a.order_id = #{code}</if>
+    <if test="time!=null and time!=''">and date_format(a.in_out_time,'%Y-%m-%d') = #{time}</if>
+    <if test="type!=null and type!=''">and a.type = #{type}</if>) t
+  </select>
+
+  <select id="findOutOrder" parameterType="String" resultType="java.util.Map">
+    select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator,b.num,b.money,b.clinic_id,b.creator_id,c.user_name,c.audit_time,c.remark
+    ,case when b.state = 1 then '已完成' when b.state = 0.5 then '已发送' when c.is_pass is not null and c.is_pass = 1 then '已通过'  when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state
+    from (
+      select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator,a.num,a.money,a.state,a.clinic_id,a.creator_id
+      from stock_in_out a where a.clinic_id = #{clinic} and (a.type='领用' or a.type='退货')
+      <if test="code!=null and code!=''">and a.in_out_code = #{code}</if>
+      <if test="time!=null and time!=''">and date_format(a.in_out_time,'%Y-%m-%d') = #{time}</if>
+      <if test="type!=null and type!=''">and a.type = #{type}</if>
+      order by a.in_out_time desc,a.state) t LIMIT ${limit} OFFSET ${page}
+    ) b left join stock_audit c on b.in_out_id = c.in_out_id
+    order by date_format(b.in_out_time,'%Y-%m-%d') desc,b.state
+  </select>
+
+  <select id="findOutOrderAll" parameterType="String" resultType="java.util.Map">
+    select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator,b.num,b.money,c.user_name,c.audit_time,c.remark
+    ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过'  when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state
+    from (
+    select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator,a.num,a.money,a.state
+    from stock_in_out a where a.clinic_id = #{clinic} and (a.type='领用' or a.type='退货')
+    <if test="code!=null and code!=''">and a.in_out_code = #{code}</if>
+    <if test="time!=null and time!=''">and date_format(a.in_out_time,'%Y-%m-%d') = #{time}</if>
+    <if test="type!=null and type!=''">and a.type = #{type}</if>
+    order by a.state,a.in_out_time desc
+    ) b left join stock_audit c on b.in_out_id = c.in_out_id
+  </select>
+
+  <select id="findOutOrderCount" parameterType="String" resultType="int">
+    select count(*) from(
+    select a.in_out_code
+    from stock_in_out a where a.clinic_id = #{clinic} and (a.type='领用' or a.type='退货')
+    <if test="code!=null and code!=''">and a.in_out_code = #{code}</if>
+    <if test="time!=null and time!=''">and date_format(a.in_out_time,'%Y-%m-%d') = #{time}</if>
+    <if test="type!=null and type!=''">and a.type = #{type}</if>) t
+  </select>
+
+  <select id="findStockOrder" parameterType="String" resultMap="BaseResultMap">
+    select * from stock_in_out where in_out_code = #{code} and clinic_id = #{clinic}
+  </select>
+
+  <select id="findInternalOrder" parameterType="String" resultType="java.util.Map">
+    select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator_id,b.creator,b.num,b.money,b.clinic_id,c.user_name,c.audit_time,c.remark
+    ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过'  when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state
+    from (
+    select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator_id,a.creator,a.num,a.money,a.state,a.clinic_id
+    from stock_in_out a where a.clinic_id = #{clinic} and (a.type='领用' or a.type='退领')
+    <if test="code!=null and code!=''">and a.in_out_code = #{code}</if>
+    <if test="time!=null and time!=''">and date_format(a.in_out_time,'%Y-%m-%d') = #{time}</if>
+    <if test="type!=null and type!=''">and a.type = #{type}</if>
+    order by a.in_out_time desc,a.state) t LIMIT ${limit} OFFSET ${page}
+    ) b left join stock_audit c on b.in_out_id = c.in_out_id
+    order by date_format(b.in_out_time,'%Y-%m-%d') desc,b.state
+  </select>
+
+  <select id="findInternalOrderAll" parameterType="String" resultType="java.util.Map">
+    select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator_id,b.creator,b.num,b.money,b.clinic_id,c.user_name,c.audit_time,c.remark
+    ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过'  when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state
+    from (select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator_id,a.creator,a.num,a.money,a.state,a.clinic_id
+    from stock_in_out a where a.clinic_id = #{clinic} and (a.type='领用' or a.type='退领')
+    <if test="code!=null and code!=''">and a.in_out_code = #{code}</if>
+    <if test="time!=null and time!=''">and date_format(a.in_out_time,'%Y-%m-%d') = #{time}</if>
+    <if test="type!=null and type!=''">and a.type = #{type}</if>
+    ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.state,b.in_out_time desc
+  </select>
+
+  <select id="findInternalOrderCount" parameterType="String" resultType="int">
+    select count(*) from ( select a.in_out_id
+    from stock_in_out a where a.clinic_id = #{clinic} and (a.type='领用' or a.type='退领')
+    <if test="code!=null and code!=''">and a.in_out_code = #{code}</if>
+    <if test="time!=null and time!=''">and date_format(a.in_out_time,'%Y-%m-%d') = #{time}</if>
+    <if test="type!=null and type!=''">and a.type = #{type}</if>) t
+  </select>
+</mapper>

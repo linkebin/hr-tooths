@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>新诊复诊统计</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+		<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="../../../Scripts/pack.ajax.js"></script>
+		<script type="text/javascript" src="../../../Scripts/config.js"></script>
+	</head>
+	<style type="text/css">
+		th {
+			text-align: center !important;
+		}
+
+		td {
+			text-align: center !important;
+		}
+	</style>
+
+	<body style="width: 500px">
+		<table class="eui-table" style="margin: 12px 12px 12px 12px;">
+			<thead>
+				<tr>
+					<th rowspan="2">医生名称</th>
+					<th colspan="3">新诊</th>
+					<th colspan="3">复诊</th>
+				</tr>
+				<tr>
+					<th>本月</th>
+					<th>本周</th>
+					<th>本日</th>
+					<th>本月</th>
+					<th>本周</th>
+					<th>本日</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+		<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../../Scripts/card.js"></script>
+		<script type="text/javascript" src="../../../Scripts/date2format.js"></script>
+		<script type="text/javascript">
+			eui.use('table', function() {
+				var table = eui.table;
+
+			});
+
+			$.ajax({
+				type: "post",
+				url: basePath + "/yy/manage/getTj",
+				async: true,
+				success: function(data) {
+					var list = data.data;
+					for (var i in list) {
+						var obj = list[i];
+						$("tbody").append("<tr>" +
+							"<td>" + obj.USER_NAME + "</td>" +
+							"<td>" + obj.montha + "</td>" +
+							"<td>" + obj.weeka + "</td>" +
+							"<td>" + obj.daya + "</td>" +
+							"<td>" + obj.months + "</td>" +
+							"<td>" + obj.weeks + "</td>" +
+							"<td>" + obj.days + "</td>" +
+							"</tr>")
+
+					}
+
+				}
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择领导</title>
+    <link rel="stylesheet" href="../../../../Styles/themes/default/style.css" media="all">
+    <link rel="stylesheet" href="../../../../Scripts/libs/jquery-ui/jquery-ui.css">
+    <script type="text/javascript" src="../../../../Scripts/jquery-1.9.0.min.js"></script>
+    <script src="../../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/module/eui.js" charset="utf-8"></script>
+    <script src="../../../../Scripts/config.js" charset="utf-8"></script>
+</head>
+<body>
+
+<div class="eui-bg-white eui-padding10">
+    <!--右边内容 start-->
+    <!--条件搜索 start-->
+
+    <form class="eui-form">
+        <!--条件搜索 start-->
+        <div class="eui-form eui-form-base eui-form-search eui-form-col2">
+
+            <!-- 查询重置按钮-->
+            <div class="eui-btn-group">
+                <a class="eui-btn" href="javaScript:doSearch()">查询</a>
+                <button class="eui-btn eui-btn-primary" type="reset">重置</button>
+            </div>
+            <!--查询条件-->
+            <div class="eui-form-item">
+                <label class="eui-form-label">部门名称：</label>
+                <div class="eui-input-block">
+                    <input type="text" class="eui-input" placeholder="" id="findOrgName">
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">状态：</label>
+                <div class="eui-input-block">
+                    <select e-verify="required" id="findState">
+                        <option value="">请选择</option>
+                        <option value="1">启用</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </div>
+            </div>
+            <!--华丽的分割线-->
+
+            <div class="clearfix"></div>
+        </div>
+    </form>
+    <!--条件搜索 end-->
+    <!--标题 start-->
+
+    <div class="title-bar eui-marginB10">
+        <div class="eui-btn-group float-right">
+        </div>
+        <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      <span class="eui-color-red"></span>用户列表
+    </span>
+    </div>
+    <table id="tableDemo" e-filter="tableDemoFilter"></table>
+</div>
+</body>
+
+<script type="text/html" id="radioTpl">
+    <input type="radio" name="sexRadio" value="{{d.ID_+'|'+d.ORG_NAME+'|'+d.LEADER_NAME}}" title=" " e-filter="radiodemo">
+</script>
+<Script>
+    var userInfo = "";
+    var tableInit = null;
+    eui.use(['form', 'table'], function () {
+        var form = eui.form
+            , table = eui.table;
+        //实例1:简单表格
+        tableInit = table.render({
+            elem: '#tableDemo'
+            //   ,height: 350
+            //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+            , even: true //开启隔行背景
+            , url: basePath + "/sec/org/list" //数据接口
+            , where: {orgName: "", state: "", parentId: ""}
+            , method: "POST"
+            , page: true
+            , cols: [[
+                {type: 'numbers', width: 60, title: '序号'}
+                , {field: 'sex', title: '选择', templet: "#radioTpl", width: 80}
+                , {field: 'ORG_CODE', width: 120, title: '部门编号', sort: true}  //增加 edit 表示开户了编辑状态
+                , {field: 'ORG_NAME', width: 120, title: '部门名称'}
+                , {field: 'USER_NAME', width: 120, title: '部门经理'}
+                , {field: 'MOBILE', width: 120, title: '联系方式'}
+                , {field: 'PARENT_ORG_NAME', width: 100, title: '上级部门'}
+                , {field: 'PARENT_LEADER_NAME', width: 100, title: '上级领导'}
+                , {field: 'STATE', width: 90, title: '状态', templet: '#switchTpl',}
+                , {field: 'CREATOR', width: 100, title: '创建人'}
+            ]]
+        });
+        form.on('radio(radiodemo)', function (obj) {
+            console.log(obj.value); //选中行的相关数据
+            userInfo = obj.value;
+        });
+    });
+    //查询所有的用户
+    function doSearch() {
+        if (tableInit != null) {
+            tableInit.reload({
+                where: {orgName: $("#findOrgName").val(), state: $("#findState").val(), parentId: ""}
+            });
+        }
+    }
+
+    //重置
+    function resetForm() {
+        document.getElementById("formId").reset();
+        doSearch();
+    }
+
+    //获取勾选的标签
+    function getCheckUser() {
+        return userInfo;
+    }
+    //获取勾选的标签
+    function msg() {
+        layer.msg("请选择部门");
+    }
+
+</Script>
+
+</html>

@@ -1,0 +1,506 @@
+2019-3-26 14:55:48 http-nio-8081-exec-8 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-26 14:55:48 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-26 14:55:48 http-nio-8081-exec-7 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money) is null then 0 else sum(s.sf_money) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 14:55:48 http-nio-8081-exec-7 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:55:48 http-nio-8081-exec-8 DEBUG <==      Total: 2
+2019-3-26 14:55:48 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-26 14:55:48 http-nio-8081-exec-8 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-26 14:55:48 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-26 14:55:48 http-nio-8081-exec-7 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money - s.arrears) is null then 0 else sum(s.sf_money - s.arrears) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 14:55:48 http-nio-8081-exec-7 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:55:48 http-nio-8081-exec-8 DEBUG <==      Total: 5
+2019-3-26 14:55:48 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-26 14:55:49 http-nio-8081-exec-10 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.clinic = so.ID_ 
+2019-3-26 14:55:49 http-nio-8081-exec-10 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:55:49 http-nio-8081-exec-10 ERROR 接口 [/cust/sfjl/findCustSfjl] 出现异常，方法：com.yidusoft.project.system.controller.CustSfjlController.findCustSfjl，异常摘要：
+### Error querying database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 't.clinic' in 'on clause'
+### The error may exist in file [C:\Users\linkb\Desktop\华仁牙科\05.开发\hr-gl-server\target\classes\mapper\CustSfjlMapper.xml]
+### The error may involve com.yidusoft.project.system.dao.CustSfjlMapper.findCustSfjl-Inline
+### The error occurred while setting parameters
+### SQL: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.clinic = so.ID_
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 't.clinic' in 'on clause'
+; bad SQL grammar []; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 't.clinic' in 'on clause'
+org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 't.clinic' in 'on clause'
+### The error may exist in file [C:\Users\linkb\Desktop\华仁牙科\05.开发\hr-gl-server\target\classes\mapper\CustSfjlMapper.xml]
+### The error may involve com.yidusoft.project.system.dao.CustSfjlMapper.findCustSfjl-Inline
+### The error occurred while setting parameters
+### SQL: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.clinic = so.ID_
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 't.clinic' in 'on clause'
+; bad SQL grammar []; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 't.clinic' in 'on clause'
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:235)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
+	at com.sun.proxy.$Proxy97.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:230)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:137)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:75)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59)
+	at com.sun.proxy.$Proxy127.findCustSfjl(Unknown Source)
+	at com.yidusoft.project.system.service.impl.CustSfjlServiceImpl.findCustSfjl(CustSfjlServiceImpl.java:26)
+	at com.yidusoft.project.system.service.impl.CustSfjlServiceImpl$$FastClassBySpringCGLIB$$7e97c6ec.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:747)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)
+	at com.yidusoft.project.system.service.impl.CustSfjlServiceImpl$$EnhancerBySpringCGLIB$$738a660f.findCustSfjl(<generated>)
+	at com.yidusoft.project.system.controller.CustSfjlController.findCustSfjl(CustSfjlController.java:108)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:209)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:136)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:870)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:776)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:881)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:855)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.yidusoft.configurer.CorsFilter.doFilter(CorsFilter.java:41)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:158)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:126)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:111)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter.doFilterInternal(HttpTraceFilter.java:84)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:790)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 't.clinic' in 'on clause'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.Util.getInstance(Util.java:408)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:944)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3973)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3909)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2527)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2680)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2484)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1858)
+	at com.mysql.jdbc.PreparedStatement.execute(PreparedStatement.java:1197)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:493)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at com.sun.proxy.$Proxy110.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:63)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at com.sun.proxy.$Proxy108.query(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at com.github.pagehelper.util.SqlUtil.doIntercept(SqlUtil.java:146)
+	at com.github.pagehelper.util.SqlUtil.intercept(SqlUtil.java:84)
+	at com.github.pagehelper.PageHelper.intercept(PageHelper.java:50)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)
+	at com.sun.proxy.$Proxy107.query(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	... 89 common frames omitted
+2019-3-26 14:57:11 main INFO The following profiles are active: dev
+2019-3-26 14:57:24 main DEBUG ==>  Preparing: SELECT * FROM sec_menu sm where deleted=0 AND sm.STANBY_ID1 = '2' ORDER BY SORT 
+2019-3-26 14:57:24 main DEBUG ==> Parameters: 
+2019-3-26 14:57:24 main DEBUG <==      Total: 48
+2019-3-26 14:57:31 localhost-startStop-1 INFO JedisPool注入成功！！
+2019-3-26 14:57:31 localhost-startStop-1 INFO redis地址：localhost:6379
+2019-3-26 14:57:45 main INFO Started BaseFrameApplication in 42.928 seconds (JVM running for 45.87)
+2019-3-26 14:57:52 http-nio-8081-exec-1 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-26 14:57:52 http-nio-8081-exec-1 DEBUG ==> Parameters: 
+2019-3-26 14:57:52 http-nio-8081-exec-1 DEBUG <==      Total: 2
+2019-3-26 14:57:52 http-nio-8081-exec-1 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-26 14:57:52 http-nio-8081-exec-1 DEBUG ==> Parameters: 
+2019-3-26 14:57:52 http-nio-8081-exec-1 DEBUG <==      Total: 5
+2019-3-26 14:57:52 http-nio-8081-exec-2 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money) is null then 0 else sum(s.sf_money) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 14:57:52 http-nio-8081-exec-2 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:57:52 http-nio-8081-exec-2 DEBUG <==      Total: 1
+2019-3-26 14:57:52 http-nio-8081-exec-2 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money - s.arrears) is null then 0 else sum(s.sf_money - s.arrears) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 14:57:52 http-nio-8081-exec-2 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:57:52 http-nio-8081-exec-2 DEBUG <==      Total: 1
+2019-3-26 14:57:52 http-nio-8081-exec-3 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ 
+2019-3-26 14:57:52 http-nio-8081-exec-3 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:57:52 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-26 14:57:52 http-nio-8081-exec-3 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ order by t.create_time desc limit ?,? 
+2019-3-26 14:57:52 http-nio-8081-exec-3 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 0(Integer), 10(Integer)
+2019-3-26 14:57:52 http-nio-8081-exec-3 DEBUG <==      Total: 10
+2019-3-26 14:57:52 http-nio-8081-exec-4 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-26 14:57:52 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-26 14:57:52 http-nio-8081-exec-4 DEBUG <==      Total: 2
+2019-3-26 14:57:52 http-nio-8081-exec-4 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-26 14:57:52 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-26 14:57:52 http-nio-8081-exec-4 DEBUG <==      Total: 5
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG ==>  Preparing: select sum(t.money) from (select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,a.money from cust_sfjl s,customer c,cust_sfjl_de a,stock_product b where s.cust_id=c.cust_id and s.sf_id = a.sfjl_id and a.code = b.product_code and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t 
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 14:57:52 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.doctor_id, c.cust_clinic, a.code, a.name, a.price, sum(a.num) num, sum(a.money) money FROM cust_sfjl s, customer c, cust_sfjl_de a, stock_product b WHERE s.cust_id = c.cust_id AND s.sf_id = a.sfjl_id AND a.code = b.product_code AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d') GROUP BY s.doctor_id, c.cust_clinic, a.code, a.name, a.price) t, sec_user e, sec_org f WHERE t.doctor_id = e.ID_ AND t.cust_clinic = f.ID_ 
+2019-3-26 14:57:52 http-nio-8081-exec-6 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-26 14:57:52 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG ==>  Preparing: select sum(t.money) from ( select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,a.money from cust_sfjl s,customer c,cust_sfjl_de a,charge_project b where s.cust_id=c.cust_id and s.sf_id = a.sfjl_id and a.code = b.id_ and c.cust_clinic=b.org_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t 
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 14:57:52 http-nio-8081-exec-6 DEBUG ==>  Preparing: select t.*,e.user_name,f.org_name from (select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,sum(a.num) num,sum(a.money) money from cust_sfjl s,customer c,cust_sfjl_de a,stock_product b where s.cust_id=c.cust_id and s.sf_id = a.sfjl_id and a.code = b.product_code and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') group by s.doctor_id,c.cust_clinic,a.code,a.name,a.price) t,sec_user e,sec_org f where t.doctor_id = e.ID_ and t.cust_clinic = f.ID_ limit ?,? 
+2019-3-26 14:57:52 http-nio-8081-exec-6 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String), 0(Integer), 10(Integer)
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-26 14:57:52 http-nio-8081-exec-6 DEBUG <==      Total: 2
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.doctor_id, c.cust_clinic, a.code, a.name, a.price, sum(a.num) num, sum(a.money) money FROM cust_sfjl s, customer c, cust_sfjl_de a, charge_project b WHERE s.cust_id = c.cust_id AND s.sf_id = a.sfjl_id AND a.code = b.id_ AND c.cust_clinic = b.org_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d') GROUP BY s.doctor_id, c.cust_clinic, a.code, a.name, a.price) t, sec_user e, sec_org f WHERE t.doctor_id = e.ID_ AND t.cust_clinic = f.ID_ 
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG ==>  Preparing: select t.*,e.user_name,f.org_name from ( select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,sum(a.num) num,sum(a.money) money from cust_sfjl s,customer c,cust_sfjl_de a,charge_project b where s.cust_id=c.cust_id and s.sf_id = a.sfjl_id and a.code = b.id_ and c.cust_clinic=b.org_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') group by s.doctor_id,c.cust_clinic,a.code,a.name,a.price) t,sec_user e,sec_org f where t.doctor_id = e.ID_ and t.cust_clinic = f.ID_ limit ?,? 
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String), 0(Integer), 10(Integer)
+2019-3-26 14:57:52 http-nio-8081-exec-5 DEBUG <==      Total: 9
+2019-3-26 14:57:54 http-nio-8081-exec-8 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT product_code, product_name, product_brand, product_spec, product_unit, product_type, clinic_id, sprice FROM stock WHERE clinic_id = ?) a LEFT JOIN (SELECT in_out_code, clinic_id, sum(num) num, sum(money) money FROM stock_in_out_de WHERE date_format(create_time, '%Y%m') = ? AND operation_type = '进货' GROUP BY in_out_code, clinic_id) b ON b.in_out_code = a.product_code AND a.clinic_id = b.clinic_id LEFT JOIN (SELECT in_out_code, sum(num) useNum FROM stock_in_out_de WHERE date_format(create_time, '%Y%m') = ? AND operation_type = '进货' AND clinic_id != ? GROUP BY in_out_code) c ON c.in_out_code = a.product_code LEFT JOIN stock_month d ON d.month = ? AND a.clinic_id = d.clinic_id AND a.product_code = d.product_code LEFT JOIN stock_month e ON e.month = ? AND a.clinic_id = e.clinic_id AND a.product_code = e.product_code LEFT JOIN (SELECT in_out_code, clinic_id, sum(num) num, sum(money) money FROM stock_in_out_de WHERE date_format(create_time, '%Y%m') = ? AND operation_type = '退货' GROUP BY in_out_code, clinic_id) f ON f.in_out_code = a.product_code AND a.clinic_id = f.clinic_id LEFT JOIN (SELECT in_out_code, sum(num) useNum FROM stock_in_out_de WHERE date_format(create_time, '%Y%m') = ? AND operation_type = '退货' AND clinic_id != ? GROUP BY in_out_code) g ON g.in_out_code = a.product_code 
+2019-3-26 14:57:54 http-nio-8081-exec-8 DEBUG ==> Parameters: 122(String), 201902(String), 201902(String), 122(String), 201902(String), 201903(String), 201902(String), 201902(String), 122(String)
+2019-3-26 14:57:54 http-nio-8081-exec-8 DEBUG <==      Total: 1
+2019-3-26 14:57:54 http-nio-8081-exec-8 DEBUG ==>  Preparing: select a.*,case when b.num is null then 0 when f.num is null then b.num else b.num - f.num end num, case when b.money is null then 0 when f.money is null then b.money else b.money - f.money end money, case when c.useNum is null then 0 when g.useNum is null then c.useNum else c.useNum - g.useNum end useNum, case when c.useNum is null then 0 when g.useNum is null then a.sprice * c.useNum else a.sprice * (c.useNum - g.useNum) end useMoney, case when d.stock_num is null then 0 else d.stock_num end beginNum,case when d.sprice is null then 0 else d.sprice end beginSprice,case when d.sprice is null then 0 else e.sprice * e.stock_num end beginSum, case when e.stock_num is null then 0 else e.stock_num end endNum,case when e.sprice is null then 0 else e.sprice end endSprice,case when e.sprice is null then 0 else e.sprice * e.stock_num end endSum from ( select product_code, product_name, product_brand, product_spec, product_unit, product_type, clinic_id, sprice from stock where clinic_id = ? ) a left join (select in_out_code,clinic_id,sum(num) num,sum(money) money from stock_in_out_de where date_format(create_time,'%Y%m') = ? and operation_type = '进货' group by in_out_code,clinic_id) b on b.in_out_code = a.product_code and a.clinic_id = b.clinic_id left join (select in_out_code,sum(num) useNum from stock_in_out_de where date_format(create_time,'%Y%m') = ? and operation_type = '进货' and clinic_id != ? group by in_out_code) c on c.in_out_code = a.product_code left join stock_month d on d.month = ? and a.clinic_id = d.clinic_id and a.product_code = d.product_code left join stock_month e on e.month = ? and a.clinic_id = e.clinic_id and a.product_code = e.product_code left join (select in_out_code,clinic_id,sum(num) num,sum(money) money from stock_in_out_de where date_format(create_time,'%Y%m') = ? and operation_type = '退货' group by in_out_code,clinic_id) f on f.in_out_code = a.product_code and a.clinic_id = f.clinic_id left join (select in_out_code,sum(num) useNum from stock_in_out_de where date_format(create_time,'%Y%m') = ? and operation_type = '退货' and clinic_id != ? group by in_out_code) g on g.in_out_code = a.product_code order by a.product_code limit ?,? 
+2019-3-26 14:57:54 http-nio-8081-exec-8 DEBUG ==> Parameters: 122(String), 201902(String), 201902(String), 122(String), 201902(String), 201903(String), 201902(String), 201902(String), 122(String), 0(Integer), 10(Integer)
+2019-3-26 14:57:54 http-nio-8081-exec-8 DEBUG <==      Total: 10
+2019-3-26 14:57:54 http-nio-8081-exec-10 DEBUG ==>  Preparing: select sum(t.money) from (select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,a.money from cust_sfjl s,customer c,cust_sfjl_de a,stock_product b where s.cust_id=c.cust_id and s.sf_id = a.sfjl_id and a.code = b.product_code and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t 
+2019-3-26 14:57:54 http-nio-8081-exec-10 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 14:57:54 http-nio-8081-exec-9 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-26 14:57:54 http-nio-8081-exec-9 DEBUG ==> Parameters: 
+2019-3-26 14:57:54 http-nio-8081-exec-10 DEBUG <==      Total: 1
+2019-3-26 14:57:54 http-nio-8081-exec-9 DEBUG <==      Total: 2
+2019-3-26 14:57:54 http-nio-8081-exec-10 DEBUG ==>  Preparing: select sum(t.money) from ( select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,a.money from cust_sfjl s,customer c,cust_sfjl_de a,charge_project b where s.cust_id=c.cust_id and s.sf_id = a.sfjl_id and a.code = b.id_ and c.cust_clinic=b.org_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t 
+2019-3-26 14:57:54 http-nio-8081-exec-10 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 14:57:54 http-nio-8081-exec-9 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-26 14:57:54 http-nio-8081-exec-9 DEBUG ==> Parameters: 
+2019-3-26 14:57:54 http-nio-8081-exec-10 DEBUG <==      Total: 1
+2019-3-26 14:57:54 http-nio-8081-exec-9 DEBUG <==      Total: 5
+2019-3-26 14:57:54 http-nio-8081-exec-2 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.doctor_id, c.cust_clinic, a.code, a.name, a.price, sum(a.num) num, sum(a.money) money FROM cust_sfjl s, customer c, cust_sfjl_de a, stock_product b WHERE s.cust_id = c.cust_id AND s.sf_id = a.sfjl_id AND a.code = b.product_code AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d') GROUP BY s.doctor_id, c.cust_clinic, a.code, a.name, a.price) t, sec_user e, sec_org f WHERE t.doctor_id = e.ID_ AND t.cust_clinic = f.ID_ 
+2019-3-26 14:57:54 http-nio-8081-exec-2 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 14:57:54 http-nio-8081-exec-1 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.doctor_id, c.cust_clinic, a.code, a.name, a.price, sum(a.num) num, sum(a.money) money FROM cust_sfjl s, customer c, cust_sfjl_de a, charge_project b WHERE s.cust_id = c.cust_id AND s.sf_id = a.sfjl_id AND a.code = b.id_ AND c.cust_clinic = b.org_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d') GROUP BY s.doctor_id, c.cust_clinic, a.code, a.name, a.price) t, sec_user e, sec_org f WHERE t.doctor_id = e.ID_ AND t.cust_clinic = f.ID_ 
+2019-3-26 14:57:54 http-nio-8081-exec-2 DEBUG <==      Total: 1
+2019-3-26 14:57:54 http-nio-8081-exec-1 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 14:57:54 http-nio-8081-exec-2 DEBUG ==>  Preparing: select t.*,e.user_name,f.org_name from (select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,sum(a.num) num,sum(a.money) money from cust_sfjl s,customer c,cust_sfjl_de a,stock_product b where s.cust_id=c.cust_id and s.sf_id = a.sfjl_id and a.code = b.product_code and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') group by s.doctor_id,c.cust_clinic,a.code,a.name,a.price) t,sec_user e,sec_org f where t.doctor_id = e.ID_ and t.cust_clinic = f.ID_ limit ?,? 
+2019-3-26 14:57:54 http-nio-8081-exec-2 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String), 0(Integer), 10(Integer)
+2019-3-26 14:57:54 http-nio-8081-exec-1 DEBUG <==      Total: 1
+2019-3-26 14:57:54 http-nio-8081-exec-1 DEBUG ==>  Preparing: select t.*,e.user_name,f.org_name from ( select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,sum(a.num) num,sum(a.money) money from cust_sfjl s,customer c,cust_sfjl_de a,charge_project b where s.cust_id=c.cust_id and s.sf_id = a.sfjl_id and a.code = b.id_ and c.cust_clinic=b.org_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') group by s.doctor_id,c.cust_clinic,a.code,a.name,a.price) t,sec_user e,sec_org f where t.doctor_id = e.ID_ and t.cust_clinic = f.ID_ limit ?,? 
+2019-3-26 14:57:54 http-nio-8081-exec-1 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String), 0(Integer), 10(Integer)
+2019-3-26 14:57:54 http-nio-8081-exec-1 DEBUG <==      Total: 9
+2019-3-26 14:57:54 http-nio-8081-exec-2 DEBUG <==      Total: 2
+2019-3-26 14:57:57 http-nio-8081-exec-5 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-26 14:57:57 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-26 14:57:57 http-nio-8081-exec-5 DEBUG <==      Total: 2
+2019-3-26 14:57:57 http-nio-8081-exec-7 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money) is null then 0 else sum(s.sf_money) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 14:57:57 http-nio-8081-exec-7 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:57:57 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-26 14:57:57 http-nio-8081-exec-5 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-26 14:57:57 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-26 14:57:57 http-nio-8081-exec-5 DEBUG <==      Total: 5
+2019-3-26 14:57:57 http-nio-8081-exec-7 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money - s.arrears) is null then 0 else sum(s.sf_money - s.arrears) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 14:57:57 http-nio-8081-exec-7 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:57:57 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-26 14:57:57 http-nio-8081-exec-8 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ 
+2019-3-26 14:57:57 http-nio-8081-exec-8 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:57:57 http-nio-8081-exec-8 DEBUG <==      Total: 1
+2019-3-26 14:57:57 http-nio-8081-exec-8 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ order by t.create_time desc limit ?,? 
+2019-3-26 14:57:57 http-nio-8081-exec-8 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 0(Integer), 10(Integer)
+2019-3-26 14:57:57 http-nio-8081-exec-8 DEBUG <==      Total: 10
+2019-3-26 14:58:20 http-nio-8081-exec-1 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money) is null then 0 else sum(s.sf_money) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 14:58:20 http-nio-8081-exec-1 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:58:20 http-nio-8081-exec-1 DEBUG <==      Total: 1
+2019-3-26 14:58:20 http-nio-8081-exec-1 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money - s.arrears) is null then 0 else sum(s.sf_money - s.arrears) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 14:58:20 http-nio-8081-exec-1 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:58:20 http-nio-8081-exec-1 DEBUG <==      Total: 1
+2019-3-26 14:58:20 http-nio-8081-exec-2 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-26 14:58:20 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-26 14:58:20 http-nio-8081-exec-2 DEBUG <==      Total: 2
+2019-3-26 14:58:20 http-nio-8081-exec-2 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-26 14:58:20 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-26 14:58:20 http-nio-8081-exec-2 DEBUG <==      Total: 5
+2019-3-26 14:58:21 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ 
+2019-3-26 14:58:21 http-nio-8081-exec-6 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 14:58:21 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-26 14:58:21 http-nio-8081-exec-6 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ order by t.create_time desc limit ?,? 
+2019-3-26 14:58:21 http-nio-8081-exec-6 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 0(Integer), 10(Integer)
+2019-3-26 14:58:21 http-nio-8081-exec-6 DEBUG <==      Total: 10
+2019-3-26 15:03:34 http-nio-8081-exec-5 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ 
+2019-3-26 15:03:34 http-nio-8081-exec-5 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:03:34 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-26 15:03:34 http-nio-8081-exec-5 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ order by t.create_time desc limit ?,? 
+2019-3-26 15:03:34 http-nio-8081-exec-5 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 10(Integer), 10(Integer)
+2019-3-26 15:03:34 http-nio-8081-exec-5 DEBUG <==      Total: 10
+2019-3-26 15:03:39 http-nio-8081-exec-7 DEBUG ==>  Preparing: select * from cust_sfjl_de d where d.sfjl_id='a348433b-94dc-4ce9-a4ca-8f7e1e347b44' 
+2019-3-26 15:03:39 http-nio-8081-exec-7 DEBUG ==> Parameters: 
+2019-3-26 15:03:39 http-nio-8081-exec-7 DEBUG <==      Total: 2
+2019-3-26 15:03:51 http-nio-8081-exec-8 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ 
+2019-3-26 15:03:51 http-nio-8081-exec-8 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:03:51 http-nio-8081-exec-8 DEBUG <==      Total: 1
+2019-3-26 15:03:51 http-nio-8081-exec-8 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ order by t.create_time desc limit ?,? 
+2019-3-26 15:03:51 http-nio-8081-exec-8 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 20(Integer), 10(Integer)
+2019-3-26 15:03:51 http-nio-8081-exec-8 DEBUG <==      Total: 8
+2019-3-26 15:03:56 http-nio-8081-exec-10 DEBUG ==>  Preparing: SELECT count(0) FROM account_record a, sec_user b WHERE a.sf_id = '18a76b70-1b3a-4d82-a98a-6c105e9a99dc' AND a.user_id = b.ID_ 
+2019-3-26 15:03:56 http-nio-8081-exec-10 DEBUG ==> Parameters: 
+2019-3-26 15:03:56 http-nio-8081-exec-10 DEBUG <==      Total: 1
+2019-3-26 15:03:56 http-nio-8081-exec-10 DEBUG ==>  Preparing: select a.*,b.user_name from account_record a,sec_user b where a.sf_id = '18a76b70-1b3a-4d82-a98a-6c105e9a99dc' and a.user_id = b.ID_ order by a.create_time limit ?,? 
+2019-3-26 15:03:56 http-nio-8081-exec-10 DEBUG ==> Parameters: 0(Integer), 10(Integer)
+2019-3-26 15:03:56 http-nio-8081-exec-10 DEBUG <==      Total: 1
+2019-3-26 15:04:20 http-nio-8081-exec-1 DEBUG ==>  Preparing: SELECT count(0) FROM account_record a, sec_user b WHERE a.sf_id = '18a76b70-1b3a-4d82-a98a-6c105e9a99dc' AND a.user_id = b.ID_ 
+2019-3-26 15:04:20 http-nio-8081-exec-1 DEBUG ==> Parameters: 
+2019-3-26 15:04:20 http-nio-8081-exec-1 DEBUG <==      Total: 1
+2019-3-26 15:04:20 http-nio-8081-exec-1 DEBUG ==>  Preparing: select a.*,b.user_name from account_record a,sec_user b where a.sf_id = '18a76b70-1b3a-4d82-a98a-6c105e9a99dc' and a.user_id = b.ID_ order by a.create_time limit ?,? 
+2019-3-26 15:04:20 http-nio-8081-exec-1 DEBUG ==> Parameters: 0(Integer), 10(Integer)
+2019-3-26 15:04:20 http-nio-8081-exec-1 DEBUG <==      Total: 1
+2019-3-26 15:04:25 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ 
+2019-3-26 15:04:25 http-nio-8081-exec-6 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:04:25 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-26 15:04:25 http-nio-8081-exec-6 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ order by t.create_time desc limit ?,? 
+2019-3-26 15:04:25 http-nio-8081-exec-6 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 10(Integer), 10(Integer)
+2019-3-26 15:04:25 http-nio-8081-exec-6 DEBUG <==      Total: 10
+2019-3-26 15:04:31 http-nio-8081-exec-4 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ 
+2019-3-26 15:04:31 http-nio-8081-exec-4 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:04:31 http-nio-8081-exec-4 DEBUG <==      Total: 1
+2019-3-26 15:04:31 http-nio-8081-exec-4 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ order by t.create_time desc limit ?,? 
+2019-3-26 15:04:31 http-nio-8081-exec-4 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 0(Integer), 10(Integer)
+2019-3-26 15:04:31 http-nio-8081-exec-4 DEBUG <==      Total: 10
+2019-3-26 15:04:36 http-nio-8081-exec-5 DEBUG ==>  Preparing: SELECT count(0) FROM account_record a, sec_user b WHERE a.sf_id = 'e2b5dc37-6768-4f52-bacc-e1b8b254f86b' AND a.user_id = b.ID_ 
+2019-3-26 15:04:36 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-26 15:04:36 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-26 15:04:39 http-nio-8081-exec-7 DEBUG ==>  Preparing: select * from sec_menu where ID_='062af654-9c05-4112-b8d8-35' limit 1 
+2019-3-26 15:04:39 http-nio-8081-exec-7 DEBUG ==> Parameters: 
+2019-3-26 15:04:39 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-26 15:04:39 http-nio-8081-exec-8 DEBUG ==>  Preparing: select count(*) from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') 
+2019-3-26 15:04:39 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-26 15:04:39 http-nio-8081-exec-8 DEBUG <==      Total: 1
+2019-3-26 15:04:39 http-nio-8081-exec-10 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type ='门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-26 15:04:39 http-nio-8081-exec-10 DEBUG ==> Parameters: 
+2019-3-26 15:04:39 http-nio-8081-exec-10 DEBUG <==      Total: 2
+2019-3-26 15:04:39 http-nio-8081-exec-8 DEBUG ==>  Preparing: select sum(sf_money) from cust_sfjl where date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') and sf_stat = '已收费' 
+2019-3-26 15:04:39 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-26 15:04:39 http-nio-8081-exec-8 DEBUG <==      Total: 1
+2019-3-26 15:04:39 http-nio-8081-exec-10 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') >= date_format(?,'%Y-%m-%d') and date_format(?,'%Y-%m-%d') >= date_format(yy_date,'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type = '门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-26 15:04:39 http-nio-8081-exec-10 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 15:04:39 http-nio-8081-exec-10 DEBUG <==      Total: 2
+2019-3-26 15:04:39 http-nio-8081-exec-9 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT t.* FROM (SELECT a.in_out_id, a.in_out_code, a.in_out_time, a.type, a.creator_id, a.creator, a.num, a.money, a.state, a.clinic_id, b.org_name FROM stock_in_out a, sec_org b WHERE a.clinic_id = b.id_ AND a.type != '领用' AND a.type != '退领') t) b LEFT JOIN stock_audit c ON b.in_out_id = c.in_out_id WHERE c.is_pass IS NULL OR b.state = 0.5 
+2019-3-26 15:04:39 http-nio-8081-exec-9 DEBUG ==> Parameters: 
+2019-3-26 15:04:39 http-nio-8081-exec-9 DEBUG <==      Total: 1
+2019-3-26 15:18:59 main INFO The following profiles are active: dev
+2019-3-26 15:19:20 main DEBUG ==>  Preparing: SELECT * FROM sec_menu sm where deleted=0 AND sm.STANBY_ID1 = '2' ORDER BY SORT 
+2019-3-26 15:19:20 main DEBUG ==> Parameters: 
+2019-3-26 15:19:20 main DEBUG <==      Total: 48
+2019-3-26 15:19:34 localhost-startStop-1 INFO JedisPool注入成功！！
+2019-3-26 15:19:34 localhost-startStop-1 INFO redis地址：localhost:6379
+2019-3-26 15:19:53 main INFO Started BaseFrameApplication in 62.267 seconds (JVM running for 65.384)
+2019-3-26 15:20:17 http-nio-8081-exec-1 DEBUG ==>  Preparing: SELECT * FROM sec_menu WHERE DELETED = 0 AND ENABLED=1 AND STANBY_ID1='2' AND ID_ IN ( SELECT MENU_ID from sec_menu_member WHERE USER_ID =? UNION SELECT MENU_ID FROM sec_menu_role WHERE ROLE_ID IN ( SELECT ROLE_ID FROM sec_role_member m LEFT JOIN sec_role r ON m.ROLE_ID = r.ID_ WHERE m.USER_ID =? AND r.STATE=1 ) UNION SELECT o.MENU_ID FROM sec_menu_org o LEFT JOIN sec_user u ON o.ORG_ID = u.ORG_ID LEFT JOIN sec_org so ON so.ID_ = u.ORG_ID WHERE u.ID_ = ? AND so.STATE=1 ) ORDER BY sort 
+2019-3-26 15:20:17 http-nio-8081-exec-1 DEBUG ==> Parameters: 1(String), 1(String), 1(String)
+2019-3-26 15:20:17 http-nio-8081-exec-1 DEBUG <==      Total: 26
+2019-3-26 15:20:18 http-nio-8081-exec-2 DEBUG ==>  Preparing: select * from sec_menu where ID_='062af654-9c05-4112-b8d8-35' limit 1 
+2019-3-26 15:20:18 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-26 15:20:18 http-nio-8081-exec-2 DEBUG <==      Total: 1
+2019-3-26 15:20:19 http-nio-8081-exec-3 DEBUG ==>  Preparing: select count(*) from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') 
+2019-3-26 15:20:19 http-nio-8081-exec-4 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type ='门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-26 15:20:19 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-26 15:20:19 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-26 15:20:19 http-nio-8081-exec-4 DEBUG <==      Total: 2
+2019-3-26 15:20:19 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-26 15:20:19 http-nio-8081-exec-4 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') >= date_format(?,'%Y-%m-%d') and date_format(?,'%Y-%m-%d') >= date_format(yy_date,'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type = '门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-26 15:20:19 http-nio-8081-exec-4 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 15:20:19 http-nio-8081-exec-4 DEBUG <==      Total: 2
+2019-3-26 15:20:19 http-nio-8081-exec-3 DEBUG ==>  Preparing: select sum(sf_money) from cust_sfjl where date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') and sf_stat = '已收费' 
+2019-3-26 15:20:19 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-26 15:20:19 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-26 15:20:19 http-nio-8081-exec-5 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT t.* FROM (SELECT a.in_out_id, a.in_out_code, a.in_out_time, a.type, a.creator_id, a.creator, a.num, a.money, a.state, a.clinic_id, b.org_name FROM stock_in_out a, sec_org b WHERE a.clinic_id = b.id_ AND a.type != '领用' AND a.type != '退领') t) b LEFT JOIN stock_audit c ON b.in_out_id = c.in_out_id WHERE c.is_pass IS NULL OR b.state = 0.5 
+2019-3-26 15:20:19 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-26 15:20:19 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-26 15:20:20 http-nio-8081-exec-6 DEBUG ==>  Preparing: select * from sec_menu where ID_='chai-wu-guan-li' limit 1 
+2019-3-26 15:20:20 http-nio-8081-exec-6 DEBUG ==> Parameters: 
+2019-3-26 15:20:20 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-26 15:20:20 http-nio-8081-exec-8 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-26 15:20:20 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-26 15:20:20 http-nio-8081-exec-8 DEBUG <==      Total: 2
+2019-3-26 15:20:20 http-nio-8081-exec-8 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-26 15:20:20 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-26 15:20:20 http-nio-8081-exec-7 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money) is null then 0 else sum(s.sf_money) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 15:20:20 http-nio-8081-exec-7 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:20:20 http-nio-8081-exec-8 DEBUG <==      Total: 5
+2019-3-26 15:20:20 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-26 15:20:20 http-nio-8081-exec-7 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money - s.arrears) is null then 0 else sum(s.sf_money - s.arrears) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 15:20:20 http-nio-8081-exec-7 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:20:20 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-26 15:20:20 http-nio-8081-exec-9 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id, count(sf_id) AS sf_num, record_type FROM `account_record` GROUP BY sf_id, record_type HAVING sf_num = 1) temp ON temp.sf_id = t.sf_id 
+2019-3-26 15:20:20 http-nio-8081-exec-9 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:20:20 http-nio-8081-exec-9 DEBUG <==      Total: 1
+2019-3-26 15:20:20 http-nio-8081-exec-9 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name,temp.record_type from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id,count(sf_id) as sf_num,record_type FROM `account_record` GROUP BY sf_id,record_type HAVING sf_num =1) temp on temp.sf_id = t.sf_id order by t.create_time desc limit ?,? 
+2019-3-26 15:20:20 http-nio-8081-exec-9 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 0(Integer), 10(Integer)
+2019-3-26 15:20:20 http-nio-8081-exec-9 DEBUG <==      Total: 10
+2019-3-26 15:20:24 http-nio-8081-exec-4 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-26 15:20:24 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-26 15:20:24 http-nio-8081-exec-4 DEBUG <==      Total: 2
+2019-3-26 15:20:24 http-nio-8081-exec-2 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money) is null then 0 else sum(s.sf_money) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 15:20:24 http-nio-8081-exec-2 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:20:24 http-nio-8081-exec-2 DEBUG <==      Total: 1
+2019-3-26 15:20:24 http-nio-8081-exec-4 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-26 15:20:24 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-26 15:20:24 http-nio-8081-exec-4 DEBUG <==      Total: 5
+2019-3-26 15:20:24 http-nio-8081-exec-2 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money - s.arrears) is null then 0 else sum(s.sf_money - s.arrears) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 15:20:24 http-nio-8081-exec-2 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:20:24 http-nio-8081-exec-2 DEBUG <==      Total: 1
+2019-3-26 15:20:24 http-nio-8081-exec-3 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id, count(sf_id) AS sf_num, record_type FROM `account_record` GROUP BY sf_id, record_type HAVING sf_num = 1) temp ON temp.sf_id = t.sf_id 
+2019-3-26 15:20:24 http-nio-8081-exec-3 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:20:24 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-26 15:20:24 http-nio-8081-exec-3 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name,temp.record_type from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id,count(sf_id) as sf_num,record_type FROM `account_record` GROUP BY sf_id,record_type HAVING sf_num =1) temp on temp.sf_id = t.sf_id order by t.create_time desc limit ?,? 
+2019-3-26 15:20:24 http-nio-8081-exec-3 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 0(Integer), 10(Integer)
+2019-3-26 15:20:24 http-nio-8081-exec-3 DEBUG <==      Total: 10
+2019-3-26 15:20:27 http-nio-8081-exec-5 DEBUG ==>  Preparing: SELECT count(0) FROM account_record a, sec_user b WHERE a.sf_id = 'c6cc238a-394c-447d-ba1b-edcb91e6e44a' AND a.user_id = b.ID_ 
+2019-3-26 15:20:27 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-26 15:20:27 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-26 15:20:27 http-nio-8081-exec-5 DEBUG ==>  Preparing: select a.*,b.user_name from account_record a,sec_user b where a.sf_id = 'c6cc238a-394c-447d-ba1b-edcb91e6e44a' and a.user_id = b.ID_ order by a.create_time limit ?,? 
+2019-3-26 15:20:27 http-nio-8081-exec-5 DEBUG ==> Parameters: 0(Integer), 10(Integer)
+2019-3-26 15:20:27 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-26 15:20:30 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id, count(sf_id) AS sf_num, record_type FROM `account_record` GROUP BY sf_id, record_type HAVING sf_num = 1) temp ON temp.sf_id = t.sf_id 
+2019-3-26 15:20:30 http-nio-8081-exec-6 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:20:30 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-26 15:20:30 http-nio-8081-exec-6 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name,temp.record_type from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id,count(sf_id) as sf_num,record_type FROM `account_record` GROUP BY sf_id,record_type HAVING sf_num =1) temp on temp.sf_id = t.sf_id order by t.create_time desc limit ?,? 
+2019-3-26 15:20:30 http-nio-8081-exec-6 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 10(Integer), 10(Integer)
+2019-3-26 15:20:30 http-nio-8081-exec-6 DEBUG <==      Total: 10
+2019-3-26 15:20:38 http-nio-8081-exec-10 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id, count(sf_id) AS sf_num, record_type FROM `account_record` GROUP BY sf_id, record_type HAVING sf_num = 1) temp ON temp.sf_id = t.sf_id 
+2019-3-26 15:20:38 http-nio-8081-exec-10 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:20:38 http-nio-8081-exec-10 DEBUG <==      Total: 1
+2019-3-26 15:20:38 http-nio-8081-exec-10 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name,temp.record_type from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id,count(sf_id) as sf_num,record_type FROM `account_record` GROUP BY sf_id,record_type HAVING sf_num =1) temp on temp.sf_id = t.sf_id order by t.create_time desc limit ?,? 
+2019-3-26 15:20:38 http-nio-8081-exec-10 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 20(Integer), 10(Integer)
+2019-3-26 15:20:38 http-nio-8081-exec-10 DEBUG <==      Total: 8
+2019-3-26 15:20:42 http-nio-8081-exec-4 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id, count(sf_id) AS sf_num, record_type FROM `account_record` GROUP BY sf_id, record_type HAVING sf_num = 1) temp ON temp.sf_id = t.sf_id 
+2019-3-26 15:20:42 http-nio-8081-exec-4 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:20:42 http-nio-8081-exec-4 DEBUG <==      Total: 1
+2019-3-26 15:20:42 http-nio-8081-exec-4 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name,temp.record_type from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id,count(sf_id) as sf_num,record_type FROM `account_record` GROUP BY sf_id,record_type HAVING sf_num =1) temp on temp.sf_id = t.sf_id order by t.create_time desc limit ?,? 
+2019-3-26 15:20:42 http-nio-8081-exec-4 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 0(Integer), 10(Integer)
+2019-3-26 15:20:42 http-nio-8081-exec-4 DEBUG <==      Total: 10
+2019-3-26 15:21:28 http-nio-8081-exec-3 DEBUG ==>  Preparing: SELECT * FROM sec_menu WHERE DELETED = 0 AND ENABLED=1 AND STANBY_ID1='2' AND ID_ IN ( SELECT MENU_ID from sec_menu_member WHERE USER_ID =? UNION SELECT MENU_ID FROM sec_menu_role WHERE ROLE_ID IN ( SELECT ROLE_ID FROM sec_role_member m LEFT JOIN sec_role r ON m.ROLE_ID = r.ID_ WHERE m.USER_ID =? AND r.STATE=1 ) UNION SELECT o.MENU_ID FROM sec_menu_org o LEFT JOIN sec_user u ON o.ORG_ID = u.ORG_ID LEFT JOIN sec_org so ON so.ID_ = u.ORG_ID WHERE u.ID_ = ? AND so.STATE=1 ) ORDER BY sort 
+2019-3-26 15:21:28 http-nio-8081-exec-3 DEBUG ==> Parameters: 1(String), 1(String), 1(String)
+2019-3-26 15:21:28 http-nio-8081-exec-3 DEBUG <==      Total: 26
+2019-3-26 15:21:28 http-nio-8081-exec-5 DEBUG ==>  Preparing: select * from sec_menu where ID_='062af654-9c05-4112-b8d8-35' limit 1 
+2019-3-26 15:21:28 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-26 15:21:28 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-26 15:21:29 http-nio-8081-exec-6 DEBUG ==>  Preparing: select count(*) from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') 
+2019-3-26 15:21:29 http-nio-8081-exec-6 DEBUG ==> Parameters: 
+2019-3-26 15:21:29 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-26 15:21:29 http-nio-8081-exec-6 DEBUG ==>  Preparing: select sum(sf_money) from cust_sfjl where date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') and sf_stat = '已收费' 
+2019-3-26 15:21:29 http-nio-8081-exec-6 DEBUG ==> Parameters: 
+2019-3-26 15:21:29 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-26 15:21:29 http-nio-8081-exec-8 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type ='门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-26 15:21:29 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-26 15:21:29 http-nio-8081-exec-8 DEBUG <==      Total: 2
+2019-3-26 15:21:29 http-nio-8081-exec-8 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') >= date_format(?,'%Y-%m-%d') and date_format(?,'%Y-%m-%d') >= date_format(yy_date,'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type = '门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-26 15:21:29 http-nio-8081-exec-8 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 15:21:29 http-nio-8081-exec-8 DEBUG <==      Total: 2
+2019-3-26 15:21:29 http-nio-8081-exec-9 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT t.* FROM (SELECT a.in_out_id, a.in_out_code, a.in_out_time, a.type, a.creator_id, a.creator, a.num, a.money, a.state, a.clinic_id, b.org_name FROM stock_in_out a, sec_org b WHERE a.clinic_id = b.id_ AND a.type != '领用' AND a.type != '退领') t) b LEFT JOIN stock_audit c ON b.in_out_id = c.in_out_id WHERE c.is_pass IS NULL OR b.state = 0.5 
+2019-3-26 15:21:29 http-nio-8081-exec-9 DEBUG ==> Parameters: 
+2019-3-26 15:21:29 http-nio-8081-exec-9 DEBUG <==      Total: 1
+2019-3-26 15:21:32 http-nio-8081-exec-1 DEBUG ==>  Preparing: select * from sec_menu where ID_='chai-wu-guan-li' limit 1 
+2019-3-26 15:21:32 http-nio-8081-exec-1 DEBUG ==> Parameters: 
+2019-3-26 15:21:32 http-nio-8081-exec-1 DEBUG <==      Total: 1
+2019-3-26 15:21:32 http-nio-8081-exec-2 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-26 15:21:32 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-26 15:21:32 http-nio-8081-exec-4 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money) is null then 0 else sum(s.sf_money) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 15:21:32 http-nio-8081-exec-4 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:21:32 http-nio-8081-exec-2 DEBUG <==      Total: 2
+2019-3-26 15:21:32 http-nio-8081-exec-4 DEBUG <==      Total: 1
+2019-3-26 15:21:32 http-nio-8081-exec-4 DEBUG ==>  Preparing: select count(*) count,case when sum(s.sf_money - s.arrears) is null then 0 else sum(s.sf_money - s.arrears) end money from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') 
+2019-3-26 15:21:32 http-nio-8081-exec-4 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:21:32 http-nio-8081-exec-2 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-26 15:21:32 http-nio-8081-exec-4 DEBUG <==      Total: 1
+2019-3-26 15:21:32 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-26 15:21:32 http-nio-8081-exec-2 DEBUG <==      Total: 5
+2019-3-26 15:21:33 http-nio-8081-exec-3 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT s.*, c.cust_clinic FROM cust_sfjl s, customer c WHERE s.cust_id = c.cust_id AND s.deleted = 0 AND date_format(s.create_time, '%Y-%m-%d') >= ? AND ? >= date_format(s.create_time, '%Y-%m-%d')) t LEFT JOIN sec_user b ON t.cashier = b.ID_ LEFT JOIN sec_org so ON t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id, count(sf_id) AS sf_num, record_type FROM `account_record` GROUP BY sf_id, record_type HAVING sf_num = 1) temp ON temp.sf_id = t.sf_id 
+2019-3-26 15:21:33 http-nio-8081-exec-3 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String)
+2019-3-26 15:21:33 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-26 15:21:33 http-nio-8081-exec-3 DEBUG ==>  Preparing: select t.*,b.user_name,so.org_name,temp.record_type from ( select s.*,c.cust_clinic from cust_sfjl s,customer c where s.cust_id=c.cust_id and s.deleted=0 and date_format(s.create_time,'%Y-%m-%d') >= ? and ? >= date_format(s.create_time,'%Y-%m-%d') ) t left join sec_user b on t.cashier = b.ID_ left join sec_org so on t.cust_clinic = so.ID_ LEFT JOIN (SELECT sf_id,count(sf_id) as sf_num,record_type FROM `account_record` GROUP BY sf_id,record_type HAVING sf_num =1) temp on temp.sf_id = t.sf_id order by t.create_time desc limit ?,? 
+2019-3-26 15:21:33 http-nio-8081-exec-3 DEBUG ==> Parameters: 2019-01-01(String), 2019-12-31(String), 0(Integer), 10(Integer)
+2019-3-26 15:21:33 http-nio-8081-exec-3 DEBUG <==      Total: 10
+2019-3-26 15:24:40 http-nio-8081-exec-8 DEBUG ==>  Preparing: SELECT * FROM sec_menu WHERE DELETED = 0 AND ENABLED=1 AND STANBY_ID1='2' AND ID_ IN ( SELECT MENU_ID from sec_menu_member WHERE USER_ID =? UNION SELECT MENU_ID FROM sec_menu_role WHERE ROLE_ID IN ( SELECT ROLE_ID FROM sec_role_member m LEFT JOIN sec_role r ON m.ROLE_ID = r.ID_ WHERE m.USER_ID =? AND r.STATE=1 ) UNION SELECT o.MENU_ID FROM sec_menu_org o LEFT JOIN sec_user u ON o.ORG_ID = u.ORG_ID LEFT JOIN sec_org so ON so.ID_ = u.ORG_ID WHERE u.ID_ = ? AND so.STATE=1 ) ORDER BY sort 
+2019-3-26 15:24:40 http-nio-8081-exec-8 DEBUG ==> Parameters: 1(String), 1(String), 1(String)
+2019-3-26 15:24:40 http-nio-8081-exec-8 DEBUG <==      Total: 26
+2019-3-26 15:24:40 http-nio-8081-exec-9 DEBUG ==>  Preparing: select * from sec_menu where ID_='062af654-9c05-4112-b8d8-35' limit 1 
+2019-3-26 15:24:40 http-nio-8081-exec-9 DEBUG ==> Parameters: 
+2019-3-26 15:24:40 http-nio-8081-exec-9 DEBUG <==      Total: 1
+2019-3-26 15:24:41 http-nio-8081-exec-7 DEBUG ==>  Preparing: select count(*) from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') 
+2019-3-26 15:24:41 http-nio-8081-exec-7 DEBUG ==> Parameters: 
+2019-3-26 15:24:41 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-26 15:24:41 http-nio-8081-exec-7 DEBUG ==>  Preparing: select sum(sf_money) from cust_sfjl where date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') and sf_stat = '已收费' 
+2019-3-26 15:24:41 http-nio-8081-exec-7 DEBUG ==> Parameters: 
+2019-3-26 15:24:41 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-26 15:24:41 http-nio-8081-exec-10 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type ='门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-26 15:24:41 http-nio-8081-exec-10 DEBUG ==> Parameters: 
+2019-3-26 15:24:41 http-nio-8081-exec-10 DEBUG <==      Total: 2
+2019-3-26 15:24:41 http-nio-8081-exec-10 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') >= date_format(?,'%Y-%m-%d') and date_format(?,'%Y-%m-%d') >= date_format(yy_date,'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type = '门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-26 15:24:41 http-nio-8081-exec-10 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-26 15:24:41 http-nio-8081-exec-10 DEBUG <==      Total: 2
+2019-3-26 15:24:41 http-nio-8081-exec-1 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT t.* FROM (SELECT a.in_out_id, a.in_out_code, a.in_out_time, a.type, a.creator_id, a.creator, a.num, a.money, a.state, a.clinic_id, b.org_name FROM stock_in_out a, sec_org b WHERE a.clinic_id = b.id_ AND a.type != '领用' AND a.type != '退领') t) b LEFT JOIN stock_audit c ON b.in_out_id = c.in_out_id WHERE c.is_pass IS NULL OR b.state = 0.5 
+2019-3-26 15:24:41 http-nio-8081-exec-1 DEBUG ==> Parameters: 
+2019-3-26 15:24:41 http-nio-8081-exec-1 DEBUG <==      Total: 1
+2019-3-26 15:55:42 main INFO The following profiles are active: dev
+2019-3-26 15:55:58 main DEBUG ==>  Preparing: SELECT * FROM sec_menu sm where deleted=0 AND sm.STANBY_ID1 = '2' ORDER BY SORT 
+2019-3-26 15:55:58 main DEBUG ==> Parameters: 
+2019-3-26 15:55:58 main DEBUG <==      Total: 48
+2019-3-26 15:55:58 main INFO JedisPoolע��ɹ�����
+2019-3-26 15:55:58 main INFO redis��ַ��localhost:6379
+2019-3-26 15:56:20 main INFO Started BaseFrameApplicationTests in 46.891 seconds (JVM running for 51.788)

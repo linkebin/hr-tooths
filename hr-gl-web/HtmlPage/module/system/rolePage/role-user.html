@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>角色成员</title>
+    <link rel="stylesheet" href="../../../../Styles/themes/default/style.css" media="all">
+    <link rel="stylesheet" href="../../../../Scripts/libs/jquery-ui/jquery-ui.css">
+    <script type="text/javascript" src="../../../../Scripts/jquery-1.9.0.min.js"></script>
+    <script src="../../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/module/eui.js" charset="utf-8"></script>
+    <script src="../../../../Scripts/config.js" charset="utf-8"></script>
+    <script src="../../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/plugins/jquery.validate.js"></script>
+    <script src="../../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+    <script src="../../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+    <script src="../../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+    <script src="../../../../Scripts/pack.ajax.js" charset="utf-8"></script>
+    <script src="../../../../Scripts/plugins/jquery.query.js"  charset="utf-8"></script><!--获取url参数-->
+</head>
+<body>
+
+<div class="eui-bg-white eui-padding10">
+    <!--右边内容 start-->
+    <!--条件搜索 start-->
+    <div class="eui-form eui-form-base eui-form-search eui-form-col2">
+        <form id="formId">
+            <!-- 查询重置按钮-->
+            <div class="eui-btn-group">
+                <a href="javaScript:void(0)" class="eui-btn" onclick="doSearch()">查询</a>
+                <a href="javaScript:void(0)" class="eui-btn eui-btn-primary" onclick="resetForm()">重置</a>
+            </div>
+            <!--查询条件-->
+            <div class="eui-form-item">
+                <label class="eui-form-label">用户账号：</label>
+                <div class="eui-input-block">
+                    <input type="text" name="account" id="account" class="eui-input" placeholder="">
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">用户名称：</label>
+                <div class="eui-input-block">
+                    <input type="text" name="userName" id="userName" class="eui-input" placeholder="">
+                </div>
+            </div>
+            <!--华丽的分割线-->
+            <!--<div class="eui-form-item">-->
+                <!--<label class="eui-form-label">性别：</label>-->
+                <!--<div class="eui-input-block">-->
+                    <!--<select name="sex" e-verify="required">-->
+                        <!--<option value="">全部</option>-->
+                        <!--<option value="男">男</option>-->
+                        <!--<option value="女">女</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="eui-form-item">-->
+                <!--<label class="eui-form-label">用户状态：</label>-->
+                <!--<div class="eui-input-block">-->
+                    <!--<select name="status" e-verify="required">-->
+                        <!--<option value="">全部</option>-->
+                        <!--<option value="启用">启用</option>-->
+                        <!--<option value="禁用">禁用</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--华丽的分割线-->
+
+            <div class="clearfix"></div>
+        </form>
+    </div>
+    <!--条件搜索 end-->
+    <!--标题 start-->
+
+    <div class="title-bar eui-marginB10">
+        <div class="eui-btn-group float-right">
+            <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+            <a  href="javaScript: selectUser()"class="eui-btn eui-btn-small"><i class="eui-icon">
+                &#xe654;</i>添加成员</a>
+            <a href="javaScript: removeUserBatch()" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">
+                &#xe640;</i>移除</a>
+        </div>
+        <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      <span class="eui-color-red"></span>成员列表
+    </span>
+    </div>
+    <table id="tableDemo" e-filter="tableDemoFilter"></table>
+</div>
+</body>
+
+<!--弹出信息-->
+<script type="text/html" id="layerContent">
+    <div class="eui-height100p" id="layout">
+        <div class="ui-layout-west">
+            <h3 class="ui-widget-header">组织结构树</h3>
+            <div class="ui-layout-content etree">
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="ui-layout-center eui-bg-white eui-padding10">
+            <!--右边内容 start-->
+            <!--条件搜索 start-->
+            <div class="eui-form eui-form-base eui-form-search eui-form-col2">
+                <form id="userForm">
+                    <input id="dpId"  name="dpId" type="hidden">
+                    <!-- 查询重置按钮-->
+                    <div class="eui-btn-group">
+                        <a  href="javaScript:void(0)" class="eui-btn" onclick="searchUser()">查询</a>
+                        <button  type="reset" class="eui-btn eui-btn-primary">重置</button>
+                    </div>
+                    <!--查询条件-->
+                    <div class="eui-form-item">
+                        <label class="eui-form-label">用户账号：</label>
+                        <div class="eui-input-block">
+                            <input type="text" id="accountAdd"  class="eui-input" placeholder="">
+                        </div>
+                    </div>
+                    <div class="eui-form-item">
+                        <label class="eui-form-label">用户名称：</label>
+                        <div class="eui-input-block">
+                            <input type="text" id="userNameAdd" class="eui-input" placeholder="">
+                        </div>
+                    </div>
+                    <!--华丽的分割线-->
+
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+
+
+            <!--条件搜索 end-->
+            <!--标题 start-->
+
+            <div class="title-bar eui-marginB10">
+            <span class="title-main">
+          <i class="eui-icon eui-font20">&#xe62d;</i>
+            <span class="eui-color-red">用户列表</span>
+          </span>
+            </div>
+
+            <!--标题 end-->
+            <div class="eui-btn-group eui-marginB10">
+            </div>
+
+
+            <!--  <div class="nodataArea">暂无相关数据 !</div>-->
+            <table id="addUserTable" e-filter="addUserTableFilter"></table>
+            <!--表格 end-->
+            <!--右边内容 end-->
+        </div>
+    </div>
+
+</script>
+<!--表格 start-->
+<script type="text/html" id="barDemo">
+    <div class="eui-btn-group">
+        <a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="remove"><i class="eui-icon" title="移除">&#xe640;</i></a>
+    </div>
+</script>
+<Script>
+    var roleId = jQuery.query.get("id");
+
+    var table = null;
+    var tableInit = null;
+    var tableInitAddUser = null;
+    var txt = "";
+
+    eui.use(['jquery', 'element', 'form', 'table'], function () {
+        table = eui.table
+        var jQuery = eui.jQuery
+            , layer = eui.layer
+            , laytpl = eui.laytpl
+            , form = eui.form;
+        layer.load();
+
+        var getTpl = $("#layerContent").html();
+        laytpl(getTpl).render({}, function (html) {
+            txt = html;
+        });
+
+        tableInit =  table.render({
+            elem: '#tableDemo'
+            , even: true //开启隔行背景
+            , url: basePath + '/sec/user/getSecUserByRole'//数据接口
+            , page: true
+            , where: {
+                roleId: roleId
+                ,account:$("#account").val()
+                ,userName:$("#userName").val()
+            }
+            , method: 'get'
+            , cols: [[
+                {type: 'checkbox', width: 60, title: '选择'}
+                , {type: 'numbers', width: 60, title: '序号'}
+                , {field: 'USER_NAME', width: 100, title: '用户名称'}
+                , {field: 'SEX', width: 100, title: '性别'}
+                , {field: 'ACCOUNT', width: 120, title: '用户账号', sort: true}  //增加 edit 表示开户了编辑状态
+                , {field: 'MOBILE', width: 120, title: '手机号码'}
+                , {field: 'ORG_NAME', width: 120, title: '所属部门'}
+                ,{field:'opear', title:'操作', width:200, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+            ]]
+//                ,singleSelect:true
+            , done: function (res, curr, count) {
+                layer.closeAll();
+            }
+        });
+
+
+        //监听工具条
+        table.on('tool(tableDemoFilter)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'remove'){
+                removeUser(data.ID_);
+            }
+        });
+    })
+
+    //查询所有的用户
+    function doSearch() {
+        if (tableInit != null) {
+            tableInit.reload({
+                where: {
+                     roleId: roleId
+                    ,account:$("#account").val()
+                    ,userName:$("#userName").val()
+                }
+            });
+        }
+    };
+        
+
+    function removeUserBatch() {
+
+            var checkStatus = table.checkStatus('tableDemo');
+            var delIds = "";
+            if (checkStatus.data.length == 0) {
+                layer.msg("请选择用户");
+                return;
+            } else {
+                for (var i = 0; i < checkStatus.data.length; i++) {
+                    if(delIds==""){
+                        delIds =  checkStatus.data[i].ID_;
+                    }else {
+                        delIds = delIds + "," + checkStatus.data[i].ID_
+                    }
+                }
+            }
+
+
+            removeUser(delIds);
+
+    }
+
+    function removeUser(idStr) {
+        layer.confirm('确定移除用户？', function (index) {
+        $.ajax({
+            type: "POST",
+            url: basePath + "/sec/role/member/delete",
+            data: {
+                idStr: idStr,
+                roleId: roleId
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    layer.msg("移除成功");
+                    doSearch();
+                } else {
+                    layer.msg(result.message);
+                }
+            },
+            error: function () {
+                layer.msg("更新成功");
+            }
+        });
+
+            layer.close(index);
+        });
+
+    }
+    //重置
+    function resetForm() {
+        document.getElementById("formId").reset();
+        doSearch();
+    }
+    
+    //添加
+    function selectUser() {
+       var page=  layer.open({
+             type: 1
+            , title: "添加用户"
+            , area: ['1000px', '600px']  //宽度
+            , offset: "auto"              //类型,注意点击按钮的data-type属性，然后配合宽高度
+            , id: 'addRoleUserPage' //防止重复弹出
+            , content: txt
+            , btn: ['确定', '取消']
+            , btnAlign: 'c' //按钮居中
+            , shade: 0.3 //不显示遮罩
+            , maxmin: true
+            , yes: function () {
+                 addUser();
+                 layer.close(page);
+            }, btn2: function () {
+               layer.close(page);
+            }
+        });
+        //布局
+        $("#layout").layout({
+            //   applyDemoStyles: true,
+            spacing_open:8,
+            spacing_closed:10,
+            west__size:230,             //左侧初始宽度
+            north__size:60,             //上侧初始宽度
+            north__resizable:false,    //上侧关闭大小调整
+            north__closable:false,      //上侧关闭收缩
+            north__spacing_open: 0,       //上侧边框为0, 一般这个设置了上面的north__resizable和north__closable可以不用设置
+            south__spacing_open: 0,
+            south__size:30
+        });
+//        $(".ui-layout-west").tabs();
+       //初始化树和列表
+        initSelectUser();
+    }
+    function addUser() {
+        layer.confirm('确认添加到角色中么？', function (index) {
+            var checkStatus = table.checkStatus('addUserTable');
+            var idStr = "";
+            if (checkStatus.data.length == 0) {
+                layer.msg("请选择用户");
+                return;
+            } else {
+                for (var i = 0; i < checkStatus.data.length; i++) {
+                    idStr = idStr + "," + checkStatus.data[i].ID_
+                }
+            }
+            $.ajax({
+                type: "POST",
+                url: basePath + "/sec/role/member/add",
+                data: {
+                    idStr: idStr
+                    ,roleId:roleId
+                },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.code == 200) {
+                        layer.msg("添加成功");
+                        doSearch();
+                        layer.closeAll();
+                    } else {
+                        layer.msg("添加失败:"+result.message);
+                    }
+                },
+                error: function () {
+                    layer.msg("添加失败");
+                }
+            });
+            layer.close(index);
+        });
+    }
+
+
+    var zNodes = [];
+    var setting = {
+        view: {
+            addHoverDom: null,
+            removeHoverDom: null,
+            selectedMulti: false,
+            showTitle: true
+        },
+        async: {
+            enable: true,
+            type: "post",
+            dataType: "text",
+            url: basePath + "/sec/org/dpTree",
+            dataFilter: null
+        },
+
+        data: {
+            key: {
+                name: "ORG_NAME"
+            },
+            simpleData: {
+                enable: true,
+                idKey: "ID_",
+                pIdKey: "PARENT_ID",
+                rootPid: "0"
+            }
+        },
+        callback: {
+            onClick: treeClick
+        }
+    };
+    function initSelectUser() {
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        tableInitAddUser =  table.render({
+              elem: '#addUserTable'
+            , even: true //开启隔行背景
+            , url: basePath + '/sec/user/getSecUserByNotRole'//数据接口
+            , page: true
+            , where: {
+                 roleId: roleId
+                ,account:$("#accountAdd").val()
+                ,userName:$("#userNameAdd").val()
+                ,dpId:$("#dpId").val()
+            }
+            , method: 'get'
+            , cols: [[
+                {type: 'checkbox', width: 60, title: '选择'}
+                , {type: 'numbers', width: 60, title: '序号'}
+                , {field: 'USER_NAME', width: 100, title: '用户名称'}
+                , {field: 'SEX', width: 100, title: '性别'}
+                , {field: 'ACCOUNT', width: 120, title: '用户账号', sort: true}  //增加 edit 表示开户了编辑状态
+                , {field: 'MOBILE', width: 120, title: '手机号码'}
+                , {field: 'ORG_NAME', width: 120, title: '所属部门'}
+                ,{field:'opear', title:'操作', width:200, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+            ]]
+//                ,singleSelect:true
+            , done: function (res, curr, count) {
+            }
+        });
+    }
+    function treeClick(eventjs, treeId, treeNode) {
+        $("#dpId").val(treeNode.ID_)
+        searchUser()
+    }
+
+    function searchUser() {
+        if (tableInitAddUser != null) {
+            tableInitAddUser.reload({
+                where: {
+                     roleId: roleId
+                    ,account:$("#accountAdd").val()
+                    ,userName:$("#userNameAdd").val()
+                    ,dpId:$("#dpId").val()
+                }
+            });
+        }
+    }
+</Script>
+
+</html>

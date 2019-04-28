@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.SecMenuMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.SecMenu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID_" jdbcType="VARCHAR" property="id" />
+    <result column="MENU_CODE" jdbcType="VARCHAR" property="menuCode" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="MENU_TYPE" jdbcType="INTEGER" property="menuType" />
+    <result column="OPEN_TYPE" jdbcType="INTEGER" property="openType" />
+    <result column="ICON" jdbcType="VARCHAR" property="icon" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="ENABLED" jdbcType="INTEGER" property="enabled" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="DELETED" jdbcType="INTEGER" property="deleted" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="STANBY_ID1" jdbcType="VARCHAR" property="stanbyId1" />
+    <result column="STANBY_ID2" jdbcType="VARCHAR" property="stanbyId2" />
+    <result column="STANBY_ID3" jdbcType="VARCHAR" property="stanbyId3" />
+  </resultMap>
+    <resultMap id="tree_map" type="com.yidusoft.utils.TreeNode">
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="parentId" property="parentId" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+   <!--分页查询所有的菜单-->
+  <select id="menuList" parameterType="com.yidusoft.project.system.domain.SecUser" resultType="java.util.Map">
+        SELECT
+          sm.*,sp.MENU_NAME  as  PARENT_NAME
+          FROM
+             sec_menu sm
+            LEFT JOIN
+             sec_menu sp
+             ON  sm.PARENT_ID=sp.ID_
+          where sm.deleted=0
+            AND  sm.STANBY_ID1 = '1'
+          <if test="menuName!=null and menuName!=''">
+              AND sm.MENU_NAME like '%${menuName}%'
+          </if>
+          <if test="enabled!=null ">
+              AND  sm.ENABLED =#{enabled}
+          </if>
+          ORDER BY sm.create_time DESC
+  </select>
+
+    <!--分页查询父的的子菜单-->
+  <select id="findByParentId" parameterType="com.yidusoft.project.system.domain.SecUser" resultType="java.util.Map">
+        SELECT
+         *
+        FROM
+        sec_menu
+        where
+          deleted=0
+         AND PARENT_ID=#{id}
+         ORDER BY sort
+    </select>
+
+    <!--查询父的的子菜单的总数-->
+    <select id="findByParentIdNum" parameterType="com.yidusoft.project.system.domain.SecUser" resultType="int">
+        SELECT
+           sort
+        FROM
+         sec_menu
+        where
+         deleted=0
+        AND PARENT_ID=#{id}
+        ORDER BY sort
+    </select>
+
+
+ <select id="queryAll" resultMap="BaseResultMap">
+    SELECT * FROM sec_menu sm where deleted=0 AND   sm.STANBY_ID1 = '1' ORDER BY SORT
+  </select>
+
+  <select id="findMenuByUser" parameterType="String" resultMap="BaseResultMap">
+SELECT * FROM sec_menu
+    WHERE
+    DELETED = 0
+    AND  ENABLED=1
+    AND  STANBY_ID1='1'
+    AND ID_ IN (
+        SELECT MENU_ID from sec_menu_member WHERE USER_ID =#{userId}
+        UNION
+        SELECT MENU_ID FROM sec_menu_role WHERE ROLE_ID IN (
+        SELECT ROLE_ID
+        FROM sec_role_member m
+        LEFT JOIN sec_role r ON m.ROLE_ID = r.ID_
+        WHERE m.USER_ID =#{userId}
+         AND  r.STATE=1
+        )
+            UNION
+            SELECT
+              o.MENU_ID
+              FROM sec_menu_org o
+                LEFT JOIN sec_user u
+                ON o.ORG_ID = u.ORG_ID
+                LEFT JOIN sec_org so
+                ON  so.ID_ = u.ORG_ID
+                WHERE u.ID_ = #{userId}
+                 AND  so.STATE=1
+      )
+   ORDER  BY  sort
+  </select>
+
+  <select id="findMenuForButtonByUser" parameterType="String" resultMap="BaseResultMap">
+SELECT  sec_menu.URL FROM sec_menu WHERE DELETED = 0 AND MENU_TYPE = 2 AND ID_ IN (
+    SELECT MENU_ID from sec_menu_member WHERE USER_ID =#{userId}
+    UNION
+    SELECT MENU_ID FROM sec_menu_role WHERE ROLE_ID IN (
+    SELECT ROLE_ID
+    FROM sec_role_member m
+    LEFT JOIN sec_role r ON m.ROLE_ID = r.ID_
+    WHERE m.USER_ID =#{userId}
+
+    )
+		UNION
+		SELECT o.MENU_ID FROM sec_menu_org o
+		LEFT JOIN sec_user u ON o.ORG_ID = u.ORG_ID
+		WHERE u.ID_ = #{userId}
+  )
+
+  </select>
+    <!--树形结构-->
+    <select id="getTree" resultMap="tree_map" parameterType="String">
+        SELECT ID_ id,MENU_NAME name,PARENT_ID parentId FROM SEC_MENU    WHERE DELETED=0  AND  STANBY_ID1='1'  ORDER BY SORT
+    </select>
+
+    <!--查询菜单的详细信息-->
+    <select id="menuInfo" parameterType="String" resultType="java.util.Map">
+        SELECT  *  FROM   sec_menu  WHERE  DELETED=0
+        AND  id_=#{menuId}
+    </select>
+
+    <!--查询菜单的详细信息-->
+    <select id="getButtonMenuByRole" parameterType="java.util.Map" resultType="java.util.Map">
+         SELECT
+            sm.ID_,
+            sm.MENU_CODE,
+            sm.MENU_NAME,
+            sm.MENU_TYPE,
+            sm.STATE,
+            CASE
+        WHEN smr.ID_ IS NOT NULL THEN
+            'true'
+        END AS checked
+        FROM
+            `sec_menu` sm
+        LEFT JOIN (SELECT * from sec_menu_role where ROLE_ID =  #{roleId}) smr ON sm.ID_ = smr.MENU_ID
+        WHERE
+            sm.DELETED = 0
+        AND sm.MENU_TYPE = 2
+        AND sm.ENABLED = 1
+        <if test="menuId!=null and menuId!=''">
+        AND sm.PARENT_ID = #{menuId}
+        </if>
+    </select>
+    <select id="getMenuTreeByRole" parameterType="String" resultType="map">
+            SELECT
+                sm.ID_ id,
+                sm.PARENT_ID pid,
+                sm.MENU_NAME AS name,
+                CASE WHEN
+                a.ID_ is not NULL
+                THEN
+                'true'
+                END
+            as checked,
+            'true' AS  open
+            FROM
+                sec_menu sm
+            LEFT JOIN (SELECT s.ID_,s.MENU_ID  FROM sec_menu_role s where s.ROLE_ID = #{roleId})a
+            on sm.ID_ = a.MENU_ID
+            WHERE
+                sm.DELETED = 0
+            AND sm.MENU_TYPE = 1
+            AND  sm.STANBY_ID1='1'
+            ORDER BY sm.SORT
+
+    </select>
+
+
+    <!--查询用户的所有菜单，角色菜单,组织菜单,用户菜单-->
+    <select id="getMenuForUserAll" parameterType="String" resultType="java.util.Map">
+    SELECT
+	sm.id_ as id,
+	sm.MENU_NAME as name,
+	sm.PARENT_ID as parentId,
+	CASE
+         WHEN smr.ID_ IS NOT NULL THEN
+         'true'
+         WHEN smo.ID_ IS NOT NULL THEN
+         'true'
+     ELSE 'false'
+     END AS 'chkDisabled',
+ CASE
+    WHEN smr.ID_ IS NOT NULL THEN
+	 'true'
+    WHEN smm.ID_ IS NOT NULL THEN
+	 'true'
+    WHEN smo.ID_ IS NOT NULL THEN
+	 'true'
+ELSE 'false'
+END AS 'checked',
+'true' AS  open
+
+FROM
+	sec_menu sm
+LEFT JOIN (
+   select * from sec_menu_role  where ROLE_ID IN(SELECT ROLE_ID FROM  SEC_ROLE_MEMBER WHERE USER_ID= #{userId})
+           )	smr ON sm.ID_ = smr.MENU_ID
+LEFT JOIN (
+    select * from sec_menu_member where USER_ID =  #{userId}
+            )smm ON sm.ID_ = smm.MENU_ID
+LEFT JOIN (
+    select * from sec_menu_org where ORG_ID = (SELECT  ORG_ID FROM  SEC_USER WHERE  ID_= #{userId})
+          ) smo ON sm.ID_ = smo.MENU_ID
+WHERE sm.deleted=0
+  AND  sm.MENU_TYPE=1
+  AND  sm.STANBY_ID1='1'
+  GROUP BY id,name,parentId,chkDisabled,checked
+
+    </select>
+    <!--查询用户所选菜单的所有子按钮《角色菜单,组织菜单,用户菜单》-->
+  <select id="getMenuForUserBntAll" parameterType="java.util.Map" resultType="java.util.Map">
+       SELECT
+        sm.id_ as id,
+        sm.MENU_NAME as name,
+        sm.PARENT_ID as parentId,
+	CASE
+         WHEN smr.ID_ IS NOT NULL THEN
+         'true'
+         WHEN smo.ID_ IS NOT NULL THEN
+         'true'
+     ELSE 'false'
+     END AS 'chkDisabled',
+     CASE
+        WHEN smr.ID_ IS NOT NULL THEN
+         'true'
+        WHEN smm.ID_ IS NOT NULL THEN
+         'true'
+        WHEN smo.ID_ IS NOT NULL THEN
+         'true'
+     ELSE 'false'
+     END AS 'checked'
+FROM
+	sec_menu sm
+LEFT JOIN (
+   select * from sec_menu_role  where ROLE_ID IN(SELECT ROLE_ID FROM  SEC_ROLE_MEMBER WHERE USER_ID=#{userId})
+           )	smr ON sm.ID_ = smr.MENU_ID
+LEFT JOIN (
+    select * from sec_menu_member where USER_ID =#{userId}
+            )smm ON sm.ID_ = smm.MENU_ID
+LEFT JOIN (
+    select * from sec_menu_org where ORG_ID = (SELECT  ORG_ID FROM  SEC_USER WHERE  ID_=#{userId})
+          ) smo ON sm.ID_ = smo.MENU_ID
+WHERE sm.deleted=0
+  AND  sm.MENU_TYPE=2
+  AND  sm.PARENT_ID =#{parentId}
+    AND  sm.STANBY_ID1='1'
+  GROUP BY id,name,parentId,chkDisabled,checked
+
+  </select>
+
+</mapper>

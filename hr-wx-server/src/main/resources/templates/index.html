@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>华仁牙科</title>
+
+		<!-- Bootstrap -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<!--weui组件-->
+		<link href="/css/weui.min.css" rel="stylesheet" />
+		<link href="/css/jquery-weui.min.css" rel="stylesheet" />
+		<!--样式-->
+		<link href="/css/style.css" rel="stylesheet">
+		<link href="/css/main.css" rel="stylesheet">
+	</head>
+
+	<body class="background-color">
+		<div class="container ">
+			<div class="row">
+				<div class="col-xs-12 col-md-6 col-md-offset-3 padding0 synopsis-body">
+					<!-- 轮播图S -->
+					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+						</ol>
+
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								<img src="/img/banner-1.png" class="img-responsive">
+								<div class="carousel-caption">
+								</div>
+							</div>
+							<div class="item">
+								<img src="/img/banner-2.png" class="img-responsive">
+								<div class="carousel-caption">
+								</div>
+							</div>
+							<div class="item">
+								<img src="/img/banner-3.png" class="img-responsive">
+								<div class="carousel-caption">
+								</div>
+							</div>
+						</div>
+						<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+						</a>
+						<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+						</a>
+					</div>
+					<!-- 轮播图E -->
+					<div class="function">
+						<ul>
+							<li>
+								<img src="/img/order.png" class="center-block schedule-a" />
+								<p class="text-center schedule-a">预约</p>
+							</li>
+							<li>
+								<img src="/img/doctor.png" class="center-block doctor-a" />
+								<p class="text-center doctor-a">医生</p>
+							</li>
+							<li>
+								<img src="/img/consult.png" class="center-block chat-a" />
+								<p class="text-center chat-a">咨询</p>
+							</li>
+							<li>
+								<img src="/img/personal.png" class="center-block personage-a" />
+								<p class="text-center personage-a">个人信息</p>
+							</li>
+						</ul>
+					</div>
+
+					<div class="synopsis">
+						<p class="text-center synopsis-head">公司简介</p>
+						<p class="synopsis-text">牙科医生简称牙医，教人怎样从小开始保护牙齿和齿龈，可是他们每天的工作多是治疗牙齿疾病。病人有蛀齿时，牙医清除牙齿腐烂的部分，然后填补。有时候，牙医拔掉整颗牙，再用假牙代替。</p>
+					</div>
+
+					<div class="synopsis">
+						<ul class="synopsis-ul">
+							<li>
+								<img src="/img/phone.png" class="phone" /><span>020-213171234</span>
+							</li>
+							<li>
+								<img src="/img/site.png" class="site" /><span>广州市天河区软件路软件大道</span>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+		<script src="/js/jquery-3.3.1.js"></script>
+		<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+		<script src="/js/bootstrap.min.js"></script>
+		<!--weui组件-->
+		<script src="/js/jquery-weui.min.js"></script>
+		<script src="/js/swiper.min.js"></script>
+		<script src="/js/city-picker.min.js"></script>
+		<script>
+			$(".doctor-a").on("click", function() {
+				window.open("pages/doctor.html","_self");
+			});
+			$(".personage-a").on("click", function() {
+				window.open("pages/personal-details.html","_self");
+			});
+			$(".chat-a").on("click", function() {
+				window.open("pages/chat.html","_self");
+			});
+			$(".schedule-a").on("click", function() {
+				window.open("pages/schedule.html","_self");
+			});
+		</script>
+
+	</body>
+
+</html>

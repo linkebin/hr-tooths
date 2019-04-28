@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.YyManageMapper">
+    <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.YyManage">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="yy_id" jdbcType="VARCHAR" property="yyId"/>
+        <result column="yy_code" jdbcType="VARCHAR" property="yyCode"/>
+        <result column="yy_date" jdbcType="TIMESTAMP" property="yyDate"/>
+        <result column="yy_time" jdbcType="VARCHAR" property="yyTime"/>
+        <result column="yy_cust_name" jdbcType="VARCHAR" property="yyCustName"/>
+        <result column="yy_cust_sex" jdbcType="VARCHAR" property="yyCustSex"/>
+        <result column="yy_cust_tel" jdbcType="VARCHAR" property="yyCustTel"/>
+        <result column="yy_clinic" jdbcType="VARCHAR" property="yyClinic"/>
+        <result column="yy_doctor" jdbcType="VARCHAR" property="yyDoctor"/>
+        <result column="yy_project" jdbcType="VARCHAR" property="yyProject"/>
+        <result column="yy_source" jdbcType="VARCHAR" property="yySource"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="yy_age" jdbcType="VARCHAR" property="yyAge"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="yy_cust_id" jdbcType="VARCHAR" property="yyCustId"/>
+    </resultMap>
+
+    <select id="getYYManage" parameterType="String" resultMap="BaseResultMap">
+        select a.yy_id,a.yy_code,a.yy_time,a.yy_date,a.yy_cust_sex,a.yy_cust_tel,
+        a.yy_clinic,b.USER_NAME yy_doctor,a.yy_project,a.yy_source,a.remark,a.yy_age,a.create_time,a.yy_cust_id,
+        IFNULL(c.cust_name,a.yy_cust_name) as yy_cust_name
+        from yy_manage a
+        left JOIN  sec_user b on  a.yy_doctor = b.ID_
+        left  JOIN customer c on  a.yy_cust_id = c.cust_id
+        where a.yy_clinic = #{clinic}
+        and b.DELETED = 0
+        <if test="doctor!=null and doctor!=''">and a.yy_doctor = #{doctor}</if>
+        <if test="code!=null and code!=''">and (a.yy_cust_name = #{code} or a.yy_cust_tel = #{code})</if>
+        <if test="project!=null and project!=''">and a.yy_project = #{project}</if>
+        <if test="startTime!=null and startTime!=''">and date_format(a.yy_date,'%Y-%m-%d') >= #{startTime}</if>
+        <if test="endTime!=null and endTime!=''">and #{endTime} >= date_format(a.yy_date,'%Y-%m-%d')</if>
+        order by  a.yy_date desc,a.yy_time desc
+    </select>
+
+    <select id="getYYManageCount" parameterType="String" resultType="int">
+        select count(*) from yy_manage
+        where yy_clinic = #{clinic}
+        <if test="doctor!=null and doctor!=''">and yy_doctor = #{doctor}</if>
+        <if test="code!=null and code!=''">and (yy_cust_name = #{code} or yy_cust_tel = #{code})</if>
+        <if test="project!=null and project!=''">and yy_project = #{project}</if>
+        <if test="startTime!=null and startTime!=''">and date_format(yy_date,'%Y-%m-%d') >= #{startTime}</if>
+        <if test="endTime!=null and endTime!=''">and #{endTime} >= date_format(yy_date,'%Y-%m-%d')</if>
+    </select>
+
+    <select id="getList" parameterType="Map" resultMap="BaseResultMap">
+        select y.yy_id,y.yy_code,y.yy_time,date_format(y.yy_date,'%Y-%m-%d') yy_date,y.yy_cust_sex,y.yy_cust_tel,
+        y.yy_clinic,b.USER_NAME yy_doctor,y.yy_project,y.yy_source,y.remark,y.yy_age,y.create_time,
+        IFNULL(c.cust_name,y.yy_cust_name) as yy_cust_name
+        from yy_manage y
+        left JOIN sec_user b on  y.yy_doctor = b.ID_
+        LEFT  JOIN  customer c on y.yy_cust_id = c.cust_id
+        where y.yy_clinic='${yyClinic}'
+        <if test="yyDoctor!=null and yyDoctor!=''">
+            AND y.yy_doctor='${yyDoctor}'
+        </if>
+        <if test="yyDate!=null and yyDate!=''">
+          AND date_format(y.yy_date,'%Y-%m-%d')='${yyDate}'
+        </if>
+        <if test="yyCustName!=null and yyCustName!=''">
+             AND y.yy_cust_name like '%${yyCustName}%'
+        </if>
+        <if test="yyProject!=null and yyProject!=''">
+            AND y.yy_project='${yyProject}'
+        </if>
+        <if test="yy_cust_id!=null and yy_cust_id!=''">
+            AND y.yy_cust_id='${yy_cust_id}'
+        </if>
+        <if test="yyCustTel!=null and yyCustTel!=''">
+            or y.yy_clinic='${yyClinic}' and y.yy_doctor = b.ID_ AND  y.yy_cust_tel like '%${yyCustTel}%'
+            <if test="yyDoctor!=null and yyDoctor!=''">
+                AND y.yy_doctor='${yyDoctor}'
+            </if>
+            <if test="yyDate!=null and yyDate!=''">
+                AND date_format(y.yy_date,'%Y-%m-%d')='${yyDate}'
+            </if>
+            <if test="yyProject!=null and yyProject!=''">
+                AND y.yy_project='${yyProject}'
+            </if>
+            <if test="yy_cust_id!=null and yy_cust_id!=''">
+                AND y.yy_cust_id='${yy_cust_id}'
+            </if>
+        </if>
+        order by y.yy_date
+    </select>
+
+</mapper>

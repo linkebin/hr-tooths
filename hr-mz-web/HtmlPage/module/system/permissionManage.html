@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>权限配置</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+</head>
+<body>
+
+<div class="eui-bg-white eui-padding20 eui-margin10">
+
+
+  <!--条件搜索 start-->
+  <div class="eui-form eui-form-base eui-form-search eui-form-col2">
+    <!-- 查询重置按钮-->
+    <div class="eui-btn-group">
+      <button class="eui-btn">查询</button>
+      <button class="eui-btn eui-btn-primary">重置</button>
+    </div>
+    <!--查询条件-->
+    <div class="eui-form-item">
+      <label class="eui-form-label">权限模板名称：</label>
+      <div class="eui-input-block">
+        <input type="text" class="eui-input" placeholder="请输入查询关键字">
+      </div>
+    </div>
+    <div class="eui-form-item">
+      <label class="eui-form-label">是否启用：</label>
+      <div class="eui-input-block">
+        <select name="city" e-verify="required">
+          <option value="1">全部</option>
+          <option value="2">是</option>
+          <option value="3">否</option>
+        </select>
+      </div>
+    </div>
+    <div class="eui-form-item">
+      <label class="eui-form-label">备注：</label>
+      <div class="eui-input-block">
+        <input type="text" class="eui-input" placeholder="请输入备注关键字">
+      </div>
+    </div>
+    <!--华丽的分割线-->
+  <!--  <div class="eui-form-item">
+      <label class="eui-form-label">日期选择：</label>
+      <div class="eui-input-block">
+        <input type="text" class="eui-input" id="dateTest" placeholder="选择日期">
+      </div>
+    </div>-->
+    <div class="eui-form-item">
+      <label class="eui-form-label">日期范围：</label>
+      <div class="eui-input-block">
+        <input type="text" class="eui-input" id="dateTest2" placeholder="选择日期范围">
+      </div>
+    </div>
+
+
+    <!--华丽的分割线-->
+   <!-- <div class="eui-form-item item-colspan2">
+      <label class="eui-form-label">横跨 2 列：</label>
+      <div class="eui-input-block">
+        <input type="text" class="eui-input" placeholder="请输入查询关键字">
+      </div>
+    </div>-->
+    <div class="clearfix"></div>
+  </div>
+
+
+  <!--条件搜索 end-->
+  <!--标题 start-->
+  <div class="title-bar">
+    <div class="eui-btn-group float-right">
+      <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释--><!--
+    <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe631;</i>权限批量配置</a>
+    <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe630;</i>用户权限配置</a>
+    <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe613;</i>角色权限配置</a>-->
+      <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe7d0;</i>启用</a>
+      <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe6d8;</i>禁用</a>
+      <a href="preAdd.html" target="_blank" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe654;</i>新建</a>
+      <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe615;</i>查看</a>
+      <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe642;</i>编辑</a>
+      <a href="###" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>删除</a>
+    </div>
+    <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      默认权限配置
+    </span>
+    <span class="title-sub">
+
+    </span>
+  </div>
+
+
+  <!--表格 start-->
+  <script type="text/html" id="barDemo">
+    <div class="eui-btn-group">
+      <a class="eui-btn eui-btn-primary eui-btn-mini" e-event=""><i class="eui-icon" title="禁用">&#xe6d8;</i></a>
+      <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>
+      <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit"><i class="eui-icon" title="编辑">&#xe642;</i></a>
+      <a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+    </div>
+  </script>
+  <table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+  <!--表格 end-->
+</div>
+
+
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+<script>
+
+    eui.use(['element','form', 'layedit', 'laydate','table'], function(){
+      var element = eui.element
+              ,form = eui.form
+              ,layer = eui.layer
+              ,layedit = eui.layedit
+              ,laydate = eui.laydate
+              ,table = eui.table;
+
+      //日期选择
+      laydate.render({
+        elem: '#dateTest'
+      });
+      //日期范围
+      laydate.render({
+        elem: '#dateTest2'
+        ,range: true
+      });
+
+//实例1:简单表格
+    table.render({
+      elem: '#tableDemo'
+      //   ,height: 350
+     ,height: 'full-300'       //该项为设置表格最大化自适应高度
+      ,even: true //开启隔行背景
+    //  ,url: 'dataPage.json' //数据接口
+
+      ,cols: [[
+        {type:'checkbox',fixed:'left'}
+        ,{field:'id', width:160, title: '权限模板编号', sort: true}
+        ,{field:'name', width:160, title: '权限模板名称'}
+        ,{field:'status', width: 100, title: '是否启用',sort: true}
+        ,{field:'creater', width:120, title: '创建人'}
+        ,{field:'createTime', width:150, title: '创建时间', sort: true}
+        ,{field:'remarks', title: '备注',minWidth:150}
+        ,{field:'opear', title:'操作', width:140, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+      ]]
+      ,data: [{
+        "id": "R20180101"
+        ,"name": "超级管理员默认权限"
+        ,"status": "是"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "拥有系统的全部权限"
+      }
+      ,{
+        "id": "R20180101"
+        ,"name": "普通员工默认权限"
+        ,"status": "是"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "普通员工默认权限"
+      }
+      ,{
+        "id": "R20180101"
+        ,"name": "管理层默认权限"
+        ,"status": "是"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "管理层默认权限"
+      }
+      ,{
+        "id": "R20180101"
+        ,"name": "系统管理员"
+        ,"status": "是"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "暂无备注"
+      }
+      ,{
+        "id": "R20180101"
+        ,"name": "系统管理员"
+        ,"status": "是"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "暂无备注"
+      }
+      ,{
+        "id": "R20180101"
+        ,"name": "系统管理员"
+        ,"status": "是"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "暂无备注"
+      }
+      ,{
+        "id": "R20180101"
+        ,"name": "系统管理员"
+        ,"status": "是"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "暂无备注"
+      }
+
+      ]
+      ,page: true
+    });
+
+    //监听表格复选框选择
+    table.on('checkbox(tableDemoFilter)', function(obj){
+      console.log(obj)
+    });
+
+    //监听工具条
+    table.on('tool(tableDemoFilter)', function(obj){
+      var data = obj.data;
+      if(obj.event === 'detail'){
+        layer.msg('ID：'+ data.id + ' 的查看操作');
+      } else if(obj.event === 'del'){
+        layer.confirm('真的删除行么', function(index){
+          obj.del();
+          layer.close(index);
+        });
+      } else if(obj.event === 'edit'){
+        layer.alert('编辑行：<br>'+ JSON.stringify(data))
+      }
+    });
+
+
+
+  });
+</script>
+
+</body>
+</html>

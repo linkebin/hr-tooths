@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>预约</title>
+
+		<!-- Bootstrap -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<!--weui组件-->
+		<link href="/css/weui.min.css" rel="stylesheet" />
+		<link href="/css/jquery-weui.min.css" rel="stylesheet" />
+		<!--样式-->
+		<link href="/css/style.css" rel="stylesheet">
+		<link href="/css/main.css" rel="stylesheet">
+	</head>
+
+	<body class="background-color">
+		<div class="container ">
+			<div class="row">
+				<div class="col-xs-12 col-md-6 col-md-offset-3 padding0 synopsis-body">
+					<div class="weui-cells weui-cells_form">
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<p class="weui-label">姓名</p>
+							</div>
+							<div class="weui-cell__bd ">
+								<input class="weui-input text-right" id="name" type="text" value="" placeholder="请填写姓名">
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<p class="weui-label">电话</p>
+							</div>
+							<div class="weui-cell__bd ">
+								<input class="weui-input text-right" id="tel" type="text" value="" placeholder="请填写电话">
+							</div>
+						</div>
+						<!--<div class="weui-cell">-->
+							<!--<div class="weui-cell__hd">-->
+								<!--<p class="weui-label">年龄</p>-->
+							<!--</div>-->
+							<!--<div class="weui-cell__bd ">-->
+								<!--<input class="weui-input text-right" id="age" type="text" value="" placeholder="请填写年龄">-->
+							<!--</div>-->
+						<!--</div>-->
+						<!--<div class="weui-cell">-->
+							<!--<div class="weui-cell__hd">-->
+								<!--<p class="weui-label">性别</p>-->
+							<!--</div>-->
+							<!--<div class="weui-cell__bd ">-->
+								<!--<input class="weui-input text-right" id="sex" type="text" readonly="" value="" placeholder="请选择性别">-->
+							<!--</div>-->
+						<!--</div>-->
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<p class="weui-label">预约诊所</p>
+							</div>
+							<div class="weui-cell__bd ">
+								<input class="weui-input text-right" id="clinic" type="text" value="" readonly="" placeholder="请选择预约诊所">
+								<input id="clinicId" type="hidden" value="">
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<p class="weui-label">预约项目</p>
+							</div>
+							<div class="weui-cell__bd ">
+								<input class="weui-input text-right" id="project" type="text" value="" readonly="" placeholder="请选择预约项目">
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<p class="weui-label">预约医生</p>
+							</div>
+							<div class="weui-cell__bd ">
+								<input class="weui-input text-right" id="user" type="text" value="" readonly="" placeholder="请选择预约医生">
+								<input id="userId" type="hidden" value="">
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<p for="time2" class="weui-label">预约日期</p>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input text-right" id="date" type="text" readonly="" value="" placeholder="请选择预约日期">
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<p for="time2" class="weui-label">预约时间</p>
+							</div>
+							<div class="weui-cell__bd">
+								<input class="weui-input text-right" id="time" readonly="" type="text" placeholder="请选择预约时间">
+							</div>
+						</div>
+					</div>
+					<button type="button" id="submit" class="btn btn-info dropdown-toggle personage-btn">提交</button>
+				</div>
+			</div>
+		</div>
+		<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+		<script src="/js/jquery-3.3.1.js"></script>
+		<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+		<script src="/js/bootstrap.min.js"></script>
+		<!--weui组件-->
+		<!--<script src="/js/jquery-weui.min.js"></script>-->
+		<script src="/js/picker.min.js"></script>
+		<script src="/js/swiper.min.js"></script>
+		<script src="/layer/layer.js"></script>
+		<!--<script src="/js/city-picker.min.js"></script>-->
+		<script src="/js/date2format.js" type="text/javascript"></script>
+		<script th:inline="javascript">
+            var now = new Date();
+			var projectlist = "";
+			var userlist="";
+			var clinicValue = "122";
+            var projectValue = "";
+            var userValue = "";
+            var year = now.getFullYear();
+            var month = now.getMonth()+1;
+            var day = now.getDate();
+            var timeValue = "";
+            var sexValue = "男";
+            $(function () {
+                clinicPicker();
+                projectPicker();
+                userPicker();
+                dataPicker();
+                timePicker();
+                sexPicker();
+                submit();
+            });
+
+            function clinicPicker(){
+                var list = [[${secOrgList}]];
+                $("#clinic").click(function () {
+                    weui.picker(list, {
+                        title:"请选择预约诊所",
+                        defaultValue: [clinicValue],
+                        className: 'custom-classname',
+                        onChange: function (result) {
+                        },
+                        onConfirm: function (result) {
+                            if($("#clinic").val() !== result[0].label){
+                                clinicValue = result[0].value;
+                                $("#clinic").val(result[0].label);
+                                $("#clinicId").val(result[0].value);
+                                $("#project").val("");
+                                $("#userId").val("");
+                                $("#user").val("");
+                                var userMap = [[${userMap}]];
+                                var projectMap = [[${projectMap}]];
+                                projectlist= projectMap[result[0].value];
+                                userlist=userMap[result[0].value];
+							}
+                        },
+                        id: 'picker'
+                    });
+                });
+            }
+
+            function projectPicker(){
+                $("#project").click(function () {
+                    if(projectlist === ""){
+                        layer.msg("请选择诊所！");
+                        return;
+					}
+                    weui.picker(projectlist, {
+                        title:"请选择预约项目",
+                        defaultValue: [],
+                        className: 'custom-classname',
+                        onChange: function (result) {
+                        },
+                        onConfirm: function (result) {
+                            $("#project").val(result[0].label);
+                            projectValue = result[0].value;
+                        },
+                        id: 'picker'
+                    });
+                });
+            }
+
+            function userPicker(){
+                $("#user").click(function () {
+                    if(userlist === ""){
+                        layer.msg("请选择诊所！");
+                        return;
+                    }
+                    weui.picker(userlist, {
+                        title:"请选择预约医生",
+                        defaultValue: [userValue],
+                        className: 'custom-classname',
+                        onChange: function (result) {
+                        },
+                        onConfirm: function (result) {
+                            $("#user").val(result[0].label);
+                            $("#userId").val(result[0].value);
+                            userValue = result[0].value;
+                        },
+                        id: 'picker'
+                    });
+                });
+            }
+
+            function dataPicker(){
+                $("#date").click(function () {
+                    weui.datePicker({
+                        start: new Date().Format("yyyy-MM-dd"),
+                        end: getNextMonth(new Date().Format("yyyy-MM-dd")),
+                        /**
+                         * https://zh.wikipedia.org/wiki/Cron
+                         * cron 表达式后三位
+                         * 示例：
+                         *  * * *                每天
+                         *  5 * *                每个月的5日
+                         *  1-10 * *             每个月的前10日
+                         *  1,5,10 * *           每个月的1号、5号、10号
+                         *  *\/2 * *             每个月的 1、3、5、7...日，注意写的时候斜杠“/”前面没有反斜杠“\”，这是因为是注释所以需要转义
+                         *  * 2 0                2月的每个周日
+                         *  * * 0,6              每个周末
+                         *  * * 3                每周三
+                         */
+                        // cron: '* */2 0',
+                        defaultValue: [year,month,day],
+                        onConfirm: function (result) {
+                            year = result[0].value;
+                            month = result[1].value;
+                            day = result[2].value;
+                            $("#date").val(result[0].value+"-"+result[1].value+"-"+result[2].value);
+                        },
+                        id: 'datePicker'
+                    });
+                });
+            }
+
+            function sexPicker(){
+                $("#sex").click(function () {
+                    weui.picker([{label:"男",value:"男"},
+                        {label:"女",value:"女"}
+                        ], {
+                        title:"请选择预约时间",
+                        defaultValue: [sexValue],
+                        className: 'custom-classname',
+                        onChange: function (result) {
+                        },
+                        onConfirm: function (result) {
+                            $("#sex").val(result[0].value);
+                            sexValue = result[0].value;
+                        },
+                        id: 'picker'
+                    });
+                });
+            }
+
+            function timePicker(){
+                $("#time").click(function () {
+                    weui.picker([{label:"8:00-10:00",value:"8:00-10:00"},
+						{label:"10:00-12:00",value:"10:00-12:00"},
+						{label:"14:00-16:00",value:"14:00-16:00"},
+						{label:"16:00-18:00",value:"16:00-18:00"}], {
+                        title:"请选择预约时间",
+                        defaultValue: [timeValue],
+                        className: 'custom-classname',
+                        onChange: function (result) {
+                        },
+                        onConfirm: function (result) {
+                            $("#time").val(result[0].value);
+                            timeValue = result[0].value;
+                        },
+                        id: 'picker'
+                    });
+                });
+            }
+            
+            function submit() {
+				$("#submit").click(function () {
+				    if($("#name").val() === ""){
+                        layer.msg("请填写名称！");
+				        return;
+					}else if($("#tel").val()===""){
+                        layer.msg("请填写电话！");
+                        return;
+					}else if($("#clinicId").val()===""){
+                        layer.msg("请选择诊所！");
+				        return;
+					}else if($("#date").val()===""){
+                        layer.msg("请选择预约日期！");
+                        return;
+					}else if($("#time").val()===""){
+                        layer.msg("请选择预约时间！");
+                        return;
+                    }else if($("#userId").val()===""){
+                        layer.msg("请选择医生！");
+                        return;
+                    }else if($("#project").val()==="") {
+                        layer.msg("请选择预约项目！");
+                        return;
+                    }
+                    // }else if($("#sex").val()===""){
+                    //     layer.msg("请选择性别！");
+                    //     return;
+                    // }else if($("#age").val()===""){
+                    //     layer.msg("请填写年龄！");
+                    //     return;
+                    // }
+					$.post("/wx/dispose/add",{date:$("#date").val(),time:$("#time").val(),name:$("#name").val(),tel:$("#tel").val(),clinic:$("#clinicId").val(),doctor:$("#userId").val(),project:$("#project").val()},function (res) {
+					    if(res.code === 200){
+                            window.location.href = "/wx/templates/success";
+						}else{
+                            layer.msg("预约失败！请联系管理员。");
+						}
+                    });
+                })
+            }
+
+            function getNextMonth(date) {
+                var arr = date.split('-');
+                var year = arr[0]; //获取当前日期的年份  
+                var month = arr[1]; //获取当前日期的月份  
+                var day = arr[2]; //获取当前日期的日  
+                var days = new Date(year, month, 0);
+                days = days.getDate(); //获取当前日期中的月的天数  
+                var year2 = year;
+                var month2 = parseInt(month) + 1;
+                if (month2 === 13) {
+                    year2 = parseInt(year2) + 1;
+                    month2 = 1;
+                }
+                var day2 = day;
+                var days2 = new Date(year2, month2, 0);
+                days2 = days2.getDate();
+                if (day2 > days2) {
+                    day2 = days2;
+                }
+                if (month2 < 10) {
+                    month2 = '0' + month2;
+                }
+
+                var t2 = year2 + '-' + month2 + '-' + day2;
+                return t2;
+            }
+
+		</script>
+
+	</body>
+
+</html>

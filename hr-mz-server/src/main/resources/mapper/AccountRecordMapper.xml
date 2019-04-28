@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.AccountRecordMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.AccountRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="record_id" jdbcType="VARCHAR" property="recordId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="cust_id" jdbcType="VARCHAR" property="custId" />
+    <result column="sf_if" jdbcType="VARCHAR" property="sfId" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="record_type" jdbcType="VARCHAR" property="recordType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="record_money" jdbcType="DOUBLE" property="recordMoney" />
+    <result column="bank" jdbcType="VARCHAR" property="bank" />
+  </resultMap>
+
+  <select id="getList" parameterType="Map" resultType="java.util.Map">
+    select a.*,u.USER_NAME from account_record a,sec_user u where a.user_id=u.ID_  and a.cust_id=#{cust_id}
+    <if test="record_type!=null and record_type!=''">
+      AND a.record_type=#{record_type}
+    </if>
+    <if test="create_time!=null and create_time!=''">
+      AND date_format(a.create_time,'%Y-%m-%d')=#{create_time}
+    </if>
+    order by a.create_time
+  </select>
+</mapper>

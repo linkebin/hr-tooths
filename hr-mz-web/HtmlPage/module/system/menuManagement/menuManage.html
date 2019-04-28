@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>菜单管理</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../../../Styles/themes/default/style.css"  media="all">
+  <link rel="stylesheet" href="../../../../Styles/themes/default/cover-style.css"  media="all">
+  <link rel="stylesheet" href="../../../../Scripts/libs/jquery-ui/jquery-ui.css">
+</head>
+<style>
+    .error{
+        color:  red;
+    }
+</style>
+
+<body>
+
+
+<div class="ui-layout-west">
+  <h3 class="ui-widget-header">菜单结构</h3>
+  <div class="ui-layout-content etree">
+        <ul id="treeDemo" class="ztree"></ul>
+  </div>
+</div>
+<div class="ui-layout-center eui-bg-white eui-padding10">
+
+  <!--右边内容 start-->
+
+  <div class="eui-font18 eui-color-red eui-paddingB10">
+    <a href="javaScript:void(0)" onclick="updateCurrentMenu()" data-method="editCurmenu" data-type="rt" class="eui-btn eui-btn-small float-right"><i class="eui-icon">&#xe642;</i>编辑当前菜单</a>
+    当前菜单信息
+  </div>
+
+  <div class="eui-form eui-form-base eui-form-read eui-form-col2 eui-bg-lightGray eui-marginB20">
+    <!--当前选择菜单的详情-->
+    <input type="hidden" id="id1" name="id1">
+    <div class="eui-form-item">
+      <label class="eui-form-label">菜单名称：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid" name="menuName1"></div>
+      </div>
+    </div>
+    <div class="eui-form-item">
+      <label class="eui-form-label">菜单编号：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid" name="menuCode1"></div>
+      </div>
+    </div>
+    <!--华丽的分割线-->
+    <div class="eui-form-item">
+      <label class="eui-form-label">创建人：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid" name="creator1"></div>
+      </div>
+    </div>
+    <div class="eui-form-item">
+      <label class="eui-form-label">上级菜单：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid" name="parentName1"></div>
+      </div>
+    </div>
+    <!--华丽的分割线-->
+
+    <div class="eui-form-item">
+      <label class="eui-form-label">状态：</label>
+      <div class="eui-input-block " >
+        <div class="eui-form-mid" name="enabled1">
+        </div>
+      </div>
+    </div>
+    <!--华丽的分割线-->
+    <div class="eui-form-item ">
+    <label class="eui-form-label">菜单图标：</label>
+    <div class="eui-input-block ">
+      <div class="eui-form-mid" id="imgs1">暂无</div>
+    </div>
+  </div>
+    <div class="eui-form-item item-colspan2">
+      <label class="eui-form-label">菜单地址：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid" name="url1"></div>
+      </div>
+    </div>
+    <!--华丽的分割线-->
+    <div class="eui-form-item item-colspan2">
+      <label class="eui-form-label">菜单说明：</label>
+      <div class="eui-input-block ">
+        <div class="eui-form-mid" name="state1">
+
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <!--标题 start-->
+
+  <div class="title-bar eui-marginB10">
+    <div class="eui-btn-group float-right">
+      <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+      <a href="javaScript:void(0)" onclick="addMenu()"  e-power="/menu/addMenu" data-method="editCurmenu" data-type="rt"  class="eui-btn eui-btn-small"><i class="eui-icon">&#xe654;</i>新建</a>
+      <a href="javaScript:void(0)" onclick="updateMenu(2,null)" e-power="/menu/enable" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe7d0;</i>启用</a>
+      <a href="javaScript:void(0)" onclick="updateMenu(1,null)" e-power="/menu/disable" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe6d8;</i>禁用</a>
+      <a href="javaScript:void(0)" onclick="updateMenu(3,null)" e-power="/sec/menu/delMenu" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>删除</a>
+    </div>
+    <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      所属下级菜单
+    </span>
+    <span class="title-sub">不包括当前菜单
+    </span>
+  </div>
+
+  <!--标题 end-->
+
+  <!--  <div class="nodataArea">暂无相关数据 !</div>-->
+
+  <!--条件搜索 start-->
+  <div class="eui-form eui-form-base eui-form-search eui-form-col2">
+
+    <!-- 查询重置按钮-->
+    <div class="eui-btn-group">
+      <button class="eui-btn"  onclick="doSearch()">查询</button>
+      <button class="eui-btn eui-btn-primary" onclick="resetForm()">重置</button>
+    </div>
+    <!--查询条件-->
+      <form id="formId">
+        <div class="eui-form-item">
+          <label class="eui-form-label">菜单名称：</label>
+          <div class="eui-input-block">
+            <input type="text" class="eui-input" name="menuName" placeholder="">
+          </div>
+        </div>
+        <div class="eui-form-item">
+          <label class="eui-form-label">状态：</label>
+          <div class="eui-input-block">
+            <select name="enabled" e-verify="required">
+              <option value="">请选择</option>
+              <option value="1">启用</option>
+              <option value="0">禁用</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    <!--华丽的分割线-->
+
+    <div class="clearfix"></div>
+  </div>
+
+  <!--条件搜索 end-->
+  <!--表格 start-->
+  <script type="text/html" id="barDemo">
+    <div class="eui-btn-group">
+      <a class="eui-btn eui-btn-primary eui-btn-mini"   e-power="/menu/selectMenu"  e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>
+      <a class="eui-btn eui-btn-primary eui-btn-mini" e-power="/menu/updateMenu" e-event="edit"><i class="eui-icon" title="编辑">&#xe642;</i></a>
+      <a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del" e-power="/sec/menu/delMenu"><i class="eui-icon" title="删除">&#xe640;</i></a>
+    </div>
+  </script>
+  <script type="text/html" id="switchTpl">
+      {{#  if(d.ENABLED == "0"){ }}
+      <input type="checkbox"  e-skin="switch" e-text="启用|禁用" e-filter="enabled" menuId="{{d.ID_}}" value="1">
+      {{#  } else { }}
+      <input type="checkbox"   e-skin="switch" e-text="启用|禁用" e-filter="enabled" menuId="{{d.ID_}}" value="1" checked>
+      {{#  } }}
+
+
+  </script>
+  <table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+  <!--表格 end-->
+  <!--右边内容 end-->
+
+
+<input type="hidden" class="eui-input" id="parentId" name="parentId">
+<input type="hidden" class="eui-input" id="parentName">
+<input type="hidden" class="eui-input" id="icon" name="icon">
+<input type="hidden" class="eui-input" id="id" name="id">
+  <!--弹出信息-->
+  <script type="text/html" id="layerContent">
+    <form id="formAdd">
+    <div class="eui-form eui-padding20">
+
+      <div class="eui-form-item">
+        <label class="eui-form-label">菜单名称：</label>
+        <div class="eui-input-block ">
+          <input type="text" class="eui-input" name="menuName" value=""/>
+          <label  id="menuNameLabel" class="error" style="display: none">请输入菜单名称</label>
+        </div>
+       </div>
+
+        <div class="eui-form-item" style="display: none;" id="menuCode">
+            <label class="eui-form-label">菜单编号：</label>
+            <div class="eui-input-block ">
+                <input type="text" class="eui-input" name="menuCode" value=""/>
+            </div>
+        </div>
+        <!--华丽的分割线-->
+      <div class="eui-form-item">
+            <label class="eui-form-label">菜单地址：</label>
+            <div class="eui-input-block input-btn-1em">
+                <a href="###" class="inputAfter"><i class="eui-icon">&#xe64c;</i></a>
+                <input type="text" class="eui-input" name="url" value="">
+                <label  id="urlLabel" class="error" style="display: none">请输入菜单地址</label>
+            </div>
+      </div>
+      <div class="eui-form-item">
+        <label class="eui-form-label">上级菜单：</label>
+        <div class="eui-input-block input-btn-1em">
+          <a href="###" class="inputAfter"><i class="eui-icon">&#xe671;</i></a>
+          <input type="text" class="eui-input" name="parentName" value="" disabled>
+        </div>
+      </div>
+      <!--华丽的分割线-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">菜单图标：</label>
+        <div class="eui-input-block ">
+          <a href="javaScript:void (0)" style="color: #003eff" id="imgs" class="eui-form-mid" onclick="checkIcon()">
+            选择图标
+          </a>
+        </div>
+      </div>
+
+      <div class="eui-form-item">
+            <label class="eui-form-label">菜单类型：</label>
+            <div class="eui-input-block input-btn-1em">
+                <input type="radio" name="menuType" value="1" title="菜单" checked>
+                <input type="radio" name="menuType" value="2" title="按钮">
+            </div>
+      </div>
+      <div class="eui-form-item">
+            <label class="eui-form-label">打开方式：</label>
+            <div class="eui-input-block input-btn-1em">
+                <input type="radio" name="openType" value="1" title="模态窗口" checked>
+                <input type="radio" name="openType" value="2" title="新页面">
+            </div>
+      </div>
+        <div class="eui-form-item">
+            <label class="eui-form-label">排序：</label>
+            <div class="eui-input-block input-btn-1em">
+               <select name="sort" id="sortNum">
+               </select>
+            </div>
+        </div>
+
+      <div class="eui-form-item">
+        <label class="eui-form-label">状态：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid">
+            <input type="checkbox" name="enabled" e-skin="switch" value="1"  e-text="启用|禁用" e-filter="" checked>
+          </div>
+        </div>
+      </div>
+
+      <!--华丽的分割线-->
+      <div class="eui-form-item">
+        <label class="eui-form-label">菜单说明：</label>
+        <div class="eui-input-block ">
+          <textarea class="eui-textarea" name="state">
+
+          </textarea>
+
+
+
+        </div>
+      </div>
+      <!--华丽的分割线-->
+    <div class="eui-form-item" id="creator"  style="display:none">
+        <label class="eui-form-label">创建人：</label>
+        <div class="eui-input-block">
+          <div class="eui-form-mid eui-word-aux">
+              <a href="javaScript:void(0)"  name="creator" class="">
+                  <i class="eui-icon eui-marginL10">&#xe612;</i></a>
+          </div>
+        </div>
+
+      </div>
+        <div class="eui-form-item" id="createTime" style="display:none">
+        <label class="eui-form-label">创建时间：</label>
+        <div class="eui-input-block ">
+          <div class="eui-form-mid eui-word-aux" name="createTime"></div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+      </form>
+  </script>
+
+</div>
+
+
+<script src="../../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+
+<script type="text/javascript" src="../../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+<script src="../../../../Scripts/date2format.js" type="text/javascript"></script>
+
+<!-- ztree-->
+<script src="../../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+<script type="text/javascript" src="../../../../Scripts/config.js"></script><!--开发者使用的js，可用于对ajax的拦截等-->
+<script src="../../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+
+<script>
+  eui.use(['jquery','element','form', 'layedit', 'laydate','table','laytpl'], function(){
+    var jQuery = eui.jQuery
+            ,element = eui.element
+            ,form = eui.form
+            ,layer = eui.layer
+            ,layedit = eui.layedit
+            ,laydate = eui.laydate
+            ,table = eui.table
+            ,laytpl = eui.laytpl;
+
+      $("body").layout({
+          //   applyDemoStyles: true,
+          spacing_open:8,
+          spacing_closed:10,
+          west__size:230,             //左侧初始宽度
+          north__size:60,             //上侧初始宽度
+          north__resizable:false,    //上侧关闭大小调整
+          north__closable:false,      //上侧关闭收缩
+          north__spacing_open: 0,       //上侧边框为0, 一般这个设置了上面的north__resizable和north__closable可以不用设置
+          south__spacing_open: 0,
+          south__size:30
+      });
+
+      form.on('switch(enabled)', function(data){
+          console.log(data.elem); //得到checkbox原始DOM对象
+          var menuId= data.elem.getAttribute("menuId");
+          if(data.elem.checked){
+              //开启
+             updateSingle(2,menuId);
+          }else{
+              //禁用
+              updateSingle(1,menuId);
+          }
+          form.render('checkbox');
+      });
+
+      //日期选择
+      laydate.render({
+          elem: '#dateTest'
+      });
+      //日期范围
+      laydate.render({
+          elem: '#dateTest2'
+          ,range: true
+      });
+
+
+  });
+
+  $(function(){
+      getTree();
+      doSearch();
+
+  });
+
+
+  //查询所有的菜单
+  function getTree(){
+      var setting = {
+          view: {
+              selectedMulti: false,
+              dblClickExpand:  true//false屏蔽掉双击事件
+          },
+         async:{
+           enable:false
+           //  url:"common/testTree.json",
+           //  autoParam:["id","name"],
+           },
+          check: {
+              enable: false
+          },
+          data:{
+              simpleData: {
+                  enable: true,
+                  idKey:"id",
+                  pIdKey:"pId",
+                  rootPid:"0"
+              }
+          },
+          callback:{
+              onClick:function(event,treeId, treeNode, clickFlag){
+                 //单击事件，单击展开
+                  //var zTree = $.fn.zTree.getZTreeObj(treeId);
+                  //zTree.expandNode(treeNode);
+                  console.info(treeNode.id);
+                  console.info(treeNode.name);
+                  console.info(treeNode.parentId);
+                  $("#parentId").val(treeNode.id);
+                  $("#parentName").val(treeNode.name);
+                  //点击菜单，查询此菜单的详情
+                  getMenuById(treeNode.id);
+                  //分页查询相关的子菜单
+                  doSearchForChildrenMenu(treeNode.id);
+              }
+          },
+          edit: {
+              enable: false
+          }
+      };
+      $.ajax({
+          type:"POST",
+          url:basePath+"/sec/menu/tree",
+          dataType: 'json',
+          xhrFields: {  withCredentials: true  },
+          crossDomain: true,
+          success:function(result, status, xhr){
+             var zNodes = result.data;
+
+              $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+          }
+      });
+  }
+
+  //查询菜单的详情
+  function selMenu(id,type){
+
+      $.get(basePath+"/sec/menu/menuInfo",{menuId:id},function(result){
+          var data=result.data;
+          getMenuInfo(data,type);
+
+      });
+
+  }
+
+  //查询所有的菜单
+  function doSearch(){
+      eui.use(['jquery','element','form','table'], function(){
+
+          var jQuery = eui.jQuery
+                  ,element = eui.element
+                  ,form = eui.form
+                  ,layer = eui.layer
+                  ,table = eui.table;
+          var index=layer.load();
+          var  formObj=$("#formId").serializeObject();
+          table.render({
+              elem: '#tableDemo'
+              // ,height: 350
+              // ,height: 'full-410'       //该项为设置表格最大化自适应高度
+              ,even: true //开启隔行背景
+              ,url: basePath+'/sec/menu/menuList' //数据接口
+              ,page: true
+              ,where:{
+                  param:JSON.stringify(formObj)
+              }
+              ,method: 'get'
+              ,cols: [[
+                  {type:'checkbox',fixed:'left'}
+                  ,{type:'numbers', width:60, title: '序号'}
+                  ,{field:'MENU_CODE', width:120, title: '菜单编号', sort: true}  //增加 edit 表示开户了编辑状态dd
+                  ,{field:'MENU_NAME',width:120, title: '菜单名称'}
+                  ,{field:'PARENT_NAME', width: 100, title: '上级菜单'}
+                  ,{field:'ICON', width:100, title: '菜单图标'}
+                  ,{field:'URL', width:150, title: '菜单地址'}
+                  ,{field:'ENABLED', width:90, title: '状态',templet: '#switchTpl'}
+                  ,{field:'CREATOR', width:100, title: '创建人'}
+                  ,{field:'CREATE_TIME', width:150, title: '创建时间', sort: true,templet:'<div>{{ new Date(d.CREATE_TIME).Format("yyyy-MM-dd") }}</div>' }
+                  ,{field:'opear', title:'操作', width:120, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+              ]]
+              ,done: function(res, curr, count){
+                  layer.close(index);
+              }
+          });
+          //监听
+          toolBar(table);
+
+      });
+  }
+
+  //分页查询子菜单
+  function doSearchForChildrenMenu(menuId){
+      eui.use(['jquery','element','form','table'], function(){
+
+          var jQuery = eui.jQuery
+                  ,element = eui.element
+                  ,form = eui.form
+                  ,layer = eui.layer
+                  ,table = eui.table;
+          var index=layer.load();
+          table.render({
+              elem: '#tableDemo'
+              // ,height: 350
+              // ,height: 'full-410'       //该项为设置表格最大化自适应高度
+              ,even: true //开启隔行背景
+              ,url: basePath+'/sec/menu/findByParentId' //数据接口
+              ,page: true
+              ,where:{
+                  id:menuId
+              }
+              ,method: 'get'
+              ,cols: [[
+                  {type:'checkbox',fixed:'left'}
+                  ,{type:'numbers', width:60, title: '序号'}
+                  ,{field:'MENU_CODE', width:120, title: '菜单编号', sort: true}  //增加 edit 表示开户了编辑状态dd
+                  ,{field:'MENU_NAME',width:120, title: '菜单名称'}
+                  ,{field:'PARENT_NAME', width: 100, title: '上级菜单'}
+                  ,{field:'ICON', width:100, title: '菜单图标'}
+                  ,{field:'URL', width:150, title: '菜单地址'}
+                  ,{field:'ENABLED', width:90, title: '状态',templet: '#switchTpl'}
+                  ,{field:'CREATOR', width:100, title: '创建人'}
+                  ,{field:'CREATE_TIME', width:150, title: '创建时间', sort: true,templet:'<div>{{ new Date(d.CREATE_TIME).Format("yyyy-MM-dd") }}</div>'   }
+                  ,{field:'opear', title:'操作', width:120, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+              ]]
+              ,done: function(res, curr, count){
+                  layer.close(index);
+              }
+          });
+          //监听
+          toolBar(table);
+      });
+  }
+  //table的监听
+  function toolBar(table){
+      //监听表格复选框选择
+      table.on('checkbox(tableDemoFilter)', function(obj){
+          console.log(obj)
+      });
+      //监听工具条
+      table.on('tool(tableDemoFilter)', function(obj){
+          var data = obj.data;
+          if(obj.event === 'detail'){
+              selMenu(data.ID_,1);
+          } else if(obj.event === 'del'){
+              updateMenu(3,data.ID_)
+          } else if(obj.event === 'edit'){
+              selMenu(data.ID_,2);
+
+          }
+      });
+
+  }
+  //打开操作页面
+  function operationPage(operationType,parentId){
+      eui.use(['jquery','element','form', 'layedit', 'laydate','table','laytpl'], function() {
+          var jQuery = eui.jQuery
+                  , element = eui.element
+                  , form = eui.form
+                  , layer = eui.layer
+                  , layedit = eui.layedit
+                  , laydate = eui.laydate
+                  , table = eui.table
+                  , laytpl = eui.laytpl;
+          var types="";
+          var sorts = getMenuNum(parentId);
+          if(operationType==1){
+              types="详情";
+          }else if(operationType==2){
+              types="修改";
+          }else if(operationType==3){
+              types="添加";
+               if(sorts.length>0){
+                   sorts[sorts.length] =  sorts[sorts.length-1]+ 1;
+               }else{
+                   sorts[sorts.length] =  1;
+               }
+          }
+
+          var type ="rt";
+          var data={};
+          var txt="";
+          var getTpl= $("#layerContent").html();
+          laytpl(getTpl).render(data,function (html) {
+              txt = html;
+          });
+
+          layer.open({
+              type: 1
+              ,title:types
+              ,area: ['400px','100%']  //宽度
+              ,offset:type              //类型,注意点击按钮的data-type属性，然后配合宽高度
+              ,id: 'pop'+type //防止重复弹出
+              ,content: txt
+              ,btn: operationType!=1?['保存','取消']:[]
+              ,btnAlign: 'c' //按钮居中
+              ,shade: 0.3 //不显示遮罩
+              ,maxmin: true
+              ,yes: function(){
+                  if($("#formAdd  [ name='menuName']").val()==''){
+                      $("#menuNameLabel").show();
+                      return;
+                  }else if($("[name='url']").val()==''){
+                      $("#urlLabel").show();
+                      return;
+                  }
+                  layer.closeAll();
+                  preservation(layer,operationType);
+              },btn2: function(){
+                  layer.closeAll();
+              }
+          });
+          //给排序赋值
+
+          var sortHtml = "";
+          console.info("sorts");
+          console.info(sorts);
+          for (var i = 0; i < sorts.length; i++) {
+              sortHtml += '<option value="' +sorts[i]+ '">' + sorts[i] + '</option>';
+          }
+          $("#sortNum").html(sortHtml);
+          form.render();
+
+      });
+  }
+   //添加菜单
+  function addMenu(){
+      var parentId= $("[name='parentId']").val();
+
+       eui.use(['form','layer'], function() {
+           var jQuery = eui.jQuery
+                   , form = eui.form
+                   , layer = eui.layer;
+           if(parentId=="" || parentId==null || parentId=="0" ){
+               layer.confirm('如果不选择父级菜单，则添加到最外层!', {
+                   btn: ['确认', '取消']
+               }, function () {
+                   layer.closeAll();
+                   //最外层
+                   $("#parentId").val("0");
+                   operationPage(3,'0');
+               }, function (){
+                   layer.closeAll();
+                   return;
+               });
+
+           }else{
+               operationPage(3,'');
+               //上级菜单
+               $("[name='parentName']").val($("#parentName").val());
+           }
+
+       });
+  }
+    //保存
+  function preservation(layer,type){
+
+        var form=$("#formAdd").serializeObject();
+         form.parentId=$("#parentId").val();
+         form.icon=$("#icon").val();
+        var url="";
+       if(type==3){
+           form.id="";
+           url="/sec/menu/addMenu";
+       }else if(type==2){
+           form.id=$("#id").val();
+           url="/sec/menu/updateMenu";
+       }
+
+        $.post(basePath+url,{param:JSON.stringify(form)},function(result){
+                if(result.code==200){
+                    layer.msg('保存成功！', {
+                        icon: 1,
+                        time: 1500 //1秒关闭（如果不配置，默认是3秒）
+                    });
+                    setTimeout(function () {
+                        doSearch();
+                        getTree();
+                        var id=$("#id1").val();
+                        if(type==2 && id==form.id){
+                            getMenuById(form.id);
+                        }
+                    }, 1000);
+
+                }else{
+                    layer.msg("保存失败！");
+                }
+        });
+    }
+  //获取子菜单的个数
+  function getMenuNum(parentId){
+      if(parentId==''){
+          parentId=$("#parentId").val();
+      }
+       var num=new Array;
+       $.ajax({
+           type:"GET",
+           url:basePath+"/sec/menu/findByParentIdNum",
+           data:{id:parentId},
+           dataType:"json",
+           async:false,
+           success:function(response) {
+               if(response.data.length>0){
+                   num=response.data;
+               }
+
+           }
+       });
+
+       return num;
+   }
+
+  //填充页面
+  function getMenuInfo(data,type){
+      operationPage (type,data.PARENT_ID);
+      eui.use(['form','layer'], function(){
+          var jQuery = eui.jQuery
+                  , form = eui.form
+                  , layer = eui.layer;
+      //填充数据
+      $("#formAdd  [ name='menuName']").val(data.MENU_NAME);
+      $("[name='menuCode']").val(data.MENU_CODE);
+      $("[name='url']").val(data.URL);
+      var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+      var node =  treeObj.getNodeByParam("id",data.PARENT_ID);
+      $("[name='parentName']").val(node==null ? "":node.name);
+      iscCheck("menuType",data.MENU_TYPE);
+      iscCheck("openType",data.OPEN_TYPE);
+      $("[name='sort']").val(data.SORT);
+      if(data.ENABLED==1){
+          $("#formAdd [name='enabled']").attr("checked",'checked');
+      }else{
+          $("#formAdd [name='enabled']").removeAttr("checked");
+      }
+      $("[name='parentId']").val(data.PARENT_ID);
+      $("[name='state']").val(data.STATE);
+      $("[name='creator']").text(data.CREATOR);
+      $("[name='createTime']").text(new Date(data.CREATE_TIME).Format("yyyy-MM-dd"));
+      $("[name='id']").val(data.ID_);
+      $("[name='icon']").val(data.ICON);
+          var newUrl=getUrl();
+          if(type==1){
+             $("#formAdd select").attr("disabled","disabled");
+             $("#formAdd input").attr("disabled","disabled");
+           $("#imgs").parent().html(' <img src="'+newUrl+data.ICON+'" style="height: 20px;width: 30px" />');
+         }else{
+
+           $("#imgs").html(' <img src="'+newUrl+data.ICON+'" style="height: 20px;width: 30px" />');
+       }
+      $("#creator").show();
+      $("#createTime").show();
+
+      form.render();
+  });
+  }
+  //选择icon图标
+  var openCheckIcon;
+  function checkIcon(){
+      eui.use(['form','layer'], function() { //独立版的layer无需执行这一句
+          var $ = eui.jquery,
+                  layer = eui.layer,form=eui.form; //独立版的layer无需执行这一句
+          var iframeWin;//iframe对象
+          openCheckIcon=layer.open({
+              type: 2
+              ,id: 'checkIcon'
+              ,title: '选择图标'
+              ,area: ['800px', '500px']
+              ,success: function(layero, index){
+
+                  var body = layer.getChildFrame('body', index);
+                  iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
+                  //  body.find('input').val('Hi，我是从父页来的')
+              }
+              ,shade: 0
+              ,moveType: 0//拖拽模式，0或者1
+              ,maxmin: true
+              ,content:"icons.html"
+              ,zIndex: layer.zIndex //重点1
+          });
+      });
+
+  }
+
+
+  //删除菜单 启用  禁用
+  function updateMenu(type,id){
+      eui.use(['jquery','element','form','table'], function(){
+
+          var jQuery = eui.jQuery
+                  ,form = eui.form
+                  ,layer = eui.layer
+                  ,table = eui.table;
+             //获取名字
+             var names=getName(type);
+             var idArray=getCheckArray(type,id);
+              if(idArray==null){
+                  return;
+              }
+              layer.confirm(names, {
+                  btn: ['确认', '取消']
+              }, function () {
+                  var indexs = layer.load(2); //加载
+                  $.post(basePath+'/sec/menu/delMenu', {param: JSON.stringify(idArray)}, function (result) {
+                      if (result.code==200) {
+                          layer.close(indexs);
+                          layer.msg('操作成功！', {
+                              icon: 1,
+                              time: 1500 //1秒关闭（如果不配置，默认是3秒）
+                          });
+                          setTimeout(function () {
+                              doSearch();
+                              getTree();
+                          }, 1000);
+                      } else {
+                          layer.close(indexs);
+                          layer.msg('操作失败！', {
+                              time: 1500 //1秒关闭（如果不配置，默认是3秒）
+                          });
+                      }
+                  });
+              });
+         });
+
+      }
+  //单选修改状态 返回一个状态，用来判断是否执行完成，修改按钮的状态
+  function  updateSingle(type,id){
+      var message=getName(type);
+      var idArray=getCheckArray(type,id);
+
+      eui.use(['jquery','element','form','table'], function(){
+          var jQuery = eui.jQuery
+                  ,layer = eui.layer
+                  ,form=eui.form;
+
+                  var indexs = layer.load(2); //加载
+                  $.post(basePath+'/sec/menu/delMenu', {param: JSON.stringify(idArray)}, function (result) {
+                      if (result.code==200) {
+                          layer.close(indexs);
+                          layer.msg('操作成功！', {
+                              icon: 1,
+                              time: 1500 //1秒关闭（如果不配置，默认是3秒）
+                          });
+                      } else {
+                          layer.close(indexs);
+                          layer.msg('操作失败！', {
+                              time: 1500 //1秒关闭（如果不配置，默认是3秒）
+                          });
+                      }
+                  });
+
+      });
+
+  }
+
+  //返回勾选的obj
+  function getCheckArray(type,id){
+      var idArray=new Array();
+      eui.use(['jquery','element','form','table'], function(){
+          var jQuery = eui.jQuery
+                  ,layer = eui.layer
+                  ,table = eui.table;
+          if(id!=null && id!=''){
+              var obj=new Object;
+              obj.id=id;
+              idArray.push(getFile(type,obj));
+          }else{
+              //获取选中的列
+              var data=table.checkStatus('tableDemo').data;
+              if(data.length >0){
+                  //记录选择框选择的id，
+                  for(var i=0;i<data.length;i++){
+                      var object=new Object;
+                      object.id=data[i].ID_;
+                      idArray.push(getFile(type,object));
+                  }
+              }else{
+                  layer.msg('请勾选需要操作的列！', {
+                      time: 1500 //1秒关闭（如果不配置，默认是3秒）
+                  });
+                  idArray=null;
+              }
+          }
+
+      });
+      return idArray;
+  }
+
+  function iscCheck(name,value){
+    var status=$("[name='"+name+"']");
+    for(var i=0;i<status.length;i++){
+        if(status.eq(i).val()==value){
+           status.eq(i).attr("checked",'checked');
+        }
+    }
+}
+
+  function  getFile(type,obj){
+      if(type==1){
+          //禁用
+          obj.enabled=0;
+      }else if(type==2){
+          //启用
+          obj.enabled=1;
+      }else if(type==3){
+          //删除
+          obj.deleted=1;
+      }
+      return obj;
+
+  }
+  function  getName(type){
+      if(type==1){
+          //禁用
+          return '您确定禁用吗?';
+      }else if(type==2){
+          //启用
+          return '您确定启用吗';
+      }else if(type==3){
+          //删除
+          return ' 本菜单可能含有子菜单，将会一起删除,您确定删除吗?';
+      }
+
+
+  }
+  //查询菜单的详情
+  function getMenuById(id){
+      eui.use(['jquery','element','form','table'], function(){
+             var layer = eui.layer;
+             var form = eui.form;
+              var index=layer.load();
+          $.get(basePath+"/sec/menu/menuInfo",{menuId:id},function(result){
+              var data=result.data;
+              console.info("---------------------");
+              console.info(data);
+              $("[ name='menuName1']").text(data.MENU_NAME);
+              $("[name='menuCode1']").text(data.MENU_CODE);
+              $("[name='url1']").text(data.URL);
+              var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+              var node =  treeObj.getNodeByParam("id",data.PARENT_ID);
+              if(node!=null){
+              $("[name='parentName1']").text(node.name);
+              }
+              $("[name='state1']").text(data.STATE);
+              $("[name='id1']").val(data.ID_);
+             // $("[name='ENABLED']").val(data.ENABLED);
+              if(data.ENABLED==1){
+                  $("[name='enabled1']").text("启用");
+                  $("[name='enabled1']").css("color","#009900");
+              }else{
+                  $("[name='enabled1']").text("禁用");
+                  $("[name='enabled1']").css("color","red");
+              }
+               var newUrl=getUrl();
+              $("#imgs1").html(' <img src="'+newUrl+data.ICON+'" style="height: 20px;width: 30px" />');
+              $("[name='creator1']").html(data.CREATOR+'<i class="eui-icon">&#xe612;</i>');
+              layer.closeAll();
+              form.render();
+          });
+      });
+  }
+  //重置
+  function resetForm(){
+      document.getElementById("formId").reset();
+      doSearch();
+  }
+
+  //子调父的方法 返回图片路径
+  function  getImgUrlForParent(url){
+      eui.use(['form','layer'], function() { //独立版的layer无需执行这一句
+          var layer = eui.layer;
+            var newUrl=getUrl();
+           $("#imgs").html(' <img src="'+newUrl+url+'" style="height: 20px;width: 30px" />');
+
+           $("#icon").val(url) ;
+           layer.close(openCheckIcon);
+          });
+  }
+
+  function getUrl(){
+      var nowUrl = window.location.href;
+      var urlArray= nowUrl.split("/");
+      var newUrl= urlArray[0]+"//"+urlArray[2]+"/"+urlArray[3]+"/";
+      return newUrl;
+  }
+  //修改当前选择的菜单
+  function updateCurrentMenu(){
+      var id=$("#id1").val();
+      if(id!=null && id!==''){
+
+          selMenu(id,2);
+      }
+  }
+
+
+</script>
+
+</body>
+</html>

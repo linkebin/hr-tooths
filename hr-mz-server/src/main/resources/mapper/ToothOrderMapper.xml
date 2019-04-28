@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.ToothOrderMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.ToothOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="order_type" jdbcType="VARCHAR" property="orderType" />
+    <result column="order_state" jdbcType="VARCHAR" property="orderState" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="mail_time" jdbcType="TIMESTAMP" property="mailTime" />
+    <result column="clinic" jdbcType="VARCHAR" property="clinic" />
+    <result column="doctor" jdbcType="VARCHAR" property="doctor" />
+    <result column="cust_id" jdbcType="VARCHAR" property="custId" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="cust_sex" jdbcType="VARCHAR" property="custSex" />
+    <result column="cl_type" jdbcType="VARCHAR" property="clType" />
+    <result column="att_type" jdbcType="VARCHAR" property="attType" />
+    <result column="tmjz_type" jdbcType="VARCHAR" property="tmjzType" />
+    <result column="yh_type" jdbcType="VARCHAR" property="yhType" />
+    <result column="zztxt" jdbcType="VARCHAR" property="zztxt" />
+    <result column="yyypcd" jdbcType="VARCHAR" property="yyypcd" />
+    <result column="margin" jdbcType="VARCHAR" property="margin" />
+    <result column="tooth" jdbcType="VARCHAR" property="tooth" />
+    <result column="xtsj_yhm" jdbcType="VARCHAR" property="xtsjYhm" />
+    <result column="xtsj_qtsj" jdbcType="VARCHAR" property="xtsjQtsj" />
+    <result column="xtsj_sjyf" jdbcType="VARCHAR" property="xtsjSjyf" />
+    <result column="bs" jdbcType="VARCHAR" property="bs" />
+    <result column="bs_is" jdbcType="VARCHAR" property="bsIs" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+</mapper>

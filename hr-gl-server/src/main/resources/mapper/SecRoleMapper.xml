@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.SecRoleMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.SecRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID_" jdbcType="VARCHAR" property="id" />
+    <result column="ROLE_CODE" jdbcType="VARCHAR" property="roleCode" />
+    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="DELETED" jdbcType="INTEGER" property="deleted" />
+    <result column="STANBY_ID" jdbcType="VARCHAR" property="stanbyId" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+  </resultMap>
+  <!--查询用户的所有角色和不属于用户的角色-->
+   <select id="getRoleForUser"  parameterType="String" resultType="java.util.Map">
+      SELECT
+        r.ID_,r.ROLE_NAME,1  types
+         FROM
+           sec_role  r
+          LEFT JOIN
+           SEC_ROLE_MEMBER  m
+           ON r.ID_=m.ROLE_ID
+          WHERE  r.deleted=0 AND m.USER_ID=#{userId}
+       UNION  ALL
+          SELECT
+             r.ID_,r.ROLE_NAME,2  types
+           FROM
+             sec_role  r
+           WHERE  ID_
+            NOT IN (
+                 SELECT ROLE_ID FROM SEC_ROLE_MEMBER WHERE USER_ID=#{userId}
+                 )
+           AND  deleted=0
+
+   </select>
+</mapper>

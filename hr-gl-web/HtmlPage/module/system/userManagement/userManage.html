@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>用户管理</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../../../Styles/themes/default/style.css"  media="all">
+  <link rel="stylesheet" href="../../../../Scripts/libs/jquery-ui/jquery-ui.css">
+
+  <script src="../../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+
+  <script type="text/javascript" src="../../../../Scripts/jquery-1.9.0.min.js"></script>
+  <script src="../../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+  <script src="../../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+  <script src="../../../../Scripts/plugins/jquery.cookie.js" type="text/javascript"></script>
+  <script src="../../../../Scripts/config.js" type="text/javascript"></script>
+  <script src="../../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+  <script src="../../../../Scripts/date2format.js" type="text/javascript"></script>
+
+  <!-- ztree-->
+  <script src="../../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+  <script src="../../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+  <script src="../../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+</head>
+<body>
+
+
+<div class="ui-layout-west">
+ <!-- <h3 class="ui-widget-header">组件结构树</h3>-->
+  <UL>
+    <LI><a href="#tab_1"><SPAN>按组织结构</SPAN></a></LI>
+
+  </UL>
+  <div class="ui-layout-content etree">
+    <div id="tab_1">
+      <ul id="treeDemo" class="ztree"></ul>
+    </div>
+
+
+    </div>
+</div>
+<div class="ui-layout-center eui-bg-white eui-padding10">
+  <!--右边内容 start-->
+  <!--条件搜索 start-->
+  <div class="eui-form eui-form-base eui-form-search eui-form-col2">
+   <form id="formId">
+    <!-- 查询重置按钮-->
+    <div class="eui-btn-group">
+      <a  href="javaScript:void(0)" class="eui-btn" onclick="doSearch()">查询</a>
+      <a  href="javaScript:void(0)" class="eui-btn eui-btn-primary" onclick="resetForm()">重置</a>
+    </div>
+    <!--查询条件-->
+    <div class="eui-form-item">
+      <label class="eui-form-label">用户账号：</label>
+      <div class="eui-input-block">
+        <input type="text" name="account"  class="eui-input" placeholder="">
+      </div>
+    </div>
+    <div class="eui-form-item">
+      <label class="eui-form-label">用户名称：</label>
+      <div class="eui-input-block">
+        <input type="text" name="userName" class="eui-input" placeholder="">
+      </div>
+    </div>
+    <!--华丽的分割线-->
+    <div class="eui-form-item">
+      <label class="eui-form-label">性别：</label>
+      <div class="eui-input-block">
+        <select name="sex" e-verify="required">
+          <option value="">全部</option>
+          <option value="男">男</option>
+          <option value="女">女</option>
+        </select>
+      </div>
+    </div>
+    <div class="eui-form-item">
+      <label class="eui-form-label">用户状态：</label>
+      <div class="eui-input-block">
+        <select name="status" e-verify="required">
+          <option value="">全部</option>
+          <option value="启用">启用</option>
+          <option value="禁用">禁用</option>
+        </select>
+      </div>
+    </div>
+    <!--华丽的分割线-->
+
+    <div class="clearfix"></div>
+   </form>
+  </div>
+
+
+  <!--条件搜索 end-->
+  <!--标题 start-->
+
+  <div class="title-bar eui-marginB10">
+    <div class="eui-btn-group float-right">
+      <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+     <!-- <a href="###" data-method="editCurmenu" data-type="rt" class="eui-btn eui-btn-small eui-btn-primary"><i class="eui-icon">&#xe614;</i>操作配置</a>-->
+        <!--标题 end-->
+        <div class="eui-btn-group eui-marginB10">
+            <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+            <!-- <a href="userManagement/userPerSet.html" target="_blank" class="eui-btn eui-btn-small" ><i class="eui-icon">&#xe631;</i>用户权限配置</a>-->
+            <!--<a href="javaScript:void(0)" data-method="roleSet" e-power="/user/roleToConfigure" onclick="roleConfigure('')" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe620;</i>角色配置</a>-->
+            <a href="javaScript:void(0)" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe502;</i>导入</a>
+            <a href="javaScript:void(0)" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe7fb;</i>导出</a>
+            <a href="javaScript:void(0)" class="eui-btn eui-btn-small" e-power="/user/enable" onclick="operationBtn(2,'')"><i class="eui-icon">&#xe7d0;</i>启用</a>
+            <a href="javaScript:void(0)" class="eui-btn eui-btn-small" e-power="/user/disable" onclick="operationBtn(1,'')"><i class="eui-icon">&#xe6c4;</i>禁用</a>
+            <!--<a href="javaScript:void(0)" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe630;</i>移动</a>-->
+            <a href="userManage-add.html" target="_blank" e-power="/user/addUser" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe654;</i>新建</a>
+            <a href="javaScript:void(0)" class="eui-btn eui-btn-small" e-power="/user/selectUser"  onclick="operationBtnSelorUpdate(4)"><i class="eui-icon">&#xe615;</i>查看</a>
+            <a href="javaScript:void(0)" class="eui-btn eui-btn-small" e-power="/user/updateUser" onclick="operationBtnSelorUpdate(5)"><i class="eui-icon">&#xe642;</i>编辑</a>
+            <a href="javaScript:void(0)" class="eui-btn eui-btn-bug eui-btn-small" e-power="/sec/user/updateSecUser"  onclick="operationBtn(3,'')"><i class="eui-icon">&#xe640;</i>删除</a>
+        </div>
+    </div>
+    <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      <span class="eui-color-red" id="orgNameTitle"></span>-用户信息列表
+    </span>
+  </div>
+
+
+
+
+  <!--  <div class="nodataArea">暂无相关数据 !</div>-->
+
+
+  <!--表格 start-->
+  <script type="text/html" id="barDemo">
+    <div class="eui-btn-group">
+      {{#  if(d.TYPE =="公司"){ }}
+         <a class="eui-btn eui-btn-primary eui-btn-mini"  e-event="role"   e-power="/user/roleToConfigure"><i class="eui-icon" title="角色配置">&#xe620;</i></a>
+      {{#  } }}
+      <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="perssion"  e-power="/user/perssionToConfigure"><i class="eui-icon" title="用户权限配置">&#xe631;</i></a>
+
+      <!--<a class="eui-btn eui-btn-primary eui-btn-mini" e-event="export"><i class="eui-icon" title="导出">&#xe7fb;</i></a>-->
+      <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="disable" e-power="/user/disable" ><i class="eui-icon" title="禁用">&#xe6c4;</i></a>
+      <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail" e-power="/user/selectUser"><i class="eui-icon" title="查看">&#xe615;</i></a>
+      <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit" e-power="/user/updateUser"><i class="eui-icon" title="编辑">&#xe642;</i></a>
+      <a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del" e-power="/sec/user/updateSecUser" ><i class="eui-icon" title="删除">&#xe640;</i></a>
+    </div>
+  </script>
+  <script type="text/html" id="switchTpl">
+    <input type="checkbox" name="see" e-skin="switch" e-text="启用|禁用" e-filter="" checked>
+  </script>
+  <table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+  <!--表格 end-->
+  <!--右边内容 end-->
+
+
+
+</div>
+<!--弹出信息-->
+<script type="text/html" id="layerContent">
+
+  <div class="eui-padding20">
+    <div class="eui-color-red">
+      温馨提示：查询条件必须为列表展示中已选的字段
+    </div>
+    <table class="eui-form" id="tableSet" e-filter="tableSetFilter"></table>
+  </div>
+</script>
+<script type="text/html" id="roleSetContent">
+    <div class="eui-height100p" id="roleSetPage">
+      <div class="ui-layout-west eui-padding20">
+
+        <div class="eui-textAlignC eui-paddingB10"><img name="headImg" src="" width="70%"/></div>
+
+        <div class="eui-form eui-form-read eui-form-sm">
+
+          <div class="eui-form-item">
+            <label class="eui-form-label">用户名称：</label>
+            <div class="eui-input-block ">
+              <div class="eui-form-mid" name="userName"> <a href="###"><i class="eui-icon">&#xe612;</i></a> </div>
+            </div>
+          </div>
+          <div class="eui-form-item">
+            <label class="eui-form-label">用户账号：</label>
+            <div class="eui-input-block " name="account">
+
+            </div>
+          </div>
+
+          <!--华丽的分割线-->
+          <div class="eui-form-item">
+            <label class="eui-form-label">所属部门：</label>
+            <div class="eui-input-block ">
+              <div class="eui-form-mid" name="orgName"></div>
+            </div>
+          </div>
+
+          <div class="eui-form-item">
+            <label class="eui-form-label">账号状态：</label>
+            <div class="eui-input-block ">
+              <div class="eui-form-mid" name="status">
+
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="ui-layout-center">
+
+
+        <!--左右选择 start-->
+
+        <div class="LRchoose eui-height100p">
+          <div class="lrLeft">
+            <div class="lrTtile eui-font-bold eui-font16">已拥有角色：</div>
+            <select multiple="multiple" id="selectLeft">
+            </select>
+          </div>
+          <div class="lrCenter">
+            <a href="javaScript:void (0)" onclick="LRchoose(1)" class="eui-btn eui-btn-primary block">>></a>
+            <a href="javaScript:void (0)" onclick="LRchoose(2)" class="eui-btn eui-btn-primary block">></a>
+            <a href="javaScript:void (0)" onclick="LRchoose(3)" class="eui-btn eui-btn-primary block"><</a>
+            <a href="javaScript:void (0)" onclick="LRchoose(4)" class="eui-btn eui-btn-primary block"><<</a>
+          </div>
+          <div class="lrRight">
+            <div class="lrTtile eui-font-bold eui-font16">未选择角色：</div>
+            <select multiple="multiple" id="selectRight">
+
+            </select>
+          </div>
+        </div>
+
+        <!--左右选择 end-->
+
+
+      </div>
+
+
+    </div>
+</script>
+
+
+<script>
+  eui.use(['jquery','element','form', 'layedit', 'laydate','table','laytpl','elementExtend'], function(){
+
+      var jQuery = eui.jQuery
+            ,element = eui.element
+            ,form = eui.form
+            ,layer = eui.layer
+            ,layedit = eui.layedit
+            ,laydate = eui.laydate
+            ,table = eui.table
+            ,elementExtend = eui.elementExtend
+            ,laytpl = eui.laytpl;
+
+      //日期选择
+      laydate.render({
+          elem: '#dateTest'
+      });
+      //日期范围
+      laydate.render({
+          elem: '#dateTest2'
+          ,range: true
+      });
+      //布局
+      $("body").layout({
+          //   applyDemoStyles: true,
+          spacing_open:8,
+          spacing_closed:10,
+          west__size:230,             //左侧初始宽度
+          north__size:60,             //上侧初始宽度
+          north__resizable:false,    //上侧关闭大小调整
+          north__closable:false,      //上侧关闭收缩
+          north__spacing_open: 0,       //上侧边框为0, 一般这个设置了上面的north__resizable和north__closable可以不用设置
+          south__spacing_open: 0,
+          south__size:30
+      });
+      $(".ui-layout-west").tabs();
+
+      //操作事件
+      var active = {
+
+          //当前菜单编辑
+          editCurmenu: function(othis){
+              var type = othis.data('type')
+                  ,text = othis.text();
+
+              var data={};
+              var txt="";
+              var getTpl= $("#layerContent").html();
+              laytpl(getTpl).render(data,function (html) {
+                  txt = html;
+              });
+
+              layer.open({
+                   type: 1
+                  ,title:"操作配置"
+                  ,area: ['600px','100%']  //宽度
+                  ,offset:type              //类型,注意点击按钮的data-type属性，然后配合宽高度
+                  ,id: 'pop'+type //防止重复弹出
+                  ,content: txt
+                  ,btn: ['保存','取消']
+                  ,btnAlign: 'c' //按钮居中
+                  ,shade: 0.3 //不显示遮罩
+                  ,maxmin: true
+                  ,yes: function(){
+                      layer.closeAll();
+                      layer.msg("保存成功！")
+                  },btn2: function(){
+                      layer.closeAll();
+                  }
+              });
+
+
+              //如有表单类的，请带上相关的JS预加载，并在以下加上重新渲染
+              form.render();
+          }
+      };
+
+      $('.eui-btn').on('click', function(){
+          var othis = $(this), method = othis.data('method');
+          active[method] ? active[method].call(this, othis) : '';
+      });
+
+  });
+
+var USER_Id="";
+  $(function(){
+      getTree();
+      doSearch();
+  });
+
+
+  //用户的树形结构ztree
+  function getTree(){
+      var setting = {
+          view: {
+             // addHoverDom: addHoverDom,
+             // removeHoverDom: removeHoverDom,
+              selectedMulti: false,
+              dblClickExpand: true//false屏蔽掉双击事件
+          },
+          async:{
+              enable:true,
+              type:"post",
+              dataType:"json",
+              url:basePath+'/sec/user/getSecUserTreeForOrg/',
+              //autoParam:["id","name"],
+              otherParam:{'param':''},
+              dataFilter: null
+          },
+          check: {
+              enable: false
+          },
+          data:{
+              simpleData: {
+                  enable: true,
+                  idKey:"id",
+                  pIdKey:"parentId",
+                  rootPid:"0"
+              }
+
+          },
+          callback:{
+              onClick:function(event,treeId, treeNode, clickFlag){
+                  //单击事件，单击展开
+                 // var zTree = $.fn.zTree.getZTreeObj(treeId);
+                 // zTree.expandNode(treeNode);
+                  //查询某个部门的所有用户信息
+                  doSearchForOrg(treeNode.id);
+
+                  //设置部门的名称
+                  $("#orgNameTitle").text(treeNode.name);
+
+              }
+          },
+          edit: {
+              enable: false
+          }
+      };
+      var zNodes=[];
+      console.info(setting);
+     $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+  }
+
+  //查询所有的用户
+  function doSearch(){
+
+     eui.use(['jquery','element','form','table'], function(){
+
+         var jQuery = eui.jQuery
+                 ,element = eui.element
+                 ,form = eui.form
+                 ,layer = eui.layer
+                 ,table = eui.table;
+         layer.load();
+         var  formObj=$("#formId").serializeObject();
+         table.render({
+         elem: '#tableDemo'
+         //   ,height: 350
+         //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+         ,even: true //开启隔行背景
+         ,url:basePath+'/sec/user/getSecUserForPaging'//数据接口
+         ,page: true
+         ,where:{
+             param:JSON.stringify(formObj)
+         }
+         ,method: 'get'
+         ,cols: [[
+             {type:'checkbox',name:'kgd',fixed:'left'}
+             ,{type:'numbers', width:60, title: '序号'}
+             ,{field:'USER_NAME', width:100, title: '用户名称'}
+             ,{field:'SEX', width: 100, title: '性别'}
+             ,{field:'ACCOUNT', width:120, title: '用户账号', sort: true}  //增加 edit 表示开户了编辑状态
+             ,{field:'MOBILE',width:120, title: '手机号码'}
+             ,{field:'EMAIL', width: 100, title: '邮箱'}
+             ,{field:'ADDR', width: 100, title: '地址',templet:'<div>{{# return d.ADDR.replace(/\\#/g,"-") }}</div>'}
+             ,{field:'STATUS', width: 100, title: '状态'}
+             ,{field:'NATIVE_PLACE', width: 100, title: '籍贯'}
+             ,{field:'C_TYPE', width: 100, title: '证件类型'}
+             ,{field:'C_MUM', width: 100, title: '证件号码'}
+             ,{field:'M_STATUS', width: 100, title: '婚姻状态'}
+             ,{field:'POLITICAL_STATUS', width: 100, title: '政治面貌'}
+             ,{field:'CREATOR', width: 100, title: '创建人'}
+             ,{field:'CREATE_TIME', width: 100, title: '创建时间',sort: true,templet:'<div>{{ new Date(d.CREATE_TIME).Format("yyyy-MM-dd") }}</div>' }
+             ,{field:'opear', title:'操作', width:220, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+         ]],
+         done: function(res, curr, count){
+             layer.closeAll();
+
+         }
+     });
+
+         //table的监听 监听工具条
+         toolBar(table);
+     });
+ }
+
+  //查询某个部门的所有用户信息
+  function doSearchForOrg(orgId){
+
+      eui.use(['jquery','element','form','table'], function(){
+
+          var jQuery = eui.jQuery
+                  ,element = eui.element
+                  ,form = eui.form
+                  ,layer = eui.layer
+                  ,table = eui.table;
+          layer.load();
+          table.render({
+              elem: '#tableDemo'
+              //   ,height: 350
+              //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+              ,even: true //开启隔行背景
+              ,url:basePath+'/sec/user/getSecUserForOrg'//数据接口
+              ,page: true
+              ,where:{
+                  orgId:orgId
+              }
+              ,method: 'get'
+              ,cols: [[
+                  {type:'checkbox',name:'kgd',fixed:'left'}
+                  ,{type:'numbers', width:60, title: '序号'}
+                  ,{field:'USER_NAME', width:100, title: '用户名称'}
+                  ,{field:'SEX', width: 100, title: '性别'}
+                  ,{field:'ACCOUNT', width:120, title: '用户账号', sort: true}  //增加 edit 表示开户了编辑状态
+                  ,{field:'MOBILE',width:120, title: '手机号码'}
+                  ,{field:'EMAIL', width: 100, title: '邮箱'}
+                  ,{field:'ADDR', width: 100, title: '地址',templet:'<div>{{# return d.ADDR.replace(/\\#/g,"-") }}</div>'}
+                  ,{field:'STATUS', width: 100, title: '状态'}
+                  ,{field:'NATIVE_PLACE', width: 100, title: '籍贯'}
+                  ,{field:'C_TYPE', width: 100, title: '证件类型'}
+                  ,{field:'C_MUM', width: 100, title: '证件号码'}
+                  ,{field:'M_STATUS', width: 100, title: '婚姻状态'}
+                  ,{field:'POLITICAL_STATUS', width: 100, title: '政治面貌'}
+                  ,{field:'CREATOR', width: 100, title: '创建人'}
+                  ,{field:'CREATE_TIME', width: 100, title: '创建时间',sort: true,templet:'<div>{{ new Date(d.CREATE_TIME).Format("yyyy-MM-dd") }}</div>' }
+                  ,{field:'opear', title:'操作', width:220, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+              ]],
+              done: function(res, curr, count){
+                  layer.closeAll();
+              }
+          });
+
+          //table的监听 监听工具条
+          toolBar(table);
+      });
+  }
+
+//监听table
+ function  toolBar(table){
+      //监听表格复选框选择
+      table.on('checkbox(tableDemoFilter)', function(obj){
+
+          console.log(obj.checked); //当前是否选中状态
+          console.log(obj.data); //选中行的相关数据
+          console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+          //判断是选择还是取消勾选
+
+      });
+
+      //监听工具条
+      table.on('tool(tableDemoFilter)', function(obj){
+          var data = obj.data;
+          if(obj.event === 'detail'){
+              window.open("userManage-info.html?user_id="+data.ID_);
+          } else if(obj.event === 'del'){
+              operationBtn(3,data.ID_)  ;
+          } else if(obj.event === 'edit'){
+              window.open("userManage-update.html?user_id="+data.ID_);
+          }else if(obj.event === 'perssion'){
+              window.open("userPerSet.html?user_id="+data.ID_);
+          }else if(obj.event === 'disable'){
+              operationBtn(1,data.ID_)  ;
+          }else if(obj.event === 'role'){
+              roleConfigure(data.ID_);
+          }
+
+      });
+  }
+
+  //重置
+  function resetForm(){
+      document.getElementById("formId").reset();
+      doSearch();
+  }
+  //禁用  启用 删除
+  function operationBtn(type,userId){
+      eui.use(['jquery','element','form','table'], function(){
+
+          var jQuery = eui.jQuery
+              ,form = eui.form
+              ,layer = eui.layer
+              ,table = eui.table;
+          //记录选择框选择的id，
+          var idArray=new Array();
+          var names=getName(type);
+          if(userId!=''){
+              var object=new Object;
+              object.id=userId;
+              idArray.push(getFile(type,object));
+          }else{
+              //获取选中的列
+              var data=table.checkStatus('tableDemo').data;
+              if(data.length >0){
+                  for(var i=0;i<data.length;i++){
+                      var object=new Object;
+                      object.id=data[i].ID_;
+                      idArray.push(getFile(type,object));
+                  }
+              }else{
+                  layer.msg('请勾选需要操作的列！', {
+                      time: 1500 //1秒关闭（如果不配置，默认是3秒）
+                  });
+                  return;
+              }
+          }
+
+          executione(names,idArray);
+      });
+  }
+
+  function  executione(names,idArray){
+      eui.use(['jquery','element','form','table'], function(){
+
+          var jQuery = eui.jQuery
+                  ,form = eui.form
+                  ,layer = eui.layer
+                  ,table = eui.table;
+         layer.confirm('您确定'+names+'吗？', {
+          btn: ['确认', '取消']
+      }, function () {
+          var indexs = layer.load(2); //加载
+
+          $.post(basePath+'/sec/user/updateSecUser', {param: JSON.stringify(idArray)}, function (result) {
+              if (result.code==200) {
+                  layer.closeAll();
+                  layer.msg('操作成功！', {
+                      icon: 1,
+                      time: 1500 //1秒关闭（如果不配置，默认是3秒）
+                  });
+                  setTimeout(function () {
+                      doSearch();
+                  }, 1500);
+              } else {
+                  layer.close(indexs);
+                  layer.msg('操作失败！', {
+                      time: 1500 //1秒关闭（如果不配置，默认是3秒）
+                  });
+              }
+          });
+      });
+      });
+  }
+  function  getFile(type,obj){
+      if(type==1){
+          //禁用
+          obj.status='禁用';
+      }else if(type==2){
+          //启用
+          obj.status='启用';
+      }else if(type==3){
+          //删除
+          obj.deleted=1;
+      }
+      return obj;
+
+  }
+  function  getName(type){
+      if(type==1){
+          //禁用
+         return '禁用';
+      }else if(type==2){
+          //启用
+          return '启用';
+      }else if(type==3){
+          //删除
+          return '删除';
+      }else if(type==4){
+          //详情
+          return 'userManage-info.html?user_id=';
+      }else if(type==5){
+          //修改
+          return 'userManage-update.html?user_id=';
+      }
+
+
+  }
+
+  //查看
+  function  operationBtnSelorUpdate(type){
+      eui.use(['jquery','element','form','table'], function(){
+
+          var jQuery = eui.jQuery
+                  ,form = eui.form
+                  ,layer = eui.layer
+                  ,table = eui.table;
+
+          //获取选中的列
+          var data=table.checkStatus('tableDemo').data;
+          if(data.length>1 || data.length==0){
+              layer.msg('请勾选一个', {
+                  time: 1500 //1秒关闭（如果不配置，默认是3秒）
+              });
+          }else{
+
+              window.open(getName(type)+data[0].ID_);
+          }
+      });
+
+
+  }
+
+  //角色配置
+  function  roleConfigure(userId){
+      eui.use(['jquery','element','form', 'layedit', 'laydate','table','laytpl','elementExtend'], function(){
+          var jQuery = eui.jQuery
+                  ,element = eui.element
+                  ,form = eui.form
+                  ,layer = eui.layer
+                  ,layedit = eui.layedit
+                  ,table = eui.table
+                  ,laytpl = eui.laytpl;
+          if(userId===''){
+              var data=table.checkStatus('tableDemo').data;
+
+              if(data.length!=1){
+                  layer.msg("请勾选一列");
+                  return;
+              }else{
+                  userId=data[0].ID_;
+              }
+          }
+          //全局变量用户的id
+          USER_Id=userId;
+          var data={};
+          var txt="";
+          var getTpl= $("#roleSetContent").html();
+          laytpl(getTpl).render(data,function (html) {
+              txt = html;
+          });
+          layer.open({
+              type: 1
+              ,title:"角色配置"
+              ,area: ['800px','500px']  //宽度
+              ,id: 'roleConfigure' //防止重复弹出
+              ,content: txt
+              ,btnAlign: 'c' //按钮居中
+              ,shade: 0.3 //不显示遮罩
+              ,maxmin: false
+          });
+          $("#roleSetPage").layout({
+              //   applyDemoStyles: true,
+              spacing_open:8,
+              spacing_closed:10,
+              west__size:230,             //左侧初始宽度
+              north__size:60,             //上侧初始宽度
+              north__resizable:false,    //上侧关闭大小调整
+              north__closable:false,      //上侧关闭收缩
+              north__spacing_open: 0,       //上侧边框为0, 一般这个设置了上面的north__resizable和north__closable可以不用设置
+              south__spacing_open: 0,
+              south__size:30
+          });
+          //左右选择事件
+          //elementExtend.LRchoose();
+          //用户详情
+          getUserInfo(userId);
+          //角色信息
+          getRoleForUser(userId);
+      });
+  }
+  //左右选择
+  function LRchoose(type){
+      switch (type){
+          case 1:
+              //获取选中的值
+              var options=$("#selectLeft option");
+              //全部向右
+              $("#selectLeft option").clone().appendTo("#selectRight")
+              $("#selectLeft option").remove();
+              delRole(getRoleIds(options));
+              break;
+          case 2:
+              //获取选中的值
+              var options=$("#selectLeft option:selected");
+              //向右
+              $("#selectLeft option:selected").clone().appendTo("#selectRight")
+              $("#selectLeft option:selected").remove();
+              delRole(getRoleIds(options));
+              break;
+          case 3:
+              //获取选中的值
+              var options=$("#selectRight option:selected");
+              //向左
+              $("#selectRight option:selected").clone().appendTo("#selectLeft")
+              $("#selectRight option:selected").remove();
+              addRole(getRoleIds(options));
+              break;
+          case 4:
+              //获取选中的值
+              var options=$("#selectRight option");
+              //全部向左
+              $("#selectRight option").clone().appendTo("#selectLeft")
+              $("#selectRight option").remove();
+              addRole(getRoleIds(options));
+              break;
+      }
+
+
+
+
+  }
+
+  //组装 roleIds
+  function getRoleIds(options){
+          var array=new Array;
+          for(var i=0;i<options.length;i++){
+              array[i]=options.eq(i).val();
+          }
+     return array.join(",");
+  }
+
+  //添加角色
+  function addRole(roleIds){
+     if(roleIds!=''){
+          eui.use(['jquery','element','form','table'], function(){
+              var form = eui.form
+                      ,layer = eui.layer
+              var index=layer.load();
+              $.post(basePath+"/sec/role/member/addRoleForUser",{userId:USER_Id,roleIds:roleIds},function(result){
+                  layer.close(index);
+                  if(result.code==200){
+                      layer.msg("操作成功");
+                  }else{
+                      layer.msg("操作失败");
+                  }
+              });
+          });
+     }
+  }
+  //删除角色
+  function delRole(roleIds){
+    if(roleIds!='') {
+        eui.use(['jquery', 'element', 'form', 'table'], function () {
+            var form = eui.form
+                    , layer = eui.layer
+            var index = layer.load();
+            $.post(basePath + "/sec/role/member/delRoleForUser", {
+                userId: USER_Id,
+                roleIds: roleIds
+            }, function (result) {
+                layer.close(index);
+                if (result.code == 200) {
+                    layer.msg("操作成功");
+                } else {
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    }
+  }
+
+  //获取用户的详情信息
+  function getUserInfo(userIds){
+      eui.use(['jquery','element','form','table'], function(){
+
+          var jQuery = eui.jQuery
+                  ,element = eui.element
+                  ,form = eui.form
+                  ,layer = eui.layer
+                  ,table = eui.table;
+          var index=layer.load();
+          $.get(basePath+"/sec/user/getSecUserBYID",{userId:userIds},function(result){
+
+              var data=result.data;
+
+              $("#roleSetPage [name='userName']").text(data.USER_NAME);
+              $("#roleSetPage [name='account']").text(data.ACCOUNT);
+              $("#roleSetPage [name='orgName']").text(data.ORG_NAME==null?"":data.ORG_NAME);
+              if(data.STATUS=='启用'){
+                  $("#roleSetPage [name='status']").text('启用');
+                  $("#roleSetPage [name='status']").css("color","#00B83F");
+              }else{
+                  $("#roleSetPage [name='status']").text('禁用');
+                  $("#roleSetPage [name='status']").css("color","red");
+              }
+              if(data.HEAD_IMG!=null && data.HEAD_IMG!='' ){
+                  $("#roleSetPage  [name='headImg']").attr('src',basePath+data.HEAD_IMG);
+              }
+
+              layer.close(index);
+          });
+      });
+  }
+  //查询用户的所有角色和不属于用户的角色
+  function getRoleForUser(userIds){
+      eui.use(['jquery','element','form','table'], function(){
+          var    form = eui.form
+                  ,layer = eui.layer
+          var index=layer.load();
+          $.get(basePath+"/sec/role/getRoleForUser",{userId:userIds},function(result){
+              var data=result.data;
+              console.info(data);
+              var selectLeftHtml="";
+              var selectRightHtml="";
+              for(var i=0;i<data.length;i++){
+                  var d=data[i];
+                  if(d.types==1){
+                      selectLeftHtml+='<option value="'+ d.ID_+'">'+d.ROLE_NAME+'</option>';
+                  }else{
+                      selectRightHtml+='<option value="'+ d.ID_+'">'+d.ROLE_NAME+'</option>';
+                  }
+              }
+              $("#selectLeft").html(selectLeftHtml);
+              $("#selectRight").html(selectRightHtml);
+              layer.close(index);
+          });
+      });
+
+  }
+</script>
+
+</body>
+</html>

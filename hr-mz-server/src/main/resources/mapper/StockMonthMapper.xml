@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.StockMonthMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.StockMonth">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="stock_id" jdbcType="VARCHAR" property="stockId" />
+    <result column="clinic_id" jdbcType="VARCHAR" property="clinicId" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="product_type" jdbcType="VARCHAR" property="productType" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_model" jdbcType="VARCHAR" property="productModel" />
+    <result column="product_spec" jdbcType="VARCHAR" property="productSpec" />
+    <result column="product_brand" jdbcType="VARCHAR" property="productBrand" />
+    <result column="stock_num" jdbcType="INTEGER" property="stockNum" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="sprice" jdbcType="VARCHAR" property="sprice" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="product_unit" jdbcType="VARCHAR" property="productUnit" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+  </resultMap>
+
+  <select id="findStockMonth" parameterType="String" resultType="java.util.Map">
+    select a.*,
+      case when b.num is null then 0 when f.num is null then b.num else b.num - f.num end num,
+      case when b.money is null then 0 when f.money is null then b.money else b.money - f.money end money,
+      case when c.useNum is null then 0 when g.useNum is null then c.useNum else c.useNum - g.useNum end useNum,
+      case when c.useNum is null then 0 when g.useNum is null then a.sprice * c.useNum else a.sprice * (c.useNum - g.useNum) end useMoney,
+      case when d.stock_num is null then 0 else d.stock_num end beginNum,case when d.sprice is null then 0 else d.sprice end beginSprice,case when d.sprice is null then 0 else e.sprice * e.stock_num end beginSum,
+      case when e.stock_num is null then 0 else e.stock_num end endNum,case when e.sprice is null then 0 else e.sprice end endSprice,case when e.sprice is null then 0 else e.sprice * e.stock_num end endSum from (
+        select product_code,
+          product_name,
+          product_brand,
+          product_spec,
+          product_unit,
+          product_type,
+          clinic_id,
+          sprice
+    from stock where clinic_id = #{clinic}
+    <if test="code!=null and code!=''">
+      and (product_code = #{code} or product_name like '%${code}%')
+    </if>
+    ) a
+      left join (select in_out_code,clinic_id,sum(num) num,sum(money) money from stock_in_out_de
+      where date_format(create_time,'%Y%m') = #{starTime}
+        and operation_type = '进货'
+      group by in_out_code,clinic_id) b
+        on b.in_out_code = a.product_code
+      and a.clinic_id = b.clinic_id left join
+      (select in_out_code,sum(num) useNum from stock_in_out_de
+      where date_format(create_time,'%Y%m') = #{starTime}
+        and operation_type = '领用'
+        and clinic_id = #{clinic}
+      group by in_out_code) c
+     on c.in_out_code = a.product_code
+     left join stock_month d on d.month = #{starTime}
+    and a.clinic_id = d.clinic_id
+    and a.product_code = d.product_code
+    left join stock_month e on e.month = #{endTime}
+    and a.clinic_id = e.clinic_id
+    and a.product_code = e.product_code
+    left join (select in_out_code,clinic_id,sum(num) num,sum(money) money from stock_in_out_de
+    where date_format(create_time,'%Y%m') = #{starTime}
+    and operation_type = '退货'
+    group by in_out_code,clinic_id) f
+    on f.in_out_code = a.product_code
+    and a.clinic_id = f.clinic_id left join
+    (select in_out_code,sum(num) useNum from stock_in_out_de
+    where date_format(create_time,'%Y%m') = #{starTime}
+    and operation_type = '退领'
+    and clinic_id = #{clinic}
+    group by in_out_code) g
+    on g.in_out_code = a.product_code
+    order by a.product_code
+  </select>
+
+</mapper>

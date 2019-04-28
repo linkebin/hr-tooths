@@ -1,0 +1,442 @@
+@charset "utf-8";
+
+
+body, th, td, button, input, select, textarea {
+ font-size: 12px!important;
+}
+h1, h2, h3 {
+ font-size: 12px;
+ font-weight: 400;
+}
+
+/* ----------------------小字号导航配置开始-------------------------- */
+/* 顶部导航-small */
+.header{
+ height: 32px!important;
+ padding: 10px!important;
+}
+.header .nav-logo{
+ font-size: 18px;
+}
+.header .nav-logo img{
+ height: 35px;
+ margin-right: 10px;
+}
+.header .nav-sreach input{
+ height: 30px!important;
+ background-size: 20px;
+ padding-left: 36px;
+}
+.header .userImg img{
+ width: 30px;
+ margin-top: -6px;
+}
+.header .eui-badge{
+ min-width:6px!important;
+ width: 15px;
+ height: 15px;
+ line-height: 15px;
+ padding: 0;
+ top: 18px!important;
+}
+.header .navul li a{
+ font-size: 16px;
+ padding: 5px 12px;
+
+}
+.header .eui-nav-child{
+ top:57px;
+}
+/* tab栏标题-small */
+.eui-tab-title{
+ height: 32px;
+}
+.eui-tab-title li{
+ line-height: 32px;
+ padding: 0 8px;
+ font-size: 12px;
+}
+.eui-tab-title li .eui-icon{
+ margin-left: 0;
+}
+.eui-tab-title .eui-tab-bar{
+ top: -2px;
+ height: 32px;
+ line-height: 32px;
+}
+.tabContextmenu {
+ top: 30px!important;
+}
+
+/* 左侧导航-small */
+.sidebar{
+ top: 53px!important;
+}
+.sidebar ul li a {
+ height: 35px!important;
+ line-height: 35px!important;
+ font-size: 12px!important;
+}
+#sidebar ul.rootmenu li.submenuLi{
+ background-position: 170px 12px!important;
+}
+#sidebar ul.rootmenu li.minus {
+ background-position: 170px 17px!important;
+}
+/* ----------------------小字号导航配置结束-------------------------- */
+
+
+
+.eui-tab-title .eui-this:after{
+ height: 33px;
+}
+
+
+.eui-nav-child{
+ line-height: 30px;
+}
+
+
+/*表单-start*/
+.eui-input, .eui-select, .eui-textarea {
+ height: 30px;
+ line-height: 30px;
+ border: 1px solid #e6e6e6;
+ background-color: #fff;
+ border-radius: 2px;
+}
+
+.eui-form-label {
+ padding: 5px;
+}
+.eui-input-block {
+ margin-left: 130px;
+ *margin-left: 0px;
+}
+.eui-form-mid {
+ padding: 5px 0!important;
+}
+.eui-form-item {
+ margin-bottom: 5px;
+}
+
+.eui-form-select dl dd, .eui-form-select dl dt {
+ line-height: 30px;
+}
+
+.eui-elem-quote {
+ padding: 8px 15px;
+}
+
+.eui-form-item .eui-form-checkbox[e-skin=primary] {
+ margin-top: 6px;
+}
+.eui-form-checkbox span{
+ font-size: 12px;
+}
+
+.eui-form-item .eui-form-checkbox {
+ margin-top: 0px;
+}
+
+.eui-form-item .eui-form-radio {
+ margin: 2px 10px 0 0;
+}
+
+.eui-form-switch {
+ height: 16px;
+ line-height: 16px;
+ width: 35px;
+}
+
+.eui-form-switch i {
+ position: absolute;
+ left: 2px;
+ top: 2px;
+ width: 12px;
+ height: 12px;
+}
+.eui-form-onswitch i {
+ right: 2px;
+ left: auto;
+ background-color: #fff;
+}
+.eui-form-select dl {
+ top: 33px;
+}
+.eui-form-select .eui-edge {
+ border-width: 4px;
+}
+
+@-webkit-keyframes eui-upbit {
+ from {
+  -webkit-transform: translate3d(0,10px,0);
+  opacity: .3
+ }
+
+ to {
+  -webkit-transform: translate3d(0,0,0);
+  opacity: 1
+ }
+}
+
+@keyframes eui-upbit {
+ from {
+  transform: translate3d(0,10px,0);
+  opacity: .3
+ }
+
+ to {
+  transform: translate3d(0,0,0);
+  opacity: 1
+ }
+}
+
+.eui-anim-upbit {
+ -webkit-animation-name: eui-upbit;
+ animation-name: eui-upbit
+}
+
+/*表单-end*/
+
+
+
+
+
+
+/*表格-start*/
+.eui-table td, .eui-table th {
+ position: relative;
+ padding: 5px 10px;
+ font-size: 12px;
+}
+.eui-table th {
+ font-weight: bold;
+}
+
+.eui-table-view .eui-table th{
+ padding: 0;
+}
+.eui-table-cell{
+ padding: 0 10px;
+}
+
+.eui-table-sort .eui-edge {
+ left: 6px;
+ border-width: 4px;
+}
+.eui-table-sort .eui-table-sort-desc {
+ bottom: 6px;
+}
+.eui-laypage a, .eui-laypage span {
+ padding: 0 10px;
+ height: 28px;
+ line-height: 28px;
+}
+
+/*表格-end*/
+/* 按钮 - start */
+.eui-btn{
+ height: 30px;
+ line-height: 30px;
+ padding: 0 12px;
+ font-size: 12px;
+}
+
+
+/* 按钮 - end */
+
+
+/*  layer - start */
+.eui-layer-hui .eui-layer-content{
+ padding: 5px 10px;
+ font-size: 12px;
+}
+/* layer - end */
+
+
+
+/* 折叠 - start */
+.eui-colla-title {
+ height: 35px;
+ line-height: 35px;
+ padding: 0 15px 0 25px;
+}
+.eui-colla-icon {
+ position: absolute;
+ left: 10px;
+ top: 0;
+ font-size: 12px;
+}
+/* 折叠 - end */
+
+
+/* 面板 - start */
+.panel-header{
+ font-size: 14px;
+ line-height: 35px;
+}
+.panel-header-toggle {
+ height: 16px;
+ line-height: 16px;
+ width: 16px;
+
+}
+/* 面板 - end */
+
+/* 日期 - start */
+.eui-laydate-header {
+ padding: 0px 50px 0px!important;
+}
+
+.eui-laydate-header i {
+ font-size: 12px!important;
+ top: 2px!important;
+}
+.laydate-set-ym span{
+ font-size: 12px!important;
+}
+.eui-laydate-content td, .eui-laydate-content th {
+ width: 28px!important;
+ height: 26px!important;
+ padding: 0px!important;
+}
+
+.eui-laydate-content {
+ padding: 5px!important;
+}
+
+.eui-laydate-main {
+ width: 206px!important;
+}
+
+.eui-laydate-header i.laydate-prev-y {
+ left: 5px!important;
+}
+.eui-laydate-header i.laydate-prev-m {
+ left: 25px!important;
+}
+
+.eui-laydate-header i.laydate-next-y {
+ right: 5px!important;
+}
+
+.eui-laydate-header i.laydate-next-m {
+ right: 25px!important;
+}
+
+
+.laydate-footer-btns {
+ right: 5px!important;
+ top: 5px!important;
+}
+.eui-laydate-footer {
+ height: 37px!important;
+ padding: 5px 10px!important;
+}
+
+
+.eui-laydate-list>li {
+ height: 30px!important;
+ line-height: 30px!important;
+ margin: 3px 0!important;
+ font-size: 12px!important;
+}
+
+.eui-laydate-list {
+ padding: 5px!important;
+}
+.laydate-time-list>li {
+ height: 20px!important;
+ line-height: 20px!important;
+}
+.laydate-time-list p {
+ top: -4px!important;
+ line-height: 20px!important;
+}
+
+.laydate-time-list ol li {
+ line-height: 25px!important;
+}
+
+.laydate-time-list ol {
+ height: 160px!important;
+}
+.eui-laydate-range {
+ width: 415px!important;
+}
+
+/* 日期 - end */
+
+
+
+.eui-panels-title1 {
+ font-size: 16px;
+}
+
+.sidebar-title {
+ font-size: 14px!important;
+ color: #333!important;
+}
+.collapsed ul.rootmenu li.submenuLi ul {
+ top: 32px!important;
+}
+
+.eui-newsList li {
+ line-height: 25px;
+ font-size: 12px;
+}
+.eui-user-top {
+ height: 160px;
+}
+/* ztree  - start */
+.ztree * {
+ font-size: 12px!important;
+}
+/* ztree - end */
+
+
+/*  - start */
+/*  - end */
+
+.eui-user-top .eui-userName {
+ padding: 100px 0 0 20px;
+}
+
+/*图标*/
+.site-doc-icon li{
+ font-size: 12px;
+}
+
+
+/*--条件查询--*/
+.eui-form-col .eui-input-inline{
+ margin-left: 110px;
+ *margin-left: 0px;
+}
+
+.eui-form-search {
+ padding: 10px 120px 0 10px;
+}
+
+
+
+.inputAfter{
+ width: 28px;
+ height: 28px;
+ line-height: 28px;
+}
+
+.eui-btn-mini {
+ height: 20px;
+ line-height: 20px;
+ padding: 0 5px;
+}
+
+.eui-table-view .eui-table td, .eui-table-view .eui-table th{
+ padding: 3px 0;
+}
+
+
+
+

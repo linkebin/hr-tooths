@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.CustSfjlDeMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.CustSfjlDe">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="sf_de_id" jdbcType="VARCHAR" property="sfDeId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="num" jdbcType="VARCHAR" property="num" />
+    <result column="once_num" jdbcType="VARCHAR" property="onceNum" />
+    <result column="usages" jdbcType="VARCHAR" property="usages" />
+    <result column="freq" jdbcType="VARCHAR" property="freq" />
+    <result column="all_num" jdbcType="VARCHAR" property="allNum" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="sfjl_id" jdbcType="VARCHAR" property="sfjlId" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="o_money" jdbcType="VARCHAR" property="oMoney" />
+    <result column="discount" jdbcType="VARCHAR" property="discount" />
+  </resultMap>
+</mapper>

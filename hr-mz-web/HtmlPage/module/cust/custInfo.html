@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户视图</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+	</head>
+
+	<body class="ToolbarFixed">
+
+		<div class="toolbarH">
+			<div class="title-bar">
+				<div class="eui-btn-group float-right">
+					<!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+					<!--<a href="###" class="eui-btn">保存</a>
+					<a href="###" class="eui-btn eui-btn-primary">关闭</a>-->
+				</div>
+				<span class="title-main">
+					<i class="eui-icon eui-font24">&#xe62a;</i>
+					客户视图
+				</span>
+				<span class="title-sub">
+					客户详情
+				</span>
+			</div>
+		</div>
+		<div class="form-body ">
+			<!--tab页 start-->
+			<div class="eui-tab eui-tab-card">
+				<ul class="eui-tab-title">
+					<li class="eui-this">基本信息</li>
+					<li>客户关系</li>
+					<li>预约记录</li>
+					<li>收支记录</li>
+					<!--            <li>就诊记录</li>-->
+					<!--<li>订单记录</li>-->
+				</ul>
+				<div class="eui-tab-content eui-bg-white">
+					<div class="eui-tab-item eui-show">
+						<form id="userForm">
+							<div class="eui-form eui-form-base eui-form eui-form-col3">
+
+								<!--查询条件-->
+								<div class="eui-form-item">
+									<label class="eui-form-label">病历号：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_code" id="cust_code" readonly class="eui-input" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">姓名：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_name" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">初诊医生：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" readonly name="early_doctor_name" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">初诊诊所：</label>
+									<div class="eui-input-block">
+										<input type="text" class="eui-input" readonly name="early_clinic_name" placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">性别：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_sex" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">出生年月：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_birth" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">联系电话：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_tell" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">年龄：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_age" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">职业：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_pro" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">学历：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_el" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">QQ：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_qq" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">微信：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_wechat" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">邮箱：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_wechat" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">身份证号：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_num" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">洁牙习惯：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_jyxg" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">就诊经历：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_jzjl" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">过敏史：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_gms" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<!--华丽的分割线-->
+								<div class="eui-form-item">
+									<label class="eui-form-label">客户等级：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_class" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">联系地址：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_addr" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="eui-form-item">
+									<label class="eui-form-label">余额：</label>
+									<div class="eui-input-block">
+										<input type="text" name="money" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<!--华丽的分割线-->
+								<div class="eui-form-item item-colspan3">
+									<label class="eui-form-label">备注：</label>
+									<div class="eui-input-block">
+										<input type="text" name="cust_remark" class="eui-input" readonly placeholder="">
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</form>
+					</div>
+					<div class="eui-tab-item">
+						<span class="title-main">
+							<i class="eui-icon eui-font20">&#xe62d;</i>
+							客户关系记录
+						</span>
+						<span class="title-sub">
+							<!--二级标题-->
+						</span>
+						<!--标题 end-->
+						<!--表格 start-->
+						<script type="text/html" id="barDemoq">
+							<!--<div class="eui-btn-group">-->
+						<a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>
+						<!--</div>-->
+					</script>
+						<table id="tableDemoq" e-filter="tableDemoFilterq"></table>
+
+						<!--表格 end-->
+					</div>
+					<div class="eui-tab-item">
+						<!--条件搜索 start-->
+						<div class="eui-form eui-form-base eui-form-search eui-form-col2">
+							<!-- 查询重置按钮-->
+							<div class="eui-btn-group">
+								<button class="eui-btn" onclick="getYYlist()">查询</button>
+								<button class="eui-btn eui-btn-primary" onclick="yy_cz()">重置</button>
+							</div>
+							<!--查询条件-->
+							<div class="eui-form-item">
+								<label class="eui-form-label">预约时间：</label>
+								<div class="eui-input-block">
+									<input type="text" id="yyDate" class="eui-input" placeholder="请输入查询关键字">
+								</div>
+							</div>
+							<div class="eui-form-item">
+								<label class="eui-form-label">预约项目：</label>
+								<div class="eui-input-block">
+									<select name="city" id="yyProject" e-verify="required" e-search>
+										<option value="">带搜索的选择框</option>
+										<option value="1">选项一</option>
+										<option value="2">选项二</option>
+										<option value="3">选项三</option>
+									</select>
+								</div>
+							</div>
+							<!--华丽的分割线-->
+							<div class="clearfix"></div>
+						</div>
+
+						<!--条件搜索 end-->
+						<!--标题 start-->
+
+						<div class="title-bar">
+							<!--<div class="eui-btn-group float-right">-->
+							<!--&lt;!&ndash;不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释&ndash;&gt;-->
+							<!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe654;</i>新建</a>-->
+							<!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe642;</i>编辑</a>-->
+							<!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe601;</i>导入</a>-->
+							<!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe61f;</i>导出</a>-->
+							<!--<a href="###" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>删除</a>-->
+							<!--</div>-->
+							<span class="title-main">
+								<i class="eui-icon eui-font20">&#xe62d;</i>
+								预约记录
+							</span>
+							<span class="title-sub">
+								<!--二级标题-->
+							</span>
+						</div>
+
+						<!--标题 end-->
+						<!--表格 start-->
+						<script type="text/html" id="barDemo">
+							<!--<div class="eui-btn-group">-->
+							<!--<a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>-->
+							<!--<a class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit"><i class="eui-icon" title="编辑">&#xe642;</i></a>-->
+							<!--<a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>-->
+							<!--</div>-->
+						</script>
+						<table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+						<!--表格 end-->
+
+					</div>
+					<div class="eui-tab-item">
+						<!--条件搜索 start-->
+						<div class="eui-form eui-form-base eui-form-search eui-form-col2">
+							<!-- 查询重置按钮-->
+							<div class="eui-btn-group">
+								<button class="eui-btn" onclick="getszlist()">查询</button>
+								<button class="eui-btn eui-btn-primary" onclick="sz_cz()">重置</button>
+							</div>
+							<!--查询条件-->
+							<div class="eui-form-item">
+								<label class="eui-form-label">记录时间：</label>
+								<div class="eui-input-block">
+									<input type="text" id="create_time" class="eui-input" placeholder="请输入查询关键字">
+								</div>
+							</div>
+							<div class="eui-form-item">
+								<label class="eui-form-label">收支类型：</label>
+								<div class="eui-input-block">
+									<select name="city" id="record_type" e-verify="required" e-search>
+										<option value="">带搜索的选择框</option>
+										<option value="收入">收入</option>
+										<option value="支出">支出</option>
+									</select>
+								</div>
+							</div>
+							<!--华丽的分割线-->
+							<div class="clearfix"></div>
+						</div>
+
+						<!--条件搜索 end-->
+						<!--标题 start-->
+
+						<div class="title-bar">
+							<span class="title-main">
+								<i class="eui-icon eui-font20">&#xe62d;</i>
+								收支记录
+							</span>
+							<span class="title-sub">
+								<!--二级标题-->
+							</span>
+						</div>
+
+						<!--标题 end-->
+						<!--表格 start-->
+						<script type="text/html" id="barDemos">
+							<!--<div class="eui-btn-group">-->
+							<!--<a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>-->
+							<!--<a class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit"><i class="eui-icon" title="编辑">&#xe642;</i></a>-->
+							<!--<a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>-->
+							<!--</div>-->
+						</script>
+						<table id="tableDemos" e-filter="tableDemoFilters"></table>
+
+						<!--表格 end-->
+					</div>
+					<!--<div class="eui-tab-item">
+						<table id="tableDemo2" e-filter="tableDemoFilter"></table>
+
+					</div>-->
+				</div>
+			</div>
+			<!--tab页 end-->
+
+		</div>
+		<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="../../../Scripts/config.js"></script>
+		<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../../Scripts/date2format.js"></script>
+		<script>
+			//表单
+			eui.use(['element', 'form', 'layedit', 'laydate', 'table'], function() {
+
+				var element = eui.element,
+					form = eui.form,
+					layer = eui.layer,
+					layedit = eui.layedit,
+					laydate = eui.laydate,
+					table = eui.table;
+				//常规用法
+				laydate.render({
+					elem: '#yyDate'
+				});
+				//常规用法
+				laydate.render({
+					elem: '#create_time'
+				});
+				//				//日期范围
+				//				laydate.render({
+				//					elem: '#create_time',
+				//					range: true
+				//				});
+				table.render({
+					elem: '#tableDemoq'
+						//   ,height: 350
+						,
+					even: true //开启隔行背景
+						//  ,url: 'dataPage.json' //数据接口
+
+						,
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left'
+						}, {
+							field: 'cust_name',
+							width: 120,
+							title: '客户姓名',
+							sort: true
+						}, {
+							field: 'relation',
+							title: '客户关系',
+							minWidth: 150
+						}, {
+							field: 'filed7',
+							title: '操作',
+							width: 150,
+							toolbar: '#barDemoq',
+							unresize: true,
+							fixed: 'right'
+						}]
+					],
+					data: tablaData_gx,
+					page: true
+				});
+
+				//监听工具条
+				table.on('tool(tableDemoFilterq)', function(obj) {
+					// getcustName(obj)
+					$.ajax({
+						type: "post",
+						url: basePath + "/customer/details",
+						async: true,
+						data: {
+							id: obj.data.cust_id
+						},
+						success: function(data) {
+							getcustName(data.data);
+							if(data.code==200){
+								layer.msg("切换成功！");
+							}
+						}
+					});
+				});
+
+				table.render({
+					elem: '#tableDemo'
+						//   ,height: 350
+						,
+					even: true //开启隔行背景
+						//  ,url: 'dataPage.json' //数据接口
+
+						,
+					cols: [
+						[{
+								type: 'checkbox',
+								fixed: 'left'
+							}, {
+								field: 'yyTime',
+								width: 120,
+								title: '预约时间',
+								sort: true
+							}, {
+								field: 'yyProject',
+								width: 120,
+								title: '预约项目'
+							} //增加 edit 表示开户了编辑状态
+							, {
+								field: 'yyDoctor',
+								width: 120,
+								title: '预约医生'
+							}, {
+								field: 'yyDate',
+								width: 150,
+								title: '预约日期',
+								templet: function(d) {
+									return new Date(d.yyDate).Format('yyyy-MM-dd')
+								},
+								sort: true
+							}, {
+								field: 'remark',
+								title: '备注',
+								minWidth: 150
+							}
+						]
+					],
+					data: yylist,
+					page: true
+				});
+
+				table.render({
+					elem: '#tableDemos'
+						//   ,height: 350
+						,
+					even: true //开启隔行背景
+						//  ,url: 'dataPage.json' //数据接口
+
+						,
+					cols: [
+						[{
+								type: 'checkbox',
+								fixed: 'left'
+							}, {
+								field: 'create_time',
+								width: 180,
+								title: '记录时间',
+								templet: function(d) {
+									return new Date(d.create_time).Format('yyyy-MM-dd hh:mm:ss')
+								},
+								sort: true
+							}, {
+								field: 'record_type',
+								width: 120,
+								title: '收支类型'
+							} //增加 edit 表示开户了编辑状态
+							, {
+								field: 'record_money',
+								width: 150,
+								title: '收支金额'
+							},  {
+								field: 'USER_NAME',
+								minWidth: 120,
+								title: '操作人'
+							}
+						]
+					],
+					data: szlist,
+					page: true
+				});
+
+			});
+
+			var customer;
+
+			//获取时间
+			function getTime(time) {
+				if (time != '' && time != null && time != 'undefined') {
+					return new Date(time).Format('yyyy-MM-dd');
+				} else {
+					return "";
+				}
+
+			}
+			var tablaData_gx;
+			var yylist;
+			var szlist;
+
+			//刷新预约信息
+			function getYYlist() {
+				$.ajax({
+					type: "post",
+					url: basePath + "/yy/manage/lists",
+					async: true,
+					data: {
+						yyDate: $("#yyDate").val(),
+						yyProject: $("#yyProject").val(),
+						yy_cust_id: cust_ids
+					},
+					success: function(data) {
+						yylist = data.data;
+						if (data.data == null) {
+							yylist = [];
+						}
+						eui.table.reload('tableDemo', {
+
+							data: yylist
+
+						});
+					}
+				});
+			}
+
+			//获取项目
+			function project() {
+				$.ajax({
+					type: "post",
+					url: basePath + "/project/manage/getProject",
+					async: true,
+					success: function(data) {
+						var str = '<option value="">带搜索的选择框</option>';
+						var list = data.data;
+						for (var i in list) {
+							var user = list[i];
+							str = str + '<option value="' + user.name + '">' + user.name + '</option>';
+						}
+						$('#yyProject').html(str);
+						eui.form.render('select');
+					}
+				});
+			}
+
+			//预约重置
+			function yy_cz() {
+				$("#yyDate").val('');
+				$("#yyProject").val('');
+			}
+
+			//获取收支记录
+			function getszlist() {
+				$.ajax({
+					type: "post",
+					url: basePath + "/account/record/lista",
+					async: true,
+					data: {
+						time: $("#create_time").val(),
+						type: $("#record_type").val(),
+						ids: cust_ids
+					},
+					success: function(data) {
+						szlist = data.data;
+						eui.table.reload('tableDemos', {
+
+							data: szlist
+
+						});
+					}
+				});
+			}
+
+			//收支重置
+			function sz_cz() {
+				$("#create_time").val('');
+				$("#record_type").val('');
+			}
+
+			var cust_ids;
+
+			window.getcustName = function(obj) {
+				customer = obj;
+				cust_ids = customer.cust_id;
+				$("#userForm input[name='cust_code']").val(customer.cust_code);
+				$("#userForm input[name='cust_name']").val(customer.cust_name);
+				$("#userForm input[name='cust_sex']").val(customer.cust_sex);
+				$("#userForm input[name='cust_birth']").val(getTime(customer.cust_birth));
+				$("#userForm input[name='cust_age']").val(customer.cust_age);
+				$("#userForm input[name='cust_num']").val(customer.cust_num);
+				$("#userForm input[name='cust_tell']").val(customer.cust_tell);
+				$("#userForm input[name='cust_mail']").val(customer.cust_mail);
+				$("#userForm input[name='cust_qq']").val(customer.cust_qq);
+				$("#userForm input[name='cust_wechat']").val(customer.cust_wechat);
+				$("#userForm input[name='cust_pro']").val(customer.cust_pro);
+				$("#userForm input[name='cust_el']").val(customer.cust_el);
+				$("#userForm input[name='cust_jyxg']").val(customer.cust_jyxg);
+				$("#userForm input[name='cust_jzjl']").val(customer.cust_jzjl);
+				$("#userForm input[name='cust_gms']").val(customer.cust_gms);
+				$("#userForm input[name='cust_addr']").val(customer.cust_addr);
+				$("#userForm input[name='cust_source']").val(customer.cust_source);
+				$("#userForm input[name='cust_remark']").val(customer.cust_remark);
+				$("#userForm input[name='cust_class']").val(customer.level_name);
+				$("#userForm input[name='money']").val(customer.money);
+				$("#userForm input[name='early_doctor_name']").val(customer.early_doctor_name);
+				$("#userForm input[name='early_clinic_name']").val(customer.early_clinic_name);
+
+				getYYlist(); //获取预约表信息
+				project(); //获取项目
+				getszlist(); //获取收支记录
+
+
+				$.ajax({
+					type: "post",
+					url: basePath + "/customer/relations/list",
+					async: true,
+					data: {
+						cust_id: customer.cust_id
+					},
+					success: function(data) {
+						tablaData_gx = data.data;
+						if (data.data == null) {
+							tablaData_gx = [];
+						}
+						eui.table.reload('tableDemoq', {
+
+							data: tablaData_gx
+
+						});
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

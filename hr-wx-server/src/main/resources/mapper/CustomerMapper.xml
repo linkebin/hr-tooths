@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yidusoft.dao.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.yidusoft.domain.Customer" >
+    <id column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="cust_code" property="custCode" jdbcType="VARCHAR" />
+    <result column="cust_name" property="custName" jdbcType="VARCHAR" />
+    <result column="cust_sex" property="custSex" jdbcType="VARCHAR" />
+    <result column="cust_birth" property="custBirth" jdbcType="TIMESTAMP" />
+    <result column="cust_age" property="custAge" jdbcType="VARCHAR" />
+    <result column="cust_num" property="custNum" jdbcType="VARCHAR" />
+    <result column="cust_tell" property="custTell" jdbcType="VARCHAR" />
+    <result column="cust_mail" property="custMail" jdbcType="VARCHAR" />
+    <result column="cust_qq" property="custQq" jdbcType="VARCHAR" />
+    <result column="cust_wechat" property="custWechat" jdbcType="VARCHAR" />
+    <result column="cust_open_id" property="custOpenId" jdbcType="VARCHAR" />
+    <result column="cust_pro" property="custPro" jdbcType="VARCHAR" />
+    <result column="cust_el" property="custEl" jdbcType="VARCHAR" />
+    <result column="cust_jyxg" property="custJyxg" jdbcType="VARCHAR" />
+    <result column="cust_jzjl" property="custJzjl" jdbcType="VARCHAR" />
+    <result column="cust_gms" property="custGms" jdbcType="VARCHAR" />
+    <result column="cust_addr" property="custAddr" jdbcType="VARCHAR" />
+    <result column="cust_class" property="custClass" jdbcType="VARCHAR" />
+    <result column="cust_source" property="custSource" jdbcType="VARCHAR" />
+    <result column="cust_type" property="custType" jdbcType="VARCHAR" />
+    <result column="cust_remark" property="custRemark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="cust_clinic" property="custClinic" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cust_id, cust_code, cust_name, cust_sex, cust_birth, cust_age, cust_num, cust_tell, 
+    cust_mail, cust_qq, cust_wechat, cust_open_id, cust_pro, cust_el, cust_jyxg, cust_jzjl, 
+    cust_gms, cust_addr, cust_class, cust_source, cust_type, cust_remark, create_time, 
+    deleted, cust_clinic
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from customer
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yidusoft.domain.Customer" >
+    insert into customer (cust_id, cust_code, cust_name, 
+      cust_sex, cust_birth, cust_age, 
+      cust_num, cust_tell, cust_mail, 
+      cust_qq, cust_wechat, cust_open_id, 
+      cust_pro, cust_el, cust_jyxg, 
+      cust_jzjl, cust_gms, cust_addr, 
+      cust_class, cust_source, cust_type, 
+      cust_remark, create_time, deleted, 
+      cust_clinic)
+    values (#{custId,jdbcType=VARCHAR}, #{custCode,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, 
+      #{custSex,jdbcType=VARCHAR}, #{custBirth,jdbcType=TIMESTAMP}, #{custAge,jdbcType=VARCHAR}, 
+      #{custNum,jdbcType=VARCHAR}, #{custTell,jdbcType=VARCHAR}, #{custMail,jdbcType=VARCHAR}, 
+      #{custQq,jdbcType=VARCHAR}, #{custWechat,jdbcType=VARCHAR}, #{custOpenId,jdbcType=VARCHAR}, 
+      #{custPro,jdbcType=VARCHAR}, #{custEl,jdbcType=VARCHAR}, #{custJyxg,jdbcType=VARCHAR}, 
+      #{custJzjl,jdbcType=VARCHAR}, #{custGms,jdbcType=VARCHAR}, #{custAddr,jdbcType=VARCHAR}, 
+      #{custClass,jdbcType=VARCHAR}, #{custSource,jdbcType=VARCHAR}, #{custType,jdbcType=VARCHAR}, 
+      #{custRemark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, 
+      #{custClinic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yidusoft.domain.Customer" >
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="custCode != null" >
+        cust_code,
+      </if>
+      <if test="custName != null" >
+        cust_name,
+      </if>
+      <if test="custSex != null" >
+        cust_sex,
+      </if>
+      <if test="custBirth != null" >
+        cust_birth,
+      </if>
+      <if test="custAge != null" >
+        cust_age,
+      </if>
+      <if test="custNum != null" >
+        cust_num,
+      </if>
+      <if test="custTell != null" >
+        cust_tell,
+      </if>
+      <if test="custMail != null" >
+        cust_mail,
+      </if>
+      <if test="custQq != null" >
+        cust_qq,
+      </if>
+      <if test="custWechat != null" >
+        cust_wechat,
+      </if>
+      <if test="custOpenId != null" >
+        cust_open_id,
+      </if>
+      <if test="custPro != null" >
+        cust_pro,
+      </if>
+      <if test="custEl != null" >
+        cust_el,
+      </if>
+      <if test="custJyxg != null" >
+        cust_jyxg,
+      </if>
+      <if test="custJzjl != null" >
+        cust_jzjl,
+      </if>
+      <if test="custGms != null" >
+        cust_gms,
+      </if>
+      <if test="custAddr != null" >
+        cust_addr,
+      </if>
+      <if test="custClass != null" >
+        cust_class,
+      </if>
+      <if test="custSource != null" >
+        cust_source,
+      </if>
+      <if test="custType != null" >
+        cust_type,
+      </if>
+      <if test="custRemark != null" >
+        cust_remark,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="custClinic != null" >
+        cust_clinic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="custCode != null" >
+        #{custCode,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custSex != null" >
+        #{custSex,jdbcType=VARCHAR},
+      </if>
+      <if test="custBirth != null" >
+        #{custBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custAge != null" >
+        #{custAge,jdbcType=VARCHAR},
+      </if>
+      <if test="custNum != null" >
+        #{custNum,jdbcType=VARCHAR},
+      </if>
+      <if test="custTell != null" >
+        #{custTell,jdbcType=VARCHAR},
+      </if>
+      <if test="custMail != null" >
+        #{custMail,jdbcType=VARCHAR},
+      </if>
+      <if test="custQq != null" >
+        #{custQq,jdbcType=VARCHAR},
+      </if>
+      <if test="custWechat != null" >
+        #{custWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="custOpenId != null" >
+        #{custOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="custPro != null" >
+        #{custPro,jdbcType=VARCHAR},
+      </if>
+      <if test="custEl != null" >
+        #{custEl,jdbcType=VARCHAR},
+      </if>
+      <if test="custJyxg != null" >
+        #{custJyxg,jdbcType=VARCHAR},
+      </if>
+      <if test="custJzjl != null" >
+        #{custJzjl,jdbcType=VARCHAR},
+      </if>
+      <if test="custGms != null" >
+        #{custGms,jdbcType=VARCHAR},
+      </if>
+      <if test="custAddr != null" >
+        #{custAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="custClass != null" >
+        #{custClass,jdbcType=VARCHAR},
+      </if>
+      <if test="custSource != null" >
+        #{custSource,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        #{custType,jdbcType=VARCHAR},
+      </if>
+      <if test="custRemark != null" >
+        #{custRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="custClinic != null" >
+        #{custClinic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yidusoft.domain.Customer" >
+    update customer
+    <set >
+      <if test="custCode != null" >
+        cust_code = #{custCode,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custSex != null" >
+        cust_sex = #{custSex,jdbcType=VARCHAR},
+      </if>
+      <if test="custBirth != null" >
+        cust_birth = #{custBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custAge != null" >
+        cust_age = #{custAge,jdbcType=VARCHAR},
+      </if>
+      <if test="custNum != null" >
+        cust_num = #{custNum,jdbcType=VARCHAR},
+      </if>
+      <if test="custTell != null" >
+        cust_tell = #{custTell,jdbcType=VARCHAR},
+      </if>
+      <if test="custMail != null" >
+        cust_mail = #{custMail,jdbcType=VARCHAR},
+      </if>
+      <if test="custQq != null" >
+        cust_qq = #{custQq,jdbcType=VARCHAR},
+      </if>
+      <if test="custWechat != null" >
+        cust_wechat = #{custWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="custOpenId != null" >
+        cust_open_id = #{custOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="custPro != null" >
+        cust_pro = #{custPro,jdbcType=VARCHAR},
+      </if>
+      <if test="custEl != null" >
+        cust_el = #{custEl,jdbcType=VARCHAR},
+      </if>
+      <if test="custJyxg != null" >
+        cust_jyxg = #{custJyxg,jdbcType=VARCHAR},
+      </if>
+      <if test="custJzjl != null" >
+        cust_jzjl = #{custJzjl,jdbcType=VARCHAR},
+      </if>
+      <if test="custGms != null" >
+        cust_gms = #{custGms,jdbcType=VARCHAR},
+      </if>
+      <if test="custAddr != null" >
+        cust_addr = #{custAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="custClass != null" >
+        cust_class = #{custClass,jdbcType=VARCHAR},
+      </if>
+      <if test="custSource != null" >
+        cust_source = #{custSource,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        cust_type = #{custType,jdbcType=VARCHAR},
+      </if>
+      <if test="custRemark != null" >
+        cust_remark = #{custRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="custClinic != null" >
+        cust_clinic = #{custClinic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yidusoft.domain.Customer" >
+    update customer
+    set cust_code = #{custCode,jdbcType=VARCHAR},
+      cust_name = #{custName,jdbcType=VARCHAR},
+      cust_sex = #{custSex,jdbcType=VARCHAR},
+      cust_birth = #{custBirth,jdbcType=TIMESTAMP},
+      cust_age = #{custAge,jdbcType=VARCHAR},
+      cust_num = #{custNum,jdbcType=VARCHAR},
+      cust_tell = #{custTell,jdbcType=VARCHAR},
+      cust_mail = #{custMail,jdbcType=VARCHAR},
+      cust_qq = #{custQq,jdbcType=VARCHAR},
+      cust_wechat = #{custWechat,jdbcType=VARCHAR},
+      cust_open_id = #{custOpenId,jdbcType=VARCHAR},
+      cust_pro = #{custPro,jdbcType=VARCHAR},
+      cust_el = #{custEl,jdbcType=VARCHAR},
+      cust_jyxg = #{custJyxg,jdbcType=VARCHAR},
+      cust_jzjl = #{custJzjl,jdbcType=VARCHAR},
+      cust_gms = #{custGms,jdbcType=VARCHAR},
+      cust_addr = #{custAddr,jdbcType=VARCHAR},
+      cust_class = #{custClass,jdbcType=VARCHAR},
+      cust_source = #{custSource,jdbcType=VARCHAR},
+      cust_type = #{custType,jdbcType=VARCHAR},
+      cust_remark = #{custRemark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER},
+      cust_clinic = #{custClinic,jdbcType=VARCHAR}
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </update>
+</mapper>

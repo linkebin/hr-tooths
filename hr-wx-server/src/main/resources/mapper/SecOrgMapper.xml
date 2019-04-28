@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.dao.SecOrgMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.domain.SecOrg">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID_" jdbcType="VARCHAR" property="id" />
+    <result column="ORG_CODE" jdbcType="VARCHAR" property="orgCode" />
+    <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="DELETED" jdbcType="INTEGER" property="deleted" />
+    <result column="RESB_USER" jdbcType="VARCHAR" property="resbUser" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="LEADER_NAME" jdbcType="VARCHAR" property="leaderName" />
+    <result column="STATE" jdbcType="INTEGER" property="state" />
+  </resultMap>
+
+  <select id="findAllByInfo" resultType="java.util.HashMap" parameterType="Map">
+  SELECT
+      so.ID_,
+      so.ORG_CODE,
+      so.ORG_NAME,
+      so.PARENT_ID,
+      so.CREATOR,
+      so.CREATE_TIME,
+      so.DELETED,
+      so.RESB_USER,
+      so.REMARK,
+      so.LEADER_NAME,
+      so.STATE,
+      su.USER_NAME as USER_NAME,
+      su.MOBILE,
+      CASE WHEN so1.ORG_NAME IS NULL THEN  "--"  ELSE so1.ORG_NAME END AS PARENT_ORG_NAME ,
+      CASE WHEN  SO1.LEADER_NAME IS NULL THEN  "--" ELSE so1.LEADER_NAME END AS PARENT_LEADER_NAME
+  FROM
+      sec_org so
+  LEFT JOIN
+  sec_user  su on RESB_USER = su.ID_
+    LEFT JOIN
+    sec_org so1 on so.PARENT_ID =so1.ID_
+  WHERE
+      so.DELETED = 0
+      <if test="state!=null and state!=''">
+        AND so.STATE = #{state}
+      </if>
+      <if test="orgName!=null and orgName!=''">
+        AND so.ORG_NAME like '%${orgName}%'
+      </if>
+      <if test="parentId!=null and parentId!=''">
+        AND so.PARENT_ID = #{parentId}
+      </if>
+      <if test="orgId!=null and orgId!=''">
+        AND so.ID_ = #{orgId}
+      </if>
+  </select>
+
+    <select id="getSecOrg" resultMap="BaseResultMap" parameterType="String">
+        select * from sec_org where STATE = 1 and DELETED = 0 and TYPE = '门诊'
+    </select>
+</mapper>

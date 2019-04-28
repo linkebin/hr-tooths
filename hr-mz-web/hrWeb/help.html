@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="Styles/themes/default/style.css" rel="stylesheet" type="text/css"/>
+    <link href="Styles/themes/default/modules/baseframe/baseframe.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="Styles/themes/default/cover-style.css"/>
+    <style>
+        /* 去掉后台系统的滚动条 */
+        html {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<!--退出系统-->
+<script id="shortcut_template" container="#exit" type="text/x-jsrender">
+	<a href="{{:url}}" shortcut-id="{{:id}}" class="btn-shortcut pngfix" title="{{:name}}" >
+		<span>
+			<b class="btn-text">{{:name}}</b>
+		</span>
+	</a>
+
+
+
+
+</script>
+<body>
+<!-- 头部 start -->
+<div id="header" class="header">
+    <!--logo start-->
+    <div class="nav-logo float-left">
+        <img id="webLogo" src="" alt=""/>
+        <!-- 以下为图片图标的使用案例 -->
+        <img src="Styles/images/iconStyle3/iconImg-information-supplement.png" alt="">
+        <i class="eui-icon"></i>
+        <span id="webName">华仁牙科帮助中心</span>
+    </div>
+</div>
+
+<div class="eui-row eui-bg-cyan" style="margin-top: 80px">
+    <hr class="eui-bg-blue">
+    <div class="eui-col-md2">
+        <ul id="demo" class="eui-bg-white"></ul>
+        <hr class="eui-bg-blue">
+        <div class="eui-paddingTB5 eui-textAlignL eui-bg-white">
+            <p class="eui-font24 eui-color-gray1">门诊端</p>
+            <a target="_blank" href="ApowerREC/【华仁牙科】操作手册-门诊平台.docx">
+                <img style="width: 297px" src="Styles/images/huaren/sytp.png">
+            </a>
+        </div>
+        <div class="eui-paddingT10 eui-textAlignL eui-bg-white">
+            <p class="eui-font24 eui-color-gray1">管理端</p>
+            <a target="_blank" href="ApowerREC/【华仁牙科】操作手册-管理平台.docx">
+                <img style="width: 297px" src="Styles/images/huaren/sytp.png">
+            </a>
+        </div>
+
+    </div>
+
+    <div class="eui-col-md10 eui-tab-card eui-padding5" style="background-color: #3ACADD" >
+        <video style="width: 1570px;height: 737px" controls id="video"  src="ApowerREC/添加产品目录.mp4">
+        </video>
+    </div>
+
+</div>
+</body>
+
+</html>
+
+<script src="Scripts/module/eui.js" charset="utf-8"></script>
+<script type="text/javascript" src="Scripts/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="Scripts/module/EUI/modules/layer.js"></script>
+<script type="text/javascript" src="Scripts/plugins/md5/md5.min.js"></script>
+<script type="text/javascript">
+    eui.use(['tree', 'layer'], function(){
+        var layer = eui.layer
+            ,$ = eui.jquery;
+        eui.tree({
+            elem: '#demo' //传入元素选择器
+            ,click: function(item){ //点击节点回调
+                layer.msg(item.name);
+                $("#video").attr("src","ApowerREC/"+item.name+".mp4")
+            }
+            ,nodes: [{ //节点
+                name: '门诊端'
+                ,spread: true
+                ,children: [
+		{name: '门诊管理客户'},
+		{ name: '门诊创建预约' },
+		{name: '预约挂号'},
+		{name: '创建客户关系'},
+		{name: '病历维护'},
+		{name: '病历相册与客户回访'},
+
+		{
+                    name: '门诊库房入库'
+                },{
+                    name: '门诊库房出库'
+                },{
+                    name: '创建收费单'
+                },{
+                    name: '门诊收费'
+                }
+                ,{name: '门诊内部员工管理与授权'}
+                ,{name: '创建制牙订单与工厂接单'}
+                ]
+            },{
+                name: '总部管理端'
+                ,spread: true
+                ,children: [
+                    {name: '总部管理全部客户' }
+                    ,{name: '总部库房入库' }
+                    ,{name: '总部库房入库导入' }
+                    ,{name: '总部库房出库' }
+                    ,{name: '添加产品目录' }
+                    ,{name: '总部员工管理与授权' }
+                    ,{name: '总部员工调岗' }
+                    ]
+            }]
+        });
+    });
+</script>

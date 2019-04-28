@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户视图</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+		<link rel="stylesheet" href="../../../Styles/themes/default/cover-style.css" media="all">
+		<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+		<script type="text/javascript" src="../../../Scripts/pack.ajax.js"></script>
+		<script type="text/javascript" src="../../../Scripts/config.js"></script>
+		<style type="text/css">
+			.b1 {
+				color: #000000;
+			}
+			
+			.b2 {
+				color: #003EFF;
+			}
+			
+			#searchFrom td {
+				width: 70px;
+				height: 20px;
+			}
+			
+			.rights {
+				text-align: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="add_table" align="center" style="display: none">
+			<table>
+				<tr>
+					<td style="border:solid #000000; border-width:0px 1px 0px 0px;font-size: 50px;">
+						<a href="###" id="tops8" onclick="bianse(this,'tops')">8</a>
+						<a href="###" id="tops7" onclick="bianse(this,'tops')">7</a>
+						<a href="###" id="tops6" onclick="bianse(this,'tops')">6</a>
+						<a href="###" id="tops5" onclick="bianse(this,'tops')">5</a>
+						<a href="###" id="tops4" onclick="bianse(this,'tops')">4</a>
+						<a href="###" id="tops3" onclick="bianse(this,'tops')">3</a>
+						<a href="###" id="tops2" onclick="bianse(this,'tops')">2</a>
+						<a href="###" id="tops1" onclick="bianse(this,'tops')">1</a>
+					</td>
+					<td style="font-size: 50px;">
+						<a href="###" id="rights1" onclick="bianse(this,'rights')">1</a>
+						<a href="###" id="rights2" onclick="bianse(this,'rights')">2</a>
+						<a href="###" id="rights3" onclick="bianse(this,'rights')">3</a>
+						<a href="###" id="rights4" onclick="bianse(this,'rights')">4</a>
+						<a href="###" id="rights5" onclick="bianse(this,'rights')">5</a>
+						<a href="###" id="rights6" onclick="bianse(this,'rights')">6</a>
+						<a href="###" id="rights7" onclick="bianse(this,'rights')">7</a>
+						<a href="###" id="rights8" onclick="bianse(this,'rights')">8</a>
+					</td>
+				</tr>
+				<tr>
+					<td style="border:solid #000000; border-width:0px 1px 1px 0px; font-size: 45px;">
+					<a href="###" style="margin-left: 136px"  id="topsE" onclick="bianse(this,'tops')">E</a>
+					<a href="###" id="topsD" onclick="bianse(this,'tops')">D</a>
+					<a href="###" id="topsC" onclick="bianse(this,'tops')">C</a>
+					<a href="###" id="topsB" onclick="bianse(this,'tops')">B</a>
+					<a href="###" id="topsA" onclick="bianse(this,'tops')">A</a>
+					</td>
+					<td style="font-size: 45px;">
+						<a href="###" id="rightsA" onclick="bianse(this,'rights')">A</a>
+						<a href="###" id="rightsB" onclick="bianse(this,'rights')">B</a>
+						<a href="###" id="rightsC" onclick="bianse(this,'rights')">C</a>
+						<a href="###" id="rightsD" onclick="bianse(this,'rights')">D</a>
+						<a href="###" id="rightsE" onclick="bianse(this,'rights')">E</a>
+					</td>
+				</tr>
+				<tr>
+					<td style="font-size: 45px;">
+						<a style="margin-left: 136px" href="###" id="leftsE" onclick="bianse(this,'lefts')">E</a>
+						<a href="###" id="leftsD" onclick="bianse(this,'lefts')">D</a>
+						<a href="###" id="leftsC" onclick="bianse(this,'lefts')">C</a>
+						<a href="###" id="leftsB" onclick="bianse(this,'lefts')">B</a>
+						<a href="###" id="leftsA" onclick="bianse(this,'lefts')">A</a>
+					</td>
+					<td style="border:solid #000000; border-width:1px 0px 0px 1px;font-size: 45px;">
+						<a href="###" id="bottomsA" onclick="bianse(this,'bottoms')">A</a>
+						<a href="###" id="bottomsB" onclick="bianse(this,'bottoms')">B</a>
+						<a href="###" id="bottomsC" onclick="bianse(this,'bottoms')">C</a>
+						<a href="###" id="bottomsD" onclick="bianse(this,'bottoms')">D</a>
+						<a href="###" id="bottomsE" onclick="bianse(this,'bottoms')">E</a>
+					</td>
+				</tr>
+				<tr>
+					<td style="font-size: 50px;">
+						<a href="###" id="lefts8" onclick="bianse(this,'lefts')">8</a>
+						<a href="###" id="lefts7" onclick="bianse(this,'lefts')">7</a>
+						<a href="###" id="lefts6" onclick="bianse(this,'lefts')">6</a>
+						<a href="###" id="lefts5" onclick="bianse(this,'lefts')">5</a>
+						<a href="###" id="lefts4" onclick="bianse(this,'lefts')">4</a>
+						<a href="###" id="lefts3" onclick="bianse(this,'lefts')">3</a>
+						<a href="###" id="lefts2" onclick="bianse(this,'lefts')">2</a>
+						<a href="###" id="lefts1" onclick="bianse(this,'lefts')">1</a>
+					</td>
+					<td style="border:solid #000000; border-width:0px 0px 0px 1px;font-size: 50px;">
+						<a href="###" id="bottoms1" onclick="bianse(this,'bottoms')">1</a>
+						<a href="###" id="bottoms2" onclick="bianse(this,'bottoms')">2</a>
+						<a href="###" id="bottoms3" onclick="bianse(this,'bottoms')">3</a>
+						<a href="###" id="bottoms4" onclick="bianse(this,'bottoms')">4</a>
+						<a href="###" id="bottoms5" onclick="bianse(this,'bottoms')">5</a>
+						<a href="###" id="bottoms6" onclick="bianse(this,'bottoms')">6</a>
+						<a href="###" id="bottoms7" onclick="bianse(this,'bottoms')">7</a>
+						<a href="###" id="bottoms8" onclick="bianse(this,'bottoms')">8</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div style="display: none"></div>
+		<div style="display: none"></div>
+		<div class="eui-form eui-form-pane eui-padding20">
+			<form id="searchFrom" class="eui-padding20">
+				<div class="eui-form-item case-history" style="overflow: inherit;">
+					<label class="eui-form-label">时间</label>
+					<div class="eui-input-block" style="float: left;margin-left: 0">
+						<input type="text" name="blTime" id="dateTest" required placeholder="选择日期" class="eui-input">
+					</div>
+					<label class="eui-form-label">医生：</label>
+					<div class="eui-input-block" style="float: left;margin-left: 0">
+						<select id="doctor" name="doctor" e-verify="required" e-search>
+							<option value="">请选择医生</option>
+						</select>
+					</div>
+				</div>
+				<div class="eui-form-item eui-paddingB5 case-history" id="y1">
+					<label class="eui-form-label">主诉</label>
+					<div class="case-history-input">
+						<input type="text" name="blZs" required placeholder="请输入内容" autocomplete="off" class="eui-input">
+					</div>
+				</div>
+				<div class="eui-form-item eui-paddingB5 case-history" id="y2">
+					<label class="eui-form-label">现病史</label>
+					<div class="case-history-input">
+						<input type="text" name="blXbs" required placeholder="请输入内容" autocomplete="off" class="eui-input">
+					</div>
+				</div>
+				<div class="eui-form-item eui-paddingB5 case-history" id="y3">
+					<label class="eui-form-label">既往史</label>
+					<div class="case-history-input">
+						<input type="text" name="blJws" required placeholder="请输入内容" autocomplete="off" class="eui-input">
+					</div>
+				</div>
+				<div class="eui-form-item eui-paddingB5 case-history" id="y5">
+					<label class="eui-form-label">过敏史</label>
+					<div class="case-history-input">
+						<input type="text" name="blGms" required placeholder="请输入内容" autocomplete="off" class="eui-input">
+					</div>
+				</div>
+				<div class="eui-form-item eui-paddingB5 case-history" id="y4">
+					<label class="eui-form-label">复诊</label>
+					<div class="case-history-input">
+						<input type="text" name="visit" required placeholder="请输入内容" autocomplete="off" class="eui-input">
+					</div>
+				</div>
+				<div class="eui-tab-card case-history  eui-paddingT15 eui-paddingB15" id="kq_zj">
+					<label class="eui-font-18 eui-form-label">口腔检查</label>
+					<div class="eui-row case-history-input " id="kq_dele_1">
+						<div class="eui-col-md7">
+							<textarea placeholder="请输入内容" class="eui-textarea-case" id="kq_context1"></textarea>
+						</div>
+						<div class="eui-col-md5 eui-paddingL20 ">
+							<div class="eui-input-inline eui-row eui-paddingR20">
+								<table id="kq_shizi1" onclick="shizi('kq_shizi1')">
+									<tr>
+										<td style="border:solid #000000; border-width:0px 1px 1px 0px;">
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td>
+										</td>
+										<td style="border:solid #000000; border-width:1px 0px 0px 1px;">
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="eui-input-inline">
+								<a href="###" class="eui-btn eui-btn-primary" onclick="tanchu('kq')"><i class="eui-icon">
+                        &#xe61f;</i></a>
+							</div>
+							<!--<div class="eui-input-inline">
+								<a href="###" class="eui-btn eui-btn-primary" onclick="dele('kq_dele_1')"><i class="eui-icon">
+                        &#x1006;</i></a>
+							</div>-->
+						</div>
+					</div>
+				</div>
+				<div class="eui-tab-card case-history  eui-paddingT15 eui-paddingB15" id="fz_zj">
+					<label class="eui-font-18 eui-form-label">辅助检查</label>
+					<div class="eui-row case-history-input " id="fz_dele_1">
+						<div class="eui-col-md7">
+							<textarea placeholder="请输入内容" class="eui-textarea-case" id="fz_context1"></textarea>
+						</div>
+						<div class="eui-col-md5 eui-paddingL20 ">
+							<div class="eui-input-inline eui-row eui-paddingR20">
+								<table id="fz_shizi1" onclick="shizi('fz_shizi1')">
+									<tr>
+										<td style="border:solid #000000; border-width:0px 1px 1px 0px;">
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td>
+										</td>
+										<td style="border:solid #000000; border-width:1px 0px 0px 1px;">
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="eui-input-inline">
+								<a href="###" class="eui-btn eui-btn-primary" onclick="tanchu('fz')"><i class="eui-icon">
+                        &#xe61f;</i></a>
+							</div>
+							<!--<div class="eui-input-inline">
+								<a href="###" class="eui-btn eui-btn-primary" onclick="dele('fz_dele_1')"><i class="eui-icon">
+                        &#x1006;</i></a>
+							</div>-->
+						</div>
+					</div>
+				</div>
+				<div class="eui-tab-card case-history  eui-paddingT15 eui-paddingB15" id="zd_zj">
+					<label class="eui-font-18 eui-form-label">诊断</label>
+					<div class="eui-row case-history-input " id="zd_dele_1">
+						<div class="eui-col-md7">
+							<textarea placeholder="请输入内容" class="eui-textarea-case" id="zd_context1"></textarea>
+						</div>
+						<div class="eui-col-md5 eui-paddingL20">
+							<div class="eui-input-inline eui-row eui-paddingR20">
+								<table id="zd_shizi1" onclick="shizi('zd_shizi1')">
+									<tr>
+										<td style="border:solid #000000; border-width:0px 1px 1px 0px;">
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td>
+										</td>
+										<td style="border:solid #000000; border-width:1px 0px 0px 1px;">
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="eui-input-inline">
+								<a href="###" class="eui-btn eui-btn-primary" onclick="tanchu('zd')"><i class="eui-icon">
+                        &#xe61f;</i></a>
+							</div>
+							<!--<div class="eui-input-inline">
+								<a href="###" class="eui-btn eui-btn-primary" onclick="dele('zd_dele_1')"><i class="eui-icon">
+                        &#x1006;</i></a>
+							</div>-->
+						</div>
+					</div>
+				</div>
+				<div class="eui-tab-card case-history  eui-paddingT15 eui-paddingB15" id="zl_zj">
+					<label class="eui-font-18 eui-form-label" id="zlName">治疗</label>
+					<div class="eui-row case-history-input " id="zl_dele_1">
+						<div class="eui-col-md7">
+							<textarea placeholder="请输入内容" class="eui-textarea-case" id="zl_context1"></textarea>
+						</div>
+						<div class="eui-col-md5 eui-paddingL20">
+							<div class="eui-input-inline eui-row eui-paddingR20">
+								<table id="zl_shizi1" onclick="shizi('zl_shizi1')">
+									<tr>
+										<td style="border:solid #000000; border-width:0px 1px 1px 0px;">
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td>
+										</td>
+										<td style="border:solid #000000; border-width:1px 0px 0px 1px;">
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="eui-input-inline">
+								<a href="###" class="eui-btn eui-btn-primary" onclick="tanchu('zl')"><i class="eui-icon">
+                        &#xe61f;</i></a>
+							</div>
+							<!--<div class="eui-input-inline">
+								<a href="###" class="eui-btn eui-btn-primary" onclick="dele('zl_dele_1')"><i class="eui-icon">
+                        &#x1006;</i></a>
+							</div>-->
+						</div>
+					</div>
+				</div>
+				<div class="eui-tab-card case-history  eui-paddingT15 eui-paddingB15" id="cz_zj">
+					<label class="eui-font-18 eui-form-label">处置</label>
+					<div class="eui-row case-history-input" id="cz_dele_1">
+						<div class="eui-col-md7">
+							<textarea placeholder="请输入内容" class="eui-textarea-case" id="cz_context1"></textarea>
+						</div>
+						<div class="eui-col-md5 eui-paddingL20">
+							<div class="eui-input-inline eui-row eui-paddingR20">
+								<table id="cz_shizi1" onclick="shizi('cz_shizi1')">
+									<tr>
+										<td style="border:solid #000000; border-width:0px 1px 1px 0px;">
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td>
+										</td>
+										<td style="border:solid #000000; border-width:1px 0px 0px 1px;">
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="eui-input-inline">
+								<a href="###" class="eui-btn eui-btn-primary" onclick="tanchu('cz')"><i class="eui-icon">
+                        &#xe61f;</i></a>
+							</div>
+							<!--<div class="eui-input-inline">
+								<a href="###" class="eui-btn eui-btn-primary" onclick="dele('cz_dele_1')"><i class="eui-icon">
+                        &#x1006;</i></a>
+							</div>-->
+						</div>
+					</div>
+				</div>
+				<!--<div class="eui-form-item eui-paddingB5 case-history">
+					<label class="eui-form-label">既往史</label>
+					<div class="case-history-input">
+						<input type="text" name="blJws" required placeholder="请输入内容" autocomplete="off" class="eui-input">
+					</div>
+				</div>-->
+				<div class="eui-form-item eui-paddingB5 case-history">
+					<label class="eui-form-label">医嘱</label>
+					<div class="case-history-input">
+						<input type="text" name="blYz" required placeholder="请输入内容" autocomplete="off" class="eui-input">
+					</div>
+				</div>
+				<div class="eui-form-item eui-paddingB5 case-history">
+					<label class="eui-form-label">备注</label>
+					<div class="case-history-input">
+						<input type="text" name="blBz" required placeholder="请输入内容" autocomplete="off" class="eui-input">
+					</div>
+				</div>
+			</form>
+		</div>
+	</body>
+
+	<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../../../Scripts/date2format.js"></script>
+	<script>
+		//表单
+		eui.use(['element', 'form', 'layedit', 'laydate', 'table'], function() {
+
+			var element = eui.element,
+				form = eui.form,
+				layer = eui.layer,
+				layedit = eui.layedit,
+				laydate = eui.laydate,
+				table = eui.table;
+			//常规用法
+			laydate.render({
+				elem: '#dateTest',
+				type: 'datetime'
+			});
+			//日期范围
+			laydate.render({
+				elem: '#dateTest2',
+				range: true
+			});
+		});
+
+		//点击修改牙位图
+		function shizi(flag) {
+			var ss = bianse_Str.get(flag);
+			if(ss != null) {
+				ss = ss.split(',');
+				for(var i = 0; i < ss[0].length; i++) {
+					bianse('#tops' + ss[0].substring(i, i + 1), 'tops');
+				}
+				for(var i = 0; i < ss[1].length; i++) {
+					bianse('#rights' + ss[1].substring(i, i + 1), 'rights');
+				}
+				for(var i = 0; i < ss[2].length; i++) {
+					bianse('#lefts' + ss[2].substring(i, i + 1), 'lefts');
+				}
+				for(var i = 0; i < ss[3].length; i++) {
+					bianse('#bottoms' + ss[3].substring(i, i + 1), 'bottoms');
+				}
+			}
+
+			layer.open({
+				type: 1 //此处以iframe举例
+					,
+				title: '选择牙位',
+				area: ['730px', '400px'],
+				shade: 0,
+				maxmin: true,
+				content: $('#add_table'),
+				btn: ['保存', '关闭'],
+				btn1: function(index) {
+					while(tops.indexOf('s') != -1) {
+						tops = tops.replace("s", "");
+					}
+					while(bottoms.indexOf('s') != -1) {
+						bottoms = bottoms.replace("s", "");
+					}
+					while(lefts.indexOf('s') != -1) {
+						lefts = lefts.replace("s", "");
+					}
+					while(rights.indexOf('s') != -1) {
+						rights = rights.replace("s", "");
+					}
+					tops = testOrder(tops.split(','), '1');
+					lefts = testOrder(lefts.split(','), '1');
+					bottoms = testOrder(bottoms.split(','), '0');
+					rights = testOrder(rights.split(','), '0');
+
+					$('#' + flag).html('<tr>' +
+						'<td class="rights" style="border:solid #000000; border-width:0px 1px 1px 0px;">' +
+						tops + '</td>' +
+						'<td>' +
+						rights + '</td>' +
+						'</tr>' +
+						'<tr>' +
+						'<td class="rights">' +
+						lefts + '</td>' +
+						'<td style="border:solid #000000; border-width:1px 0px 0px 1px;">' +
+						bottoms + '</td>' +
+						'</tr>');
+					var str = tops + ',' + rights + ',' + lefts + ',' + bottoms;
+					bianse_Str.set(flag, str);
+
+					layer.close(index);
+				},
+				end: function() {
+					$('a').removeClass('b2');
+					$('a').addClass('b1');
+					tops = "";
+					bottoms = "";
+					rights = "";
+					lefts = "";
+				}
+			});
+		}
+
+		//点击新增牙位图
+		function tanchu(flag) {
+			var s = 1;
+			if(flag == 'kq') {
+				kq_flag++;
+				s = kq_flag;
+			} else if(flag == 'fz') {
+				fz_flag++;
+				s = fz_flag;
+			} else if(flag == 'zd') {
+				zd_flag++;
+				s = zd_flag;
+			} else if(flag == 'zl') {
+				zl_flag++;
+				s = zl_flag;
+			} else if(flag == 'cz') {
+				cz_flag++;
+				s = cz_flag;
+			}
+			$('#' + flag + '_zj').append('<div class="eui-row case-history-input case-history-margin" id="' + flag + '_dele_' + s + '">' +
+				'<div class="eui-col-md7">' +
+				'<textarea placeholder="请输入内容" class="eui-textarea-case" id="' + flag + '_context' + s + '"></textarea>' +
+				'</div>' +
+				'<div class="eui-col-md5 eui-paddingL20">' +
+				'<div class="eui-input-inline eui-row eui-paddingR20">' +
+				'<table id="' + flag + '_shizi' + s + '" onclick="shizi(\'' + flag + '_shizi' + s + '\')">' +
+				'<tr>' +
+				'<td style="border:solid #000000; border-width:0px 1px 1px 0px;">' +
+				'</td>' +
+				'<td>' +
+				'</td>' +
+				'</tr>' +
+				'<tr>' +
+				'<td>' +
+				'</td>' +
+				'<td style="border:solid #000000; border-width:1px 0px 0px 1px;">' +
+				'</td>' +
+				'</tr>' +
+				'</table>' +
+				'</div>' +
+				'<div class="eui-input-inline">' +
+				'<a href="###" class="eui-btn eui-btn-primary" onclick="tanchu(\'' + flag + '\')"><i class="eui-icon">' +
+				'&#xe61f;</i></a>' +
+				'</div>' +
+				'<div class="eui-input-inline">' +
+				'<a href="###" class="eui-btn eui-btn-primary" onclick="dele(\'' + flag + '_dele_' + s + '\')"><i class="eui-icon">' +
+				'&#x1006;</i></a>' +
+				'</div>' +
+				'</div>' +
+				'</div>');
+		}
+
+		function dele(flag) {
+			$('#' + flag).html("");
+		}
+
+		var bianse_Str = new Map();
+		var kq_flag = 1;
+		var fz_flag = 1;
+		var zd_flag = 1;
+		var zl_flag = 1;
+		var cz_flag = 1;
+
+		var tops = '';
+		var bottoms = '';
+		var lefts = '';
+		var rights = '';
+
+		//变色
+		function bianse(obj, flag) {
+			if($(obj).hasClass("b2")) {
+				$(obj).removeClass('b2');
+				$(obj).addClass('b1');
+				zfc(flag, '0', $(obj).html());
+			} else {
+				$(obj).removeClass('b1');
+				$(obj).addClass('b2');
+				zfc(flag, '1', $(obj).html());
+			}
+
+		}
+		//记录字符串
+		function zfc(flag1, flag2, value) {
+			if(flag2 == 1) {
+				if(flag1 == 'tops') {
+					tops = tops + 's' + value + 's,';
+				} else if(flag1 == 'bottoms') {
+					bottoms = bottoms + 's' + value + 's,';
+				} else if(flag1 == 'lefts') {
+					lefts = lefts + 's' + value + 's,';
+				} else if(flag1 == 'rights') {
+					rights = rights + 's' + value + 's,';
+				}
+			} else {
+				if(flag1 == 'tops') {
+					tops = tops.replace('s' + value + 's', '');
+				} else if(flag1 == 'bottoms') {
+					bottoms = bottoms.replace('s' + value + 's', '');
+				} else if(flag1 == 'lefts') {
+					lefts = lefts.replace('s' + value + 's', '');
+				} else if(flag1 == 'rights') {
+					rights = rights.replace('s' + value + 's', '');
+				}
+			}
+		}
+
+		//冒泡排序
+		function testOrder(arr, flag) {
+			var len = arr.length;
+			for(var i = 0; i < len - 1; i++) {
+				for(var j = i + 1; j < len; j++) {
+					if(arr[i] > arr[j]) { //如果前面的数据比后面的数据大就交换
+						var temp = arr[i];
+						arr[i] = arr[j];
+						arr[j] = temp;
+					}
+				}
+			}
+			var str = "";
+			if(flag == 0) {
+				for(var s in arr) {
+					str = str + arr[s]
+				}
+			} else if(flag == 1) {
+				for(var s in arr) {
+					str = arr[s] + str;
+				}
+			}
+			return str;
+		}
+
+		var cust_bl_id = '';
+		//提交
+		window.submits = function(flag) {
+//		    2019年2月18日 修改为->放在后台去删除
+//			del();
+			var cust_bl = $("#searchFrom").serializeObject();
+			var str = "add";
+			if(type_flag == 1) {
+				cust_bl.type = "复诊";
+			} else {
+				cust_bl.type = "初诊";
+			}
+			if(panduan == 1) {
+				str = "update";
+				cust_bl.blId = flag;
+			} else {
+				cust_bl.custId = flag;
+			}
+			$.ajax({
+				type: "post",
+				url: basePath + "/cust/bl/" + str,
+				async: true,
+				data: {
+					param: JSON.stringify(cust_bl)
+				},
+				success: function(data) {
+				    if(data.code === 200){
+                        var strs = data.data;
+                        if(panduan == 1) {
+                            strs = cust_bl_id;
+                        }
+                        for(var i = 0; i < kq_flag; i++) {
+                            add_cust_bl_de('kq', i + 1, strs, '1');
+                        }
+                        for(var i = 0; i < fz_flag; i++) {
+                            add_cust_bl_de('fz', i + 1, strs, '2');
+                        }
+                        for(var i = 0; i < zd_flag; i++) {
+                            add_cust_bl_de('zd', i + 1, strs, '3');
+                        }
+                        for(var i = 0; i < zl_flag; i++) {
+                            add_cust_bl_de('zl', i + 1, strs, '4');
+                        }
+                        for(var i = 0; i < cz_flag; i++) {
+                            add_cust_bl_de('cz', i + 1, strs, '5');
+                        }
+						add_blde_list();
+                        var index=parent.layer.getFrameIndex(window.name);
+                        setTimeout(function(){parent.layer.close(index)},2000);
+
+					}else{
+                        layer.msg(data.message, {
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        });
+					}
+
+				}
+			});
+		}
+
+		window.update = function(flag) {
+
+		}
+
+		var panduan = 0; //判断新增修改标识，0新增，1修改
+		if($("#dateTest").val() == "") {
+			$("#dateTest").val(getTime(new Date()));
+		}
+		//获取时间
+		function getTime(time) {
+			if(time != '' && time != null && time != 'undefined') {
+				return new Date(time).Format('yyyy-MM-dd hh:mm:ss');
+			} else {
+				return "";
+			}
+
+		}
+
+		window.show = function(flag) {
+			cust_bl_id = flag;
+			panduan = 1;
+			$.ajax({
+				type: "post",
+				url: basePath + "/cust/bl/detail",
+				async: true,
+				data: {
+					id: flag
+				},
+				success: function(data) {
+					var cust_bl = data.data;
+					blde(cust_bl.blId);
+					$("#searchFrom input[name='blZs']").val(cust_bl.blZs);
+					$("#searchFrom input[name='blXbs']").val(cust_bl.blXbs);
+					$("#searchFrom input[name='blJws']").val(cust_bl.blJws);
+					$("#searchFrom input[name='blYz']").val(cust_bl.blYz);
+					$("#searchFrom input[name='blBz']").val(cust_bl.blBz);
+					$("#searchFrom input[name='visit']").val(cust_bl.visit);
+					$("#searchFrom input[name='blGms']").val(cust_bl.blGms);
+					$("#dateTest").val(getTime(cust_bl.blTime));
+					$.post(basePath+"/sec/user/getUserName",{userId:cust_bl.doctor},function (res) {
+                        $("#doctor").html("<option value='"+cust_bl.doctor+"'>"+res+"</option>").attr("disabled","disabled");
+                        eui.form.render();
+                    });
+
+					if(cust_bl.type == "复诊") {
+						type_flag = 1;
+						$("#y1").hide();
+						$("#y2").hide();
+						$("#y3").hide();
+                        $("#y5").hide();
+						$("#cz_zj").hide();
+					} else {
+						type_flag = 0;
+						$("#y4").hide();
+                        $("#zlName").html("治疗方案");
+					}
+				}
+			});
+		}
+
+		function blde(ids) {
+			$.ajax({
+				type: "post",
+				url: basePath + "/cust/bl/de/getByBlId",
+				async: true,
+				data: {
+					id: ids
+				},
+				success: function(data) {
+					var delist = data.data;
+					var flag1 = 0;
+					var flag2 = 0;
+					var flag3 = 0;
+					var flag4 = 0;
+					var flag5 = 0;
+					for(var i in delist) {
+						var cust_bl_de = delist[i];
+						if(cust_bl_de.type == '1') {
+							if(flag1 > 0) {
+								tanchu('kq');
+							}
+							flag1++;
+							$("#kq_context" + flag1).val(cust_bl_de.content);
+							if(cust_bl_de.toothAddr != null) {
+								bianse_Str.set('kq_shizi' + flag1, cust_bl_de.toothAddr);
+								zsyw('kq_shizi' + flag1, cust_bl_de.toothAddr);
+							}
+						} else if(cust_bl_de.type == '2') {
+							if(flag2 > 0) {
+								tanchu('fz');
+							}
+							flag2++;
+							$("#fz_context" + flag2).val(cust_bl_de.content);
+							if(cust_bl_de.toothAddr != null) {
+								bianse_Str.set('fz_shizi' + flag2, cust_bl_de.toothAddr);
+								zsyw('fz_shizi' + flag2, cust_bl_de.toothAddr);
+							}
+						} else if(cust_bl_de.type == '3') {
+							if(flag3 > 0) {
+								tanchu('zd');
+							}
+							flag3++;
+							$("#zd_context" + flag3).val(cust_bl_de.content);
+							if(cust_bl_de.toothAddr != null) {
+								bianse_Str.set('zd_shizi' + flag3, cust_bl_de.toothAddr);
+								zsyw('zd_shizi' + flag3, cust_bl_de.toothAddr);
+							}
+						} else if(cust_bl_de.type == '4') {
+							if(flag4 > 0) {
+								tanchu('zl');
+							}
+							flag4++;
+							$("#zl_context" + flag4).val(cust_bl_de.content);
+							if(cust_bl_de.toothAddr != null) {
+								bianse_Str.set('zl_shizi' + flag4, cust_bl_de.toothAddr);
+								zsyw('zl_shizi' + flag4, cust_bl_de.toothAddr);
+							}
+						} else if(cust_bl_de.type == '5') {
+							if(flag5 > 0) {
+								tanchu('cz');
+							}
+							flag5++;
+							$("#cz_context" + flag5).val(cust_bl_de.content);
+							if(cust_bl_de.toothAddr != null) {
+								bianse_Str.set('cz_shizi' + flag5, cust_bl_de.toothAddr);
+								zsyw('cz_shizi' + flag5, cust_bl_de.toothAddr);
+							}
+						}
+
+					}
+					//2019年3月11日，修改 查看时自适应高度
+                    $('textarea').each(function () {
+                        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                    }).on('input', function () {
+                        this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';
+                    });
+				}
+			});
+		}
+
+		//展示牙位
+		function zsyw(flag, str) {
+			var strs = str.split(",");
+			$('#' + flag).html('<tr>' +
+				'<td class="rights" style="border:solid #000000; border-width:0px 1px 1px 0px;">' +
+				strs[0] + '</td>' +
+				'<td>' +
+				strs[1] + '</td>' +
+				'</tr>' +
+				'<tr>' +
+				'<td class="rights">' +
+				strs[2] + '</td>' +
+				'<td style="border:solid #000000; border-width:1px 0px 0px 1px;">' +
+				strs[3] + '</td>' +
+				'</tr>');
+		}
+		
+		
+		//用于储存json
+		var custblDe_list = new Array()
+//		var custblDe_list_flag=0;
+
+		//提交客户病历详情
+		function add_cust_bl_de(flag1, flag2, ids, flag3) {
+			if($('#' + flag1 + '_dele_' + flag2).html() != '') {
+				var custBlDe = new Object();
+				custBlDe.blId = ids;
+				custBlDe.content = $('#' + flag1 + '_context' + flag2).val();
+				custBlDe.type = flag3;
+				custBlDe.toothAddr = bianse_Str.get(flag1 + '_shizi' + flag2);
+                custBlDe.sort=flag2;
+                custblDe_list.push(custBlDe);
+//                custblDe_list_flag++;
+			}
+
+		}
+		
+		function add_blde_list(){
+			$.ajax({
+					type: "post",
+					url: basePath + "/cust/bl/de/add",
+					async: true,
+//					traditional:true, //默认false
+					data: {
+						param: JSON.stringify(custblDe_list)
+					},
+                success:function (data) {
+					    if(data.code==200){
+                            layer.msg("操作成功", {
+                                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                            });
+							}else {
+					        console.log(data.message)
+                            layer.msg("保存出现了问题，请联系管理员处理！", {
+                                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                            });
+						}
+                	}
+				});
+			}
+		//修改前删除现有病历详情数据
+//		function del() {
+//			$.ajax({
+//				type: "post",
+//				url: basePath + "/cust/bl/de/deld",
+//				async: true,
+//				data: {
+//					id: cust_bl_id
+//				}
+//			});
+//		}
+
+		var type_flag = 0;
+		//隐藏判断
+		window.hides = function(flag) {
+			if(flag == 1) {
+				type_flag = 1;
+				$("#y1").hide();
+				$("#y2").hide();
+				$("#y3").hide();
+                $("#y5").hide();
+				$("#cz_zj").hide();
+			} else {
+				type_flag = 0;
+				$("#y4").hide();
+                $("#zlName").html("治疗方案");
+			}
+		}
+
+        window.showDoctor = function () {
+			$.post(basePath+"/sec/user/getDoctor",function (res) {
+			    var doctor = "<option value=''>请选择医生</option>";
+			    if(res.data != null){
+			        $.each(res.data,function (index,val) {
+                        doctor = doctor + "<option value='"+val.id+"'>"+val.name+"</option>\n";
+                    });
+				}
+				$("#doctor").html(doctor);
+                eui.form.render();
+            })
+        }
+	</script>
+
+</html>

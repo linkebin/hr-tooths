@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>表单页面</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+</head>
+<body class="ToolbarFixed">
+
+<div class="toolbarH">
+  <div class="title-bar">
+    <div class="eui-btn-group float-right">
+      <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+      <a href="###" class="eui-btn">保存</a>
+      <a href="###" class="eui-btn eui-btn-primary">关闭</a>
+    </div>
+    <span class="title-main">
+      <i class="eui-icon eui-font24">&#xe62a;</i>
+      表单主标题
+    </span>
+    <span class="title-sub">
+      表单副标题
+    </span>
+  </div>
+</div>
+
+<div class="form-body eui-padding20 eui-width1200">
+  <div class="form-title">关于XXXXX的申请表单（3列表单）</div>
+
+
+  <table class=" eui-form eui-form-table">
+    <tr>
+      <th>字段名称：</th>
+      <td>自动生成不可编辑</td>
+
+      <th>必填名称 <i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+      <td><input type="text" class="eui-input" placeholder="请输入查询关键字"></td>
+
+      <td rowspan="4">
+
+        <div class="eui-upload-drag eui-width100" id="test10">
+          <i class="eui-icon">&#xe67c;</i>
+          <p>点击或将图像拖拽到此处</p>
+
+        </div>
+        <p class="eui-textAlignC eui-font14 eui-paddingT10">头像名称</p>
+
+      </td>
+
+
+
+    </tr>
+    <tr>
+      <th>必填名称 <i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+      <td><input type="text" class="eui-input" placeholder="请输入查询关键字"></td>
+
+      <th>必填名称 <i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+      <td><input type="text" class="eui-input" placeholder="请输入查询关键字"></td>
+
+    </tr>
+    <tr>
+
+      <th>必填名称 <i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+      <td class="select-col2">
+        <select name="quiz1">
+          <option value="">请选择</option>
+          <option value="1">选项一</option>
+          <option value="2">选项二</option>
+        </select>
+        <div class="ctl-space">-</div>
+        <select name="quiz2">
+          <option value="">请选择市</option>
+          <option value="1">选项一</option>
+          <option value="2">选项二</option>
+        </select>
+      </td>
+      <th>字段名称：</th>
+      <td class="select-col3">
+        <select name="quiz1">
+          <option value="">请选择</option>
+          <option value="1">选项一</option>
+          <option value="2">选项二</option>
+        </select>
+        <div class="ctl-space">-</div>
+        <select name="quiz2">
+          <option value="">请选择市</option>
+          <option value="1">选项一</option>
+          <option value="2">选项二</option>
+        </select>
+        <div class="ctl-space">-</div>
+        <select name="quiz3">
+          <option value="">请选择县/区</option>
+          <option value="1">选项一</option>
+          <option value="2">选项二</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th>字段名称：</th>
+      <td><input type="text" class="eui-input" placeholder="请输入查询关键字"></td>
+      <th>字段名称：</th>
+      <td>
+        <select name="city" e-verify="required" e-search>
+          <option value="">带搜索的选择框</option>
+          <option value="1">选项一</option>
+          <option value="2">选项二</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th>字段名称：</th>
+      <td colspan="4">
+        <input type="checkbox" name="like[write]" title="选项一" e-skin="primary" checked>
+        <input type="checkbox" name="like[read]" title="选项二" e-skin="primary">
+        <input type="checkbox" name="like[read]" title="选项二" e-skin="primary">
+        <input type="checkbox" name="like[read]" title="选项二" e-skin="primary">
+        <input type="checkbox" name="like[read]" title="选项二" e-skin="primary">
+        <input type="checkbox" name="like[read]" title="选项二" e-skin="primary">
+        <input type="checkbox" name="like[read]" title="选项二" e-skin="primary">
+      </td>
+    </tr>
+    <tr>
+      <th>字段名称：</th>
+      <td colspan="4">
+        <input type="radio" name="sex" value="nan" title="选项一">
+        <input type="radio" name="sex" value="nan" title="选项一">
+        <input type="radio" name="sex" value="nan" title="选项一">
+        <input type="radio" name="sex" value="nan" title="选项一">
+        <input type="radio" name="sex" value="nan" title="选项一">
+        <input type="radio" name="sex" value="nan" title="选项一">
+        <input type="radio" name="sex" value="nv" title="选项二" checked>
+      </td>
+    </tr>
+
+
+  </table>
+
+
+
+
+
+
+  <!--tab页 start-->
+  <div class="eui-tab eui-tab-card">
+    <ul class="eui-tab-title">
+      <li class="eui-this">选项标题一</li>
+      <li>选项标题二</li>
+      <li>选项标题三</li>
+      <li>选项标题四</li>
+    </ul>
+    <div class="eui-tab-content eui-bg-white">
+      <div class="eui-tab-item eui-show">
+
+          <!--标题 start-->
+
+          <div class="title-bar">
+            <div class="eui-btn-group float-right">
+              <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+              <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe654;</i>新建</a>
+              <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe642;</i>编辑</a>
+              <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe601;</i>导入</a>
+              <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe61f;</i>导出</a>
+              <a href="###" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>删除</a>
+            </div>
+      <span class="title-main">
+        <i class="eui-icon eui-font20">&#xe62d;</i>
+        一级标题
+      </span>
+      <span class="title-sub">
+        二级标题
+      </span>
+          </div>
+
+          <!--标题 end-->
+          <!--表格 start-->
+          <script type="text/html" id="barDemo">
+            <div class="eui-btn-group">
+              <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>
+              <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit"><i class="eui-icon" title="编辑">&#xe642;</i></a>
+              <a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+            </div>
+          </script>
+          <table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+          <!--表格 end-->
+
+
+      </div>
+      <div class="eui-tab-item">
+        <div class="eui-tab eui-tab-brief">
+          <ul class="eui-tab-title">
+            <li class="eui-this">选项卡标题一</li>
+            <li>选项标题二</li>
+            <li>选项标题三</li>
+            <li>选项标题四</li>
+          </ul>
+          <div class="eui-tab-content">
+            <div class="eui-tab-item eui-show">嵌套TAB页1</div>
+            <div class="eui-tab-item">内容2</div>
+            <div class="eui-tab-item">内容3</div>
+            <div class="eui-tab-item">内容4</div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+      <div class="eui-tab-item">内容3</div>
+      <div class="eui-tab-item">内容4</div>
+    </div>
+  </div>
+
+  <!--tab页 end-->
+
+
+  <div class="eui-form-item" data-name="ctrFlowPath">
+
+    <div class="title-bar">
+      <div class="eui-btn-group float-right">
+        <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+        <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe619;</i>收起</a>
+      </div>
+    <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      审批轨迹
+    </span>
+    <span class="title-sub">
+      如果需要可以加上副标题
+    </span>
+    </div>
+
+    <ul class="eui-timeline eui-marginT10">
+      <li class="eui-timeline-item">
+        <i class="eui-icon eui-anim eui-anim-rotate eui-anim-loop eui-timeline-axis">&#xe63e;</i>
+        <div class="eui-timeline-content eui-text">
+          <h3 class="eui-timeline-title eui-font16">第三环节审批：王五 <span class="eui-font14 eui-color-gray3">（处理时间：<span class="eui-color-red eui-font-bold">待处理</span>）</span>
+            <p class="eui-font14 eui-color-gray3 float-right">接收时间：2017-11-11 21:33</p>
+          </h3>
+          <p>处理意见：【同意申请】</p>
+        </div>
+      </li>
+      <li class="eui-timeline-item">
+        <i class="eui-icon eui-timeline-axis">&#xe63f;</i>
+        <div class="eui-timeline-content eui-text">
+          <h3 class="eui-timeline-title eui-font16">第二环节审批：李四 <span class="eui-font14 eui-color-gray3">（处理时间：2017-11-11 21:33）</span>
+            <p class="eui-font14 eui-color-gray3 float-right">接收时间：2017-11-11 21:33</p>
+          </h3>
+          <p>处理意见：【同意申请】</p>
+        </div>
+      </li>
+      <li class="eui-timeline-item">
+        <i class="eui-icon eui-timeline-axis">&#xe63f;</i>
+        <div class="eui-timeline-content eui-text">
+          <h3 class="eui-timeline-title eui-font16">第一环节审批：张三 <span class="eui-font14 eui-color-gray3">（处理时间：2017-11-11 21:33）</span>
+            <p class="eui-font14 eui-color-gray3 float-right">接收时间：2017-11-11 21:33</p>
+          </h3>
+          <p>处理意见：【同意申请】</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+<script>
+
+  //表单
+  eui.use(['element','form', 'layedit', 'laydate','table','upload'], function(){
+
+    var element = eui.element
+            ,form = eui.form
+            ,layer = eui.layer
+            ,layedit = eui.layedit
+            ,laydate = eui.laydate
+            ,table = eui.table
+            ,upload = eui.upload;
+
+    //拖拽上传
+    upload.render({
+      elem: '#test10'
+      ,url: ''
+      ,done: function(res){
+        console.log(res)
+      }
+    });
+
+    //常规用法
+    laydate.render({
+      elem: '#dateTest'
+    });
+    //日期范围
+    laydate.render({
+      elem: '#dateTest2'
+      ,range: true
+    });
+
+    table.render({
+      elem: '#tableDemo'
+      //   ,height: 350
+      ,even: true //开启隔行背景
+      //  ,url: 'dataPage.json' //数据接口
+
+      ,cols: [[
+        {type:'checkbox',fixed:'left'}
+        ,{field:'id', width:120, title: '用户编号', sort: true}
+        ,{field:'username', width:120, title: '用户名称'}  //增加 edit 表示开户了编辑状态
+        ,{field:'city',width:120, title: '城市'}
+        ,{field:'sex', width: 80, title: '性别',sort: true}
+        ,{field:'email', width:200, title: '邮箱'}
+        ,{field:'phone', width:150, title: '联系方式'}
+        ,{field:'creater', width:120, title: '创建人'}
+        ,{field:'createTime', width:150, title: '创建时间', sort: true}
+        ,{field:'remarks', title: '备注',minWidth:150}
+      ]]
+      ,data: [{
+        "id": "YD-0003"
+        ,"username": "张乙浩"
+        ,"city": "广东广州"
+        ,"sex": "男"
+        ,"email": "zhangyh@zhangyh.com"
+        ,"phone": "18928848584"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "暂无备注"
+      },{
+        "id": "YD-0003"
+        ,"username": "张乙浩"
+        ,"city": "广东广州"
+        ,"sex": "男"
+        ,"email": "zhangyh@zhangyh.com"
+        ,"phone": "18928848584"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "暂无备注"
+      },{
+        "id": "YD-0003"
+        ,"username": "张乙浩"
+        ,"city": "广东广州"
+        ,"sex": "男"
+        ,"email": "zhangyh@zhangyh.com"
+        ,"phone": "18928848584"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "暂无备注"
+      },{
+        "id": "YD-0003"
+        ,"username": "张乙浩"
+        ,"city": "广东广州"
+        ,"sex": "男"
+        ,"email": "zhangyh@zhangyh.com"
+        ,"phone": "18928848584"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "暂无备注"
+      },{
+        "id": "YD-0003"
+        ,"username": "张乙浩"
+        ,"city": "广东广州"
+        ,"sex": "男"
+        ,"email": "zhangyh@zhangyh.com"
+        ,"phone": "18928848584"
+        ,"creater": "超级管理员"
+        ,"createTime": "2018-01-01 12:06"
+        ,"remarks": "暂无备注"
+      }]
+      ,page: true
+    });
+
+  });
+
+
+
+</script>
+</body>
+</html>

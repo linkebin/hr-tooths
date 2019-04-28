@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="Styles/themes/default/style.css" rel="stylesheet" type="text/css"/>
+    <link href="Styles/themes/default/modules/baseframe/baseframe.css" rel="stylesheet">
+    <style>
+        /* 去掉后台系统的滚动条 */
+        html {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<!--顶部导航-->
+<!-- <li class="active"><a href="#"><span>首　页</span></a></li> -->
+
+
+<script id="topmenu_template" container="ul.navul" type="text/x-jsrender">
+ <!--id="topmenu_template hasTopMenu" 则表示菜单全部在左，没有顶部菜单-->
+	<li title="{{:name}}" ><a href="{{:url}}" menuid="{{:id}}">
+        <!--<img class="pngfix" src="{{:icon}}" alt="">-->
+         <i class="eui-icon">{{:icon}}</i>
+        <span>{{:name}}</span>
+        </a>
+	</li>
+
+
+</script>
+
+<!--左边导航-->
+<script id="leftmenu_template" container="#sidebar ul.rootmenu" type="text/x-jsrender">
+	<li>
+		<a href="{{:url}}" class="root" menuid="{{:id}}">
+			<img class="pngfix" src="{{:icon}}" alt="">
+            <!--<i class="eui-icon">{{:icon}}</i>-->
+
+			<span>
+			    {{:name}}
+			</span>
+
+		</a>
+		{{if childs}}
+		<ul class="submenu">
+			{{for childs}}
+				<li>
+				    <a href="{{:url}}" menuid="{{:id}}">{{:name}}</a>
+
+				{{if childs}}
+					<ul>
+						 {{for childs}}
+						 	<li><a href="{{:url}}" menuid="{{:id}}">{{:name}}</a></li>
+						 {{/for}}
+					</ul>
+					{{/if}}
+				</li>
+
+			{{/for}}
+		</ul>
+		{{/if}}
+	</li>
+
+
+</script>
+
+<!--退出系统-->
+<script id="shortcut_template" container="#exit" type="text/x-jsrender">
+	<a href="{{:url}}" shortcut-id="{{:id}}" class="btn-shortcut pngfix" title="{{:name}}" >
+		<span>
+			<b class="btn-text">{{:name}}</b>
+		</span>
+	</a>
+
+
+</script>
+
+<body>
+<!-- 头部 start -->
+<div id="header" class="header">
+    <!--logo start-->
+    <div class="nav-logo float-left">
+        <img id="webLogo" src="" alt=""/>
+        <span id="webName"></span>
+    </div>
+    <div class="nav-sreach float-left eui-marginL20 ">
+        <li class="eui-margin5 ">
+            <a href="javascript:;"  onclick="switchT()" class="eui-color-white eui-font18"><i class="eui-icon"> &#xe638; </i>切换</a>
+        </li>
+    </div>
+    <div class="nav-sreach float-left eui-marginL10 ">
+        <li class="eui-margin5 ">
+            <a href="http://120.76.57.222/hrWeb/help.html"  target="_blank" class="eui-color-white eui-font18"><i class="eui-icon"> &#xe60b; </i>帮助</a>
+        </li>
+    </div>
+    <div class="float-right">
+        <ul class="eui-nav eui-nav-nobg">
+            <li class="eui-nav-item">
+                <a href="###">
+                                    <span class="userImg">
+                                        <img src="Styles/images/user/user.png" class="eui-borderRadiusC" alt=""
+                                             style="height: 36px;width: 36px">
+                                        <!--<span class="eui-badge">9</span>-->
+                                    </span>
+                    <span id="userinfoName" class="eui-font14 eui-color-white"></span>
+                </a>
+                <dl class="eui-nav-child">
+                    <!--<dd><a href="HtmlPage/module/forms/personalCenter.html" target="_blank">用户中心</a></dd>-->
+                    <dd id="exit"></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <!--一级导航-->
+    <div class="navBody float-right">
+        <a href="###" class="nav-Arrow nav-leftArrow"><i class="eui-icon">&#xe603;</i></a>
+        <div class="navulBody">
+            <ul class="navul"></ul>
+        </div>
+        <a href="###" class="nav-Arrow nav-rightArrow"><i class="eui-icon">&#xe602;</i></a>
+    </div>
+    <!-- logo end -->
+</div>
+<!-- 头部 end -->
+
+<!-- 左侧导航菜单  start -->
+<div id="sidebar" class="sidebar">
+    <h2 class="sidebar-title">
+        <!--<span>操作菜单</span>-->
+        <!-- <a id="menucollapse"><i class="eui-icon eui-font14">&#xe65a;</i></a> -->
+    </h2> <!-- 左导航菜单标题 -->
+    <div class="rootmenu-div">
+        <ul class="rootmenu">
+        </ul>
+    </div>
+</div>
+<!-- 左边导航菜单  end-->
+<!--  <span class="localTime">系统当前时间</span>-->
+<!-- 中间主体内容 start -->
+<div id="content" class="content">
+
+
+    <iframe frameborder=0 name="iframeName" class='contentIframe'></iframe>
+
+    <!-- iframe start -->
+    <!--    <div class="eui-tab" e-filter="nav-tab" e-allowclose="true">
+              <ul class="eui-tab-title"></ul>
+              <div class="eui-tab-content">
+
+              </div>
+          </div>
+   -->
+    <!-- iframe end -->
+</div>
+<!-- 中间主体内容 end -->
+
+<!-- 脚部 start -->
+<!--    <div id="footer">
+        <div class="text-center font" id="copyRight"></div>
+    </div>-->
+<!-- 脚部 end -->
+
+
+<div class="loading" id="loading"></div>
+
+</body>
+
+</html>
+
+<script src="Scripts/module/eui.js" charset="utf-8"></script>
+
+<!-- script -->
+
+<script type="text/javascript" src="Scripts/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="Scripts/common.js"></script>
+<script type="text/javascript" src="Scripts/config.js"></script><!--开发者使用的js，可用于对ajax的拦截等-->
+<script type="text/javascript" src="Scripts/plugins/jsrender.js"></script>    <!-- 前端菜单渲染 -->
+<script type="text/javascript" src="Scripts/plugins/jquery.query.js"></script>   <!--获取url参数-->
+<script type="text/javascript" src="Scripts/plugins/jquery.cookie.js"></script>
+<!-- demo -->
+<script type="text/javascript" src="navConfig.js?t=2"></script>
+<script type="text/javascript" src="Scripts/index.js"></script>
+
+<script type="text/javascript" src="Scripts/module/base/baseframe.js"></script>
+<script type="text/javascript" src="Scripts/module/EUI/modules/layer.js"></script>
+<script type="text/javascript">
+    function loginOut() {
+        $.ajax({
+            type:"POST",
+            url:basePath+"/login/loginOut",
+            success:function(result){
+
+            },
+            error:function(){
+                layer.msg("失败");
+            }
+        });
+    }
+    function personalCenter() {
+        window.open("HtmlPage/module/system/userManagement/userManage-update.html?userId=")
+    }
+    function switchT() {
+        window.location.href = "/hr-mz-web/index.html";
+    }
+</script>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.CustSfjlMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.CustSfjl">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="sf_id" jdbcType="VARCHAR" property="sfId" />
+    <result column="sf_stat" jdbcType="VARCHAR" property="sfStat" />
+    <result column="sf_time" jdbcType="TIMESTAMP" property="sfTime" />
+    <result column="cust_id" jdbcType="VARCHAR" property="custId" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="sf_money" jdbcType="VARCHAR" property="sfMoney" />
+    <result column="doctor_id" jdbcType="VARCHAR" property="doctorId" />
+    <result column="doctor" jdbcType="VARCHAR" property="doctor" />
+    <result column="cashier" jdbcType="VARCHAR" property="cashier" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="charge_type" jdbcType="VARCHAR" property="chargeType" />
+    <result column="arrears" jdbcType="DOUBLE" property="arrears" />
+  </resultMap>
+
+  <select id="findCustSfjl" resultType="java.util.Map" parameterType="String">
+    select t.*,b.user_name,temp.record_type,temp.bank from (
+    select s.*,c.cust_remark from cust_sfjl s,customer c
+    where s.cust_id=c.cust_id
+    and s.deleted=0
+    <if test="clinic!=null and clinic!=''">and c.cust_clinic= #{clinic}</if>
+    <if test="doctor!=null and doctor!=''">and s.doctor_id = #{doctor}</if>
+    <if test="starTime!=null and starTime!=''">and date_format(s.create_time,'%Y-%m-%d') >= #{starTime}</if>
+    <if test="endTime!=null and endTime!=''">and #{endTime} >= date_format(s.create_time,'%Y-%m-%d')</if>) t
+    left join sec_user b on t.cashier = b.ID_
+    LEFT JOIN
+    (SELECT a.sf_id,a.record_type,a.bank from account_record a,(select sf_id,count(sf_id) as sf_num FROM `account_record` GROUP BY sf_id HAVING sf_num =1)b where a.sf_id=b.sf_id) temp
+    on temp.sf_id = t.sf_id
+    order by t.create_time desc
+  </select>
+
+  <select id="findCustSfjlSum" resultType="java.util.Map" parameterType="String">
+    select count(*) count,case when sum(s.sf_money) is null then 0 else sum(s.sf_money) end money
+    from cust_sfjl s,customer c
+    where s.cust_id=c.cust_id
+    and s.deleted=0
+    <if test="clinic!=null and clinic!=''">and c.cust_clinic= #{clinic}</if>
+    <if test="doctor!=null and doctor!=''">and s.doctor_id = #{doctor}</if>
+    <if test="starTime!=null and starTime!=''">and date_format(s.create_time,'%Y-%m-%d') >= #{starTime}</if>
+    <if test="endTime!=null and endTime!=''">and #{endTime} >= date_format(s.create_time,'%Y-%m-%d')</if>
+  </select>
+
+  <!--<select id="findCustSfjlCostSum" resultType="java.util.Map" parameterType="String">-->
+    <!--select count(*) count,case when sum(s.sf_money) is null then 0 else sum(s.sf_money) end money-->
+    <!--from cust_sfjl s,customer c-->
+    <!--where s.cust_id=c.cust_id-->
+    <!--and s.deleted=0-->
+    <!--and sf_stat='已收费'-->
+    <!--<if test="clinic!=null and clinic!=''">and c.cust_clinic=#{clinic}</if>-->
+    <!--<if test="doctor!=null and doctor!=''">and s.doctor_id = #{doctor}</if>-->
+    <!--<if test="starTime!=null and starTime!=''">and date_format(s.create_time,'%Y-%m-%d') >= #{starTime}</if>-->
+    <!--<if test="endTime!=null and endTime!=''">and #{endTime} >= date_format(s.create_time,'%Y-%m-%d')</if>-->
+  <!--</select>-->
+
+  <select id="findCustSfjlCostSum" resultType="java.util.Map" parameterType="String">
+    select count(*) count,case when sum(s.sf_money - s.arrears) is null then 0 else sum(s.sf_money - s.arrears) end money
+    from cust_sfjl s,customer c
+    where s.cust_id=c.cust_id
+    and s.deleted=0
+    <if test="clinic!=null and clinic!=''">and c.cust_clinic=#{clinic}</if>
+    <if test="doctor!=null and doctor!=''">and s.doctor_id = #{doctor}</if>
+    <if test="starTime!=null and starTime!=''">and date_format(s.create_time,'%Y-%m-%d') >= #{starTime}</if>
+    <if test="endTime!=null and endTime!=''">and #{endTime} >= date_format(s.create_time,'%Y-%m-%d')</if>
+  </select>
+
+  <select id="findDrugRevenue" resultType="java.util.Map" parameterType="String">
+    select t.*,e.user_name,f.org_name from (select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,sum(a.num) num,sum(a.money) money
+    from cust_sfjl s,customer c,cust_sfjl_de a,stock_product b
+    where s.cust_id=c.cust_id
+    and s.sf_id = a.sfjl_id
+    and a.code = b.product_code
+    and s.deleted=0
+    <if test="clinic!=null and clinic!=''">and c.cust_clinic=#{clinic}</if>
+    <if test="starTime!=null and starTime!=''">and date_format(s.create_time,'%Y-%m-%d') >= #{starTime}</if>
+    <if test="endTime!=null and endTime!=''">and #{endTime} >= date_format(s.create_time,'%Y-%m-%d')</if>
+    group by s.doctor_id,c.cust_clinic,a.code,a.name,a.price) t,sec_user e,sec_org f
+    where t.doctor_id = e.ID_
+    and t.cust_clinic = f.ID_
+  </select>
+
+  <select id="findDrugSum" resultType="int" parameterType="String">
+    select sum(t.money) from (select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,a.money
+    from cust_sfjl s,customer c,cust_sfjl_de a,stock_product b
+    where s.cust_id=c.cust_id
+    and s.sf_id = a.sfjl_id
+    and a.code = b.product_code
+    and s.deleted=0
+    <if test="clinic!=null and clinic!=''">and c.cust_clinic=#{clinic}</if>
+    <if test="starTime!=null and starTime!=''">and date_format(s.create_time,'%Y-%m-%d') >= #{starTime}</if>
+    <if test="endTime!=null and endTime!=''">and #{endTime} >= date_format(s.create_time,'%Y-%m-%d')</if>) t
+  </select>
+
+  <select id="findProjectRevenue" resultType="java.util.Map" parameterType="String">
+    select t.*,e.user_name,f.org_name from (
+    select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,sum(a.num) num,sum(a.money) money
+    from cust_sfjl s,customer c,cust_sfjl_de a,charge_project b
+    where s.cust_id=c.cust_id
+    and s.sf_id = a.sfjl_id
+    and a.code = b.id_
+    and c.cust_clinic=b.org_id
+    and s.deleted=0
+    <if test="clinic!=null and clinic!=''">and c.cust_clinic=#{clinic}</if>
+    <if test="starTime!=null and starTime!=''">and date_format(s.create_time,'%Y-%m-%d') >= #{starTime}</if>
+    <if test="endTime!=null and endTime!=''">and #{endTime} >= date_format(s.create_time,'%Y-%m-%d')</if>
+    group by s.doctor_id,c.cust_clinic,a.code,a.name,a.price) t,sec_user e,sec_org f
+    where t.doctor_id = e.ID_
+    and t.cust_clinic = f.ID_
+  </select>
+
+  <select id="findProjectSum" resultType="int" parameterType="String">
+    select sum(t.money) from (
+    select s.doctor_id,c.cust_clinic,a.code,a.name,a.price,a.money
+    from cust_sfjl s,customer c,cust_sfjl_de a,charge_project b
+    where s.cust_id=c.cust_id
+    and s.sf_id = a.sfjl_id
+    and a.code = b.id_
+    and c.cust_clinic=b.org_id
+    and s.deleted=0
+    <if test="clinic!=null and clinic!=''">and c.cust_clinic=#{clinic}</if>
+    <if test="starTime!=null and starTime!=''">and date_format(s.create_time,'%Y-%m-%d') >= #{starTime}</if>
+    <if test="endTime!=null and endTime!=''">and #{endTime} >= date_format(s.create_time,'%Y-%m-%d')</if>) t
+  </select>
+
+  <select id="patients" parameterType="String" resultType="int">
+    select sum(sf_money) from cust_sfjl
+    where date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+    and sf_stat = '已收费'
+  </select>
+</mapper>

@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>信息列表查询</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+    <link rel="stylesheet" href="../../../Styles/themes/default/cover-style.css"  media="all">
+</head>
+<body>
+
+
+
+
+<!--条件搜索 start-->
+<div class="eui-form eui-form-base eui-form-search eui-form-col2">
+    <!-- 查询重置按钮-->
+        <div class="eui-btn-group">
+            <button class="eui-btn" onclick="doSearch()">查询</button>
+            <button class="eui-btn eui-btn-primary" onclick="resetForm()">重置</button>
+        </div>
+        <!--查询条件-->
+    <form id="formId">
+        <div class="eui-form-item">
+            <label class="eui-form-label">来源渠道：</label>
+            <div class="eui-input-block">
+                <select name="source" e-verify="required" e-search id="source">
+                    <option value="">全部</option>
+                    <option value="微信预约">微信预约</option>
+                    <option value="电话预约">电话预约</option>
+                    <option value="现场预约">现场预约</option>
+                </select>
+            </div>
+        </div>
+        <!--华丽的分割线-->
+        <div class="eui-form-item">
+            <label class="eui-form-label">日期范围：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="起止时间" name="dateTest2" id="dateTest2">
+            </div>
+        </div>
+
+
+        <!--华丽的分割线-->
+        <div class="eui-form-item">
+            <label class="eui-form-label">客户姓名/电话：</label>
+            <div class="eui-input-block">
+                <input type="text" class="eui-input" placeholder="请输入查询关键字" name="customer" id="customer">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+
+</div>
+
+
+<!--条件搜索 end-->
+
+<div class="infoList">
+    <!--标题 start-->
+
+    <div class="title-bar">
+        <div class="eui-btn-group float-right">
+            <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+            <a href="javaScript:addUpdate('add')" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe654;</i>新建</a>
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe615;</i>查看</a>-->
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe642;</i>编辑</a>-->
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe601;</i>导入</a>-->
+            <a href="###" class="eui-btn eui-btn-small" data-method="export"><i class="eui-icon">&#xe61f;</i>导出</a>
+            <a href="###" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>删除</a>
+        </div>
+        <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      潜在客户列表
+    </span>
+    </div>
+
+    <!--标题 end-->
+    <!--表格 start-->
+    <script type="text/html" id="barDemo">
+        <div class="eui-btn-group">
+            <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit"><i class="eui-icon" title="编辑">&#xe642;</i></a>
+            <a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+        </div>
+    </script>
+    <table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+    <!--表格 end-->
+</div>
+<script type="text/html" id="layerContent">
+    <form id="potentialForm">
+        <div class="eui-form eui-padding20">
+            <input type="hidden" class="eui-input" name="potentialId" id="potentialId">
+            <div class="eui-form-item">
+                <label class="eui-form-label">姓名：</label>
+                <div class="eui-input-block ">
+                    <input type="text" class="eui-input" name="potentialName" id="potentialName"/>
+                    <label  id="nameLabel" class="error" style="display: none">请输入名称</label>
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">联系方式：</label>
+                <div class="eui-input-block ">
+                    <input type="text" class="eui-input" name="potentialTel" id="potentialTel"/>
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">录入时间：</label>
+                <div class="eui-input-block">
+                    <input type="text" id="createTimeShow" readonly class="eui-input">
+                    <input type="hidden" name="createTime" id="createTime" class="eui-input">
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">录入人：</label>
+                <div class="eui-input-block">
+                    <a href="###" class="inputAfter"><i class="eui-icon">&#xe612;</i></a>
+                    <input type="text" name="creator" id="creator" readonly class="eui-input">
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">来源渠道：</label>
+                <div class="eui-input-block">
+                    <input type="text" name="source" id="sourceChannel" readonly class="eui-input">
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">消费金额：</label>
+                <div class="eui-input-block">
+                    <input type="text" name="money" class="eui-input" id="money">
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">备注：</label>
+                <div class="eui-input-block">
+                    <textarea class="eui-textarea" id="remark" name="remark">
+                    </textarea>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <input type="hidden" id="roleId" name="id">
+    </form>
+</script>
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+<script src="../../../Scripts/date2format.js" type="text/javascript"></script>
+
+<!-- ztree-->
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+
+<script type="text/javascript" src="../../../Scripts/config.js"></script><!--开发者使用的js，可用于对ajax的拦截等-->
+<script src="../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+<script>
+    var form = null;
+    var table= null;
+    var txt = "";
+    function doSearch(){
+        eui.use(['element','form', 'layedit', 'laydate','table'], function(){
+            table = eui.table;
+            form = eui.form;
+            var element = eui.element
+
+                ,layer = eui.layer
+                ,layedit = eui.layedit
+                ,laytpl = eui.laytpl
+                ,laydate = eui.laydate;
+
+            var getTpl = $("#layerContent").html();
+            laytpl(getTpl).render({}, function (html) {
+                txt = html;
+            });
+            //日期选择
+            laydate.render({
+                elem: '#dateTest'
+            });
+            //日期范围
+            laydate.render({
+                elem: '#dateTest2'
+                ,range: true
+            });
+            table.render({
+                elem: '#tableDemo'
+                //   ,height: 350
+                //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+                ,even: true //开启隔行背景
+                ,skin:'row'
+                ,url: basePath+'/potential/cust/find' //数据接口
+                ,where:{
+                    customer: $("#customer").val(),
+                    source:$("#source").val(),
+                    starTime:$("#dateTest2").val().substring(0,10),
+                    endTime: $("#dateTest2").val().substring(13)
+                }
+                ,method: 'get'
+                ,cols: [[
+                    {type:'checkbox',fixed:'left'}
+                    ,{field:'potential_name', width:200, title: '姓名', sort: true}
+                    ,{field:'potential_tel', width:120, title: '联系方式'}  //增加 edit 表示开户了编辑状态
+                    ,{field:'source', width:120, title: '来源渠道'}
+                    ,{field:'money', title: '消费金额',minWidth:150}
+                    ,{field:'creator', title: '录入人',minWidth:150}
+                    ,{field:'create_time',width:120, title: '录入时间',sort: true,templet:'<div>{{ new Date(d.create_time).Format("yyyy-MM-dd") }}</div>'}
+                    ,{field:'remark', title: '备注',minWidth:150}
+                    ,{field:'operation', title:'操作', width:120, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+                ]]
+                ,page: true
+                , limits: [10, 20, 30]
+                , limit: 10 //每页默认显示的数量
+            });
+
+            //监听表格复选框选择
+            table.on('checkbox(tableDemoFilter)', function(obj){
+                console.log(obj)
+            });
+
+            //监听工具条
+            table.on('tool(tableDemoFilter)', function(obj){
+                var data = obj.data;
+                if(obj.event === 'detail'){
+                    layer.msg('ID：'+ data.id + ' 的查看操作');
+                } else if(obj.event === 'del'){
+                    layer.confirm('确认删除《'+data.potential_name+'》该客户信息吗？', function(index){
+                        delPotential(data.potential_id);
+                        layer.close(index);
+                    });
+                } else if(obj.event === 'edit'){
+                    addUpdate(data);
+                }
+            });
+
+        });
+    }
+    
+    function delPotential(delIds) {
+        $.ajax({
+            type: "POST",
+            url: basePath + "/potential/cust/delete",
+            data: {
+                id: delIds
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    layer.msg("删除成功");
+                    doSearch();
+                } else {
+                    layer.msg(result.message);
+                }
+            },
+            error: function () {
+                layer.msg("删除失败");
+            }
+        });
+    }
+    
+    function addUpdate(data) {
+        layer.open({
+            type: 1
+            , title: "潜在客户管理"
+            , area: ['400px', '100%']  //宽度
+            , offset: "rt"              //类型,注意点击按钮的data-type属性，然后配合宽高度
+            , id: 'popPage' //防止重复弹出
+            , content: txt
+            , btn: ['保存', '取消']
+            , btnAlign: 'c' //按钮居中
+            , shade: 0.3 //不显示遮罩
+            , maxmin: true
+            , yes: function () {
+                if($("#potentialForm  [ name='nameLabel']").val()==''){
+                    $("#nameLabel").show();
+                    return;
+                }
+                if (data == "add") {
+                    addPotential();
+                } else {
+                    updatePotential();
+                }
+                layer.closeAll();
+            }, btn2: function () {
+                layer.closeAll();
+            }
+        });
+
+        if(data=="add"){
+            $("#potentialId").val("");
+            $("#potentialName").val("");
+            $("#creator").val(getUserName());
+            $("#createTimeShow").val(dateForm(new Date()));
+            $("#createTime").val(new Date().getTime());
+            $("#potentialTel").val("");
+            $("#sourceChannel").val("");
+            $("#money").val("");
+            $("#remark").val("");
+
+        }else {
+            $("#potentialId").val(data.potential_id);
+            $("#potentialName").val(data.potential_name);
+            $("#creator").val(data.creator);
+            $("#createTimeShow").val(dateForm(data.create_time));
+            $("#createTime").val(data.create_time);
+            $("#potentialTel").val(data.potential_tel);
+            $("#sourceChannel").val(data.source);
+            $("#money").val(data.money);
+            $("#remark").val(data.remark);
+        }
+        form.render();
+    }
+    
+    function updatePotential() {
+        var obj = $("#potentialForm").serializeObject();
+        $.ajax({
+            type: "POST",
+            url: basePath + "/potential/cust/update",
+            data: {
+                json: JSON.stringify(obj),
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    layer.msg("更新成功");
+                    doSearch();
+                } else {
+                    layer.msg("更新失败，请联系管理员处理");
+                }
+            },
+            error: function () {
+                layer.msg("更新失败");
+            }
+        });
+    }
+
+    function addPotential() {
+        var obj = $("#potentialForm").serializeObject();
+        $.ajax({
+            type: "POST",
+            url: basePath + "/potential/cust/add",
+            data: {
+                json: JSON.stringify(obj),
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    doSearch();
+                    layer.msg("更新成功");
+                } else {
+                    layer.msg("更新失败，请联系管理员处理");
+                }
+            },
+            error: function () {
+                layer.msg("更新失败");
+            }
+        });
+    }
+
+    function resetForm(){
+        document.getElementById("formId").reset();
+        doSearch();
+    }
+
+    $(function () {
+        doSearch();
+        var active = {
+            export: function () {
+                window.location.href = basePath + '/potential/cust/exportCust';
+            }
+        };
+
+        $('.eui-btn').on('click', function () {
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+    })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+</head>
+<body>
+
+<div class="eui-tab-card eui-margin20 eui-bg-white">
+
+    <div class="eui-row eui-col-md2 eui-tab-content eui-paddingTB20 eui-bg-white">
+                           <span class="title-main">
+                              <i class="eui-icon eui-font20">&#xe613;</i>
+                              聊天客户
+                            </span>
+        <span class="title-sub">
+                                 点击客户进入聊天界面
+                           </span>
+        <table id="tableDemo1" e-filter="tableDemoFilter"></table>
+    </div>
+
+    <div class="eui-col-md10 eui-tab-content eui-bg-white">
+        <div class="eui-row eui-margin20">
+              <span class="title-main">
+              <i class="eui-icon eui-font28">&#xe612;</i>
+              当前聊天客户：
+            </span>
+            <span class="eui-font-bold eui-font18 eui-color-red">
+                  KH120189
+            </span>
+        </div>
+        <div class="eui-row eui-marginLR20 eui-tab-card eui-bg-white"style="height: 480px" >
+
+
+        </div>
+        <div class="eui-row eui-marginLR20 eui-bg-gray">
+            <i class="eui-icon eui-marginL20 eui-font20">&#xe642;</i>
+            <i class="eui-icon eui-marginL10 eui-font20">&#xe60c;</i>
+            <i class="eui-icon eui-marginL10 eui-font20">&#xe64a;</i>
+            <i class="eui-icon eui-marginL10 eui-font20">&#xe60e;</i>
+        </div>
+        <div class="eui-row eui-marginLR20 eui-tab-card eui-bg-white"style="height: 100px" >
+
+                <textarea style="height: 100%;width: 100%"></textarea>
+        </div>
+        <div class="eui-row eui-marginLR20">
+            <button class="eui-btn eui-btn-small eui-btn-primary eui-float-right">快捷回复</button>
+            <button class="eui-btn eui-btn-small eui-float-right">发送</button>
+        </div>
+        <!-- 配合栅格系统和图文混合按钮组合 -->
+    </div>
+</div>
+
+
+</body>
+<script type="text/html" id="barDemo">
+    <div class="eui-btn-group">
+        <a class="eui-btn  eui-btn-duplicate  eui-btn-mini" e-event="del"><i class="eui-icon" title="选择">&#xe606;</i></a>
+    </div>
+</script>
+<!-- 引入代码高亮显示文件 -->
+<script src="../../../Scripts/plugins/prism/prism.js"></script>
+<script src="../../../Scripts/plugins/prism/line-numbers.js"></script>
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+    //表单
+    eui.use(['form', 'layedit', 'laydate','table','element'], function () {
+        var form = eui.form
+            , layer = eui.layer
+            , layedit = eui.layedit
+            , laydate = eui.laydate
+            ,  element = eui.element;
+        table = eui.table;
+        //常规用法
+        laydate.render({
+            elem: '#test1'
+        });
+        //实例1:简单表格
+        table.render({
+            elem: '#tableDemo1'
+            //   ,height: 350
+            //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+            , even: true //开启隔行背景
+            , skin: 'row'
+            , url: '../../../Scripts/data/dataPage.json' //数据接口
+
+            , cols: [[
+                {field: 'filed1', width: 165, title: '客户', sort: true}
+                ,{field: 'filed1', width: 100, title: '时间', sort: true}
+                ,{field:'filed7', title:'选中',width: 40, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+            ]]
+            , page: true
+            , limits: [10, 20, 30]
+            , limit: 10 //每页默认显示的数量
+        });
+        table.render({
+            elem: '#tableDemo'
+            //   ,height: 350
+            //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+            , even: true //开启隔行背景
+            , skin: 'row'
+            , url: '../../../Scripts/data/dataPage.json' //数据接口
+
+            , cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'filed1', width: 200, title: '编号', sort: true}
+                , {field: 'filed2', width: 120, title: '订单类型'}  //增加 edit 表示开户了编辑状态
+                , {field: 'filed2', width: 120, title: '订单状态'}
+                , {field: 'filed3', width: 120, title: '订单诊所'}
+                , {field: 'filed4', width: 120, title: '订单时间'}
+                , {field: 'filed5', width: 90, title: '客户姓名', templet: '#switchTpl'}
+                , {field: 'filed6', title: '联系电话', minWidth: 150}
+                , {field: 'filed6', title: '订单金额', minWidth: 150}
+                , {field: 'filed6', title: '开单员', minWidth: 150}
+            ]]
+            , page: true
+            , limits: [10, 20, 30]
+            , limit: 10 //每页默认显示的数量
+        });
+    });
+</script>
+</html>

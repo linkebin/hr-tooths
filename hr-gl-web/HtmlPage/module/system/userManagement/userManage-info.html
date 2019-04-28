@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>员工信息</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../../../../Styles/themes/default/style.css"  media="all">
+
+</head>
+<body class="ToolbarFixed">
+
+<div class="toolbarH">
+  <div class="title-bar">
+    <div class="eui-btn-group float-right">
+      <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+      <a href="javaScript:void(0)" class="eui-btn eui-btn-primary" onclick="window.close();" >关闭</a>
+    </div>
+    <span class="title-main">
+      <i class="eui-icon eui-font24">&#xe62a;</i>
+      员工信息维护
+    </span>
+    <span class="title-sub">
+      请按实际情况维护
+    </span>
+  </div>
+</div>
+
+<div class="form-body eui-width1200">
+<div class="form-title">员工信息表</div>
+
+  <!--tab页 start-->
+  <div class="eui-tab eui-tab-card">
+    <ul class="eui-tab-title">
+      <li class="eui-this">基本信息</li>
+      <li>其它信息</li>
+    </ul>
+    <div class="eui-tab-content eui-bg-white">
+      <div class="eui-tab-item eui-show">
+
+
+        <div class="title-bar eui-marginB10">
+          <span class="title-main">
+            <i class="eui-icon eui-font20">&#xe62d;</i>
+            在职信息
+          </span>
+         </div>
+      <form id="formId">
+        <input type="hidden" name="id">
+        <input type="hidden" name="headImg">
+        <table class=" eui-form eui-form-table">
+          <tr>
+            <th>用户名称<i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+            <td><input type="text" class="eui-input" name="userName"  placeholder="" value=""></td>
+
+            <th>账号 <i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+            <td><input type="text" class="eui-input" placeholder=""  name="account" value=""></td>
+
+            <td rowspan="4">
+
+              <div class="eui-upload-drag eui-width100" id="uploadImg">
+                <i class="eui-icon">&#xe67c;</i>
+                <p>点击或将图像拖拽到此处</p>
+              </div>
+
+            </td>
+
+          </tr>
+          <tr>
+            <th>密码 <i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+            <td><input type="text" name="userPass" class="eui-input" placeholder=""></td>
+
+            <th>手机号码 <i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+            <td><input type="text" name="mobile" class="eui-input" placeholder=""></td>
+
+          </tr>
+
+          <tr>
+            <th>邮箱 <i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+            <td><input type="text" class="eui-input" name="email" placeholder=""></td>
+
+            <th>性别 <i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+            <td>
+              <input type="radio" name="sex" value="男" title="男" checked>
+              <input type="radio" name="sex" value="女" title="女">
+            </td>
+          </tr>
+
+          <tr>
+            <th>证件类型 ：</th>
+            <td >
+              <input type="text" class="eui-input" name="cType" placeholder="">
+            </td>
+            <th>证件号码：</th>
+            <td class="">
+              <input type="text" style="width:360px"  name="cMum" class="eui-input" placeholder="">
+            </td>
+          </tr>
+          <tr>
+            <th>政治面貌：</th>
+            <td>
+              <input type="text" class="eui-input" name="politicalStatus" placeholder="">
+            </td>
+            <th>婚姻状态：</th>
+            <td colspan="2">
+              <input type="radio" name="mStatus" value="未婚" title="未婚" checked>
+              <input type="radio" name="mStatus" value="已婚" title="已婚">
+            </td>
+          </tr>
+
+          <tr>
+            <th>籍贯：</th>
+            <td  class="" >
+              <input type="text" class="eui-input" name="nativePlace" placeholder="">
+            </td>
+            <th>状态<i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>：</th>
+            <td colspan="2">
+              <input type="radio" name="status" value="启用" title="启用" checked>
+              <input type="radio" name="status" value="禁用" title="禁用">
+            </td>
+          </tr>
+          <tr>
+            <th>部门：</th>
+            <td  class="" colspan="4">
+                <input type="text" class="eui-input" id="orgName" placeholder="点击选择" disabled>
+            </td>
+          </tr>
+          <tr>
+            <th>地址：</th>
+            <td class="select-col3"  >
+              <div id="ld" data-toggle="distpicker">
+                  <select  style="height: 30px" id="province" e-ignore  name="province">
+
+                  </select>
+
+                  <select style="height: 30px" id="city" e-ignore  name="city">
+
+                  </select>
+
+                  <select  style="height: 30px" id="district" e-ignore name="district">
+
+                  </select>
+              </div>
+            </td>
+            <td colspan="3">
+              <input type="text"   name="detailedAddr" class="eui-input" placeholder="请输入详细地址">
+            </td>
+          </tr>
+        </table>
+      </form>
+
+      </div>
+      <div class="eui-tab-item">
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <!--tab页 end-->
+
+
+</div>
+
+<script src="../../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+
+<script type="text/javascript" src="../../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+<script src="../../../../Scripts/plugins/jquery.cookie.js" type="text/javascript"></script>
+<script src="../../../../Scripts/config.js" type="text/javascript"></script>
+<script src="../../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+
+<script src="../../../../Scripts/distpicker.data.js" type="text/javascript"></script>
+<script src="../../../../Scripts/distpicker.js" type="text/javascript"></script>
+<script>
+
+
+  //表单
+  eui.use(['element','form', 'layedit', 'laydate','table','upload'], function(){
+
+    var element = eui.element
+            ,form = eui.form
+            ,layer = eui.layer
+            ,layedit = eui.layedit
+            ,laydate = eui.laydate
+            ,table = eui.table
+            ,upload = eui.upload;
+
+    //常规用法
+    laydate.render({
+      elem: '#dateTest'
+    });
+    //日期范围
+    laydate.render({
+      elem: '#dateTest2'
+      ,range: true
+    });
+
+  });
+ $(function(){
+   getUserInfo();
+    $("input").attr('readonly', true);
+   $('select').attr('disabled', true);
+   $(':radio').attr('disabled', true);
+ });
+
+//获取用户的详情信息
+function getUserInfo(){
+  //截取url传来的参数
+  var thisURL = document.URL;
+  var  getval =thisURL.split('?')[1];
+  var id= getval.split("=")[1];
+  $("[name='id']").val(id);
+  $.get(basePath+"/sec/user/getSecUserBYID",{userId:id},function(result){
+        console.info(result);
+        var data=result.data;
+        fillData(data);
+  });
+
+}
+//填充表单数据
+ function fillData(data){
+   eui.use(['element','form', 'layedit', 'laydate','table','upload'], function() {
+     var element = eui.element
+             , form = eui.form
+             , layer = eui.layer
+             , layedit = eui.layedit
+             , laydate = eui.laydate
+             , table = eui.table
+             , upload = eui.upload;
+     $("[name='headImg']").val(data.HEAD_IMG);
+     $("[name='userName']").val(data.USER_NAME);
+     $("[name='account']").val(data.ACCOUNT);
+     $("[name='userPass']").val(data.USER_PASS);
+     $("[name='mobile']").val(data.MOBILE);
+     $("[name='email']").val(data.EMAIL);
+     $("[name='cType']").val(data.C_TYPE);
+     $("[name='cMum']").val(data.C_MUM);
+     $("[name='politicalStatus']").val(data.POLITICAL_STATUS);
+     $("#orgName").val(data.ORG_NAME);
+
+     var htmls="<img style='width: 150px;height: 160px' src='"+basePath+data.HEAD_IMG+"'>";
+     $("#uploadImg").html(htmls);
+
+
+     $("[name='nativePlace']").val(data.NATIVE_PLACE);
+     var addr = data.ADDR.split("#");
+     $("[name='province']").val(addr[0]);
+     $("[name='province']").trigger("change");
+     $("[name='city']").val(addr[1]);
+     $("[name='city']").trigger("change");
+     $("[name='district']").val(addr[2]);
+     $("[name='district']").trigger("change");
+     $("[name='detailedAddr']").val(addr[3]);
+     var mStatus=  $("[name='mStatus']");
+      for(var i=0;i<mStatus.length;i++){
+         if(mStatus.eq(i).val()==data.M_STATUS){
+           mStatus.eq(i).attr("checked",'checked');
+         }
+      }
+     var status=  $("[name='status']");
+     for(var i=0;i<status.length;i++){
+       if(status.eq(i).val()==data.STATUS){
+         status.eq(i).attr("checked",'checked');
+       }
+     }
+     var sex=  $("[name='sex']");
+     for(var i=0;i<sex.length;i++){
+
+       if(sex.eq(i).val()==data.SEX){
+        ;
+         sex.eq(i).attr("checked",'checked');
+       }
+     }
+     form.render();
+   });
+ }
+
+
+
+</script>
+</body>
+</html>

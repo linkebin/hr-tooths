@@ -1,0 +1,535 @@
+2019-3-5 11:14:08 main INFO The following profiles are active: dev
+2019-3-5 11:14:27 main DEBUG ==>  Preparing: SELECT * FROM sec_menu sm where deleted=0 AND sm.STANBY_ID1 = '2' ORDER BY SORT 
+2019-3-5 11:14:27 main DEBUG ==> Parameters: 
+2019-3-5 11:14:27 main DEBUG <==      Total: 48
+2019-3-5 11:14:34 localhost-startStop-1 INFO JedisPool注入成功！！
+2019-3-5 11:14:34 localhost-startStop-1 INFO redis地址：localhost:6379
+2019-3-5 11:14:50 main INFO Started BaseFrameApplication in 52.338 seconds (JVM running for 55.326)
+2019-3-5 11:15:41 http-nio-8081-exec-1 DEBUG ==>  Preparing: SELECT * FROM sec_menu WHERE DELETED = 0 AND ENABLED=1 AND STANBY_ID1='2' AND ID_ IN ( SELECT MENU_ID from sec_menu_member WHERE USER_ID =? UNION SELECT MENU_ID FROM sec_menu_role WHERE ROLE_ID IN ( SELECT ROLE_ID FROM sec_role_member m LEFT JOIN sec_role r ON m.ROLE_ID = r.ID_ WHERE m.USER_ID =? AND r.STATE=1 ) UNION SELECT o.MENU_ID FROM sec_menu_org o LEFT JOIN sec_user u ON o.ORG_ID = u.ORG_ID LEFT JOIN sec_org so ON so.ID_ = u.ORG_ID WHERE u.ID_ = ? AND so.STATE=1 ) ORDER BY sort 
+2019-3-5 11:15:41 http-nio-8081-exec-1 DEBUG ==> Parameters: 1(String), 1(String), 1(String)
+2019-3-5 11:15:41 http-nio-8081-exec-1 DEBUG <==      Total: 26
+2019-3-5 11:15:41 http-nio-8081-exec-2 DEBUG ==>  Preparing: select * from sec_menu where ID_='062af654-9c05-4112-b8d8-35' limit 1 
+2019-3-5 11:15:41 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-5 11:15:41 http-nio-8081-exec-2 DEBUG <==      Total: 1
+2019-3-5 11:15:42 http-nio-8081-exec-3 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type ='门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-5 11:15:42 http-nio-8081-exec-4 DEBUG ==>  Preparing: select count(*) from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') 
+2019-3-5 11:15:42 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-5 11:15:42 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-5 11:15:42 http-nio-8081-exec-4 DEBUG <==      Total: 1
+2019-3-5 11:15:42 http-nio-8081-exec-3 DEBUG <==      Total: 2
+2019-3-5 11:15:42 http-nio-8081-exec-3 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') >= date_format(?,'%Y-%m-%d') and date_format(?,'%Y-%m-%d') >= date_format(yy_date,'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type = '门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-5 11:15:42 http-nio-8081-exec-3 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-5 11:15:42 http-nio-8081-exec-3 DEBUG <==      Total: 2
+2019-3-5 11:15:42 http-nio-8081-exec-4 DEBUG ==>  Preparing: select sum(sf_money) from cust_sfjl where date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') and sf_stat = '已收费' 
+2019-3-5 11:15:42 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-5 11:15:42 http-nio-8081-exec-4 DEBUG <==      Total: 1
+2019-3-5 11:15:49 http-nio-8081-exec-5 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT t.* FROM (SELECT a.in_out_id, a.in_out_code, a.in_out_time, a.type, a.creator_id, a.creator, a.num, a.money, a.state, a.clinic_id, b.org_name FROM stock_in_out a, sec_org b WHERE a.clinic_id = b.id_ AND a.type != '领用' AND a.type != '退领') t) b LEFT JOIN stock_audit c ON b.in_out_id = c.in_out_id WHERE c.is_pass IS NULL OR b.state = 0.5 
+2019-3-5 11:15:49 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-5 11:15:49 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-5 11:15:59 http-nio-8081-exec-6 DEBUG ==>  Preparing: select * from sec_menu where ID_='5eaa4b9d-3bf6-43c2-aac6-f4c9cb034167' limit 1 
+2019-3-5 11:15:59 http-nio-8081-exec-6 DEBUG ==> Parameters: 
+2019-3-5 11:15:59 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:16:00 http-nio-8081-exec-7 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-5 11:16:00 http-nio-8081-exec-7 DEBUG ==> Parameters: 
+2019-3-5 11:16:00 http-nio-8081-exec-8 DEBUG ==>  Preparing: select id_ id,user_name name,org_id clinic from sec_user where standby1='医生' and status = '启用' and deleted = 0 
+2019-3-5 11:16:00 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-5 11:16:00 http-nio-8081-exec-7 DEBUG <==      Total: 2
+2019-3-5 11:16:00 http-nio-8081-exec-7 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-5 11:16:00 http-nio-8081-exec-7 DEBUG ==> Parameters: 
+2019-3-5 11:16:00 http-nio-8081-exec-8 DEBUG <==      Total: 5
+2019-3-5 11:16:00 http-nio-8081-exec-7 DEBUG <==      Total: 5
+2019-3-5 11:16:00 http-nio-8081-exec-9 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name,PARENT_ID pId,case when id_='122' then 1 else 0 end open from sec_org where DELETED = 0 and state = 1 
+2019-3-5 11:16:00 http-nio-8081-exec-9 DEBUG ==> Parameters: 
+2019-3-5 11:16:00 http-nio-8081-exec-9 DEBUG <==      Total: 3
+2019-3-5 11:16:00 http-nio-8081-exec-10 DEBUG ==>  Preparing: select c.*,o.ORG_NAME,(select u.USER_NAME from sec_user u where u.ID_=c.doctor) as USER_NAME,(select b.bl_time from cust_bl b where b.cust_id=c.cust_id ORDER BY b.bl_time LIMIT 1) as bl_time ,(select u.USER_NAME from sec_user u where u.ID_=c.early_doctor) as early_doctor_name,(select a.org_name from sec_org a where a.ID_ = c.early_clinic) as early_clinic_name from customer c,sec_org o where c.cust_clinic=o.ID_ 
+2019-3-5 11:16:00 http-nio-8081-exec-10 DEBUG ==> Parameters: 
+2019-3-5 11:16:01 http-nio-8081-exec-10 DEBUG <==      Total: 62
+2019-3-5 11:16:01 http-nio-8081-exec-1 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name,PARENT_ID pId,case when id_='122' then 1 else 0 end open from sec_org where DELETED = 0 and state = 1 
+2019-3-5 11:16:01 http-nio-8081-exec-1 DEBUG ==> Parameters: 
+2019-3-5 11:16:01 http-nio-8081-exec-1 DEBUG <==      Total: 3
+2019-3-5 11:16:02 http-nio-8081-exec-2 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name,PARENT_ID pId,case when id_='122' then 1 else 0 end open from sec_org where DELETED = 0 and state = 1 
+2019-3-5 11:16:02 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-5 11:16:02 http-nio-8081-exec-2 DEBUG <==      Total: 3
+2019-3-5 11:16:02 http-nio-8081-exec-3 DEBUG ==>  Preparing: select a.id_ id,CONCAT(a.project_name,'(',b.ORG_NAME,')') name,a.project_name project,org_id clinic from project_manage a, sec_org b where a.org_id = b.ID_ 
+2019-3-5 11:16:02 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-5 11:16:02 http-nio-8081-exec-3 DEBUG <==      Total: 107
+2019-3-5 11:16:02 http-nio-8081-exec-4 DEBUG ==>  Preparing: select id_ id,user_name name,org_id clinic from sec_user where standby1='医生' and status = '启用' and deleted = 0 
+2019-3-5 11:16:02 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-5 11:16:02 http-nio-8081-exec-4 DEBUG <==      Total: 5
+2019-3-5 11:16:03 http-nio-8081-exec-5 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-5 11:16:03 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-5 11:16:03 http-nio-8081-exec-5 DEBUG <==      Total: 2
+2019-3-5 11:16:03 http-nio-8081-exec-5 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-5 11:16:03 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-5 11:16:03 http-nio-8081-exec-5 DEBUG <==      Total: 5
+2019-3-5 11:16:03 http-nio-8081-exec-6 DEBUG ==>  Preparing: select t.* from ( select a.yy_id,a.yy_code,a.yy_time,a.yy_date,a.yy_cust_name,a.yy_cust_sex,a.yy_cust_tel, c.ORG_NAME yy_clinic,b.USER_NAME yy_doctor,a.yy_project,a.yy_source,a.remark,a.yy_age,a.create_time from yy_manage a,sec_user b,sec_org c where a.yy_doctor = b.ID_ and a.yy_clinic = c.ID_ and b.deleted = 0 ) t order by t.yy_date desc, t.yy_time desc LIMIT 10 OFFSET 0 
+2019-3-5 11:16:03 http-nio-8081-exec-6 DEBUG ==> Parameters: 
+2019-3-5 11:16:03 http-nio-8081-exec-6 DEBUG <==      Total: 10
+2019-3-5 11:16:03 http-nio-8081-exec-6 DEBUG ==>  Preparing: select count(*) from yy_manage where 1=1 
+2019-3-5 11:16:03 http-nio-8081-exec-6 DEBUG ==> Parameters: 
+2019-3-5 11:16:03 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:16 http-nio-8081-exec-1 DEBUG ==>  Preparing: SELECT * FROM sec_menu WHERE DELETED = 0 AND ENABLED=1 AND STANBY_ID1='2' AND ID_ IN ( SELECT MENU_ID from sec_menu_member WHERE USER_ID =? UNION SELECT MENU_ID FROM sec_menu_role WHERE ROLE_ID IN ( SELECT ROLE_ID FROM sec_role_member m LEFT JOIN sec_role r ON m.ROLE_ID = r.ID_ WHERE m.USER_ID =? AND r.STATE=1 ) UNION SELECT o.MENU_ID FROM sec_menu_org o LEFT JOIN sec_user u ON o.ORG_ID = u.ORG_ID LEFT JOIN sec_org so ON so.ID_ = u.ORG_ID WHERE u.ID_ = ? AND so.STATE=1 ) ORDER BY sort 
+2019-3-5 11:18:16 http-nio-8081-exec-1 DEBUG ==> Parameters: 1(String), 1(String), 1(String)
+2019-3-5 11:18:16 http-nio-8081-exec-1 DEBUG <==      Total: 26
+2019-3-5 11:18:16 http-nio-8081-exec-2 DEBUG ==>  Preparing: select * from sec_menu where ID_='062af654-9c05-4112-b8d8-35' limit 1 
+2019-3-5 11:18:16 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-5 11:18:16 http-nio-8081-exec-2 DEBUG <==      Total: 1
+2019-3-5 11:18:16 http-nio-8081-exec-3 DEBUG ==>  Preparing: select count(*) from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') 
+2019-3-5 11:18:16 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-5 11:18:16 http-nio-8081-exec-4 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type ='门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-5 11:18:16 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-5 11:18:16 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-5 11:18:16 http-nio-8081-exec-3 DEBUG ==>  Preparing: select sum(sf_money) from cust_sfjl where date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') and sf_stat = '已收费' 
+2019-3-5 11:18:16 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-5 11:18:16 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-5 11:18:16 http-nio-8081-exec-4 DEBUG <==      Total: 2
+2019-3-5 11:18:16 http-nio-8081-exec-4 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') >= date_format(?,'%Y-%m-%d') and date_format(?,'%Y-%m-%d') >= date_format(yy_date,'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type = '门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-5 11:18:16 http-nio-8081-exec-4 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-5 11:18:16 http-nio-8081-exec-4 DEBUG <==      Total: 2
+2019-3-5 11:18:17 http-nio-8081-exec-5 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT t.* FROM (SELECT a.in_out_id, a.in_out_code, a.in_out_time, a.type, a.creator_id, a.creator, a.num, a.money, a.state, a.clinic_id, b.org_name FROM stock_in_out a, sec_org b WHERE a.clinic_id = b.id_ AND a.type != '领用' AND a.type != '退领') t) b LEFT JOIN stock_audit c ON b.in_out_id = c.in_out_id WHERE c.is_pass IS NULL OR b.state = 0.5 
+2019-3-5 11:18:17 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-5 11:18:17 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-5 11:18:17 http-nio-8081-exec-6 DEBUG ==>  Preparing: select * from sec_menu where ID_='062af654-9c05-4112-b8d8-08' limit 1 
+2019-3-5 11:18:17 http-nio-8081-exec-6 DEBUG ==> Parameters: 
+2019-3-5 11:18:17 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:18 http-nio-8081-exec-8 DEBUG ==>  Preparing: SELECT ID_ as id,ORG_NAME as name,PARENT_ID as parentId ,1 AS TYPES,'true' open FROM sec_org WHERE DELETED=0 
+2019-3-5 11:18:18 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-5 11:18:18 http-nio-8081-exec-8 DEBUG <==      Total: 3
+2019-3-5 11:18:18 http-nio-8081-exec-7 DEBUG ==>  Preparing: SELECT count(0) FROM sec_user u LEFT JOIN sec_org so ON u.ORG_id = so.ID_ WHERE u.DELETED = 0 
+2019-3-5 11:18:18 http-nio-8081-exec-7 DEBUG ==> Parameters: 
+2019-3-5 11:18:18 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-5 11:18:18 http-nio-8081-exec-7 DEBUG ==>  Preparing: SELECT u.*,so.TYPE FROM sec_user u LEFT JOIN sec_org so on u.ORG_id = so.ID_ WHERE u.DELETED=0 ORDER BY u.CREATE_TIME DESC limit ?,? 
+2019-3-5 11:18:18 http-nio-8081-exec-7 DEBUG ==> Parameters: 0(Integer), 10(Integer)
+2019-3-5 11:18:18 http-nio-8081-exec-7 DEBUG <==      Total: 10
+2019-3-5 11:18:21 http-nio-8081-exec-9 DEBUG ==>  Preparing: select * from sec_menu where ID_='062af654-9c05-4112-b8d8-50' limit 1 
+2019-3-5 11:18:21 http-nio-8081-exec-9 DEBUG ==> Parameters: 
+2019-3-5 11:18:21 http-nio-8081-exec-9 DEBUG <==      Total: 1
+2019-3-5 11:18:21 http-nio-8081-exec-10 DEBUG ==>  Preparing: select type_id typeId, code, name, parent_id parentId,case when parent_id = '0' or parent_id = 'CD0001' then true else false end open from stock_product_type order by create_time 
+2019-3-5 11:18:21 http-nio-8081-exec-10 DEBUG ==> Parameters: 
+2019-3-5 11:18:21 http-nio-8081-exec-10 DEBUG <==      Total: 8
+2019-3-5 11:18:21 http-nio-8081-exec-1 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT t.stock_id, t.clinic_id, t.type_id, t.product_type, t.product_code, t.product_unit, t.product_name, t.product_model, t.product_spec, t.product_brand, t.stock_num, t.stock_num * t.sprice combined, t.end_time, t.sprice, t.money, t.remark, CASE WHEN t.allowance IS NOT NULL THEN t.allowance ELSE 0 END allowance FROM (SELECT stock_id, clinic_id, type_id, product_type, product_code, product_unit, product_name, product_model, product_spec, product_brand, stock_num, end_time, sprice, money, remark, (SELECT sum(allowance) FROM stock_in_out_de WHERE clinic_id = stock.clinic_id AND in_out_code = stock.product_code AND now() > end_time) allowance FROM stock WHERE clinic_id = ? AND stock_num > 0) t) t LEFT JOIN stock_warn b ON b.clinic_id = t.clinic_id AND t.product_code = b.warn_pro_id 
+2019-3-5 11:18:21 http-nio-8081-exec-1 DEBUG ==> Parameters: 122(String)
+2019-3-5 11:18:21 http-nio-8081-exec-1 DEBUG <==      Total: 1
+2019-3-5 11:18:22 http-nio-8081-exec-2 DEBUG ==>  Preparing: select type_id typeId, code, name, parent_id parentId,case when parent_id = '0' or parent_id = 'CD0001' then true else false end open from stock_product_type order by create_time 
+2019-3-5 11:18:22 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-5 11:18:22 http-nio-8081-exec-2 DEBUG <==      Total: 8
+2019-3-5 11:18:22 http-nio-8081-exec-3 DEBUG ==>  Preparing: select t.* from ( select * from stock_product_type where 1=1 order by create_time) t LIMIT 10 OFFSET 0 
+2019-3-5 11:18:22 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-5 11:18:22 http-nio-8081-exec-3 DEBUG <==      Total: 8
+2019-3-5 11:18:22 http-nio-8081-exec-3 DEBUG ==>  Preparing: select count(*) from stock_product_type where 1=1 
+2019-3-5 11:18:22 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-5 11:18:22 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-5 11:18:22 http-nio-8081-exec-4 DEBUG ==>  Preparing: select type_id typeId, code, name, parent_id parentId,case when parent_id = '0' or parent_id = 'CD0001' then true else false end open from stock_product_type order by create_time 
+2019-3-5 11:18:22 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-5 11:18:22 http-nio-8081-exec-4 DEBUG <==      Total: 8
+2019-3-5 11:18:22 http-nio-8081-exec-5 DEBUG ==>  Preparing: select * from (select * from stock_product where 1=1 ) t LIMIT 10 OFFSET 0 
+2019-3-5 11:18:22 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-5 11:18:22 http-nio-8081-exec-5 DEBUG <==      Total: 10
+2019-3-5 11:18:22 http-nio-8081-exec-5 DEBUG ==>  Preparing: select count(*) from stock_product where 1=1 
+2019-3-5 11:18:22 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-5 11:18:22 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: select code id, name from stock_product_type 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 8
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: M(String)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: 44fdaee8-318b-4232-a3fb-3c40d61ebd8d(String), M004385(String), 牙刷(String), CD000260(String), 耗材(String), (String), (String), (String), 支(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.475(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: 63050e66-ea7d-4f04-99c4-5cf66c2412ce(String), M004386(String), 保温杯(String), CD000264(String), 日常用品(String), (String), (String), (String), 个(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.483(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: d489a45e-5c58-4479-9a5f-d1757e60f2dc(String), M004387(String), 充电宝(String), CD000264(String), 日常用品(String), (String), (String), (String), 个(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.491(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: 7b0b1c8e-f662-43ad-8445-84ced0bd4e5b(String), M004388(String), 光盘(String), CD000263(String), 办公用品(String), (String), (String), (String), 张(String), 1.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.498(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: f934c87b-cbe9-47eb-96a3-2f84d0d13c71(String), M004389(String), 长尾夹(String), CD000263(String), 办公用品(String), (String), (String), (String), 盒(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.507(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: 8bd9d7dd-abfc-45a2-9e72-0d1010bc7544(String), M004390(String), 挂钩(String), CD000263(String), 办公用品(String), (String), (String), (String), 个(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.514(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: 47a36723-e206-45b3-91f5-1906ad3329ae(String), M004391(String), 一次性杯子盒(String), CD000263(String), 办公用品(String), (String), (String), (String), 个(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.522(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: 07bbbf41-4032-4a9e-8fab-8963ca17bf12(String), M004392(String), 快干印油(String), CD000263(String), 办公用品(String), (String), (String), (String), 瓶(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.53(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: e29ca26f-281c-47a2-a5c1-296c20738850(String), M004393(String), 黑色墨水(String), CD000263(String), 办公用品(String), (String), (String), (String), 瓶(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.537(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: 493d7d2b-ba82-4883-a7d2-77e914dd49e5(String), M004394(String), 香薰(String), CD000264(String), 日常用品(String), (String), (String), (String), 瓶(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.543(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: bd11cfb2-9d74-41a9-8ba3-f5d414bc6c02(String), M004395(String), A4纸(String), CD000263(String), 办公用品(String), (String), (String), (String), 包(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.552(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: e84a5552-414d-4dc5-aa49-75f86c1a3d05(String), M004396(String), A5纸(String), CD000263(String), 办公用品(String), (String), (String), (String), 包(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.558(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG ==> Parameters: 08b3a6df-be6b-4b70-a67d-5371d91a3298(String), M004397(String), 打孔机(String), CD000263(String), 办公用品(String), (String), (String), (String), 个(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.565(Timestamp)
+2019-3-5 11:18:31 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 60dae849-088a-4838-9eb4-162ccc6320cc(String), M004398(String), 装订夹(String), CD000263(String), 办公用品(String), (String), (String), (String), 盒(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.572(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: dd521c8b-100e-42f0-a633-f16f908b1cc9(String), M004399(String), 订书针(String), CD000263(String), 办公用品(String), (String), (String), (String), 盒(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.579(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 795c904a-fe0d-4713-97b4-22c5c0ec4524(String), M004400(String), 中性笔（蓝色）(String), CD000263(String), 办公用品(String), (String), (String), (String), 支(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.585(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: ef0fd300-cb61-4670-86ee-381c03fb751c(String), M004401(String), 中性笔（黑色）(String), CD000263(String), 办公用品(String), (String), (String), (String), 支(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.591(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 6547b674-bdf2-47a8-9bd1-248057ced1e2(String), M004402(String), 中性笔（红色）(String), CD000263(String), 办公用品(String), (String), (String), (String), 支(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.601(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: fe1c000d-0818-42e5-ba3d-59e9afb102c6(String), M004403(String), 铅笔(String), CD000263(String), 办公用品(String), (String), (String), (String), 支(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.608(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 5a6a7fd0-6956-4acf-857b-eaa3f8a322ba(String), M004404(String), 笔记本(String), CD000263(String), 办公用品(String), (String), (String), (String), 本(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.615(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 03e77cdc-6113-41c6-8d94-2d97f5071fc0(String), M004405(String), 便利贴(String), CD000263(String), 办公用品(String), (String), (String), (String), 本(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.623(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 9d2d5d0b-a15d-4a3a-be54-dccc353485c7(String), M004406(String), A5拉边袋(String), CD000263(String), 办公用品(String), (String), (String), (String), 个(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.63(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: bff8c1a5-9149-4297-9784-aaa6de9976dd(String), M004407(String), A4文件袋(String), CD000263(String), 办公用品(String), (String), (String), (String), 个(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.637(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 60d98e97-36f2-4075-b6e6-bc2c3289f212(String), M004408(String), 修正带(String), CD000263(String), 办公用品(String), (String), (String), (String), 个(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.643(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 7183d1ed-2a23-405d-930e-435f0b60b515(String), M004409(String), 502胶水(String), CD000263(String), 办公用品(String), (String), (String), (String), 支(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.65(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: d2597ef2-26ca-4d53-8803-abff1de8c719(String), M004410(String), 7号得力电池(String), CD000263(String), 办公用品(String), (String), (String), (String), 个(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.657(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: ae885457-be9d-4118-82d6-0a7e0ab2f46d(String), M004411(String), 苹果手机充电线(String), CD000260(String), 耗材(String), (String), (String), (String), 条(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.663(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 01341cdb-1e63-4248-bbfa-ffcef82e63a5(String), M004412(String), 一次性杯子(String), CD000260(String), 耗材(String), (String), (String), (String), 50个/包；包(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.669(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 5ed24c6a-dcf0-4366-a4f6-c48d1009d874(String), M004413(String), 空气清新剂(String), CD000264(String), 日常用品(String), (String), (String), (String), 瓶(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.676(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 594f729a-7cd6-4176-bc4a-99e31c3e27ac(String), M004414(String), 玻璃亮光清洁剂(String), CD000264(String), 日常用品(String), (String), (String), (String), 包(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.683(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: f2d0e9c9-b348-488f-aee7-ddd4c257f8ca(String), M004415(String), 威猛先生(String), CD000264(String), 日常用品(String), (String), (String), (String), 瓶(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.69(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 8436980f-96a6-4fc3-a911-541490e200a1(String), M004416(String), 胶棉拖把头(String), CD000264(String), 日常用品(String), (String), (String), (String), 个(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.698(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: c330c584-e3a9-4793-93bb-1ed3518e25f6(String), M004417(String), 毛巾(String), CD000264(String), 日常用品(String), (String), (String), (String), 条(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.704(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: d0f19f29-6c28-46ee-8011-706da8d65407(String), M004418(String), 擦手纸(String), CD000264(String), 日常用品(String), (String), (String), (String), 包(String), 3.14(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.71(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 49abcca8-6465-43e8-82b0-636cdb407c1c(String), M004419(String), 纸巾(String), CD000264(String), 日常用品(String), (String), (String), (String), 包(String), 2.5(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.72(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 0d4cfe5d-fc7c-4d08-894c-c8f6d5201fce(String), M004420(String), 矿泉水(String), CD000263(String), 办公用品(String), (String), (String), (String), 瓶(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.725(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 3574cc98-a5b5-4ff2-984c-1b4ad2962a13(String), M004421(String), 黑人细滑牙线棒(String), CD000260(String), 耗材(String), (String), (String), (String), 盒(String), 23.9(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.731(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 9c1fd540-8c46-4b7f-befd-1a980fee26c7(String), M004422(String), 漱口水袋子(String), CD000260(String), 耗材(String), (String), (String), (String), 20个/扎；扎(String), 0.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.736(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: dbc91a8b-3198-49b2-ab3e-3dd49ab2fc87(String), M004423(String), 外套+裙子（前台）(String), CD000279(String), 工服(String), (String), M(String), (String), 套(String), 358.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.741(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 08c27245-7001-45f5-9d93-f03d01318b10(String), M004424(String), 外套+裙子（前台）(String), CD000279(String), 工服(String), (String), S(String), (String), 套(String), 358.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.75(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 9c5b15fa-b100-466b-b97d-109bcf523742(String), M004425(String), 医生白大褂女款（1）(String), CD000279(String), 工服(String), (String), S(String), (String), 件(String), 338.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.756(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 1c9d8f5b-a694-4478-8f1d-5a8e7e4d8fb2(String), M004426(String), 医生白大褂女款（2）(String), CD000279(String), 工服(String), (String), S(String), (String), 件(String), 288.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.762(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: c0c5e731-e97f-4bbe-a648-9cdd2955a5c0(String), M004427(String), 医生白大褂女款（2）(String), CD000279(String), 工服(String), (String), M(String), (String), 件(String), 288.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.768(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: df6aa406-af5f-4f17-8233-f64bbf625900(String), M004428(String), 医生白大褂（男款）(String), CD000279(String), 工服(String), (String), L(String), (String), 件(String), 288.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.775(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 79bb469d-41ac-4d93-a940-71ac39ba5f04(String), M004429(String), 医生白大褂（男款）(String), CD000279(String), 工服(String), (String), M(String), (String), 件(String), 288.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.781(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 31767d87-55d2-46ef-9d69-98ee7a57be11(String), M004430(String), 医生白大褂（男款）(String), CD000279(String), 工服(String), (String), S(String), (String), 件(String), 288.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.788(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: da72f79c-e689-4b4e-a474-8b98047e108d(String), M004431(String), 短袖洗手衣（女款）(String), CD000279(String), 工服(String), (String), L(String), (String), 套(String), 168.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.794(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: c332f63c-1f74-459f-bee1-68b255e42510(String), M004432(String), 短袖洗手衣男款（1）(String), CD000279(String), 工服(String), (String), 3XL(String), (String), 套(String), 185.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.8(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 0315eb4f-bd1a-448c-b7b5-0097b00a4c38(String), M004433(String), 短袖洗手衣男款（1）(String), CD000279(String), 工服(String), (String), XXL(String), (String), 套(String), 185.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.805(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 349664fc-42c5-4ada-91b8-63ca81e53b61(String), M004434(String), 短袖洗手衣男款（2）(String), CD000279(String), 工服(String), (String), S(String), (String), 套(String), 180.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.811(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 513dfb93-321f-4ba1-b480-febc029fad26(String), M004435(String), 短袖洗手衣男款（2）(String), CD000279(String), 工服(String), (String), M(String), (String), 套(String), 180.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.818(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 5be493c1-3c58-4068-9962-20e8d4ead672(String), M004436(String), 短袖洗手衣男款（2）(String), CD000279(String), 工服(String), (String), L(String), (String), 套(String), 180.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.824(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 48b8cdf3-950a-4eee-abb2-b852fed00793(String), M004437(String), 短袖洗手衣男款（2）(String), CD000279(String), 工服(String), (String), XL(String), (String), 套(String), 180.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.83(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 682a8644-c3cf-4657-8aa2-e6f7faf37877(String), M004438(String), 外套长袖(String), CD000279(String), 工服(String), (String), XL(String), (String), 件(String), 50.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.836(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 6058bd11-d2f8-4fe2-949a-ef1c9dad4888(String), M004439(String), 外套长袖(String), CD000279(String), 工服(String), (String), L(String), (String), 件(String), 50.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.841(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 59f57fef-cdab-454b-9167-ab23c908e8b7(String), M004440(String), 外套长袖(String), CD000279(String), 工服(String), (String), M(String), (String), 件(String), 50.0(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.847(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 4556e3fd-7254-461e-b00e-d90f17a27fcc(String), M004441(String), 手术帽(String), CD000279(String), 工服(String), (String), (String), (String), 顶(String), 16.9(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.854(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: cab613ac-4041-4cf7-97db-bd54393bbe18(String), M004442(String), 护士帽(String), CD000279(String), 工服(String), (String), (String), (String), 顶(String), 8.3(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.859(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: b88242b3-ad00-4ba4-91d8-1a7b07d2f57e(String), M004443(String), 护士鞋(String), CD000279(String), 工服(String), (String), 39码(String), (String), 双(String), 52.5(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.866(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 31288f2f-4407-474d-a2e5-1f6035996706(String), M004444(String), 护士鞋(String), CD000279(String), 工服(String), (String), 38码(String), (String), 双(String), 52.5(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.873(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 4a673adc-9799-43a4-990b-0ece26390e3e(String), M004445(String), 护士鞋(String), CD000279(String), 工服(String), (String), 37码(String), (String), 双(String), 52.5(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.879(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 4ad463c9-6bd0-4144-919f-465a0d0a940c(String), M004446(String), 护士鞋(String), CD000279(String), 工服(String), (String), 36码(String), (String), 双(String), 52.5(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.886(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==>  Preparing: INSERT INTO stock_product ( product_id,product_code,product_name,type_id,product_type,product_model,product_spec,product_brand,product_unit,in_stock_price,sell_price,user_id,user_name,add_time ) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) 
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG ==> Parameters: 1b308cd4-8843-4b1d-8276-c325ec939c7c(String), M004447(String), 护士鞋(String), CD000279(String), 工服(String), (String), 35码(String), (String), 双(String), 52.5(Double), 0.0(Double), 1(String), admin(String), 2019-03-05 11:18:31.892(Timestamp)
+2019-3-5 11:18:32 http-nio-8081-exec-6 DEBUG <==    Updates: 1
+2019-3-5 11:18:32 http-nio-8081-exec-8 DEBUG ==>  Preparing: select * from (select * from stock_product where 1=1 ) t LIMIT 10 OFFSET 0 
+2019-3-5 11:18:32 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-5 11:18:32 http-nio-8081-exec-8 DEBUG <==      Total: 10
+2019-3-5 11:18:32 http-nio-8081-exec-8 DEBUG ==>  Preparing: select count(*) from stock_product where 1=1 
+2019-3-5 11:18:32 http-nio-8081-exec-8 DEBUG ==> Parameters: 
+2019-3-5 11:18:32 http-nio-8081-exec-8 DEBUG <==      Total: 1
+2019-3-5 11:23:29 http-nio-8081-exec-10 DEBUG ==>  Preparing: select * from sec_menu where ID_='5eaa4b9d-3bf6-43c2-aac6-f4c9cb034167' limit 1 
+2019-3-5 11:23:29 http-nio-8081-exec-10 DEBUG ==> Parameters: 
+2019-3-5 11:23:29 http-nio-8081-exec-10 DEBUG <==      Total: 1
+2019-3-5 11:23:29 http-nio-8081-exec-1 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name from sec_org where DELETED = 0 and state = 1 and type='门诊' 
+2019-3-5 11:23:29 http-nio-8081-exec-1 DEBUG ==> Parameters: 
+2019-3-5 11:23:29 http-nio-8081-exec-1 DEBUG <==      Total: 2
+2019-3-5 11:23:29 http-nio-8081-exec-1 DEBUG ==>  Preparing: select ID_ id, USER_NAME name,ORG_ID orgId from sec_user where DELETED = 0 and STANDBY1 = '医生' 
+2019-3-5 11:23:29 http-nio-8081-exec-1 DEBUG ==> Parameters: 
+2019-3-5 11:23:29 http-nio-8081-exec-1 DEBUG <==      Total: 5
+2019-3-5 11:23:29 http-nio-8081-exec-2 DEBUG ==>  Preparing: select id_ id,user_name name,org_id clinic from sec_user where standby1='医生' and status = '启用' and deleted = 0 
+2019-3-5 11:23:29 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-5 11:23:29 http-nio-8081-exec-2 DEBUG <==      Total: 5
+2019-3-5 11:23:29 http-nio-8081-exec-3 DEBUG ==>  Preparing: select ID_ id ,ORG_NAME name,PARENT_ID pId,case when id_='122' then 1 else 0 end open from sec_org where DELETED = 0 and state = 1 
+2019-3-5 11:23:29 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-5 11:23:29 http-nio-8081-exec-3 DEBUG <==      Total: 3
+2019-3-5 11:23:29 http-nio-8081-exec-4 DEBUG ==>  Preparing: select c.*,o.ORG_NAME,(select u.USER_NAME from sec_user u where u.ID_=c.doctor) as USER_NAME,(select b.bl_time from cust_bl b where b.cust_id=c.cust_id ORDER BY b.bl_time LIMIT 1) as bl_time ,(select u.USER_NAME from sec_user u where u.ID_=c.early_doctor) as early_doctor_name,(select a.org_name from sec_org a where a.ID_ = c.early_clinic) as early_clinic_name from customer c,sec_org o where c.cust_clinic=o.ID_ 
+2019-3-5 11:23:29 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-5 11:23:29 http-nio-8081-exec-4 DEBUG <==      Total: 63

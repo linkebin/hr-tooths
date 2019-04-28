@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>制牙订单</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../../Styles/themes/default/style.css">
+		<link rel="stylesheet" href="../../../Styles/themes/default/cover-style.css">
+		<link rel="stylesheet" href="../../../Styles/themes/default/tooth-order-add.css">
+
+	</head>
+	<style>
+		.b1 {
+			color: #CCCCCC;
+		}
+		
+		.b2 {
+			color: #003EFF;
+		}
+		
+		table tr td ul li span a {
+			color: #CCCCCC;
+		}
+	</style>
+
+	<body>
+		<div class="eui-padding15 eui-row">
+			<div class="eui-tab eui-tab-brief eui-col-xs8" e-filter="docDemoTabBrief">
+
+				<div class=" eui-tab-card">
+					<div class="eui-tab eui-tab-brief" e-filter="docDemoTabBrief">
+						<ul class="eui-tab-title">
+							<li class="eui-this" id="takes">技工单A类</li>
+							<li>技工单B类</li>
+						</ul>
+						<div class="eui-tab-content" id="bd_str">
+							<div class="eui-tab-item eui-form-item eui-show" id="dayin1">
+								<form class="eui-form">
+									<div class="eui-row eui-padding5">
+										<div class="eui-col-xs4">
+											<p>订单编号：<span id="A_ddbh">1515151515</span></p>
+										</div>
+										<div class="eui-col-xs4">
+											<p>院所：<span id="A_orgName"></span></p>
+										</div>
+										<div class="eui-col-xs4">
+											<p>医师：<span id="A_docName"></span></p>
+										</div>
+									</div>
+									<div class="eui-row eui-padding5">
+										<div class="eui-col-xs4">
+											<p hidden="" id="A_orderTime">订单时间：<span></span></p>
+										</div>
+										<div class="eui-col-xs4">
+											<p>患者：<span id="A_custName"></span></p>
+										</div>
+										<div class="eui-col-xs4">
+											<p>性别：<span id="A_custSex"><input type="radio" name="sex" value="nan" title="男">
+															<input type="radio" name="sex" value="nan" title="女"></span></p>
+										</div>
+									</div>
+									<table class="eui-table" lay-even="" lay-skin="row">
+										<colgroup>
+											<!-- <col width="200">
+										<col width="150">
+										<col width="150">
+										<col> -->
+										</colgroup>
+										<tbody class="eui-form">
+											<tr hidden="hidden">
+												<td colspan="2">
+													<ul class="work-order-ul">
+														<li>出货日期：</li>
+														<li><span>2018</span>年<span>2</span>月<span>18</span>日</li>
+														<li>
+															<input type="radio" name="tim-1" value="nan" title="AM">
+															<span class="eui-unselect eui-form-radio">
+																<i class="eui-anim eui-icon work-order-icon"></i>
+																<span>AM</span>
+															</span>
+															<input type="radio" name="tim-1" value="nan" title="PM">
+															<span class="eui-unselect eui-form-radio eui-form-radioed">
+																<i class="eui-anim eui-icon eui-anim-scaleSpring work-order-icon"></i>
+																<span>PM</span>
+															</span>
+														</li>
+													</ul>
+												</td>
+												<td colspan="2">
+													<ul class="work-order-ul">
+														<li>寄件日期：</li>
+														<li><span>2018</span>年<span>2</span>月<span>18</span>日</li>
+														<li>
+															<input type="radio" name="tim-1" value="nan" title="AM">
+															<span class="eui-unselect eui-form-radio">
+																<i class="eui-anim eui-icon work-order-icon"></i>
+																<span>AM</span>
+															</span>
+															<input type="radio" name="tim-1" value="nan" title="PM">
+															<span class="eui-unselect eui-form-radio eui-form-radioed">
+																<i class="eui-anim eui-icon eui-anim-scaleSpring work-order-icon"></i>
+																<span>PM</span>
+															</span>
+														</li>
+													</ul>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" style="width: 45%!important;">
+													<ul>
+														<li>材料类型：</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;">
+														<li>
+															<input type="checkbox" name="materials" value="nan" title="歐洲進口 IV.CC" e-skin="primary" e-filter="encrypt">
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;">
+														<li>
+															<input type="checkbox" name="materials" value="nan" title="德國進口 Dental Direkt" e-skin="primary">
+															<input type="checkbox" name="materials" value="nan" title="透" e-skin="primary">
+															<input type="checkbox" name="materials" value="nan" title="超透" e-skin="primary">
+
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;">
+														<li>
+															<input type="checkbox" name="materials" value="nan" title="德國進口 Doceram" e-skin="primary">
+															<input type="checkbox" name="materials" value="nan" title="透" e-skin="primary">
+															<input type="checkbox" name="materials" value="nan" title="超透" e-skin="primary">
+
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;">
+														<li>
+															<input type="checkbox" name="materials" value="nan" title=" 日本進口 KATANA" e-skin="primary">
+														</li>
+													</ul>
+													<ul style="clear: both;margin-top: 40px;">
+														<li>贴面矯正类型：</li>
+													</ul>
+													<ul class="work-order-size">
+														<li>
+															<input type="radio" name="correct" value="nan" title="正常">
+														</li>
+														<li>
+															<input type="radio" name="correct" value="nan" title="小矯正 (≦3齿)">
+														</li>
+														<li>
+															<input type="radio" name="correct" value="nan" title="大矯正 (>3齿)">
+														</li>
+														<li>
+															<input type="radio" name="correct" value="nan" title="全数字化口腔矯正">
+														</li>
+													</ul>
+												</td>
+												<td colspan="2">
+													<div class="box-top">
+														<ul>
+															<li>附件：</li>
+														</ul>
+														<ul class="work-order-ul overflow-auto work-order-size">
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="数字檔" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="牙托" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="上颌模" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="下颌模" e-skin="primary">
+															</li>
+														</ul>
+														<ul class="work-order-ul overflow-auto work-order-size">
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="參考模" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="咬蜡" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="颌架" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="蜡型" e-skin="primary">
+															</li>
+														</ul>
+														<ul class="work-order-ul overflow-auto work-order-size">
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="照片" e-skin="primary">
+															</li>
+															<li>
+																<input class="other" type="checkbox" name="accessory" title="其他" e-skin="primary">
+																<input class="other-input" type="text" class="eui-input" placeholder="">
+															</li>
+														</ul>
+														<ul class="eui-marginT15">
+															<li>咬颌设计：</li>
+														</ul>
+														<ul class="work-order-ul overflow-auto work-order-size" style="padding-bottom: 8px;">
+															<li class="li-jaw-width">
+																<input type="checkbox" name="accessory" title="開咬" e-skin="primary">
+															</li>
+															<li class="li-jaw-width">
+																<input type="checkbox" name="accessory" title="軽咬(默认)" e-skin="primary">
+															</li>
+															<li class="li-jaw-width">
+																<input type="checkbox" name="accessory" title="重咬" e-skin="primary">
+															</li>
+														</ul>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</form>
+								<div class="overflow-auto eui-col-xs6">
+									<form class="eui-form">
+										<ul class="work-order-ul overflow-auto">
+											<li>牙位：<span></span></li>
+											<li class="li-Tooth-width">
+												<input type="checkbox" name="Tooth-bit" value="nan" title="单冠" e-skin="primary">
+											</li>
+											<li class="li-Tooth-width">
+												<input type="checkbox" name="Tooth-bit" value="nan" title="相连" e-skin="primary">
+											</li>
+										</ul>
+										<div class="Tooth-bit">
+											<table class="Tooth-bit-form">
+												<tbody>
+													<tr>
+														<td class="border-rb ToothBit1">
+															<ul class="Tooth-bit-left layui-tab-title">
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">1</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">2</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">3</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">4</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">5</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">6</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">7</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">8</a></span></li>
+															</ul>
+														</td>
+														<td class="ToothBit2">
+															<ul class="Tooth-bit-right layui-tab-title">
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">1</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">2</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">3</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">4</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">5</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">6</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">7</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">8</a></span></li>
+															</ul>
+														</td>
+													</tr>
+													<tr>
+														<td class="ToothBit3">
+															<ul class="Tooth-bit-left layui-tab-title">
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">1</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">2</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">3</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">4</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">5</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">6</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">7</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">8</a></span></li>
+															</ul>
+														</td>
+														<td class="border-tl ToothBit4">
+															<ul class="Tooth-bit-right layui-tab-title">
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">1</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">2</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">3</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">4</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">5</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">6</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">7</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">8</a></span></li>
+															</ul>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<div class="colorimetric-box overflow-auto" style="width: 40%;">
+
+												<ul class="work-order-ul colorimetric-ul">
+													<li class="colorimetric">比色：<span></span></li>
+													<li class="colorimetric-input">
+														<input type="text" class="eui-input" placeholder="">
+													</li>
+												</ul>
+												<ul class="work-order-ul colorimetric-ul">
+													<li class="change-color">基牙色是否变色：<span></span></li>
+													<li class="order-input">
+														<input type="text" class="eui-input" placeholder="">
+													</li>
+												</ul>
+											</div>
+											<div class="colorimetric-box overflow-auto" style="width: 90px;">
+												<img class="colorimetric-img" src="../../../Styles/images/colorimetric.png" />
+											</div>
+											<div class="colorimetric-box overflow-auto order-input" style="width: calc(50% - 90px);">
+												<div>
+													<input type="text" class="eui-input" placeholder="">
+												</div>
+												<div>
+													<input type="text" class="eui-input" placeholder="">
+												</div>
+												<div>
+													<input type="text" class="eui-input" placeholder="">
+												</div>
+											</div>
+										</div>
+
+									</form>
+
+								</div>
+								<div class="overflow-auto eui-col-xs6">
+									<ul class="work-order-ul overflow-auto">
+										<li>形态设计：</li>
+									</ul>
+									<ul class="work-order-ul overflow-auto holding-ul oppress">
+										<li class="holding-title">咬合面</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/holding-on1.png" data-img="../../../Styles/images/holding-on-1.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/holding-on2.png" data-img="../../../Styles/images/holding-on-2.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/holding-on3.png" data-img="../../../Styles/images/holding-on-3.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/holding-on4.png" data-img="../../../Styles/images/holding-on-4.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/holding-on5.png" data-img="../../../Styles/images/holding-on-5.png" />
+										</li>
+									</ul>
+									<ul class="work-order-ul overflow-auto holding-ul oppress">
+										<li class="holding-title">桥体设计</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/pontic1.png" data-img="../../../Styles/images/pontic-1.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/pontic2.png" data-img="../../../Styles/images/pontic-2.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/pontic3.png" data-img="../../../Styles/images/pontic-3.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/pontic4.png" data-img="../../../Styles/images/pontic-4.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/pontic5.png" data-img="../../../Styles/images/pontic-5.png" />
+										</li>
+									</ul>
+									<ul class="work-order-ul overflow-auto holding-ul oppress">
+										<li class="holding-title">三角牙缝</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/seam1.png" data-img="../../../Styles/images/seam-1.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/seam2.png" data-img="../../../Styles/images/seam-2.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/seam3.png" data-img="../../../Styles/images/seam-3.png" />
+										</li>
+
+									</ul>
+								</div>
+								<div class="overflow-auto eui-col-xs12">
+									<textarea class="textarea-bespread" rows="6" cols="">其他说明：</textarea>
+								</div>
+								<div class="eui-col-xs12 work-order-bottom overflow-auto">
+									<!-- <ul class="work-order-ul ">
+										<li class="eui-paddingLR20">工作查检</li>
+										<li>
+											<span>填写人员</span>
+											<input class="order-bottom-input float-right" type="text" placeholder="">
+										</li>
+									</ul> -->
+									<ul class="work-order-ul float-left">
+										<li class="eui-paddingLR20">
+											<span>工作查检</span>
+										</li>
+										<li>
+											<span>填写人员:</span>
+											<input class="order-bottom-input" type="text" placeholder="">
+										</li>
+									</ul>
+									<ul class="work-order-ul float-right">
+										<li>
+											<span>Milling:</span>
+											<input class="order-right-input" type="text" placeholder="">
+										</li>
+										<li>
+											<span>Glaze:</span>
+											<input class="order-right-input" type="text" placeholder="">
+										</li>
+										<li>
+											<span>QC:</span>
+											<input class="order-right-input" type="text" placeholder="">
+										</li>
+									</ul>
+								</div>
+								<div class="eui-col-xs12 overflow-auto text-center">
+									<p>深圳市千镱医疗器械有限公司 深圳市龙岗区坂田街道中兴路山海城市中心Ｂ栋305 +86 755 28348901</p>
+								</div>
+							</div>
+							<div class="eui-tab-item eui-form-item " id="dayin2">
+								<form class="eui-form">
+									<div class="eui-row eui-padding5">
+										<div class="eui-col-xs4">
+											<p>订单编号：<span id="B_ddbh">1515151515</span></p>
+										</div>
+										<div class="eui-col-xs4">
+											<p>院所：<span id="B_orgName"></span></p>
+										</div>
+										<div class="eui-col-xs4">
+											<p>医师：<span id="B_docName"></span></p>
+										</div>
+									</div>
+									<div class="eui-row eui-padding5">
+										<div class="eui-col-xs4">
+											<p hidden="" id="B_orderTime">订单时间：<span></span></p>
+										</div>
+										<div class="eui-col-xs4">
+											<p>患者：<span id="B_custName"></span></p>
+										</div>
+										<div class="eui-col-xs4">
+											<p>性别：<span id="B_custSex"><input type="radio" name="sex" value="nan" title="男">
+															<input type="radio" name="sex" value="nan" title="女"></span></p>
+										</div>
+									</div>
+									<table class="eui-table" lay-even="" lay-skin="row">
+										<colgroup>
+											<!-- <col width="200">
+																		<col width="150">
+																		<col width="150">
+																		<col> -->
+										</colgroup>
+										<tbody class="eui-form">
+											<tr hidden="hidden">
+												<td colspan="2">
+													<ul class="work-order-ul">
+														<li>寄件日期：</li>
+														<li><span>2018</span>年<span>2</span>月<span>18</span>日</li>
+														<li>
+															<input type="radio" name="tim-1" value="nan" title="AM">
+															<span class="eui-unselect eui-form-radio">
+																<i class="eui-anim eui-icon work-order-icon"></i>
+																<span>AM</span>
+															</span>
+															<input type="radio" name="tim-1" value="nan" title="PM">
+															<span class="eui-unselect eui-form-radio eui-form-radioed">
+																<i class="eui-anim eui-icon eui-anim-scaleSpring work-order-icon"></i>
+																<span>PM</span>
+															</span>
+														</li>
+													</ul>
+												</td>
+												<td colspan="2">
+													<ul class="work-order-ul">
+														<li>出货日期：</li>
+														<li><span>2018</span>年<span>2</span>月<span>18</span>日</li>
+														<li>
+															<input type="radio" name="tim-1" value="nan" title="AM">
+															<span class="eui-unselect eui-form-radio">
+																<i class="eui-anim eui-icon work-order-icon"></i>
+																<span>AM</span>
+															</span>
+															<input type="radio" name="tim-1" value="nan" title="PM">
+															<span class="eui-unselect eui-form-radio eui-form-radioed">
+																<i class="eui-anim eui-icon eui-anim-scaleSpring work-order-icon"></i>
+																<span>PM</span>
+															</span>
+														</li>
+													</ul>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" style="width: 45%!important;">
+													<ul>
+														<li>材料类型：</li>
+													</ul>
+													<ul class="work-order-size">
+														<li>
+															<input type="checkbox" name="materials" value="nan" title="歐洲進口 IV.CC" e-skin="primary">
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;margin-left: 30px;">
+														<li>
+															<input type="checkbox" name="Europe" value="nan" title="貼面" e-skin="primary">
+															<input type="checkbox" name="Europe" value="nan" title="嵌體" e-skin="primary">
+															<input type="checkbox" name="Europe" value="nan" title="單冠" e-skin="primary">
+															<input type="checkbox" name="Europe" value="nan" title="連冠" e-skin="primary">
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;">
+														<li>
+															<input type="checkbox" name="materials" value="nan" title="德國進口 Dental Direkt" e-skin="primary">
+															<input type="checkbox" name="materials" value="nan" title="透" e-skin="primary">
+															<input type="checkbox" name="materials" value="nan" title="超透" e-skin="primary">
+
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;margin-left: 30px;">
+														<li>
+															<input type="checkbox" name="Europe" value="nan" title="單冠" e-skin="primary">
+															<input type="checkbox" name="Europe" value="nan" title="連冠" e-skin="primary">
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;">
+														<li>
+															<input type="checkbox" name="materials" value="nan" title="德國進口 Doceram" e-skin="primary">
+															<input type="checkbox" name="materials" value="nan" title="透" e-skin="primary">
+															<input type="checkbox" name="materials" value="nan" title="超透" e-skin="primary">
+
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;margin-left: 30px;">
+														<li>
+															<input type="checkbox" name="Europe" value="nan" title="單冠" e-skin="primary">
+															<input type="checkbox" name="Europe" value="nan" title="連冠" e-skin="primary">
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;">
+														<li>
+															<input type="checkbox" name="materials" value="nan" title=" 日本進口 KATANA" e-skin="primary">
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;margin-left: 30px;">
+														<li>
+															<input type="checkbox" name="Europe" value="nan" title="單冠" e-skin="primary">
+															<input type="checkbox" name="Europe" value="nan" title="連冠" e-skin="primary">
+														</li>
+													</ul>
+													<ul class="work-order-size" style="clear: both;margin-top: 40px;">
+														<li>咬颌设计：</li>
+													</ul>
+													<ul class="work-order-size">
+														<li>
+															<input type="checkbox" name="accessory" title="開咬" e-skin="primary">
+															<input type="checkbox" name="accessory" title="軽咬(默认)" e-skin="primary">
+															<input type="checkbox" name="accessory" title="重咬" e-skin="primary">
+														</li>
+													</ul>
+												</td>
+												<td colspan="2">
+													<div class="box-top">
+														<ul>
+															<li>附件：</li>
+														</ul>
+														<ul class="work-order-ul overflow-auto work-order-size">
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="数字檔" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="牙托" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="上颌模" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="下颌模" e-skin="primary">
+															</li>
+														</ul>
+														<ul class="work-order-ul overflow-auto work-order-size">
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="參考模" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="咬蜡" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="颌架" e-skin="primary">
+															</li>
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="蜡型" e-skin="primary">
+															</li>
+														</ul>
+														<ul class="work-order-ul overflow-auto work-order-size">
+															<li class="li-width">
+																<input type="checkbox" name="accessory" title="照片" e-skin="primary">
+															</li>
+															<li>
+																<input class="other" type="checkbox" name="accessory" title="其他" e-skin="primary">
+																<input class="other-input" type="text" class="eui-input" placeholder="">
+															</li>
+														</ul>
+														<ul class="work-order-ul colorimetric-ul">
+															<li class="change-color">种植体系统：<span></span></li>
+															<li class="order-input">
+																<input type="text" class="eui-input" placeholder="">
+															</li>
+														</ul>
+														<div class="gingiva-box">
+															<p class="text-center">牙龈压迫程度</p>
+															<ul class="work-order-ul overflow-auto holding-ul oppress">
+																<li>
+																	<img class="gingiva-img" src="../../../Styles/images/Gums-oppression1.png" data-img="../../../Styles/images/Gums-oppression-1.png" />
+																</li>
+																<li>
+																	<img class="gingiva-img" src="../../../Styles/images/Gums-oppression2.png" data-img="../../../Styles/images/Gums-oppression-2.png" />
+																</li>
+																<li>
+																	<img class="gingiva-img" src="../../../Styles/images/Gums-oppression3.png" data-img="../../../Styles/images/Gums-oppression-3.png" />
+																</li>
+															</ul>
+														</div>
+														<div class="design-box">
+															<p class="text-center">margin设计</p>
+															<ul class="work-order-ul overflow-auto holding-ul">
+																<li class="text-center">
+																	<img class="gingiva-img" src="../../../Styles/images/design.png" />
+																</li>
+																<li class="order-input">
+																	<input type="text" class="eui-input" placeholder="">
+																</li>
+															</ul>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</form>
+								<div class="overflow-auto eui-col-xs6">
+									<form class="eui-form">
+										<ul class="work-order-ul overflow-auto">
+											<li>牙位：<span></span></li>
+											<li class="li-Tooth-width">
+												<input type="radio" name="Tooth-bit" value="nan" title="单冠">
+											</li>
+											<li class="li-Tooth-width">
+												<input type="radio" name="Tooth-bit" value="nan" title="相连">
+											</li>
+										</ul>
+										<div class="Tooth-bit">
+											<table class="Tooth-bit-form">
+												<tbody>
+													<tr>
+														<td class="border-rb ToothBit1">
+															<ul class="Tooth-bit-left layui-tab-title">
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">1</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">2</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">3</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">4</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">5</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">6</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">7</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">8</a></span></li>
+															</ul>
+														</td>
+														<td class="ToothBit2">
+															<ul class="Tooth-bit-right layui-tab-title">
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">1</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">2</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">3</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">4</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">5</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">6</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">7</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">8</a></span></li>
+															</ul>
+														</td>
+													</tr>
+													<tr>
+														<td class="ToothBit3">
+															<ul class="Tooth-bit-left layui-tab-title">
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">1</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">2</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">3</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">4</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">5</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">6</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">7</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">8</a></span></li>
+															</ul>
+														</td>
+														<td class="border-tl ToothBit4">
+															<ul class="Tooth-bit-right layui-tab-title">
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">1</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">2</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">3</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">4</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">5</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">6</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">7</a></span></li>
+																<li><span class="Tooth-bit-span"><a onclick="bianse(this)">8</a></span></li>
+															</ul>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<div class="colorimetric-box overflow-auto" style="width: 40%;">
+
+												<ul class="work-order-ul colorimetric-ul">
+													<li class="colorimetric">比色：<span></span></li>
+													<li class="colorimetric-input">
+														<input type="text" class="eui-input" placeholder="">
+													</li>
+												</ul>
+												<ul class="work-order-ul colorimetric-ul">
+													<li class="change-color">基牙色是否变色：<span></span></li>
+													<li class="order-input">
+														<input type="text" class="eui-input" placeholder="">
+													</li>
+												</ul>
+											</div>
+											<div class="colorimetric-box overflow-auto" style="width: 30%;">
+												<img class="colorimetric-img" src="../../../Styles/images/colorimetric.png" />
+											</div>
+											<div class="colorimetric-box overflow-auto order-input" style="width: 20%;">
+												<div>
+													<input type="text" class="eui-input" placeholder="">
+												</div>
+												<div>
+													<input type="text" class="eui-input" placeholder="">
+												</div>
+												<div>
+													<input type="text" class="eui-input" placeholder="">
+												</div>
+											</div>
+										</div>
+
+									</form>
+
+								</div>
+								<div class="overflow-auto eui-col-xs6">
+									<ul class="work-order-ul overflow-auto">
+										<li>形态设计：</li>
+									</ul>
+									<ul class="work-order-ul overflow-auto holding-ul oppress">
+										<li class="holding-title">咬合面</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/holding-on1.png" data-img="../../../Styles/images/holding-on-1.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/holding-on2.png" data-img="../../../Styles/images/holding-on-2.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/holding-on3.png" data-img="../../../Styles/images/holding-on-3.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/holding-on4.png" data-img="../../../Styles/images/holding-on-4.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/holding-on5.png" data-img="../../../Styles/images/holding-on-5.png" />
+										</li>
+									</ul>
+									<ul class="work-order-ul overflow-auto holding-ul oppress">
+										<li class="holding-title">桥体设计</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/pontic1.png" data-img="../../../Styles/images/pontic-1.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/pontic2.png" data-img="../../../Styles/images/pontic-2.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/pontic3.png" data-img="../../../Styles/images/pontic-3.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/pontic4.png" data-img="../../../Styles/images/pontic-4.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/pontic5.png" data-img="../../../Styles/images/pontic-5.png" />
+										</li>
+									</ul>
+									<ul class="work-order-ul overflow-auto holding-ul oppress">
+										<li class="holding-title">三角牙缝</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/seam1.png" data-img="../../../Styles/images/seam-1.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/seam2.png" data-img="../../../Styles/images/seam-2.png" />
+										</li>
+										<li>
+											<img class="holding-on-img" src="../../../Styles/images/seam3.png" data-img="../../../Styles/images/seam-3.png" />
+										</li>
+
+									</ul>
+								</div>
+								<div class="overflow-auto eui-col-xs12">
+									<textarea class="textarea-bespread" rows="6" cols="">其他说明：</textarea>
+								</div>
+								<div class="eui-col-xs12 work-order-bottom overflow-auto">
+									<!-- <ul class="work-order-ul ">
+																		<li class="eui-paddingLR20">工作查检</li>
+																		<li>
+																			<span>填写人员</span>
+																			<input class="order-bottom-input float-right" type="text" placeholder="">
+																		</li>
+																	</ul> -->
+									<ul class="work-order-ul float-left">
+										<li class="eui-paddingLR20">
+											<span>工作查检</span>
+										</li>
+										<li>
+											<span>填写人员:</span>
+											<input class="order-bottom-input" type="text" placeholder="">
+										</li>
+									</ul>
+									<ul class="work-order-ul float-right">
+										<li>
+											<span>Milling:</span>
+											<input class="order-right-input" type="text" placeholder="">
+										</li>
+										<li>
+											<span>Glaze:</span>
+											<input class="order-right-input" type="text" placeholder="">
+										</li>
+										<li>
+											<span>QC:</span>
+											<input class="order-right-input" type="text" placeholder="">
+										</li>
+									</ul>
+								</div>
+								<div class="eui-col-xs12 overflow-auto text-center">
+									<p>深圳市千镱医疗器械有限公司 深圳市龙岗区坂田街道中兴路山海城市中心Ｂ栋305 +86 755 28348901</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--表格结尾，里面需删除的部分要去掉-->
+			<div class="eui-col-xs4 eui-padding10 eui-marginT20">
+				<div>
+					<div class="title-bar">
+						<div class="eui-btn-group float-right">
+							<!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+							<button type="button" class="eui-btn eui-btn eui-btn-small" id="sc_wj"><i class="eui-icon"></i>上传文件</button>
+							<!--<a href="###" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>删除</a>-->
+						</div>
+						<span class="title-main">
+							<i class="eui-icon eui-font20">&#xe62d;</i>
+							3D影像附件
+						</span>
+					</div>
+					<table id="tableDemo" e-filter="tableDemoFilter"></table>
+				</div>
+				<div>
+					<div class="title-bar">
+						<div class="eui-btn-group float-right">
+							<!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+							<button type="button" class="eui-btn eui-btn eui-btn-small" id="sc_tp"><i class="eui-icon"></i>上传图片</button>
+							<!--<a href="###" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>删除</a>-->
+						</div>
+						<span class="title-main">
+							<i class="eui-icon eui-font20">&#xe62d;</i>
+							其他图片
+						</span>
+					</div>
+					<table id="tableDemo1" e-filter="tableDemoFilters"></table>
+				</div>
+				<button class="eui-btn eui-margin20" id="tijiao" onclick="submits()">提交订单</button>
+			</div>
+		</div>
+		</div>
+		<script type="text/html" id="barDemo">
+			{{# if(d.reId!=null&&d.reId!=""){ }}
+			<div class="eui-btn-group">
+				<button class="eui-btn eui-btn-primary eui-btn-mini" e-event="get">下载</button>
+				<!--<a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del" id="xiugai"><i class="eui-icon" title="删除">&#xe640;</i></a>-->
+			</div>
+			{{# }else{ }}
+			<div class="eui-btn-group">
+				<button class="eui-btn eui-btn-primary eui-btn-mini" e-event="get">下载</button>
+				<a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+			</div>
+			{{# } }}
+
+		</script>
+
+		<!-- <script type="text/javascript" src="../../../../scripts/jquery-1.9.0.min.js"></script> -->
+		<!-- 引入代码高亮显示文件 -->
+		<script src="../../../Scripts/plugins/prism/prism.js"></script>
+		<script src="../../../Scripts/plugins/prism/line-numbers.js"></script>
+
+		<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+		<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../../Scripts/config.js"></script>
+		<script type="text/javascript" src="../../../Scripts/date2format.js"></script>
+
+		<script type="text/javascript">
+			//表单
+			eui.use(['form', 'layedit', 'laydate', 'table', 'element', 'upload'], function() {
+				var form = eui.form,
+					layer = eui.layer,
+					layedit = eui.layedit,
+					laydate = eui.laydate,
+					element = eui.element,
+					upload = eui.upload,
+					table = eui.table;
+				//常规用法
+				laydate.render({
+					elem: '#test1'
+				});
+
+				//上传文件
+				upload.render({
+					elem: '#sc_wj' //绑定元素
+						,
+					accept: 'file' //普通文件
+						,
+					url: basePath + '/sys/accessory/file' //上传接口
+						,
+					done: function(res, index, upload) { //每个文件提交一次触发一次。详见“请求成功的回调”
+						var SysAccessory = new Object();
+						SysAccessory.id = "id" + Sysflag;
+						SysAccessory.type = "1";
+						SysAccessory.accName = res.data.myFileName;
+						SysAccessory.creator = JSON.parse(window.sessionStorage.getItem("user")).id;
+						SysAccessory.createTime = res.data.createTime;
+						SysAccessory.url = res.data.path;
+						SysAccessory.reId = "";
+						Syslist1.push(SysAccessory);
+						Sysflag++;
+						table.reload('tableDemo', {
+
+							data: Syslist1
+
+						});
+					},
+					error: function() {
+						//请求异常回调
+					}
+				});
+
+				//上传图片
+				upload.render({
+					elem: '#sc_tp' //绑定元素
+						,
+					accept: 'file' //普通文件
+						,
+					url: basePath + '/sys/accessory/file' //上传接口
+						,
+					done: function(res, index, upload) { //每个文件提交一次触发一次。详见“请求成功的回调”
+						var SysAccessory = new Object();
+						SysAccessory.id = "id" + Sysflag;
+						SysAccessory.type = "2";
+						SysAccessory.accName = res.data.myFileName;
+						SysAccessory.creator = JSON.parse(window.sessionStorage.getItem("user")).id;
+						SysAccessory.createTime = res.data.createTime;
+						SysAccessory.url = res.data.path;
+						SysAccessory.reId = "";
+						Syslist2.push(SysAccessory);
+						Sysflag++;
+						table.reload('tableDemo1', {
+
+							data: Syslist2
+
+						});
+					},
+					error: function() {
+						//请求异常回调
+					}
+				});
+
+				form.on('checkbox', function(data) {
+					if($(data.elem).attr('checked') == true) {
+						$(data.elem).attr('checked', false);
+					} else {
+						$(data.elem).attr('checked', true);
+					}
+				});
+
+				form.on('radio', function(data) {
+					if($(data.elem).attr('checked') == true) {
+						$(data.elem).attr('checked', false);
+					} else {
+						$(data.elem).attr('checked', true);
+					}
+				});
+
+				//实例1:简单表格
+				table.render({
+					elem: '#tableDemo'
+						//   ,height: 350
+						//  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+						,
+					even: true //开启隔行背景
+						,
+					skin: 'row',
+					data: Syslist1,
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left'
+						}, {
+							field: 'accName',
+							minWidth: 100,
+							title: '名称'
+						}, {
+							field: 'create_time',
+							width: 150,
+							title: '时间',
+							templet: function(d) {
+								return new Date(d.createTime).Format('yyyy-MM-dd hh:mm:ss')
+							}
+						}, {
+							field: 'filed4',
+							width: 100,
+							title: '操作',
+							toolbar: '#barDemo',
+							unresize: true,
+							fixed: 'right'
+						}]
+					],
+					page: true,
+					limits: [10, 20, 30],
+					limit: 10 //每页默认显示的数量
+				});
+
+				table.render({
+					elem: '#tableDemo1'
+						//   ,height: 350
+						//  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+						,
+					even: true //开启隔行背景
+						,
+					skin: 'row',
+					data: Syslist2,
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left'
+						}, {
+							field: 'accName',
+							minWidth: 120,
+							title: '名称'
+						}, {
+							field: 'create_time',
+							width: 150,
+							title: '时间',
+							templet: function(d) {
+								return new Date(d.createTime).Format('yyyy-MM-dd hh:mm:ss')
+							}
+						}, {
+							field: 'filed4',
+							width: 100,
+							title: '操作',
+							toolbar: '#barDemo',
+							unresize: true,
+							fixed: 'right'
+						}]
+					],
+					page: true,
+					limits: [10, 20, 30],
+					limit: 10 //每页默认显示的数量
+				});
+
+				//监听工具条
+				table.on('tool(tableDemoFilter)', function(obj) {
+					if(obj.event === 'del') {
+						layer.confirm('真的删除行么', function(index) {
+							obj.del();
+							var list = [];
+							for(var i in Syslist1) {
+								var sys = Syslist1[i];
+								if(sys.id != obj.data.id) {
+									list.push(sys);
+								}
+							}
+							Syslist1 = list;
+							layer.close(index);
+						});
+					} else if(obj.event === 'get') {
+						window.open(basePath + obj.data.url);
+					}
+
+				});
+
+				//监听工具条
+				table.on('tool(tableDemoFilters)', function(obj) {
+					if(obj.event === 'del') {
+						layer.confirm('真的删除行么', function(index) {
+							obj.del();
+							var list = [];
+							for(var i in Syslist2) {
+								var sys = Syslist2[i];
+								if(sys.id != obj.data.id) {
+									list.push(sys);
+								}
+							}
+							Syslist2 = list;
+							layer.close(index);
+						});
+					} else if(obj.event === 'get') {
+						window.open(basePath + obj.data.url);
+					}
+
+				});
+			});
+
+			$(document).ready(function() {
+				cess();
+			});
+
+			function cess() {
+				$(".oppress li img").on("click", function() {
+					var img = $(this).attr("src")
+					var dataimg = $(this).attr("data-img")
+					$(this).attr("src", dataimg);
+					$(this).attr("data-img", img);
+
+				});
+				$("textarea").blur(function() {
+					$(this).html($(this).val());
+				});
+			}
+
+			//提交
+			function submits() {
+				$("#takes").click();
+				ToothOrder.doctor = JSON.parse(window.sessionStorage.getItem("user")).id;
+				ToothOrder.remark = $('#bd_str').html().replace(/[\r\n\t]/g, "");
+				ToothOrder.orderState="已提交";
+				var str = "add";
+				if(flag == 1) {
+					str = "update"
+				}
+				$.ajax({
+					type: "post",
+					url: basePath + "/sys/accessory/delete",
+					async: true,
+					data: {
+						ids: ToothOrder.orderId
+					},
+					success: function() {
+						$.ajax({
+							type: "post",
+							url: basePath + "/tooth/order/" + str,
+							async: true,
+							data: {
+								str: JSON.stringify(ToothOrder)
+							},
+							success: function(str) {
+								if(flag == 1) {
+									str = ToothOrder.orderId;
+								}
+								for(var item in Syslist1) {
+									var SysAccessory = Syslist1[item];
+									fileAdd(SysAccessory, str);
+								}
+								for(var item in Syslist2) {
+									var SysAccessory = Syslist2[item];
+									fileAdd(SysAccessory, str);
+								}
+								var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+								parent.layer.close(index); //关闭弹出的子页面窗口
+							}
+						});
+					}
+				});
+
+			}
+
+			//文件提交
+			function fileAdd(SysAccessory, ids) {
+				$.ajax({
+					type: "post",
+					url: basePath + "/sys/accessory/add",
+					async: true,
+					data: {
+						str: JSON.stringify(SysAccessory),
+						ids: ids
+					}
+				});
+			}
+
+			var path;
+			var createTime;
+			var myFileName;
+			var Syslist1 = [];
+			var Syslist2 = [];
+			var Sysflag = 1;
+			var ToothOrder = new Object();
+			var flag = 0;
+
+			//获取父窗口传递的数据
+			window.getcustName = function(names, sexs, cust_ids) {
+				flag = 0;
+				$('#tijiao').show();
+				cust_id = cust_ids;
+				$('#A_custName').html(names);
+				$('#B_custName').html(names);
+				$('#A_docName').html(getUserName());
+				$('#B_docName').html(getUserName());
+
+				$.ajax({
+					type: "post",
+					url: basePath + "/tooth/order/getOrederNumber",
+					async: true,
+					success: function(strs) {
+						$('#A_ddbh').html(strs.ddbh);
+						$('#B_ddbh').html(strs.ddbh);
+						$('#A_orgName').html(strs.orgName);
+						$('#B_orgName').html(strs.orgName);
+						ToothOrder.orderNumber = strs.ddbh;
+						ToothOrder.custName = names;
+						ToothOrder.custId = cust_ids;
+						ToothOrder.custSex = sexs;
+					}
+				});
+
+				if(sexs == '男') {
+					$('#A_custSex').html('<input type="radio" name="sex" value="nan" title="男" checked><input type="radio" name="sex" value="nan" title="女" disabled>');
+					$('#B_custSex').html('<input type="radio" name="sex" value="nan" title="男" checked><input type="radio" name="sex" value="nan" title="女" disabled>');
+				} else {
+					$('#A_custSex').html('<input type="radio" name="sex" value="nan" title="男" disabled><input type="radio" name="sex" value="nan" title="女" checked>');
+					$('#B_custSex').html('<input type="radio" name="sex" value="nan" title="男" disabled><input type="radio" name="sex" value="nan" title="女" checked>');
+				}
+				eui.form.render();
+
+				$(":text").change(function() {
+					$(this).attr("value", $(this).val());
+				});
+
+				$("textarea").change(function() {
+					$(this).attr("value", $(this).val());
+				});
+			}
+
+			//变色
+			function bianse(obj, flag) {
+				if(nobianse == 0) {
+					if($(obj).hasClass("b2")) {
+						$(obj).removeClass('b2');
+						$(obj).addClass('b1');
+					} else {
+						$(obj).removeClass('b1');
+						$(obj).addClass('b2');
+					}
+				}
+
+			}
+
+			var nobianse = 0;
+
+			//获取父窗口传递的数据
+			window.getOne = function(obj, flags) {
+				flag = 1;
+				ToothOrder = obj;
+				$('#bd_str').html(obj.remark);
+				//				$('#A_orgName').html(obj.orgName);
+				//				$('#B_orgName').html(obj.orgName);
+
+				$.ajax({
+					type: "post",
+					url: basePath + "/sys/accessory/detail",
+					async: true,
+					data: {
+						id: obj.orderId
+					},
+					success: function(data) {
+						var SysAccessorylist = data.data;
+						for(var item in SysAccessorylist) {
+							var SysAccessory = SysAccessorylist[item];
+							if(flags == "update") {
+								SysAccessory.reId = "";
+							}
+							if(SysAccessory.type == 1) {
+								Syslist1.push(SysAccessory);
+							} else {
+								Syslist2.push(SysAccessory);
+							}
+						}
+						if(eui.table != null) {
+							eui.table.reload('tableDemo', {
+
+								data: Syslist1
+
+							});
+							eui.table.reload('tableDemo1', {
+
+								data: Syslist2
+
+							});
+						}
+
+					}
+				});
+
+					$('#A_custSex').html(obj.custSex);
+					$('#B_custSex').html(obj.custSex);
+
+				if(flags == "update") {
+					eui.form.render();
+					cess();
+				} else {
+					$('#tijiao').hide();
+					$('#sc_tp').hide();
+					$('#sc_wj').hide();
+					nobianse = 1;
+					$("input").attr("readOnly", "true");
+					$("textarea").attr("readOnly", "true");
+				}
+
+				$(":text").change(function() {
+					$(this).attr("value", $(this).val());
+				});
+
+				$("textarea").change(function() {
+					$(this).attr("value", $(this).val());
+				});
+			}
+		</script>
+	</body>
+
+</html>

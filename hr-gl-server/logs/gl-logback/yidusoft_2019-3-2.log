@@ -1,0 +1,97 @@
+2019-3-2 11:52:01 main INFO The following profiles are active: dev
+2019-3-2 11:52:14 main DEBUG ==>  Preparing: SELECT * FROM sec_menu sm where deleted=0 AND sm.STANBY_ID1 = '2' ORDER BY SORT 
+2019-3-2 11:52:14 main DEBUG ==> Parameters: 
+2019-3-2 11:52:14 main DEBUG <==      Total: 48
+2019-3-2 11:52:22 localhost-startStop-1 INFO JedisPool注入成功！！
+2019-3-2 11:52:22 localhost-startStop-1 INFO redis地址：localhost:6379
+2019-3-2 11:52:37 main INFO Started BaseFrameApplication in 41.701 seconds (JVM running for 44.38)
+2019-3-2 14:19:12 http-nio-8081-exec-1 DEBUG ==>  Preparing: SELECT * FROM sec_menu WHERE DELETED = 0 AND ENABLED=1 AND STANBY_ID1='2' AND ID_ IN ( SELECT MENU_ID from sec_menu_member WHERE USER_ID =? UNION SELECT MENU_ID FROM sec_menu_role WHERE ROLE_ID IN ( SELECT ROLE_ID FROM sec_role_member m LEFT JOIN sec_role r ON m.ROLE_ID = r.ID_ WHERE m.USER_ID =? AND r.STATE=1 ) UNION SELECT o.MENU_ID FROM sec_menu_org o LEFT JOIN sec_user u ON o.ORG_ID = u.ORG_ID LEFT JOIN sec_org so ON so.ID_ = u.ORG_ID WHERE u.ID_ = ? AND so.STATE=1 ) ORDER BY sort 
+2019-3-2 14:19:12 http-nio-8081-exec-1 DEBUG ==> Parameters: 1(String), 1(String), 1(String)
+2019-3-2 14:19:12 http-nio-8081-exec-1 DEBUG <==      Total: 26
+2019-3-2 14:19:13 http-nio-8081-exec-2 DEBUG ==>  Preparing: select * from sec_menu where ID_='062af654-9c05-4112-b8d8-35' limit 1 
+2019-3-2 14:19:13 http-nio-8081-exec-2 DEBUG ==> Parameters: 
+2019-3-2 14:19:13 http-nio-8081-exec-2 DEBUG <==      Total: 1
+2019-3-2 14:19:13 http-nio-8081-exec-3 DEBUG ==>  Preparing: select count(*) from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') 
+2019-3-2 14:19:13 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-2 14:19:13 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-2 14:19:13 http-nio-8081-exec-3 DEBUG ==>  Preparing: select sum(sf_money) from cust_sfjl where date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') and sf_stat = '已收费' 
+2019-3-2 14:19:13 http-nio-8081-exec-3 DEBUG ==> Parameters: 
+2019-3-2 14:19:13 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-2 14:19:13 http-nio-8081-exec-4 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type ='门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-2 14:19:13 http-nio-8081-exec-4 DEBUG ==> Parameters: 
+2019-3-2 14:19:13 http-nio-8081-exec-4 DEBUG <==      Total: 2
+2019-3-2 14:19:13 http-nio-8081-exec-4 DEBUG ==>  Preparing: select b.ORG_NAME,case when a.num is null then 0 else a.num end NUM from sec_org b left join (select yy_clinic,count(*) num from yy_manage where date_format(yy_date,'%Y-%m-%d') >= date_format(?,'%Y-%m-%d') and date_format(?,'%Y-%m-%d') >= date_format(yy_date,'%Y-%m-%d') group by yy_clinic) a on a.yy_clinic = b.ID_ where b.type = '门诊' and b.DELETED = 0 order by a.num desc 
+2019-3-2 14:19:13 http-nio-8081-exec-4 DEBUG ==> Parameters: 2019-03-01(String), 2019-03-31(String)
+2019-3-2 14:19:13 http-nio-8081-exec-4 DEBUG <==      Total: 2
+2019-3-2 14:19:14 http-nio-8081-exec-5 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT t.* FROM (SELECT a.in_out_id, a.in_out_code, a.in_out_time, a.type, a.creator_id, a.creator, a.num, a.money, a.state, a.clinic_id, b.org_name FROM stock_in_out a, sec_org b WHERE a.clinic_id = b.id_ AND a.type != '领用' AND a.type != '退领') t) b LEFT JOIN stock_audit c ON b.in_out_id = c.in_out_id WHERE c.is_pass IS NULL OR b.state = 0.5 
+2019-3-2 14:19:14 http-nio-8081-exec-5 DEBUG ==> Parameters: 
+2019-3-2 14:19:14 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-2 14:19:15 http-nio-8081-exec-6 DEBUG ==>  Preparing: select * from sec_menu where ID_='062af654-9c05-4112-b8d8-50' limit 1 
+2019-3-2 14:19:15 http-nio-8081-exec-6 DEBUG ==> Parameters: 
+2019-3-2 14:19:15 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-2 14:19:16 http-nio-8081-exec-7 DEBUG ==>  Preparing: select type_id typeId, code, name, parent_id parentId,case when parent_id = '0' or parent_id = 'CD0001' then true else false end open from stock_product_type order by create_time 
+2019-3-2 14:19:16 http-nio-8081-exec-7 DEBUG ==> Parameters: 
+2019-3-2 14:19:16 http-nio-8081-exec-7 DEBUG <==      Total: 8
+2019-3-2 14:19:16 http-nio-8081-exec-8 DEBUG ==>  Preparing: SELECT count(0) FROM (SELECT t.stock_id, t.clinic_id, t.type_id, t.product_type, t.product_code, t.product_unit, t.product_name, t.product_model, t.product_spec, t.product_brand, t.stock_num, t.stock_num * t.sprice combined, t.end_time, t.sprice, t.money, t.remark, CASE WHEN t.allowance IS NOT NULL THEN t.allowance ELSE 0 END allowance FROM (SELECT stock_id, clinic_id, type_id, product_type, product_code, product_unit, product_name, product_model, product_spec, product_brand, stock_num, end_time, sprice, money, remark, (SELECT sum(allowance) FROM stock_in_out_de WHERE clinic_id = stock.clinic_id AND in_out_code = stock.product_code AND now() > end_time) allowance FROM stock WHERE clinic_id = ? AND stock_num > 0) t) t LEFT JOIN stock_warn b ON b.clinic_id = t.clinic_id AND t.product_code = b.warn_pro_id 
+2019-3-2 14:19:16 http-nio-8081-exec-8 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:16 http-nio-8081-exec-8 DEBUG <==      Total: 1
+2019-3-2 14:19:16 http-nio-8081-exec-9 DEBUG ==>  Preparing: select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator,b.num,b.money,c.user_name,c.audit_time,c.remark ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过' when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state from ( select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator,a.num,a.money,a.state from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') order by a.state,a.in_out_time desc) t LIMIT 10 OFFSET 0 ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.in_out_time desc,b.state 
+2019-3-2 14:19:16 http-nio-8081-exec-9 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:16 http-nio-8081-exec-9 DEBUG <==      Total: 10
+2019-3-2 14:19:16 http-nio-8081-exec-9 DEBUG ==>  Preparing: select count(*) from( select a.in_out_code from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') ) t 
+2019-3-2 14:19:16 http-nio-8081-exec-9 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:16 http-nio-8081-exec-9 DEBUG <==      Total: 1
+2019-3-2 14:19:21 http-nio-8081-exec-10 DEBUG ==>  Preparing: select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator_id,b.creator,b.num,b.money,b.clinic_id,c.user_name,c.audit_time,c.remark ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过' when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state from ( select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator_id,a.creator,a.num,a.money,a.state,a.clinic_id from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') order by a.state,a.in_out_time desc) t LIMIT 10 OFFSET 0 ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.in_out_time desc,b.state 
+2019-3-2 14:19:21 http-nio-8081-exec-10 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:21 http-nio-8081-exec-10 DEBUG <==      Total: 10
+2019-3-2 14:19:21 http-nio-8081-exec-10 DEBUG ==>  Preparing: select count(*) from ( select a.in_out_id from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') ) t 
+2019-3-2 14:19:21 http-nio-8081-exec-10 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:21 http-nio-8081-exec-10 DEBUG <==      Total: 1
+2019-3-2 14:19:22 http-nio-8081-exec-1 DEBUG ==>  Preparing: select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator,b.num,b.money,c.user_name,c.audit_time,c.remark ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过' when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state from ( select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator,a.num,a.money,a.state from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') order by a.state,a.in_out_time desc) t LIMIT 10 OFFSET 0 ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.in_out_time desc,b.state 
+2019-3-2 14:19:22 http-nio-8081-exec-1 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:22 http-nio-8081-exec-1 DEBUG <==      Total: 10
+2019-3-2 14:19:22 http-nio-8081-exec-1 DEBUG ==>  Preparing: select count(*) from( select a.in_out_code from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') ) t 
+2019-3-2 14:19:22 http-nio-8081-exec-1 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:22 http-nio-8081-exec-1 DEBUG <==      Total: 1
+2019-3-2 14:19:30 http-nio-8081-exec-2 DEBUG ==>  Preparing: select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator_id,b.creator,b.num,b.money,b.clinic_id,c.user_name,c.audit_time,c.remark ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过' when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state from ( select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator_id,a.creator,a.num,a.money,a.state,a.clinic_id from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') order by a.state,a.in_out_time desc) t LIMIT 10 OFFSET 0 ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.in_out_time desc,b.state 
+2019-3-2 14:19:30 http-nio-8081-exec-2 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:30 http-nio-8081-exec-2 DEBUG <==      Total: 10
+2019-3-2 14:19:30 http-nio-8081-exec-2 DEBUG ==>  Preparing: select count(*) from ( select a.in_out_id from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') ) t 
+2019-3-2 14:19:30 http-nio-8081-exec-2 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:30 http-nio-8081-exec-2 DEBUG <==      Total: 1
+2019-3-2 14:19:31 http-nio-8081-exec-3 DEBUG ==>  Preparing: select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator,b.num,b.money,c.user_name,c.audit_time,c.remark ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过' when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state from ( select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator,a.num,a.money,a.state from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') order by a.state,a.in_out_time desc) t LIMIT 10 OFFSET 0 ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.in_out_time desc,b.state 
+2019-3-2 14:19:31 http-nio-8081-exec-3 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:31 http-nio-8081-exec-3 DEBUG <==      Total: 10
+2019-3-2 14:19:31 http-nio-8081-exec-3 DEBUG ==>  Preparing: select count(*) from( select a.in_out_code from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') ) t 
+2019-3-2 14:19:31 http-nio-8081-exec-3 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:31 http-nio-8081-exec-3 DEBUG <==      Total: 1
+2019-3-2 14:19:32 http-nio-8081-exec-4 DEBUG ==>  Preparing: select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator_id,b.creator,b.num,b.money,b.clinic_id,c.user_name,c.audit_time,c.remark ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过' when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state from ( select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator_id,a.creator,a.num,a.money,a.state,a.clinic_id from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') order by a.state,a.in_out_time desc) t LIMIT 10 OFFSET 0 ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.in_out_time desc,b.state 
+2019-3-2 14:19:32 http-nio-8081-exec-4 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:32 http-nio-8081-exec-4 DEBUG <==      Total: 10
+2019-3-2 14:19:32 http-nio-8081-exec-4 DEBUG ==>  Preparing: select count(*) from ( select a.in_out_id from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') ) t 
+2019-3-2 14:19:32 http-nio-8081-exec-4 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:32 http-nio-8081-exec-4 DEBUG <==      Total: 1
+2019-3-2 14:19:33 http-nio-8081-exec-5 DEBUG ==>  Preparing: select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator,b.num,b.money,c.user_name,c.audit_time,c.remark ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过' when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state from ( select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator,a.num,a.money,a.state from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') order by a.state,a.in_out_time desc) t LIMIT 10 OFFSET 0 ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.in_out_time desc,b.state 
+2019-3-2 14:19:33 http-nio-8081-exec-5 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:33 http-nio-8081-exec-5 DEBUG <==      Total: 10
+2019-3-2 14:19:33 http-nio-8081-exec-5 DEBUG ==>  Preparing: select count(*) from( select a.in_out_code from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') ) t 
+2019-3-2 14:19:33 http-nio-8081-exec-5 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:33 http-nio-8081-exec-5 DEBUG <==      Total: 1
+2019-3-2 14:19:34 http-nio-8081-exec-6 DEBUG ==>  Preparing: select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator_id,b.creator,b.num,b.money,b.clinic_id,b.org_name,c.user_name,c.audit_time,c.remark ,case when b.state = 1 then '已完成' when b.state = 0.5 then '已发送' when c.is_pass is not null and c.is_pass = 1 then '已通过' when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state from ( select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator_id,a.creator,a.num,a.money,a.state,a.clinic_id,b.org_name from stock_in_out a,sec_org b where a.clinic_id != ? and(a.type='进货' or a.type='退货') and a.clinic_id = b.id_ order by a.state,a.in_out_time desc) t LIMIT 10 OFFSET 0 ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.in_out_time desc,b.state 
+2019-3-2 14:19:34 http-nio-8081-exec-6 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:34 http-nio-8081-exec-6 DEBUG <==      Total: 5
+2019-3-2 14:19:34 http-nio-8081-exec-6 DEBUG ==>  Preparing: select count(*) from ( select a.in_out_id from stock_in_out a where a.clinic_id != ? and (a.type='进货' or a.type='退货') ) t 
+2019-3-2 14:19:34 http-nio-8081-exec-6 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:34 http-nio-8081-exec-6 DEBUG <==      Total: 1
+2019-3-2 14:19:34 http-nio-8081-exec-7 DEBUG ==>  Preparing: select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator_id,b.creator,b.num,b.money,b.clinic_id,c.user_name,c.audit_time,c.remark ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过' when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state from ( select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator_id,a.creator,a.num,a.money,a.state,a.clinic_id from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') order by a.state,a.in_out_time desc) t LIMIT 10 OFFSET 0 ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.in_out_time desc,b.state 
+2019-3-2 14:19:34 http-nio-8081-exec-7 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:34 http-nio-8081-exec-7 DEBUG <==      Total: 10
+2019-3-2 14:19:34 http-nio-8081-exec-7 DEBUG ==>  Preparing: select count(*) from ( select a.in_out_id from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') ) t 
+2019-3-2 14:19:34 http-nio-8081-exec-7 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:34 http-nio-8081-exec-7 DEBUG <==      Total: 1
+2019-3-2 14:19:34 http-nio-8081-exec-8 DEBUG ==>  Preparing: select b.in_out_id,b.in_out_code,b.in_out_time,b.type,b.creator,b.num,b.money,c.user_name,c.audit_time,c.remark ,case when b.state = 1 then '已完成' when c.is_pass is not null and c.is_pass = 1 then '已通过' when c.is_pass is not null and c.is_pass = 0 then '未通过' else '未审核' end state from ( select t.* from ( select a.in_out_id,a.in_out_code,a.in_out_time,a.type,a.creator,a.num,a.money,a.state from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') order by a.state,a.in_out_time desc) t LIMIT 10 OFFSET 0 ) b left join stock_audit c on b.in_out_id = c.in_out_id order by b.in_out_time desc,b.state 
+2019-3-2 14:19:34 http-nio-8081-exec-8 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:34 http-nio-8081-exec-8 DEBUG <==      Total: 10
+2019-3-2 14:19:34 http-nio-8081-exec-8 DEBUG ==>  Preparing: select count(*) from( select a.in_out_code from stock_in_out a where a.clinic_id = ? and (a.type='进货' or a.type='退货') ) t 
+2019-3-2 14:19:34 http-nio-8081-exec-8 DEBUG ==> Parameters: 122(String)
+2019-3-2 14:19:34 http-nio-8081-exec-8 DEBUG <==      Total: 1

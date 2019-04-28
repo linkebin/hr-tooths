@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.CustJzMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.CustJz">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="jz_id" jdbcType="VARCHAR" property="jzId" />
+    <result column="jz_time" jdbcType="TIMESTAMP" property="jzTime" />
+    <result column="jz_cust" jdbcType="VARCHAR" property="jzCust" />
+    <result column="jz_project" jdbcType="VARCHAR" property="jzProject" />
+    <result column="jz_doctor" jdbcType="VARCHAR" property="jzDoctor" />
+    <result column="jz_type" jdbcType="VARCHAR" property="jzType" />
+    <result column="jz_cost" jdbcType="DOUBLE" property="jzCost" />
+    <result column="jz_clinic" jdbcType="VARCHAR" property="jzClinic" />
+  </resultMap>
+</mapper>

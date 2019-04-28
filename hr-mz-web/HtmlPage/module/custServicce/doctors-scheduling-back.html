@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>信息列表查询</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+</head>
+<body>
+
+
+
+
+<!--条件搜索 start-->
+<div class="eui-form eui-form-search">
+    <!-- 查询重置按钮-->
+    <div class="eui-btn-group">
+        <button class="eui-btn">查询</button>
+        <button class="eui-btn eui-btn-primary">重置</button>
+    </div>
+
+    <!--华丽的分割线-->
+    <div class="eui-form-item item-colspan2">
+        <label class="eui-form-label">计划时间：</label>
+        <div class="eui-input-block">
+            <input type="text" class="eui-input" placeholder="请输入查询关键字">
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
+<!--条件搜索 end-->
+
+<div class="infoList">
+    <!--标题 start-->
+
+    <div class="title-bar">
+        <div class="eui-btn-group float-right">
+            <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+            <a href="###" class="eui-btn eui-btn-small" data-method="addScheduling"><i class="eui-icon">&#xe654;</i>新建</a>
+            <a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe615;</i>查看</a>
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe642;</i>编辑</a>-->
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe601;</i>导入</a>-->
+            <!--<a href="###" class="eui-btn eui-btn-small"><i class="eui-icon">&#xe61f;</i>导出</a>-->
+            <a href="###" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>删除</a>
+        </div>
+        <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      计划列表
+    </span>
+        <span class="title-sub">
+
+    </span>
+    </div>
+
+    <!--标题 end-->
+    <!--表格 start-->
+    <script type="text/html" id="barDemo">
+        <div class="eui-btn-group">
+            <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>
+            <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="edit"><i class="eui-icon" title="编辑">&#xe642;</i></a>
+            <a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+        </div>
+    </script>
+    <table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+    <!--表格 end-->
+
+
+
+
+</div>
+
+
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+<script>
+
+    eui.use(['element','form', 'layedit', 'laydate','table'], function(){
+        var element = eui.element
+            ,form = eui.form
+            ,layer = eui.layer
+            ,layedit = eui.layedit
+            ,laydate = eui.laydate
+            ,table = eui.table;
+
+        //日期选择
+        laydate.render({
+            elem: '#dateTest'
+        });
+        //日期范围
+        laydate.render({
+            elem: '#dateTest2'
+            ,range: true
+        });
+
+//实例1:简单表格
+        table.render({
+            elem: '#tableDemo'
+            //   ,height: 350
+            //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+            ,even: true //开启隔行背景
+            ,skin:'row'
+            //  ,url: 'dataPage.json' //数据接口
+
+            ,cols: [[
+                {type:'checkbox',fixed:'left'}
+                ,{field:'filed1', width:200, title: '计划月份', sort: true}
+                ,{field:'filed2', width:120, title: '编制人'}  //增加 edit 表示开户了编辑状态
+                ,{field:'filed3',width:120, title: '编制时间'}
+                ,{field:'filed4', width:120, title: '计划状态'}
+                ,{field:'filed5', width:120, title: '所属诊所'}
+                ,{field:'filed7', title:'操作', width:120, toolbar: '#barDemo', unresize: true,fixed: 'right'}
+            ]]
+            ,data: [{
+                 "filed1": "2018年11月"
+                ,"filed2": "张乙浩"
+                ,"filed3": "2018年10月30日"
+                ,"filed4": "已确认"
+                ,"filed5": "广州天河"
+            }]
+            ,page: true
+            , limits: [10, 20, 30]
+            , limit: 10 //每页默认显示的数量
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(tableDemoFilter)', function(obj){
+            console.log(obj)
+        });
+
+        //监听工具条
+        table.on('tool(tableDemoFilter)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+            } else if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            }
+        });
+        var active = {
+            addScheduling: function () {
+
+                layer.open({
+                    type: 2,
+                    title: '新建计划',
+                    shadeClose: true,
+                    shade: 0.3,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['90%', '90%'],
+                    content: 'doctors-scheduling-info.html'
+                });
+            }
+        };
+        $('.eui-btn').on('click', function () {
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+    });
+</script>
+
+</body>
+</html>

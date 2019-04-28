@@ -1,0 +1,16 @@
+2019-4-10 18:31:31 http-nio-8081-exec-4 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-4-10 18:31:31 http-nio-8081-exec-4 DEBUG ==> Parameters: DKC(String)
+2019-4-10 18:31:31 http-nio-8081-exec-4 DEBUG <==      Total: 1
+2019-4-10 18:31:40 http-nio-8081-exec-1 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-4-10 18:31:40 http-nio-8081-exec-1 DEBUG ==> Parameters: DKC(String)
+2019-4-10 18:31:40 http-nio-8081-exec-1 DEBUG <==      Total: 1
+2019-4-10 18:32:58 main INFO The following profiles are active: dev
+2019-4-10 18:33:07 main DEBUG ==>  Preparing: SELECT * FROM sec_menu sm where deleted=0 AND sm.STANBY_ID1 = '2' ORDER BY SORT 
+2019-4-10 18:33:07 main DEBUG ==> Parameters: 
+2019-4-10 18:33:07 main DEBUG <==      Total: 48
+2019-4-10 18:33:07 main INFO JedisPool注入成功！！
+2019-4-10 18:33:07 main INFO redis地址：localhost:6379
+2019-4-10 18:33:20 main INFO Started BaseFrameApplicationTests in 28.538 seconds (JVM running for 31.278)
+2019-4-10 19:08:02 http-nio-8081-exec-2 DEBUG ==>  Preparing: SELECT f_getCode(?) as code 
+2019-4-10 19:08:02 http-nio-8081-exec-2 DEBUG ==> Parameters: DKC(String)
+2019-4-10 19:08:02 http-nio-8081-exec-2 DEBUG <==      Total: 1

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yidusoft.dao.YyManageMapper" >
+  <resultMap id="BaseResultMap" type="com.yidusoft.domain.YyManage" >
+    <id column="yy_id" property="yyId" jdbcType="VARCHAR" />
+    <result column="yy_code" property="yyCode" jdbcType="VARCHAR" />
+    <result column="yy_date" property="yyDate" jdbcType="TIMESTAMP" />
+    <result column="yy_time" property="yyTime" jdbcType="VARCHAR" />
+    <result column="yy_cust_name" property="yyCustName" jdbcType="VARCHAR" />
+    <result column="yy_cust_sex" property="yyCustSex" jdbcType="VARCHAR" />
+    <result column="yy_cust_tel" property="yyCustTel" jdbcType="VARCHAR" />
+    <result column="yy_clinic" property="yyClinic" jdbcType="VARCHAR" />
+    <result column="yy_doctor" property="yyDoctor" jdbcType="VARCHAR" />
+    <result column="yy_project" property="yyProject" jdbcType="VARCHAR" />
+    <result column="yy_source" property="yySource" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="yy_age" property="yyAge" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

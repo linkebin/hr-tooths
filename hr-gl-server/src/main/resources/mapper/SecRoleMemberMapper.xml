@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.SecRoleMemberMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.SecRoleMember">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID_" jdbcType="VARCHAR" property="id" />
+    <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+  </resultMap>
+  <delete id="removeUser" parameterType="java.util.Map">
+    DELETE FROM sec_role_member
+    WHERE
+	role_id = #{roleId}
+    AND user_id IN
+    <foreach item="item" index="index" collection="userList"
+             open="(" separator="," close=")"> #{item}
+
+    </foreach>
+
+  </delete>
+</mapper>

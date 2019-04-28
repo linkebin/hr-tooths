@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.CustBlMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.CustBl">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="bl_id" jdbcType="VARCHAR" property="blId" />
+    <result column="cust_id" jdbcType="VARCHAR" property="custId" />
+    <result column="jz_id" jdbcType="VARCHAR" property="jzId" />
+    <result column="bl_time" jdbcType="TIMESTAMP" property="blTime" />
+    <result column="bl_zs" jdbcType="VARCHAR" property="blZs" />
+    <result column="bl_xbs" jdbcType="VARCHAR" property="blXbs" />
+    <result column="bl_jws" jdbcType="VARCHAR" property="blJws" />
+    <result column="bl_yz" jdbcType="VARCHAR" property="blYz" />
+    <result column="bl_bz" jdbcType="VARCHAR" property="blBz" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="visit" jdbcType="VARCHAR" property="visit" />
+    <result column="doctor" jdbcType="VARCHAR" property="doctor" />
+    <result column="bl_gms" jdbcType="VARCHAR" property="blGms" />
+    <result column="add_user" jdbcType="VARCHAR" property="addUser" />
+  </resultMap>
+</mapper>

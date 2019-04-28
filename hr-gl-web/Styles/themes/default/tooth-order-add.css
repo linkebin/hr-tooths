@@ -1,0 +1,190 @@
+.eui-form-radio{
+	margin: 0;
+}
+.eui-form-radio span{
+	font-size: 13px;
+	margin-top: -3px;
+}
+.eui-form-radio i{
+	font-size: 18px;
+    margin-top: -4px;
+}
+.work-order-ul li{
+	float: left;
+	line-height: 30px!important;
+	margin-right: 10px;
+}
+.overflow-auto{
+	overflow: auto;
+}
+.box-top{
+	top: 8px;
+	bottom: 8px;
+}
+.li-width{
+	width: 80px;
+}
+.li-jaw-width{
+	width: 100px;
+}
+.other{
+	float: left;
+}
+.other-input{
+    border: 0px;
+	margin-top: 5px;
+	border-bottom: 1px solid #cbcbcb;
+	background-color: rgba(0,0,0,0);
+	width: 200px;
+
+}
+.work-order-box{
+	width: 48%;
+	float: left;
+	padding: 10px;
+}
+.work-order-size li span{
+	font-size: 12px!important;
+}
+.li-Tooth-width{
+	width: 80px;
+}
+.Tooth-bit{
+	width: 100%;
+	padding: 20px 0;
+}
+.Tooth-bit-form{
+	width: calc(100% - 40px);
+	text-align: center;
+	margin:10px ;
+}
+.Tooth-bit-form td{
+	padding: 10px 0;
+}
+.Tooth-bit-span a{
+	padding: 6px 3px;
+}
+.border-rb{
+	border-bottom: 1px solid #cbcbcb;
+	border-right: 1px solid #cbcbcb;
+}
+.border-tl{
+	border-top: 1px solid #cbcbcb;
+	border-left: 1px solid #cbcbcb;
+}
+.uccurrent a{
+	color: red;
+}
+.Tooth-bit-left{
+	padding-left: 10px;
+	
+}
+.Tooth-bit-left li{
+	float: right;
+}
+.Tooth-bit-right li{
+	float: left;
+}
+.ToothBit1,.ToothBit3{
+	padding-right: 10px!important;
+}
+.ToothBit2,.ToothBit4{
+	padding-left: 10px!important;
+}
+.change-color{
+	width: 112px;
+}
+.colorimetric{
+	width: 42px;
+}
+.colorimetric-input{
+	width: calc(100% - 62px);
+	float: left;
+}
+.colorimetric-input input{
+	border: 0px;
+	border-bottom: 1px solid #cbcbcb;
+	width: 100%;
+	height: 30px;
+}
+.order-input{
+	width: calc(100% - 75px);
+	float: left;
+	padding: 0;
+}
+.order-input input{
+	border: 0px;
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid #cbcbcb;
+	background-color: rgba(0,0,0,0);
+
+}
+.colorimetric-box{
+	width: 50%;
+	float: left;
+	padding: 20px 0;
+}
+.colorimetric-ul{
+	clear: both;
+	margin: 15px 0 10px 0;
+	overflow: auto;
+}
+.colorimetric-img{
+	width: 80px;
+	padding-left: 10px;
+	cursor:pointer;
+}
+.holding-ul{
+	line-height: 45px;
+	margin-top: 20px;
+}
+.holding-on-img{
+	width: 35px;
+	cursor:pointer;
+}
+.holding-title{
+	width: 70px;
+}
+.textarea-bespread{
+	width: calc(100% - 22px);
+	padding: 5px 10px;
+	border: 1px solid #cbcbcb;
+}
+.work-order-bottom{
+	border: 1px solid #cbcbcb;
+	padding: 10px;
+	margin-top: 10px;
+}
+.order-bottom-input{
+	width: 120px;
+	border: 0px;
+	border-bottom: 1px solid #cbcbcb;
+}
+.order-right-input{
+	width: 80px;
+	border: 0px;
+	border-bottom: 1px solid #cbcbcb;
+}
+.text-center{
+	text-align: center;
+}
+.gingiva-box{
+	width: 50%;
+	float: left;
+}
+.design-box{
+	width: 40%;
+	float: left;
+}
+.gingiva-img{
+	width: 50px;
+	margin: 0 auto;
+	cursor:pointer;
+}
+.eui-table td, .eui-table th{
+	padding: 5px 10px!important;
+}
+.eui-tab-card{
+	border: 1px solid rgba(0,0,0,0.1)!important;
+}

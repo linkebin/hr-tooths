@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.CustReturnMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.CustReturn">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id_" jdbcType="VARCHAR" property="id" />
+    <result column="return_state" jdbcType="VARCHAR" property="returnState" />
+    <result column="doctor" jdbcType="VARCHAR" property="doctor" />
+    <result column="return_time" jdbcType="TIMESTAMP" property="returnTime" />
+    <result column="return_content" jdbcType="VARCHAR" property="returnContent" />
+    <result column="return_result" jdbcType="VARCHAR" property="returnResult" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="jz_time" jdbcType="TIMESTAMP" property="jzTime" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="cust_id" jdbcType="VARCHAR" property="custId" />
+    <result column="deleted" jdbcType="VARCHAR" property="deleted" />
+  </resultMap>
+
+  <select id="getReturnS" resultType="java.util.Map" parameterType="String">
+        SELECT
+            a.*,b.cust_clinic,b.cust_name
+        FROM
+            cust_return a
+        LEFT JOIN customer b ON a.cust_id = b.cust_id
+        WHERE a.deleted = 0
+       <if test="orgId!=null and orgId!=''">and b.cust_clinic= #{orgId}</if>
+       <if test="custId!=null and custId!=''">and b.cust_id= #{custId}</if>
+        order BY  a.return_state DESC,a.return_time
+  </select>
+
+</mapper>

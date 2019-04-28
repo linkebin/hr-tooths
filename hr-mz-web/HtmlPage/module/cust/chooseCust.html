@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户管理</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+		<link rel="stylesheet" href="../../../Styles/themes/default/cover-style.css" media="all">
+	</head>
+
+	<body>
+		<!--条件搜索 start-->
+		<div class="eui-form eui-form-search">
+			<!-- 查询重置按钮-->
+			<div class="eui-btn-group">
+				<button class="eui-btn" onclick="shuaxin()">查询</button>
+				<button class="eui-btn eui-btn-primary" onclick="reset()">重置</button>
+			</div>
+			<!--查询条件-->
+			<div class="eui-form-item">
+				<label class="eui-form-label">客户姓名/电话：</label>
+				<div class="eui-input-block">
+					<input type="text" id="mohu" class="eui-input" placeholder="请输入查询关键字">
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<!--条件搜索 end-->
+
+		<div class="infoList">
+			<!--标题 start-->
+
+			<div class="title-bar">
+				<div class="eui-btn-group float-right">
+				</div>
+				<span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      客户管理
+    </span>
+				<span class="title-sub">
+      客户基本信息
+    </span>
+			</div>
+
+			<!--标题 end-->
+			<!--表格 start-->
+			<script type="text/html" id="radioTpl">
+				<input type="radio" name="sexRadio"  value="{{d.cust_id+'|'+d.cust_name+'|'+d.cust_sex+'|'+d.cust_tell+'|'+d.cust_age}}" title=" " e-filter="radiodemo">
+			</script>
+			<table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+			<!--表格 end-->
+
+		</div>
+		<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+		<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../../Scripts/config.js"></script>
+		<script type="text/javascript" src="../../../Scripts/date2format.js"></script>
+		<script>
+            var  userInfo = "";
+			eui.use(['element', 'form', 'layedit', 'laydate', 'table'], function() {
+				var element = eui.element,
+					form = eui.form,
+					layer = eui.layer,
+					layedit = eui.layedit,
+					laydate = eui.laydate,
+					table = eui.table;
+
+				//日期选择
+				laydate.render({
+					elem: '#dateTest'
+				});
+				//日期范围
+				laydate.render({
+					elem: '#dateTest2',
+					range: true
+				});
+
+				//实例1:简单表格
+				var tables = table.render({
+					elem: '#tableDemo'
+						//   ,height: 350
+						//  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+						,
+					even: true //开启隔行背景
+						,
+					skin: 'row',
+					data: Customerlist,
+					cols: [
+						[{field: 'sex', title: '选择',templet:"#radioTpl",width:80}
+						, {
+								field: 'cust_name',
+								width: 200,
+								title: '客户姓名',
+								sort: true
+							}, {
+								field: 'cust_sex',
+								width: 120,
+								title: '性别'
+							} //增加 edit 表示开户了编辑状态
+							, {
+								field: 'cust_tell',
+								width: 120,
+								title: '联系电话'
+							}, {
+								field: 'cust_code',
+								width: 120,
+								title: '病历号'
+							}, {
+								field: 'deleted',
+								width: 90,
+								title: '状态',
+								templet: function(d) {
+									if(d.deleted == 1) {
+										return "已删除";
+									} else {
+										return "未删除"
+									}
+								}
+							}, {
+								field: 'bl_time',
+								title: '最近到诊时间',
+								minWidth: 150,
+								templet: function(d) {
+									if(d.bl_time != null && d.bl_time != "") {
+										return new Date(d.bl_time).Format('yyyy-MM-dd hh:mm:ss')
+									} else {
+										return "";
+									}
+								}
+							}
+						]
+					],
+					page: true,
+					limits: [10, 20, 30],
+					limit: 10 //每页默认显示的数量
+				});
+
+                form.on('radio(radiodemo)', function(obj){
+                    userInfo = obj.value;
+                });
+
+			});
+
+			$(function() {
+				shuaxin(); //进入后刷新
+			});
+
+            //刷新列表
+            function shuaxin() {
+                $.ajax({
+                    type: "post",
+                    url: basePath + "/customer/lista",
+                    async: true,
+                    data: {
+                        str: $("#mohu").val()
+                    },
+                    success: function(data) {
+                        Customerlist = data.data;
+                        if(eui.table != null) {
+                            eui.table.reload('tableDemo', {
+                                data: Customerlist
+                            });
+                        }
+
+                    }
+                });
+            }
+
+            function getCheckUser(){
+                return userInfo;
+            }
+
+            function msg(){
+                layer.msg("请选择客户");
+            }
+            
+            function reset() {
+				$("#mohu").val("");
+            }
+
+			var Customerlist = [];
+		</script>
+
+	</body>
+
+</html>

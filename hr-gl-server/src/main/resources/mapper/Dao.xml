@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.DaoMapper">
+  <!--自定义sql 返回参数为对象Map-->
+  <select id="getDivMap" parameterType="string" resultType="java.util.HashMap">
+    ${value}
+  </select>
+
+  <!--自定义sql 返回参数为对象Object-->
+  <select id="getDivList" parameterType="string" resultType="java.util.HashMap">
+    ${value}
+  </select>
+
+</mapper>

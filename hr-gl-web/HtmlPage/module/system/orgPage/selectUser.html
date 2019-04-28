@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择领导</title>
+    <link rel="stylesheet" href="../../../../Styles/themes/default/style.css" media="all">
+    <link rel="stylesheet" href="../../../../Scripts/libs/jquery-ui/jquery-ui.css">
+    <script type="text/javascript" src="../../../../Scripts/jquery-1.9.0.min.js"></script>
+    <script src="../../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/module/eui.js" charset="utf-8"></script>
+    <script src="../../../../Scripts/config.js" charset="utf-8"></script>
+</head>
+<body>
+
+<div class="eui-bg-white eui-padding10">
+    <!--右边内容 start-->
+    <!--条件搜索 start-->
+    <div class="eui-form eui-form-base eui-form-search eui-form-col2">
+        <form id="formId">
+            <!-- 查询重置按钮-->
+            <div class="eui-btn-group">
+                <a href="javaScript:void(0)" class="eui-btn" onclick="doSearch()">查询</a>
+                <a href="javaScript:void(0)" class="eui-btn eui-btn-primary" onclick="resetForm()">重置</a>
+            </div>
+            <!--查询条件-->
+            <div class="eui-form-item">
+                <label class="eui-form-label">用户账号：</label>
+                <div class="eui-input-block">
+                    <input type="text" name="account" class="eui-input" placeholder="">
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">用户名称：</label>
+                <div class="eui-input-block">
+                    <input type="text" name="userName" class="eui-input" placeholder="">
+                </div>
+            </div>
+            <!--华丽的分割线-->
+            <div class="eui-form-item">
+                <label class="eui-form-label">性别：</label>
+                <div class="eui-input-block">
+                    <select name="sex" e-verify="required">
+                        <option value="">全部</option>
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="eui-form-item">
+                <label class="eui-form-label">用户状态：</label>
+                <div class="eui-input-block">
+                    <select name="status" e-verify="required">
+                        <option value="">全部</option>
+                        <option value="启用">启用</option>
+                        <option value="禁用">禁用</option>
+                    </select>
+                </div>
+            </div>
+            <!--华丽的分割线-->
+
+            <div class="clearfix"></div>
+        </form>
+    </div>
+
+
+    <!--条件搜索 end-->
+    <!--标题 start-->
+
+    <div class="title-bar eui-marginB10">
+        <div class="eui-btn-group float-right">
+        </div>
+        <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      <span class="eui-color-red"></span>用户列表
+    </span>
+    </div>
+    <table id="tableDemo" e-filter="tableDemoFilter"></table>
+</div>
+</body>
+
+<script type="text/html" id="radioTpl">
+    <input type="radio" name="sexRadio"  value="{{d.ID_+'|'+d.USER_NAME+'|'+d.MOBILE}}" title=" " e-filter="radiodemo">
+</script>
+<Script>
+    var  userInfo = "";
+    eui.use(['form'], function(){
+            var form = eui.form;
+             doSearch();
+    });
+    //查询所有的用户
+    function doSearch(){
+        eui.use(['jquery','element','form','table'], function(){
+            var jQuery = eui.jQuery
+                ,layer = eui.layer
+                ,form = eui.form
+                ,table = eui.table;
+            layer.load();
+            var  formObj=$("#formId").serializeObject();
+            table.render({
+                elem: '#tableDemo'
+                ,even: true //开启隔行背景
+                ,url:basePath+'/sec/user/getSecUserForPaging'//数据接口
+                ,page: true
+                ,where:{
+                    param:JSON.stringify(formObj)
+                }
+                ,method: 'get'
+                ,cols: [[
+//                     {type:'checkbox',name:'kgd',fixed:'left',title:"选择"},
+                       {type:'numbers', width:60, title: '序号'}
+                    ,{field: 'sex', title: '选择',templet:"#radioTpl",width:80}
+                    ,{field:'USER_NAME', width:100, title: '用户名称'}
+                    ,{field:'SEX', width: 100, title: '性别'}
+                    ,{field:'ACCOUNT', width:120, title: '用户账号', sort: true}  //增加 edit 表示开户了编辑状态
+                    ,{field:'MOBILE',width:120, title: '手机号码'}
+                ]]
+//                ,singleSelect:true
+                ,done: function(res, curr, count){
+                    layer.closeAll();
+                }
+            });
+            //监听表格复选框选择
+//            table.on('checkbox(tableDemoFilter)', function(obj){
+//
+//                console.log(obj.checked); //当前是否选中状态
+//                console.log(obj.data); //选中行的相关数据
+//                console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+//                //判断是选择还是取消勾选
+//
+//            });
+            form.on('radio(radiodemo)', function(obj){
+                console.log(obj.value); //选中行的相关数据
+                userInfo = obj.value;
+            });
+
+        });
+    }
+
+    //重置
+    function resetForm() {
+        document.getElementById("formId").reset();
+        doSearch();
+    }
+
+    //获取勾选的标签
+    function getCheckUser(){
+        return userInfo;
+    }
+    //获取勾选的标签
+    function msg(){
+      layer.msg("请选择部门经理");
+    }
+
+</Script>
+
+</html>

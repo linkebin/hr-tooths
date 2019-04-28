@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.SecMenuMemberMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.SecMenuMember">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID_" jdbcType="VARCHAR" property="id" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="MENU_ID" jdbcType="VARCHAR" property="menuId" />
+  </resultMap>
+
+
+  <delete id="delMemberMapper" parameterType="java.util.Map">
+     DELETE
+       FROM sec_menu_member
+       WHERE
+           USER_ID=#{userId}
+          AND MENU_ID in
+        <foreach collection="menuIds" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+  </delete>
+</mapper>

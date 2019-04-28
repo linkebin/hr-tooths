@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.StockWarnMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.StockWarn">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="warn_pro_id" jdbcType="VARCHAR" property="warnProId" />
+    <result column="warn_name" jdbcType="VARCHAR" property="warnName" />
+    <result column="warn_num" jdbcType="DOUBLE" property="warnNum" />
+    <result column="warn_time" jdbcType="TIMESTAMP" property="warnTime" />
+    <result column="clinic_id" jdbcType="VARCHAR" property="clinicId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+
+
+  <select id="findStockWarn" parameterType="String" resultType="java.util.Map">
+   select t.* from (
+    select t.clinic_id,t.product_type,t.product_code,
+      t.product_name,t.product_model,t.product_spec,t.product_brand,t.stock_num
+      ,case when t.allowance is not null then t.allowance else 0 end allowance
+      ,b.id,case when b.warn_num is null then 0 else b.warn_num end warn_num from (
+      select a.clinic_id,a.product_code,a.product_name,a.product_type,a.product_model,a.product_spec,a.product_brand,a.stock_num
+      ,(select sum(allowance) from stock_in_out_de where clinic_id = a.clinic_id and in_out_code = a.product_code and now() > end_time) allowance
+      from stock a where a.clinic_id = #{clinic}
+      <if test="code!=null and code!=''">and (a.product_code = #{code} or a.product_name like '%${code}%')</if>
+      <if test="typeId!=null and typeId!=''">and a.type_id = #{typeId}</if>) t
+    left join stock_warn b on b.clinic_id = t.clinic_id and t.product_code = b.warn_pro_id order by t.product_code) t LIMIT ${limit} OFFSET ${page}
+  </select>
+
+  <select id="findStockWarnAll" parameterType="String" resultType="java.util.Map">
+    select t.*,b.id,case when b.warn_num is null then 0 else b.warn_num end warn_num from (
+    select a.clinic_id,a.product_code,a.product_name,a.product_type,a.product_model,a.product_spec,a.product_brand,a.stock_num
+    from stock a where a.clinic_id = #{clinic}
+    <if test="code!=null and code!=''">and (a.product_code = #{code} or a.product_name like '%${code}%')</if>
+    <if test="typeId!=null and typeId!=''">and a.type_id = #{typeId}</if>) t
+    left join stock_warn b on b.clinic_id = t.clinic_id and t.product_code = b.warn_pro_id order by t.product_code
+  </select>
+
+  <select id="findStockWarnCount" parameterType="String" resultType="int">
+    select count(*) from (
+    select a.clinic_id
+    from stock a where a.clinic_id = #{clinic}
+    <if test="code!=null and code!=''">and (a.product_code = #{code} or a.product_name like '%${code}%')</if>
+    <if test="typeId!=null and typeId!=''">and a.type_id = #{typeId}</if>
+    ) t
+  </select>
+</mapper>

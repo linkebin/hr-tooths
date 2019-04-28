@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.SecUserMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.SecUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID_" jdbcType="VARCHAR" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="USER_PASS" jdbcType="VARCHAR" property="userPass" />
+    <result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="ADDR" jdbcType="VARCHAR" property="addr" />
+    <result column="HEAD_IMG" jdbcType="VARCHAR" property="headImg" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="NATIVE_PLACE" jdbcType="VARCHAR" property="nativePlace" />
+    <result column="C_TYPE" jdbcType="VARCHAR" property="cType" />
+    <result column="C_MUM" jdbcType="VARCHAR" property="cMum" />
+      <result column="M_STATUS" jdbcType="VARCHAR" property="mStatus" />
+      <result column="POLITICAL_STATUS" jdbcType="VARCHAR" property="politicalStatus" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="ACCOUNT_TYPE" jdbcType="VARCHAR" property="accountType" />
+    <result column="STANDBY1" jdbcType="VARCHAR" property="standby1" />
+    <result column="STANDBY2" jdbcType="VARCHAR" property="standby2" />
+    <result column="STANDBY3" jdbcType="VARCHAR" property="standby3" />
+    <result column="STANDBY4" jdbcType="VARCHAR" property="standby4" />
+    <result column="STANDBY5" jdbcType="VARCHAR" property="standby5" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="DELETED" jdbcType="INTEGER" property="deleted" />
+    <result column="STANDBY6" jdbcType="VARCHAR" property="standby6" />
+    <result column="STANDBY7" jdbcType="VARCHAR" property="standby7" />
+    <result column="STANDBY8" jdbcType="VARCHAR" property="standby8" />
+  </resultMap>
+  <select id="getSecUserInfo" resultMap="BaseResultMap" parameterType="String" >
+    SELECT * FROM sec_user WHERE DELETED=0
+    AND ACCOUNT = #{account}
+  </select>
+
+  <select id="findUserForName" parameterType="String" resultMap="BaseResultMap">
+        SELECT  *  FROM  sec_user WHERE ACCOUNT=#{account}
+  </select>
+ <!-- 分页查询所有的用户-->
+  <select id="getSecUserForPaging" parameterType="com.yidusoft.project.system.domain.SecUser" resultType="java.util.Map">
+      SELECT
+          *
+         FROM
+         sec_user
+         WHERE  DELETED=0
+          <if test="account!=null and account!=''">
+            AND  ACCOUNT like '%${account}%'
+          </if>
+          <if test="userName!=null and userName!=''">
+            AND   USER_NAME like '%${userName}%'
+          </if>
+          <if test="sex!=null and sex!=''">
+            AND  SEX =#{sex}
+          </if>
+          <if test="status!=null and status!=''">
+            AND  STATUS=#{status}
+          </if>
+          AND  ORG_ID=#{orgId}
+        ORDER  BY CREATE_TIME DESC
+  </select>
+  <!--查询所有的部门和用户 id，name，parentId-->
+<select id="getSecUserTreeForOrg" parameterType="com.yidusoft.project.system.domain.SecUser" resultType="java.util.Map">
+  SELECT ID_ as  id,ORG_NAME as name,PARENT_ID as  parentId ,1 AS  TYPES  FROM  sec_org
+  WHERE  DELETED=0
+</select>
+ <!--查询部门下的所有用户-->
+<select id="getSecUserForOrg" parameterType="String" resultType="java.util.Map">
+    SELECT
+          *
+         FROM
+         sec_user
+         WHERE  DELETED=0
+          AND   ORG_ID=#{orgId}
+         ORDER  BY CREATE_TIME DESC
+</select>
+
+
+  <!--查询用户的详细信息-->
+<select id="getSecUserBYID" parameterType="String" resultType="java.util.Map">
+    SELECT
+        u.*,o.ORG_NAME
+     FROM
+        sec_user u
+     LEFT JOIN
+        sec_org o
+     ON  u.ORG_ID=o.ID_
+     WHERE
+       u.DELETED=0
+      AND  u.id_=#{userId}
+</select>
+
+ <!--根据角色查询角色下的所有用户-->
+<select id="getSecUserByRole" parameterType="java.util.Map" resultType="java.util.Map">
+SELECT
+    su.ID_,
+	su.ACCOUNT,
+	su.USER_NAME,
+	su.SEX,
+	su.MOBILE,
+	so.ORG_NAME
+FROM
+	sec_user su
+LEFT JOIN
+	sec_org so  on su.ORG_ID = so.ID_
+WHERE
+	su.DELETED = 0
+AND su.id_ IN (
+	SELECT
+		USER_ID
+	FROM
+		sec_role_member
+	WHERE
+		ROLE_ID = #{roleId}
+)
+    <if test="account!=null and account!=''">
+        AND  ACCOUNT like '%${account}%'
+    </if>
+    <if test="userName!=null and userName!=''">
+        AND   USER_NAME like '%${userName}%'
+    </if>
+</select>
+ <!--根据角色查询角色外的所有用户-->
+<select id="getSecUserByNotRole" parameterType="java.util.Map" resultType="java.util.Map">
+SELECT
+    su.ID_,
+	su.ACCOUNT,
+	su.USER_NAME,
+	su.SEX,
+	su.MOBILE,
+	so.ORG_NAME
+
+FROM
+	sec_user su
+LEFT JOIN
+	sec_org so  on su.ORG_ID = so.ID_
+WHERE
+	su.DELETED = 0
+AND su.id_ NOT IN (
+	SELECT
+		USER_ID
+	FROM
+		sec_role_member
+	WHERE
+		ROLE_ID = #{roleId}
+    )
+    <if test="account!=null and account!=''">
+        AND  ACCOUNT like '%${account}%'
+    </if>
+    <if test="userName!=null and userName!=''">
+        AND   USER_NAME like '%${userName}%'
+    </if>
+    <if test="dpId!=null and dpId!=''">
+        AND   ORG_ID  = #{dpId}
+    </if>
+</select>
+    <!--判断账号是否存在-->
+<select id="isExistForAccount" resultType="int" parameterType="String">
+ SELECT COUNT(0) FROM sec_user WHERE  ACCOUNT=#{account}  AND DELETED=0
+</select>
+
+</mapper>

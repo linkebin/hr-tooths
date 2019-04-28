@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.StockInOutDeMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.StockInOutDe">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="in_out_de_id" jdbcType="VARCHAR" property="inOutDeId" />
+    <result column="clinic_id" jdbcType="VARCHAR" property="clinicId" />
+    <result column="in_out_code" jdbcType="VARCHAR" property="inOutCode" />
+    <result column="p_name" jdbcType="VARCHAR" property="pName" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="p_type" jdbcType="VARCHAR" property="pType" />
+    <result column="p_model" jdbcType="VARCHAR" property="pModel" />
+    <result column="p_spe" jdbcType="VARCHAR" property="pSpe" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="p_brand" jdbcType="VARCHAR" property="pBrand" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="batch_id" jdbcType="VARCHAR" property="batchId" />
+    <result column="operation_type" jdbcType="VARCHAR" property="operationType" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="cost" jdbcType="DOUBLE" property="cost" />
+    <result column="allowance" jdbcType="INTEGER" property="allowance" />
+    <result column="p_unit" jdbcType="VARCHAR" property="pUnit" />
+  </resultMap>
+
+  <select id="findStockInOutDe" parameterType="String" resultMap="BaseResultMap">
+      select t.* from (select * from stock_in_out_de where clinic_id = #{clinic} order by create_time) t LIMIT ${limit} OFFSET ${page}
+  </select>
+
+  <select id="findStockItems" parameterType="String" resultType="java.util.Map">
+    select t.* from (select a.batch_id,a.in_out_code,a.p_name,a.p_type,a.p_model,a.p_spe,a.p_brand,sum(a.money) money,sum(a.num) num,
+    case when sum(a.num) is not null and sum(a.num) !=0 then sum(a.money)/sum(a.num) else 0 end average
+      from stock_in_out_de a where a.clinic_id = #{clinic}
+      <if test="typeId!=null and typeId!=''">and a.type_id = #{typeId}</if>
+      <if test="code!=null and code!=''">and (a.in_out_code = #{code} or a.p_name like '%${code}%')</if>
+      group by a.batch_id,a.in_out_code,a.p_name,a.p_type,a.p_model,a.p_spe order by a.in_out_code) t
+      where t.num >0 LIMIT ${limit} OFFSET ${page}
+  </select>
+
+  <select id="findStockItemsCount" parameterType="String" resultType="int">
+    select count(*) from (
+    select a.batch_id,sum(a.num) num from stock_in_out_de a where a.clinic_id = #{clinic}
+      <if test="typeId!=null and typeId!=''">and a.type_id = #{typeId}</if>
+      <if test="code!=null and code!=''">and (a.in_out_code = #{code} or a.p_name like '%${code}%')</if>
+    group by a.batch_id,a.in_out_code,a.p_name,a.p_type,a.p_model,a.p_spe) t where t.num >0
+  </select>
+
+  <select id="findUndoStock" parameterType="String" resultType="java.util.Map">
+    select t.* from (
+    select a.batch_id,a.in_out_code,a.p_name,a.p_type,a.p_model,a.p_spe,a.p_unit,a.p_brand,a.end_time,sum(a.money) money,sum(a.num-a.allowance) num
+      from stock_in_out_de a where a.clinic_id = #{clinic} and a.operation_type = '领用' and a.num > a.allowance and a.end_time >= now()
+    <if test="typeId!=null and typeId!=''">and a.type_id = #{typeId}</if>
+    <if test="code!=null and code!=''">and (a.in_out_code = #{code} or a.p_name like '%${code}%')</if>
+        group by a.batch_id,a.in_out_code,a.p_name,a.p_type,a.p_model,a.p_spe,a.p_brand,a.end_time,a.p_unit
+      order by a.end_time desc,a.in_out_code) t LIMIT ${limit} OFFSET ${page}
+  </select>
+
+  <select id="findUndoStockCount" parameterType="String" resultType="int">
+    select count(*) from (
+    select a.batch_id
+    from stock_in_out_de a where a.clinic_id = #{clinic} and a.operation_type = '领用' and a.num > a.allowance and a.end_time >= now()
+    <if test="typeId!=null and typeId!=''">and a.type_id = #{typeId}</if>
+    <if test="code!=null and code!=''">and (a.in_out_code = #{code} or a.p_name like '%${code}%')</if>
+    group by a.batch_id,a.in_out_code,a.p_name,a.p_type,a.p_model,a.p_spe,a.p_brand,a.end_time) t
+  </select>
+
+  <select id="findUndoStockNum" parameterType="String" resultType="int">
+    select sum(num - allowance) num from stock_in_out_de
+    where in_out_code = #{code}
+     and batch_id = #{batchId}
+     and clinic_id = #{clinic}
+     and operation_type = '领用'
+     group by in_out_code
+  </select>
+
+  <select id="findUndoStockList" parameterType="String" resultMap="BaseResultMap">
+    select * from stock_in_out_de
+    where in_out_code = #{code}
+     and batch_id = #{batchId}
+     and clinic_id = #{clinic}
+     and operation_type = '领用'
+     and num != allowance
+     order by create_time desc
+  </select>
+
+  <select id="findStockInfo" parameterType="String" resultMap="BaseResultMap">
+    select order_id,batch_id,in_out_code,p_name,type_id,p_type,p_model,p_spe,price,p_brand,cost
+     from stock_in_out_de
+      where in_out_code = #{code}
+       and batch_id = #{batchId}
+       and order_id = #{orderId}
+       group by order_id,batch_id,in_out_code,p_name,type_id,p_type,p_model,p_spe,price,p_brand,cost
+  </select>
+
+  <select id="findStockDetail" parameterType="String" resultMap="BaseResultMap">
+    select * from (
+    select in_out_de_id,in_out_code,clinic_id,p_name,type_id,p_type,p_model,p_spe,p_unit,price,case when num <![CDATA[<]]> 0 then -num else num end num,p_brand,
+    case when money <![CDATA[<]]> 0 then -money else money end money,remark,end_time,user_name,user_id,create_time,batch_id,operation_type,order_id,cost from stock_in_out_de
+      where order_id = #{orderId}
+    <if test="operationType!=null and operationType!=''">and operation_type = #{operationType}</if>
+    order by in_out_code) t LIMIT ${limit} OFFSET ${page}
+  </select>
+
+  <select id="findStockDetailCount" parameterType="String" resultType="int">
+    select count(*) from stock_in_out_de
+    where order_id = #{orderId}
+    <if test="operationType!=null and operationType!=''">and operation_type = #{operationType}</if>
+    order by in_out_code
+  </select>
+
+  <select id="findInternalOrder" parameterType="String" resultType="java.util.Map">
+    select t.* from (
+      select a.order_id,a.create_time,a.operation_type,a.user_name,sum(-a.num) num,sum(-a.money) money
+      from stock_in_out_de a where a.clinic_id = #{clinic} and a.operation_type='内部订单'
+      <if test="code!=null and code!=''">and a.order_id = #{code}</if>
+      <if test="time!=null and time!=''">and date_format(a.create_time,'%Y-%m-%d') = #{time}</if>
+      group by a.order_id,a.create_time,a.operation_type,a.user_name
+      order by a.create_time desc) t LIMIT ${limit} OFFSET ${page}
+  </select>
+
+  <select id="findInternalOrderCount" parameterType="String" resultType="int">
+    select count(*) from stock_in_out_de a where a.clinic_id = #{clinic} and a.operation_type='内部订单'
+      <if test="code!=null and code!=''">and a.order_id = #{code}</if>
+      <if test="time!=null and time!=''">and date_format(a.create_time,'%Y-%m-%d') = #{time}</if>
+     group by a.order_id,a.create_time,a.operation_type,a.user_name
+  </select>
+
+  <select id="getStockSummary" parameterType="String" resultType="java.util.Map">
+    select order_id,batch_id,in_out_code,p_name,type_id,p_type,p_model,p_spe,price,p_brand,cost,operation_type,p_unit,sum(num) num,sum(money) money
+     from stock_in_out_de
+      where order_id = #{orderId}
+       and clinic_id = #{clinicId}
+       group by order_id,batch_id,in_out_code,p_name,type_id,p_type,p_model,p_spe,price,p_brand,cost,operation_type,p_unit
+  </select>
+
+  <select id="getProductStock" parameterType="String" resultMap="BaseResultMap">
+    select * from stock_in_out_de where clinic_id =#{clinic} and in_out_code = #{code} and allowance !=0 and operation_type = '进货' and end_time > now() order by end_time
+  </select>
+
+  <select id="getProductStockDesc" parameterType="String" resultMap="BaseResultMap">
+    select * from stock_in_out_de where clinic_id =#{clinic} and in_out_code = #{code} and allowance !=0 and operation_type = '进货' and end_time > now() order by end_time desc
+  </select>
+
+  <select id="getProductStockAll" parameterType="String" resultType="int">
+    select sum(allowance) from stock_in_out_de where clinic_id =#{clinic} and in_out_code = #{code} and allowance !=0 and end_time > now() group by in_out_code
+  </select>
+
+  <select id="findReturnStock" parameterType="String" resultType="java.util.Map">
+    select t.* from (
+    select a.order_id,a.batch_id,a.in_out_code,a.p_name,a.p_type,a.p_model,a.p_spe,a.p_unit,a.p_brand,a.end_time,a.money,a.allowance,a.num,a.cost,a.in_out_de_id,a.remark,start_time,production_code,supplier,expiration_time
+    from stock_in_out_de a where a.clinic_id = #{clinic} and a.operation_type = '进货' and a.allowance >0
+    <if test="typeId!=null and typeId!=''">and a.type_id = #{typeId}</if>
+    <if test="code!=null and code!=''">and (a.in_out_code = #{code} or a.p_name like '%${code}%')</if>
+    ) t order by t.end_time,t.in_out_code LIMIT ${limit} OFFSET ${page}
+  </select>
+
+  <select id="findReturnStockCount" parameterType="String" resultType="int">
+    select count(*) from (
+    select a.batch_id
+    from stock_in_out_de a where a.clinic_id = #{clinic} and a.operation_type = '进货' and a.allowance >0
+    <if test="typeId!=null and typeId!=''">and a.type_id = #{typeId}</if>
+    <if test="code!=null and code!=''">and (a.in_out_code = #{code} or a.p_name like '%${code}%')</if>) t
+  </select>
+
+  <select id="findReturnStockNum" parameterType="String" resultType="int">
+    select allowance from stock_in_out_de
+    where in_out_code = #{code}
+     and order_id = #{orderId}
+     and clinic_id = #{clinic}
+     and operation_type = '进货'
+  </select>
+
+  <select id="getReturnStock" parameterType="String" resultMap="BaseResultMap">
+    select * from stock_in_out_de
+    where in_out_code = #{code}
+     and order_id = #{orderId}
+     and clinic_id = #{clinic}
+     and operation_type = '进货'
+  </select>
+
+</mapper>

@@ -1,0 +1,14 @@
+2019-4-6 16:32:59 main INFO The following profiles are active: dev
+2019-4-6 16:33:16 main DEBUG ==>  Preparing: SELECT * FROM sec_menu sm where deleted=0 AND sm.STANBY_ID1 = '2' ORDER BY SORT 
+2019-4-6 16:33:16 main DEBUG ==> Parameters: 
+2019-4-6 16:33:16 main DEBUG <==      Total: 48
+2019-4-6 16:33:16 main INFO JedisPool注入成功！！
+2019-4-6 16:33:16 main INFO redis地址：localhost:6379
+2019-4-6 16:33:37 main INFO Started BaseFrameApplicationTests in 43.214 seconds (JVM running for 48.732)
+2019-4-6 16:46:05 main INFO The following profiles are active: dev
+2019-4-6 16:46:26 main DEBUG ==>  Preparing: SELECT * FROM sec_menu sm where deleted=0 AND sm.STANBY_ID1 = '2' ORDER BY SORT 
+2019-4-6 16:46:26 main DEBUG ==> Parameters: 
+2019-4-6 16:46:26 main DEBUG <==      Total: 48
+2019-4-6 16:46:26 main INFO JedisPool注入成功！！
+2019-4-6 16:46:26 main INFO redis地址：localhost:6379
+2019-4-6 16:47:04 main INFO Started BaseFrameApplicationTests in 66.269 seconds (JVM running for 71.256)

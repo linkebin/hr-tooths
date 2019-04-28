@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>表单场景3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Le styles -->
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+
+</head>
+<body>
+<div class="eui-padding15 eui-bg-white">
+
+<div class="eui-tab eui-tab-brief" e-filter="docDemoTabBrief">
+    <ul class="eui-tab-title">
+        <li class="eui-this">预览效果</li>
+        <!--<li>查看代码</li>
+        <li>备注</li>-->
+    </ul>
+    <div class="eui-tab-content">
+    	<!--左右边距小的表单开头-->
+        <div class="eui-tab eui-tab-card  eui-padding20">
+        <div class="eui-tab-item eui-show">
+            <div>
+                <div class="eui-row eui-searchTitle eui-marginB20">
+                    <div class="eui-col-md6">
+                        <span class="eui-panels-title1">基本信息</span>
+                    </div>
+                    <div class="eui-col-md6">
+                        <div class="eui-btn-group eui-panelsIn eui-paddingB10">
+                            <button class="eui-btn"><i class="eui-icon">&#xe642;</i> 编辑</button>
+                            <button class="eui-btn"><i class="eui-icon">&#xe60a;</i> 保存</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="eui-row">
+                    <div class="eui-col-md12">
+                        <form class="eui-form" action="">
+                            <div class="eui-form-item">
+                                <label class="eui-form-label">姓名</label>
+                                <div class="eui-input-inline">
+                                    <input type="text" name="title" e-verify="title" autocomplete="off" placeholder="姓名" class="eui-input">
+                                </div>
+                                <label class="eui-form-label">年龄</label>
+                                <div class="eui-input-inline">
+                                    <input type="text" name="title" e-verify="title" autocomplete="off" placeholder="" class="eui-input">
+                                </div>
+                                <label class="eui-form-label">性别</label>
+                                <div class="eui-input-inline">
+                                    <input type="radio" name="sex" value="男" title="男" checked="">
+                                    <input type="radio" name="sex" value="女" title="女">
+                                </div>
+                            </div>
+                            <div class="eui-form-item">
+                                <label class="eui-form-label">生日</label>
+                                <div class="eui-input-inline">
+                                    <input type="text" class="eui-input" id="test1" placeholder="yyyy-MM-dd">
+                                </div>
+                                <label class="eui-form-label">籍贯</label>
+                                <div class="eui-input-inline">
+                                    <div class="eui-form">
+                                        <select name="city" e-verify="required" e-search>
+                                            <option value="">带搜索的选择框</option>
+                                            <option value="1">易度软件</option>
+                                            <option value="2">广州市</option>
+                                            <option value="3">天河区</option>
+                                            <option value="4">element</option>
+                                            <option value="6">upload</option>
+                                            <option value="14">nav</option>
+                                            <option value="15">tab</option>
+                                            <option value="16">table</option>
+                                            <option value="17">select</option>
+                                            <option value="18">checkbox</option>
+                                            <option value="19">switch</option>
+                                            <option value="20">radio</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <label class="eui-form-label">爱好</label>
+                                <div class="eui-form">
+                                    <input type="checkbox" name="" title="自拍" e-skin="primary" checked>
+                                    <input type="checkbox" name="" title="发呆" e-skin="primary">
+                                    <input type="checkbox" name="" title="卖萌" e-skin="primary" disabled>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="eui-row eui-searchTitle eui-marginB20">
+                    <div class="eui-col-md12">
+                        <span class="eui-panels-title1">联系信息</span>
+                    </div>
+                </div>
+                <div class="eui-row">
+                    <div class="eui-col-md12">
+                        <form class="eui-form" action="">
+                            <div class="eui-form-item">
+                                <label class="eui-form-label">联系手机：</label>
+                                <div class="eui-input-inline">
+                                    <input type="tel" name="phone" e-verify="phone" autocomplete="off" class="eui-input">
+                                </div>
+                                <label class="eui-form-label">联系邮箱：</label>
+                                <div class="eui-input-inline">
+                                    <input type="text" name="email" e-verify="email" autocomplete="off" class="eui-input">
+                                </div>
+                                <label class="eui-form-label">社交账号：</label>
+                                <div class="eui-input-inline">
+                                    <input type="text" name="text" autocomplete="off" class="eui-input">
+                                </div>
+                            </div>
+                            <div class="eui-form-item">
+                                <label class="eui-form-label">用户组织：</label>
+                                <div class="eui-input-inline">
+                                    <input type="password" name="password" e-verify="pass" autocomplete="off" placeholder="请输入密码" class="eui-input">
+                                </div>
+                                <label class="eui-form-label">登录密码：</label>
+                                <div class="eui-input-inline">
+                                    <input type="password" name="password" e-verify="pass" autocomplete="off" placeholder="请输入密码" class="eui-input">
+                                </div>
+                                <label class="eui-form-label">确认密码：</label>
+                                <div class="eui-input-inline">
+                                    <input type="password" name="password" e-verify="pass" autocomplete="off" placeholder="请输入密码" class="eui-input">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="eui-btn-verify eui-paddingT10 eui-paddingB15 eui-textAlignC">
+                <button class="eui-btn">提交</button>
+                <button class="eui-btn eui-btn-primary">关闭</button></p>
+            </div>
+        </div>
+        <!--  开发时请把这里面的内容删了-->
+        <!--<div class="eui-tab-item">
+            <div>
+                <pre class="preCode line-numbers"><code class="language-html">&lt;!-- HTML --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;表单场景&lt;/title&gt;
+    &lt;meta name="renderer" content="webkit"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"&gt;
+    &lt;link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all"&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="eui-padding15"&gt;
+
+&lt;div&gt;
+    &lt;div class="eui-row eui-searchTitle eui-paddingB10 eui-marginB20"&gt;
+        &lt;div class="eui-col-md6"&gt;
+            &lt;span class="eui-panels-title1"&gt;基本信息&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="eui-col-md6"&gt;
+            &lt;div class="eui-btn-group eui-panelsIn"&gt;
+                &lt;button class="eui-btn"&gt;&lt;i class="eui-icon"&gt;&amp;#xe642;&lt;/i&gt; 编辑&lt;/button&gt;
+                &lt;button class="eui-btn"&gt;&lt;i class="eui-icon"&gt;&amp;#xe60a;&lt;/i&gt; 保存&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="eui-row"&gt;
+        &lt;div class="eui-col-md12"&gt;
+            &lt;form class="eui-form" action=""&gt;
+                &lt;div class="eui-form-item"&gt;
+                    &lt;label class="eui-form-label"&gt;姓名&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;input type="text" name="title" e-verify="title" autocomplete="off" placeholder="姓名" class="eui-input"&gt;
+                    &lt;/div&gt;
+                    &lt;label class="eui-form-label"&gt;年龄&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;input type="text" name="title" e-verify="title" autocomplete="off" placeholder="" class="eui-input"&gt;
+                    &lt;/div&gt;
+                    &lt;label class="eui-form-label"&gt;性别&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;input type="radio" name="sex" value="男" title="男" checked=""&gt;
+                        &lt;input type="radio" name="sex" value="女" title="女"&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="eui-form-item"&gt;
+                    &lt;label class="eui-form-label"&gt;生日&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;input type="text" class="eui-input" id="test1" placeholder="yyyy-MM-dd"&gt;
+                    &lt;/div&gt;
+                    &lt;label class="eui-form-label"&gt;籍贯&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;div class="eui-form"&gt;
+                            &lt;select name="city" e-verify="required" e-search&gt;
+                                &lt;option value=""&gt;带搜索的选择框&lt;/option&gt;
+                                &lt;option value="1"&gt;易度软件&lt;/option&gt;
+                                &lt;option value="2"&gt;广州市&lt;/option&gt;
+                                &lt;option value="3"&gt;天河区&lt;/option&gt;
+                                &lt;option value="4"&gt;element&lt;/option&gt;
+                                &lt;option value="6"&gt;upload&lt;/option&gt;
+                                &lt;option value="14"&gt;nav&lt;/option&gt;
+                                &lt;option value="15"&gt;tab&lt;/option&gt;
+                                &lt;option value="16"&gt;table&lt;/option&gt;
+                                &lt;option value="17"&gt;select&lt;/option&gt;
+                                &lt;option value="18"&gt;checkbox&lt;/option&gt;
+                                &lt;option value="19"&gt;switch&lt;/option&gt;
+                                &lt;option value="20"&gt;radio&lt;/option&gt;
+                            &lt;/select&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;label class="eui-form-label"&gt;爱好&lt;/label&gt;
+                    &lt;div class="eui-form"&gt;
+                        &lt;input type="checkbox" name="" title="自拍" e-skin="primary" checked&gt;
+                        &lt;input type="checkbox" name="" title="发呆" e-skin="primary"&gt;
+                        &lt;input type="checkbox" name="" title="卖萌" e-skin="primary" disabled&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+    &lt;div class="eui-row eui-searchTitle eui-paddingB10 eui-marginB20"&gt;
+        &lt;div class="eui-col-md12"&gt;
+            &lt;span class="eui-panels-title1"&gt;联系信息&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="eui-row"&gt;
+        &lt;div class="eui-col-md12"&gt;
+            &lt;form class="eui-form" action=""&gt;
+                &lt;div class="eui-form-item"&gt;
+                    &lt;label class="eui-form-label"&gt;联系手机&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;input type="tel" name="phone" e-verify="phone" autocomplete="off" class="eui-input"&gt;
+                    &lt;/div&gt;
+                    &lt;label class="eui-form-label"&gt;联系邮箱&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;input type="text" name="email" e-verify="email" autocomplete="off" class="eui-input"&gt;
+                    &lt;/div&gt;
+                    &lt;label class="eui-form-label"&gt;社交账号&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;input type="text" name="text" autocomplete="off" class="eui-input"&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="eui-form-item"&gt;
+                    &lt;label class="eui-form-label"&gt;用户组织&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;input type="password" name="password" e-verify="pass" autocomplete="off" placeholder="请输入密码" class="eui-input"&gt;
+                    &lt;/div&gt;
+                    &lt;label class="eui-form-label"&gt;登录密码&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;input type="password" name="password" e-verify="pass" autocomplete="off" placeholder="请输入密码" class="eui-input"&gt;
+                    &lt;/div&gt;
+                    &lt;label class="eui-form-label"&gt;确认密码&lt;/label&gt;
+                    &lt;div class="eui-input-inline"&gt;
+                        &lt;input type="password" name="password" e-verify="pass" autocomplete="off" placeholder="请输入密码" class="eui-input"&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="eui-btn-verify"&gt;
+    &lt;button class="eui-btn"&gt;提交&lt;/button&gt;
+    &lt;button class="eui-btn eui-btn-primary"&gt;关闭&lt;/button&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;script src="../../../Scripts/layUI/eui.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+
+//表单
+eui.use(['form', 'layedit', 'laydate'], function(){
+    var form = eui.form
+    ,layer = eui.layer
+    ,layedit = eui.layedit
+    ,laydate = eui.laydate;
+
+    //常规用法
+    laydate.render({
+        elem: '#test1'
+    });
+
+});
+
+
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+
+        </div>
+        <div class="eui-tab-item">
+          	  无备注
+        </div>-->
+ 		<!-- 删除分界线 -->
+ 		</div>
+        <!--左右边距小的表单结尾里面要删的东西要去掉-->
+    </div>
+ <!--表格结尾，里面需删除的部分要去掉-->
+</div>
+
+
+</div>
+
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+<!-- 引入代码高亮显示文件 -->
+<script src="../../../Scripts/plugins/prism/prism.js"></script>
+<script src="../../../Scripts/plugins/prism/line-numbers.js"></script>
+
+<script type="text/javascript">
+// Tab的切换功能，切换事件监听，必须依赖 element 模块，否则无法进行功能性操作等
+eui.use('element', function(){
+  var element = eui.element;
+
+  //…
+});
+
+//表单
+eui.use(['form', 'layedit', 'laydate'], function(){
+    var form = eui.form
+    ,layer = eui.layer
+    ,layedit = eui.layedit
+    ,laydate = eui.laydate;
+
+    //常规用法
+    laydate.render({
+        elem: '#test1'
+    });
+
+});
+
+/*
+
+$(".eui-searchM").hide();
+$(".eui-search-more").click(function(event) {
+    $(".eui-searchM").slideToggle();
+});
+*/
+
+
+
+
+
+</script>
+</body>
+</html>

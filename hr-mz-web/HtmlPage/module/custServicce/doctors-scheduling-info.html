@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+</head>
+<body>
+
+<div class="toolbarH">
+    <div class="title-bar">
+        <div class="eui-btn-group float-right">
+            <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+            <a href="javaScript:void(0)" class="eui-btn" onclick="savePlan()">保存计划</a>
+            <a href="javaScript:void(0)" class="eui-btn eui-btn-primary" onclick="closeAndFlush('')">关闭</a>
+        </div>
+        <span class="title-main">
+      <i class="eui-icon eui-font28">&#xe62a;</i>
+        计划年月
+        </span>
+        <span class="title-plan-sub" id="planDate">
+             201801
+        </span>
+        <span class="title-sub eui-marginL20">
+            <i class="eui-icon eui-font12 eui-color-red">&#xe658;</i>
+           点击表格改变上班状态
+        </span>
+    </div>
+</div>
+<div class="eui-tab-card eui-margin10 eui-bg-white">
+    <table class="scheduling-table" id="planTable"></table>
+</div>
+
+</body>
+<script type="text/html" id="barDemo">
+    <div class="eui-btn-group">
+        <a class="eui-btn  eui-btn-duplicate  eui-btn-mini" e-event="del"><i class="eui-icon" title="选择">
+            &#xe642;</i></a>
+    </div>
+</script>
+<!-- 引入代码高亮显示文件 -->
+<script src="../../../Scripts/plugins/prism/prism.js"></script>
+<script src="../../../Scripts/plugins/prism/line-numbers.js"></script>
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/plugins/jquery.query.js" type="text/javascript"></script>
+<script src="../../../Scripts/config.js" type="text/javascript"></script>
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var year = jQuery.query.get("year"),
+        month = jQuery.query.get("month"),
+        historyId = "",
+        layer = null,
+        list = new Array(),
+        days = 0;
+
+    eui.use(['element', 'layedit', 'laydate'], function () {
+        var element = eui.element
+            , laydate = eui.laydate;
+        layer = eui.layer;
+    });
+    if (isM(month)) {
+        days = getDayNumByYearMonth(year, month);
+    } else {
+        historyId = month.split("|")[1];
+        month = parseInt(month.split("|")[0]);
+        days = getDayNumByYearMonth(year, month);
+    }
+    if (month < 10) {
+        $("#planDate").text(year + "0" + month)
+    } else {
+        $("#planDate").text(year + "" + month)
+    }
+
+    if (historyId == "") {
+        newInit();
+    } else {
+        updInit();
+    }
+
+
+    //新增初始化
+    function newInit() {
+        //1、获取所有的医生
+        $.ajax({
+            type: "POST",
+            url: basePath + "/sec/user/getAllDoc",
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                list = result.data;
+                initTable(result.data, days, result.total)
+                //table添加点击效果
+                $('.scheduling-table td').bind('click', function (event) {
+                    var othis = $(this);
+                    if (othis.text() == "班") {
+                        othis.text("休")
+                        othis.addClass("eui-color-green")
+                    } else if (othis.text() == "休") {
+                        othis.text("班")
+                        othis.removeClass("eui-color-green")
+                    }
+                });
+            },
+            error: function () {
+                console.log("加载失败");
+            }
+        });
+    }
+    //排班的表格初始化 医生/日期天数/医生数量
+    function initTable(list, x, y) {
+        //头部
+        var tabHtml = "<thead><tr><th>姓名/日期</th>"
+        for (var i = 1; i < x + 1; i++) {
+            tabHtml += "<th>" + i + "</th>"
+        }
+        tabHtml += "</tr></thead>"
+        tabHtml += "<tbody>"
+        //表格
+        for (var i = 0; i < y; i++) {
+            tabHtml += "<tr id='" + list[i].id + "'><td>" + list[i].userName + "</td>";
+            for (var j = 1; j < x + 1; j++) {
+                tabHtml += "<td>班</td>"
+            }
+            tabHtml += "</tr>"
+        }
+        tabHtml += "</tbody>"
+        $("#planTable").html(tabHtml);
+    }
+    //查看修改初始化
+    function updInit() {
+        //获取所有的医生
+        $.ajax({
+            type: "POST",
+            url: basePath + "/sec/user/getAllDoc",
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                list = result.data;
+                initUpdTable(result.data, days, result.total)
+            },
+            error: function () {
+                console.log("加载失败");
+            }
+        });
+    }
+
+    //修改查看的表格初始化
+    function initUpdTable(list, x, y) {
+        //头部
+        var tabHtml = "<thead><tr><th>姓名/日期</th>"
+        for (var i = 1; i < x + 1; i++) {
+            tabHtml += "<th>" + i + "</th>"
+        }
+        tabHtml += "</tr></thead>"
+        tabHtml += "<tbody>"
+        //表格
+        for (var i = 0; i < y; i++) {
+            tabHtml += "<tr id='" + list[i].id + "'><td>" + list[i].userName + "</td>";
+            for (var j = 1; j < x + 1; j++) {
+                tabHtml += "<td>--</td>"
+            }
+            tabHtml += "</tr>"
+        }
+        tabHtml += "</tbody>"
+        $("#planTable").html(tabHtml);
+        //获取现有的排班计划
+        $.ajax({
+            type: "POST",
+            url: basePath + "/scheduling/plan/getPlanList",
+            dataType: 'json',
+            data: {
+                historyId: historyId
+            },
+            success: function (result, status, xhr) {
+                var list = result.data;
+                //原有计划赋值
+                for (var i = 0; i < list.length; i++) {
+                    $("#" + list[i].doctors).children("td").eq(list[i].date).text(list[i].state);
+                    if (list[i].state == "休") {
+                        $("#" + list[i].doctors).children("td").eq(list[i].date).addClass("eui-color-green");
+                    }
+                    $("#" + list[i].doctors).children("td").eq(list[i].date).attr("id", list[i].id)
+                }
+                //table添加点击效果
+                $('.scheduling-table td').bind('click', function (event) {
+                    var othis = $(this);
+                    if (othis.text() == "班") {
+                        othis.text("休");
+                        othis.addClass("eui-color-green")
+                    } else if (othis.text() == "休") {
+                        othis.text("班");
+                        othis.removeClass("eui-color-green")
+                    } else if(othis.text() == "--"){
+                        othis.text("班")
+                    }
+                });
+            },
+            error: function () {
+                console.log("加载失败");
+            }
+        });
+
+    }
+
+    //保存
+    function savePlan() {
+        layer.load(1);
+        var myPlans = new Array();
+        for (var i = 0; i < list.length; i++) {
+            var trObj = $("#" + list[i].id);
+            for (var j = 1; j < days + 1; j++) {
+                var state = trObj.children("td").eq(j).text();
+                var id = trObj.children("td").eq(j).attr("id");
+                var plan = new Object;
+                plan.date = j;
+                plan.state = state;
+                plan.doctors = list[i].id;
+                plan.id = id;
+                myPlans.push(plan)
+            }
+        }
+        //像后台传参数  年份 月份 详细的数据
+        $.ajax({
+            type: "POST",
+            url: basePath + "/scheduling/history/savePlan",
+            dataType: 'json',
+            data: {
+                year: year,
+                month: month,
+                historyId: historyId,
+                planList: JSON.stringify(myPlans)
+            },
+            success: function (result, status, xhr) {
+                if (result.code == 200) {
+                    layer.close();
+                    closeAndFlush("排班成功！")
+                } else {
+                    layer.close();
+                    layer.msg("排班失败，请联系管理员处理！");
+                }
+            }
+        })
+    }
+    function closeAndFlush(msg) {
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        parent.layer.close(index);
+        if (msg != "") {
+            parent.flushInit();
+        }
+    }
+    /**
+     * 判断某年是否瑞年
+     */
+    function isRuinian(year) {
+        if (year % 4 == 0 && year % 100 != 0) {
+            return true;
+        } else if (year % 400 == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    ;
+
+    /**
+     * 根据年和月获取该月有几天
+     */
+    function getDayNumByYearMonth(year, month) {
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                return 31;
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                return 30;
+                break;
+            case 2:
+                return isRuinian(year) ? 29 : 28;
+        }
+    }
+    ;
+    function isM(m) {
+        if (m == 1 || m == 2 || m == 3 || m == 4 || m == 5 || m == 6 || m == 7 || m == 8 || m == 9 || m == 10 || m == 11 || m == 12) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+</html>

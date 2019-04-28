@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>表单场景2</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+    <link rel="stylesheet" href="../../../Styles/themes/default/cover-style.css" media="all">
+</head>
+
+<body>
+<div class="eui-padding15 eui-row">
+    <div class="eui-tab eui-tab-brief eui-col-xs9" e-filter="docDemoTabBrief">
+        <div class="eui-tab-content">
+            <!--左右边距大的表单开头-->
+            <div class="">
+                <!--左右边距小的表单开头-->
+                <div class="eui-tab eui-tab-card  eui-padding20 eui-bg-white">
+                    <div class="eui-tab-item eui-show">
+                        <div>
+                            <div class="eui-row">
+                                <div class="eui-col-md12">
+                                    <form class="eui-form" action="">
+                                        <input type="hidden" id="sfjlId">
+                                        <div class="eui-form-item">
+                                            <label class="eui-form-label">客户姓名： </label>
+                                            <div class="eui-input-inline">
+                                                <input type="text" id="cust_name" readonly="readonly" e-verify="title"
+                                                       autocomplete="off" class="eui-input">
+
+                                            </div>
+                                            <label class="eui-form-label">性别：</label>
+                                            <div class="eui-input-inline" id="jz_sex">
+                                                <input type="radio" name="sex" value="男" title="男" checked="">
+                                                <input type="radio" name="sex" value="女" title="女">
+                                            </div>
+                                            <label class="eui-form-label">账单时间：</label>
+                                            <div class="eui-input-inline">
+                                                <input type="text" id="jz_time" class="eui-input">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="eui-row eui-searchTitle eui-marginB20">
+                                <div class="eui-col-md12">
+                                    <span class="eui-panels-title1">收费明细：</span>
+                                </div>
+                            </div>
+                            <div class="eui-row">
+                                <table id="tableDemo" e-filter="tableDemoFilter"></table>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="eui-row eui-searchTitle eui-marginB20">
+                                <div class="eui-col-md12">
+                                    <span class="eui-panels-title1">汇总信息：</span>
+                                </div>
+                            </div>
+                            <div class="eui-row">
+                                <label class="eui-form-label">合计应收：</label>
+                                <div class="eui-input-inline">
+                                    <input type="text" name="text" id="heji" readonly="readonly" e-verify="pass"
+                                           autocomplete="off" placeholder="" class="eui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="eui-btn-verify  eui-textAlignC eui-paddingB15 demoTable">
+                            <button class="eui-btn " data-type="getCheckData" onclick="submits(this)">完成</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 删除分界线 -->
+            </div>
+            <!--左右边距小的表单结尾里面要删的东西要去掉-->
+        </div>
+        <!--左右边距大的表单结尾里面要删的东西要去掉-->
+    </div>
+    <!--表格结尾，里面需删除的部分要去掉-->
+    <div class="eui-col-xs3 eui-paddingTB20">
+        <div class=" eui-tab-card">
+            <div class="eui-tab eui-tab-brief" e-filter="docDemoTabBrief">
+                <ul class="eui-tab-title">
+                    <li class="eui-this" onclick="type_flag=0">药品</li>
+                    <li onclick="type_flag=1">项目</li>
+                </ul>
+                <div class="eui-tab-content">
+                    <div class="eui-tab-item eui-show">
+                        <label class="eui-form-label">药品检索：</label>
+                        <div class="eui-input-inline">
+                            <input type="text" name="title" e-verify="title" id="yaopin" autocomplete="off"
+                                   placeholder="请输入药品编号/名称" onchange="getYp()" class="eui-input">
+                        </div>
+                        <i class="eui-icon" title="查找">&#xe615;</i>
+
+                        <!--<table class="eui-table" e-even e-skin="nob">
+                            <colgroup>
+                                <col width="70">
+                                <col width="100">
+                                <col width="100">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>添加</th>
+                                    <th>名称</th>
+                                    <th>规格</th>
+                                    <th>单价</th>
+                                    <th>库存</th>
+                                </tr>
+                            </thead>
+                            <tbody id="yp_tbody">-->
+                        <!--<tr>
+                                    <td class="eui-form-item"><input type="checkbox" name="like[write]" e-skin="primary" title="写作" checked=""></td>
+                                    <td>止疼片</td>
+                                    <td>DF</td>
+                                    <td>29</td>
+                                    <td>10000</td>
+                                </tr>
+                                <tr>
+                                    <td class="eui-form-item"><input type="checkbox" name="like[write]" e-skin="primary" title="写作" checked=""></td>
+                                    <td>止疼片</td>
+                                    <td>DF</td>
+                                    <td>29</td>
+                                    <td>10000</td>
+                                </tr>-->
+                        <!--</tbody>
+                        </table>-->
+                        <div class="eui-row">
+                            <table id="tableDemos" e-filter="tableDemoFilters"></table>
+                        </div>
+
+                    </div>
+                    <div class="eui-tab-item">
+                        <label class="eui-form-label">项目检索：</label>
+                        <div class="eui-input-inline">
+                            <input type="text" name="title" e-verify="title" id="xiangmu" autocomplete="off"
+                                   placeholder="请输入项目编号/名称/类型" onchange="getXm()" class="eui-input">
+                        </div>
+                        <i class="eui-icon" title="查找">&#xe615;</i>
+                        <!--<table class="eui-table" e-even e-skin="nob">
+                            <colgroup>
+                                <col width="100">
+                                <col width="100">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>添加</th>
+                                    <th>名称</th>
+                                    <th>单价</th>
+                                </tr>
+                            </thead>
+                            <tbody id="xm_tbody">-->
+                        <!--<tr>
+                                    <td class="eui-form-item"><input type="checkbox" name="like[write]" e-skin="primary" title="写作" checked=""></td>
+                                    <td>种植牙</td>
+                                    <td>29</td>
+                                </tr>
+                                <tr class="eui-form-item">
+                                    <td><input type="checkbox" name="like[write]" e-skin="primary" title="写作" checked=""></td>
+                                    <td>洗牙</td>
+                                    <td>29</td>
+                                </tr>-->
+                        <!--</tbody>
+                        </table>-->
+                        <div class="eui-row">
+                            <table id="tableDemoa" e-filter="tableDemoFiltera"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="eui-btn eui-margin20" onclick="add_type()">确认添加</button>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/html" id="barDemo">
+    <div class="eui-btn-group">
+        <a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="删除">&#xe640;</i></a>
+    </div>
+</script>
+
+<!-- <script type="text/javascript" src="../../../../scripts/jquery-1.9.0.min.js"></script> -->
+<!-- 引入代码高亮显示文件 -->
+<script src="../../../Scripts/plugins/prism/prism.js"></script>
+<script src="../../../Scripts/plugins/prism/line-numbers.js"></script>
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="../../../Scripts/config.js"></script>
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../Scripts/date2format.js"></script>
+
+<script type="text/javascript">
+    var table;
+    //表单
+    eui.use(['form', 'layedit', 'laydate', 'table', 'element'], function () {
+        var form = eui.form,
+            layer = eui.layer,
+            layedit = eui.layedit,
+            element = eui.element;
+        table = eui.table;
+        //明细
+        table.render({
+            elem: '#tableDemo'
+            //   ,height: 350
+            //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+            ,
+            even: true //开启隔行背景
+            ,
+            skin: 'row',
+            //					url: '../../../Scripts/data/test.json' //数据接口
+            //						,
+            data: tablaData,
+            cols: [
+                [{
+                    field: 'name',
+                    width: 120,
+                    title: '名称',
+                    edit: 'text'
+                } //增加 edit 表示开户了编辑状态
+                    , {
+                    field: 'num',
+                    width: 120,
+                    title: '数量',
+                    edit: 'text'
+                },{
+                    field: 'price',
+                    title: '单价',
+                    minWidth: 150
+                    },{
+                    field: 'oMoney',
+                    title: '原金额',
+                    minWidth: 150,
+                }, {
+                    field: 'discount',
+                    title: '折扣率(%)',
+                    minWidth: 150,
+                    edit: 'text'
+                }, {
+                    field: 'money',
+                    title: '折后金额',
+                    minWidth: 150,
+                    edit: 'text'
+                },
+                    {
+                    field: 'onceNum',
+                    width: 120,
+                    title: '单次用量',
+                    edit: 'text'
+                }, {
+                    field: 'usages',
+                    width: 90,
+                    title: '用法',
+                    templet: '#switchTpl',
+                    edit: 'text'
+                }, {
+                    field: 'freq',
+                    title: '频度',
+                    minWidth: 150,
+                    edit: 'text'
+                }, {
+                    field: 'btn',
+                    title: '操作',
+                    width: 50,
+                    toolbar: '#barDemo',
+                    unresize: true,
+                    fixed: 'right'
+                }
+                ]
+            ],
+            limit: 999 //每页默认显示的数量
+        });
+
+        //药品
+        table.render({
+            elem: '#tableDemos'
+            //   ,height: 350
+            //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+            ,
+            even: true //开启隔行背景
+            ,
+            skin: 'row',
+            //					url: '../../../Scripts/data/test.json' //数据接口
+            //						,
+            data: Stocklist,
+            cols: [
+                [{
+                    type: 'checkbox',
+                    fixed: 'left'
+                }, {
+                    field: 'productName',
+                    width: 120,
+                    title: '名称',
+                    edit: 'text'
+                } //增加 edit 表示开户了编辑状态
+                    , {
+                    field: 'productSpec',
+                    width: 120,
+                    title: '规格',
+                    edit: 'text'
+                }, {
+                    field: 'money',
+                    width: 120,
+                    title: '单价',
+                    edit: 'text'
+                }, {
+                    field: 'stockNum',
+                    width: 90,
+                    title: '库存',
+                    templet: '#switchTpl',
+                    edit: 'text'
+                }
+                ]
+            ],
+            page: true,
+            limit: 5 //每页默认显示的数量
+        });
+        //项目
+        table.render({
+            elem: '#tableDemoa'
+            //   ,height: 350
+            //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+            ,
+            even: true //开启隔行背景
+            ,
+            skin: 'row',
+            data: chargelist,
+            cols: [
+                [{
+                    type: 'checkbox',
+                    fixed: 'left'
+                },
+				{
+				    field: 'code',
+				    width: 100,
+				    title: '编号',
+				    edit: 'text'
+				}, {
+                    field: 'projectName',
+                    minWidth: 120,
+                    title: '名称',
+                    edit: 'text'
+                } //增加 edit 表示开户了编辑状态
+                    , {
+                    field: 'price',
+                    width: 120,
+                    title: '单价',
+                    edit: 'text'
+                },
+				{
+				    field: 'type',
+				    width: 120,
+				    title: '类型',
+				    edit: 'text'
+				}
+				
+				
+                ]
+            ],
+            page: true,
+            limit: 10 //每页默认显示的数量
+        });
+
+        //table栏修改事件
+        table.on('edit(tableDemoFilter)', function (obj) {
+            if (obj.field == "num") {
+                obj.data.oMoney = Number(obj.data.price) * Number(obj.data.num);
+                obj.data.money = Number(obj.data.oMoney) *Number(obj.data.discount/100);
+            }else if(obj.field == "discount"){
+                if(!/^(?:[1-9]\d|100)$/.test(obj.data.discount)){
+
+                    obj.data.discount = 100;
+                    obj.data.money = Number(obj.data.oMoney);
+                    layer.msg("请输入10-100的正整数")
+                }else {
+                    obj.data.money = Math.ceil(Number(obj.data.oMoney) * Number(obj.data.discount/100));
+                }
+            }else if(obj.field == "money"){
+                    obj.data.discount = parseInt(Number(obj.data.money)/Number(obj.data.oMoney)*100);
+            }
+            var tablelist = tablaData;
+            tablaData = [];
+            for (var item in tablelist) {
+                var objs = tablelist[item]
+                if (objs.sfDeId == obj.data.sfDeId) {
+                    tablaData.push(obj.data);
+                } else {
+                    tablaData.push(objs);
+                }
+            }
+            table.reload('tableDemo', {
+                data: tablaData
+            });
+            money_js();
+        });
+
+        //table栏工具删除事件
+        table.on('tool(tableDemoFilter)', function (obj) {
+            layer.confirm('真的删除行么', function (index) {
+                obj.del();
+                var tablelist = tablaData;
+                tablaData = [];
+                for (var item in tablelist) {
+                    var objs = tablelist[item]
+                    if (objs.sfDeId != obj.data.sfDeId) {
+                        tablaData.push(objs);
+                    }
+                }
+                money_js();
+                layer.close(index);
+            });
+        });
+
+    });
+
+    $(function () {
+        yp_xm_new();
+    });
+    var tablaData = [];
+    var cust_name;
+    var cust_id;
+    //获取父窗口传递的数据
+    window.getcustName = function (names, sexs, ids,sfjlId,jz_time,money_num) {
+        cust_id = ids;
+        cust_name = names;
+        $('#cust_name').val(names);
+        $('#sfjlId').val(sfjlId);
+        $('#jz_time').val(jz_time);
+        $('#heji').val(money_num);
+        if (sexs == '男') {
+            $('#jz_sex').html('<input type="radio" name="sex" value="男" title="男" checked="">' +
+                '<input type="radio" name="sex" value="女" title="女" disabled="">');
+        } else {
+            $('#jz_sex').html('<input type="radio" name="sex" value="男" title="男" disabled="">' +
+                '<input type="radio" name="sex" value="女" title="女" checked="">');
+        }
+        eui.form.render('radio');
+        //初始化已选中药品或项目
+        $.ajax({
+            type: "post",
+            url: basePath + "/cust/sfjl/de/getByIdlist",
+            async: true,
+            data: {
+                ids: sfjlId
+            },
+            success: function(data) {
+                if(data.data!=undefined&&data.data!=null){
+                    tablaData = data.data;
+                    table.reload('tableDemo', {
+                        data: tablaData
+                    });
+                }
+            }
+        });
+    }
+
+    var listIDflag = 0;
+    var type_flag = 0;
+
+    //添加项目和药品
+    function add_type() {
+        if (type_flag == 0) {
+            var checkStatus = table.checkStatus('tableDemos'); //idTest 即为基础参数 id 对应的值
+            var lists = checkStatus.data;
+            console.log(lists)
+            for (var item in lists) {
+                var Stock = lists[item];
+                var list = {
+                    sfDeId: listIDflag,
+                    name: Stock.productName,
+                    num: "1",
+                    price: Stock.money,
+                    oMoney: Stock.money,
+                    discount: "100",
+                    money: Stock.money,
+                    onceNum: "",
+                    usages: "",
+                    freq: "",
+                    allNum: "",
+                    sfjlId: "",
+                    code: Stock.productCode
+                };
+                tablaData.push(list);
+                listIDflag++;
+            }
+        } else {
+            var checkStatus = table.checkStatus('tableDemoa'); //idTest 即为基础参数 id 对应的值
+            var lists = checkStatus.data;
+            for (var item in lists) {
+                var ChargeProject = lists[item];
+                var list = {
+                    sfDeId: listIDflag,
+                    name: ChargeProject.projectName,
+                    num: "1",
+                    price: ChargeProject.price,
+                    oMoney: ChargeProject.price,
+                    discount: "100",
+                    money: ChargeProject.price,
+                    onceNum: "",
+                    usages: "",
+                    freq: "",
+                    allNum: "",
+                    sfjlId: "",
+                    code: ChargeProject.id
+                };
+                tablaData.push(list);
+                listIDflag++;
+            }
+        }
+
+        money_js();
+        eui.table.reload('tableDemo', {
+
+            data: tablaData
+
+        });
+    }
+
+    var Stocklist;
+    var chargelist
+
+    //价格计算
+    function money_js() {
+        var CustSfjlDeList = tablaData;
+        var money_num = 0;
+        for (var item in CustSfjlDeList) {
+            var CustSfjlDe = CustSfjlDeList[item];
+            money_num = money_num + Number(CustSfjlDe.money);
+        }
+        $('#heji').val(money_num);
+    }
+
+    //项目和药品初始化
+    function yp_xm_new() {
+        //项目
+        $.ajax({
+            type: "post",
+            url: basePath + "/charge/project/getOrgIdlist",
+            async: true,
+            success: function (data) {
+                chargelist = data.data;
+                table.reload('tableDemoa', {
+
+                    data: chargelist
+
+                });
+            }
+        });
+        //药品
+        $.ajax({
+            type: "post",
+            url: basePath + "/stock/getOrgIdlist",
+            async: true,
+            success: function (data) {
+                Stocklist = data.data;
+                table.reload('tableDemos', {
+
+                    data: Stocklist
+
+                });
+            }
+        });
+    }
+
+    //模糊搜索药品
+    function getYp() {
+        $.ajax({
+            type: "post",
+            url: basePath + "/stock/getOrgIdlists",
+            async: true,
+            data: {
+                str: $("#yaopin").val()
+            },
+            success: function (data) {
+                Stocklist = data.data;
+                table.reload('tableDemos', {
+
+                    data: Stocklist
+
+                });
+            }
+        });
+    }
+
+    //模糊搜索项目
+    function getXm() {
+        $.ajax({
+            type: "post",
+            url: basePath + "/charge/project/getOrgIdlists",
+            async: true,
+            data: {
+                str: $("#xiangmu").val()
+            },
+            success: function (data) {
+                chargelist = data.data;
+                table.reload('tableDemoa', {
+
+                    data: chargelist
+
+                });
+            }
+        });
+    }
+
+    //修改提交
+    function submits(obj) {
+        $(obj).attr("disabled", true);
+        if ($('#heji').val() != '' && $('#heji').val() != null) {
+                $.ajax({
+                    type: "post",
+                    url: basePath + "/cust/sfjl/de/edit",
+                    async: true,
+                    data: {
+                        dataList: JSON.stringify(tablaData)
+                        ,sfjlId :$('#sfjlId').val()
+                        ,money: $('#heji').val(),
+                    },
+                    success: function () {
+                        layer.msg('订单修改成功！', {
+                            icon: 1,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        }, function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        });
+                    }
+                });
+        } else {
+            layer.msg('请选中要生成订单的药品或者项目', {
+                icon: 2,
+                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+            });
+        }
+    }
+</script>
+</body>
+
+</html>

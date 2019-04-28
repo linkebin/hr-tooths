@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>首页</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+		<link rel="stylesheet" href="../../../Styles/themes/default/tooth-order-add.css" media="all">
+	</head>
+
+	<body>
+		<div class="eui-row">
+			<div class="eui-col-md3">
+				<!--<div class="eui-row eui-margin10 eui-padding10 eui-tab-card  eui-borderRadiusLR1">-->
+					<!--<div class="eui-col-md6 eui-textAlignC">-->
+						<!--<a href="#" class="eui-textIn1">-->
+							<!--<p class="eui-textNum"><span class="eui-color-blue" id="yyCount"></span> 个</p>-->
+							<!--<p class="name">今日预约人数</p>-->
+						<!--</a>-->
+					<!--</div>-->
+					<!--<div class="eui-col-md6 eui-textAlignC">-->
+						<!--<a href="#" class="eui-textIn1">-->
+							<!--<p class="eui-textNum"><span class="eui-color-yellow" id="custCount"></span> 元</p>-->
+							<!--<p class="name">今日(订单)营收总额</p>-->
+						<!--</a>-->
+					<!--</div>-->
+				<!--</div>-->
+					<div class="eui-row eui-margin10 eui-padding10 eui-tab-card  eui-borderRadiusLR1">
+						<!--放各位医生的统计信息-->
+						<div class="eui-font18 eui-paddingT20">
+							<i class='eui-icon eui-font24'>&#xe62c;</i>近期就诊数量统计
+						</div>
+						<table class="eui-table eui-textAlignC">
+							<thead>
+							<tr>
+								<th rowspan="2">医生名称</th>
+								<th colspan="3">新诊</th>
+								<th colspan="3">复诊</th>
+							</tr>
+							<tr>
+								<th>本月</th>
+								<th>本周</th>
+								<th>本日</th>
+								<th>本月</th>
+								<th>本周</th>
+								<th>本日</th>
+							</tr>
+							</thead>
+							<tbody id="tjTbody">
+							</tbody>
+						</table>
+						<div class="eui-font18 eui-paddingT5">
+							<i class='eui-icon eui-font24'>&#xe612;</i> 今日预约排行
+							<a href="###" class="eui-btn eui-btn-small" onclick="yyQuery()">查看详情</a>
+						</div>
+						<table class="eui-table" e-even e-skin="nob">
+							<colgroup>
+								<col width="200">
+								<col>
+							</colgroup>
+							<thead>
+								<tr>
+									<th>诊所名称</th>
+									<th>预约人数</th>
+								</tr>
+							</thead>
+							<tbody id="dayTanking">
+							</tbody>
+						</table>
+						<!--<div class="eui-font18 eui-paddingT20" id="ranking">-->
+							<!--<i class='eui-icon eui-font24'>&#xe60e;</i>-->
+						<!--</div>-->
+						<!--<table class="eui-table" e-even e-skin="nob">-->
+							<!--<colgroup>-->
+								<!--<col width="200">-->
+								<!--<col>-->
+							<!--</colgroup>-->
+							<!--<thead>-->
+								<!--<tr>-->
+									<!--<th>诊所名称</th>-->
+									<!--<th>预约人数</th>-->
+								<!--</tr>-->
+							<!--</thead>-->
+							<!--<tbody id="monthTanking">-->
+							<!--</tbody>-->
+						<!--</table>-->
+						<div class="eui-font18 eui-paddingT20">
+							<i class='eui-icon eui-font24'>&#xe60e;</i> 库存到期预警
+						</div>
+						<table class="eui-table" e-even e-skin="nob" id="kcdqyj"></table>
+				</div>
+			</div>
+
+			<div class="eui-col-md9">
+				<div class="eui-tab-card eui-margin10">
+					<div class="eui-row  eui-padding10 ">
+						<div class="eui-font18 eui-marginL20 eui-borderRadiusLR1 eui-borderB">
+								<i class='eui-icon eui-font24'>&#xe65e;</i>营收信息
+						</div>
+						<div class="eui-row eui-marginT20 ">
+							<div class="eui-col-md3 eui-paddingR10">
+								<div class=" eui-overflowH eui-bg-white  eui-padding20 eui-borderRadius">
+									<div class="eui-float-left eui-index3-mode eui-index3-icon">
+										<i class="eui-icon">&#xe698;</i>
+									</div>
+									<div class="eui-float-left eui-textAlignL eui-marginL20">
+										<h3 class="eui-font36 eui-paddingTB10" id="dayDM"></h3>
+										<p class="eui-paddingTB10">昨日订单营业额</p>
+									</div>
+								</div>
+							</div>
+							<div class="eui-col-md3 eui-paddingR10 eui-paddingL10">
+								<div class=" eui-overflowH eui-bg-white eui-padding20 eui-borderRadius">
+									<div class="eui-float-left eui-index3-mode2 eui-index3-icon">
+										<i class="eui-icon">&#xe65e;</i>
+									</div>
+									<div class="eui-float-left eui-textAlignL eui-marginL20">
+										<h3 class="eui-font36 eui-paddingTB10" id="daySM"></h3>
+										<p class="eui-paddingTB10">昨日实收营业额</p>
+									</div>
+								</div>
+							</div>
+							<div class="eui-col-md3 eui-paddingR10 eui-paddingL10">
+								<div class=" eui-overflowH eui-bg-white eui-padding20 eui-borderRadius">
+									<div class="eui-float-left eui-index3-mode3 eui-index3-icon">
+										<i class="eui-icon">&#xe657;</i>
+									</div>
+									<div class="eui-float-left eui-textAlignL eui-marginL20">
+										<h3 class="eui-font36 eui-paddingTB10" id="monDM"></h3>
+										<p class="eui-paddingTB10">本月订单营业额</p>
+									</div>
+								</div>
+							</div>
+							<div class="eui-col-md3 eui-paddingL10">
+								<div class=" eui-overflowH eui-bg-white eui-padding20 eui-borderRadius">
+									<div class="eui-float-left eui-index3-mode4 eui-index3-icon">
+										<i class="eui-icon">&#xe65e;</i>
+									</div>
+									<div class="eui-float-left eui-textAlignL eui-marginL20">
+										<h3 class="eui-font36 eui-paddingTB10" id="monSM"></h3>
+										<p class="eui-paddingTB10">本月实收营业额</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="eui-row  eui-padding10   eui-borderRadiusLR1">
+						<div class="eui-row eui-marginL20  eui-borderB eui-bg-white eui-borderRadiusLR1">
+							<div class="eui-col-md6 eui-font18 eui-paddingT5">
+								<i class='eui-icon eui-font24'>&#xe61d;</i> 待办信息
+							</div>
+						</div>
+						<div class="eui-bg-white eui-marginL20 ">
+							<script type="text/html" id="barDemo">
+								<div class="eui-btn-group">
+									<a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>
+								</div>
+							</script>
+							<table id="tableDemo" e-filter="tableDemoFilter"></table>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<script type="text/html" id="layerContent">
+			<div class="infoList">
+				<div class="title-bar">
+					<div class="eui-btn-group float-right">
+					</div>
+					<span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      明细列表
+    </span>
+				</div>
+				<table id="tableDemo1" e-filter="tableDemoFilter"></table>
+				<!--表格 end-->
+			</div>
+
+			<div class="infoList">
+				<!--标题 start-->
+
+				<div class="title-bar">
+					<div class="eui-btn-group float-right">
+					</div>
+					<span class="title-main">
+              <i class="eui-icon eui-font20">&#xe642;</i>
+              审批意见
+            </span>
+				</div>
+				<textarea id="opinion" class="eui-textarea"></textarea>
+				<!--表格 end-->
+			</div>
+		</script>
+		<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+		<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+		<script src="../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+		<script src="../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+		<script src="../../../Scripts/plugins/jquery.cookie.js" type="text/javascript"></script>
+		<script src="../../../Scripts/config.js" type="text/javascript"></script>
+		<script src="../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+		<script src="../../../Scripts/date2format.js" type="text/javascript"></script>
+		<script src="../../../Scripts/main.js" charset="utf-8"></script>
+
+		<script>
+			var layer;
+			eui.use(['element', 'layer'], function() {
+				layer = eui.layer;
+				var $ = eui.jquery,
+					element = eui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+			});
+
+			function yyQuery() {
+				layer.open({
+					type: 2,
+					title: '今日预约',
+					shadeClose: true,
+					shade: 0.3,
+					maxmin: true, //开启最大化最小化按钮
+					area: ['80%', '80%'],
+					content: '../cust/yyManage.html'
+				});
+			}
+			function doSearch() {
+				eui.use(['jquery', 'element', 'form', 'layedit', 'laydate', 'table', 'laytpl'], function() {
+					table = eui.table;
+					form = eui.form;
+					var jQuery = eui.jQuery,
+						element = eui.element,
+						layer = eui.layer,
+						layedit = eui.layedit,
+						laydate = eui.laydate,
+						laytpl = eui.laytpl;
+					//日期选择
+					var getTpl = $("#layerContent").html();
+					laytpl(getTpl).render({}, function(html) {
+						txt = html;
+					});
+					//实例1:简单表格
+					table.render({
+						elem: '#tableDemo'
+							//   ,height: 350
+							//  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+							,
+						even: true //开启隔行背景
+							,
+						skin: 'row',
+						url: basePath + '/stock/in/out/findToDoOrder' //数据接口
+							,
+						method: 'post',
+						where: {
+							time: $("#dateTest").val(),
+							type: $("#type").val(),
+							code: $("#code").val()
+						},
+						cols: [
+							[{
+									field: 'in_out_code',
+									width: 150,
+									title: '订单单号'
+								}, {
+									field: 'org_name',
+									width: 150,
+									title: '订单诊所'
+								}, {
+									field: 'in_out_time',
+									width: 120,
+									title: '订单日期',
+									templet: '<div>{{ new Date(d.in_out_time).Format("yyyy-MM-dd") }}</div>'
+								} //增加 edit 表示开户了编辑状态
+								, {
+									field: 'state',
+									width: 120,
+									title: '单据状态'
+								}, {
+									field: 'type',
+									width: 100,
+									title: '订单类型'
+								}, {
+									field: 'num',
+									width: 100,
+									title: '物品数量'
+								}, {
+									field: 'money',
+									width: 90,
+									title: '总金额'
+								}, {
+									field: 'creator',
+									title: '订单发起人',
+									width: 90
+								}, {
+									field: 'user_name',
+									title: '审核人',
+									width: 120
+								}, {
+									field: 'audit_time',
+									title: '审核时间',
+									width: 120,
+									templet: '<div>{{ d.audit_time!=null ? new Date(d.audit_time).Format("yyyy-MM-dd") :"" }}</div>'
+								}, {
+									field: 'remark',
+									title: '备注',
+									width: 150
+								}, {
+									field: 'operation',
+									title: '操作',
+									width: 120,
+									toolbar: '#barDemo',
+									unresize: true,
+									fixed: 'right'
+								}
+							]
+						],
+						page: true,
+						limits: [10, 20, 30],
+						limit: 10 //每页默认显示的数量
+							,
+						onLoaded: function() {
+							$(".eui-table-body").eq(0).find("tr").each(function(index) {
+								console.log(index);
+								const state = $(this).find("td[data-field=state]").children().html();
+								if(state === "未审核") {
+									$(this).find("td[data-field=operation]")
+										.find(".eui-btn-group").html("<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='detail'><i class='eui-icon' title='查看'>&#xe615;</i></a>\n" +
+											"<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='audit'><i class='eui-icon' title='订单审核'>&#xe620;</i></a>");
+									$(".eui-table-body").eq(1).find("tr").eq(index).find("td[data-field=operation]")
+										.find(".eui-btn-group").html("<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='detail'><i class='eui-icon' title='查看'>&#xe615;</i></a>\n" +
+											"<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='audit'><i class='eui-icon' title='订单审核'>&#xe620;</i></a>");
+								} else if(state === "已发送") {
+									$(this).find("td[data-field=operation]")
+										.find(".eui-btn-group").html("<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='detail'><i class='eui-icon' title='查看'>&#xe615;</i></a>\n" +
+											"<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='confirm'><i class='eui-icon' title='收货确认'>&#xe7d0;</i></a>");
+									$(".eui-table-body").eq(1).find("tr").eq(index).find("td[data-field=operation]")
+										.find(".eui-btn-group").html("<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='detail'><i class='eui-icon' title='查看'>&#xe615;</i></a>\n" +
+											"<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='confirm'><i class='eui-icon' title='收货确认'>&#xe7d0;</i></a>");
+								}
+							});
+						}
+					});
+					//库存到期预警
+                    table.render({
+                        elem: '#kcdqyj',
+                        even: true,
+                        method: 'post',
+                        url: basePath+"/stock/getGqWarn",
+                        skin: 'row',
+                        cols: [[
+                            {field: 'in_out_code',width: 80,title: '编码'}
+                            ,{field: 'p_name',width: 110,title: '名称'}
+                            ,{field: 'end_time',width: 90,title: '过期日期',templet:'<div>{{ new Date(d.end_time).Format("yyyy-MM-dd") }}</div>'}
+                            ,{field: 'days',width: 80,title: '剩余天数'}
+                            ,{field: 'num',width: 60,title: '数量'}
+                        ]],
+                        page: true,
+                        limits: [10, 20, 30],
+                        limit: 10 //每页默认显示的数量
+                    });
+
+					table.on('tool(tableDemoFilter)', function(obj) {
+						var data = obj.data;
+						var state = data.state;
+						if(data.type === '退货') {
+							state = "";
+						}
+						if(obj.event === 'detail') {
+							layer.open({
+								type: 2,
+								title: '明细',
+								shadeClose: true,
+								shade: 0.3,
+								maxmin: true, //开启最大化最小化按钮
+								area: ['1100px', '600px'],
+								content: '../stock/inStockInfo.html?orderId=' + data.in_out_code + '&state=' + state
+							});
+						} else if(obj.event === 'del') {
+							layer.confirm('真的删除行么', function(index) {
+								obj.del();
+								layer.close(index);
+							});
+						} else if(obj.event === 'edit') {
+							layer.alert('编辑行：<br>' + JSON.stringify(data))
+						} else if(obj.event === 'confirm') {
+							$.post(basePath + '/stock/confirm', {
+								id: data.in_out_id,
+								order: data.in_out_code
+							}, function(res) {
+								if(res.code === 200) {
+									doSearch();
+									layer.msg("《" + data.in_out_code + "》该订单已入库");
+								} else {
+									layer.msg(res.message);
+								}
+							});
+						} else if(obj.event === 'audit') {
+							layer.open({
+								type: 1,
+								title: '订单审批',
+								shadeClose: true,
+								shade: 0.3,
+								area: ['85%', '80%'],
+								id: 'popPage', //防止重复弹出
+								content: txt,
+								btn: ['审核通过', '审核不通过'],
+								btnAlign: 'c', //按钮居中
+								yes: function() {
+									if(data.clinic_id === "122") {
+										if(data.type === "退货") {
+											$.post(basePath + '/stock/audit/addOutStock', {
+												id: data.in_out_id,
+												order: data.in_out_code,
+												remark: $("#opinion").val()
+											}, function(res) {
+												if(res.code === 200) {
+													doSearch();
+													layer.msg("《" + data.in_out_code + "》该订单已审核");
+												} else {
+													layer.msg(res.message);
+												}
+											});
+										} else {
+											$.post(basePath + '/stock/audit/addInStock', {
+												id: data.in_out_id,
+												order: data.in_out_code,
+												clinic: data.clinic_id,
+												userId: data.creator_id,
+												username: data.creator,
+												type: data.type,
+												remark: $("#opinion").val()
+											}, function(res) {
+												if(res.code === 200) {
+													doSearch();
+													layer.msg("《" + data.in_out_code + "》该订单已审核");
+												} else {
+													layer.msg(res.message);
+												}
+											});
+										}
+									} else {
+										if(data.type === "进货") {
+											$.post(basePath + '/stock/audit/clinicInStock', {
+												id: data.in_out_id,
+												order: data.in_out_code,
+												clinic: data.clinic_id,
+												userId: data.creator_id,
+												username: data.creator,
+												type: data.type,
+												remark: $("#opinion").val()
+											}, function(res) {
+												if(res.code === 200) {
+													doSearch();
+													layer.msg("《" + data.in_out_code + "》该订单已审核");
+												} else {
+													layer.msg(res.message);
+												}
+											});
+										} else {
+											$.post(basePath + '/stock/audit/clinicOutStock', {
+												id: data.in_out_id,
+												order: data.in_out_code,
+												clinic: data.clinic_id,
+												userId: data.creator_id,
+												username: data.creator,
+												type: data.type,
+												remark: $("#opinion").val()
+											}, function(res) {
+												if(res.code === 200) {
+													doSearch();
+													layer.msg("《" + data.in_out_code + "》该订单已审核");
+												} else {
+													layer.msg(res.message);
+												}
+											});
+										}
+									}
+									layer.closeAll();
+								},
+								btn2: function() {
+									if($("#opinion").val() === "") {
+										layer.msg("请输入审批不通过原因！");
+										return;
+									}
+									if(data.clinic_id === "122") {
+										if(data.type === "退货") {
+											$.post(basePath + '/stock/audit/noPassOut', {
+												id: data.in_out_id,
+												remark: $("#opinion").val()
+											}, function(res) {
+												if(res.code === 200) {
+													doSearch();
+													layer.msg("《" + data.in_out_code + "》该订单已审核");
+												} else {
+													layer.msg(res.message);
+												}
+											});
+										} else {
+											$.post(basePath + '/stock/audit/noPassIn', {
+												id: data.in_out_id,
+												remark: $("#opinion").val()
+											}, function(res) {
+												if(res.code === 200) {
+													doSearch();
+													layer.msg("《" + data.in_out_code + "》该订单已审核");
+												} else {
+													layer.msg(res.message);
+												}
+											});
+										}
+									} else {
+										if(data.type === "退货") {
+											$.post(basePath + '/stock/audit/noPassReturn', {
+												id: data.in_out_id,
+												order: data.in_out_code,
+												remark: $("#opinion").val()
+											}, function(res) {
+												if(res.code === 200) {
+													doSearch();
+													layer.msg("《" + data.in_out_code + "》该订单已审核");
+												} else {
+													layer.msg(res.message);
+												}
+											});
+										} else {
+											$.post(basePath + '/stock/audit/noPassIn', {
+												id: data.in_out_id,
+												remark: $("#opinion").val()
+											}, function(res) {
+												if(res.code === 200) {
+													doSearch();
+													layer.msg("《" + data.in_out_code + "》该订单已审核");
+												} else {
+													layer.msg(res.message);
+												}
+											});
+										}
+									}
+									layer.closeAll();
+								}
+							});
+							form.render();
+							doDetailSearch(data.in_out_code, data.type === "退货" ? "" : data.state);
+						}
+					});
+				});
+			}
+
+			function doDetailSearch(orderId, state) {
+				eui.use(['element', 'form', 'layedit', 'laydate', 'table'], function() {
+					table1 = eui.table;
+					var element = eui.element,
+						layer = eui.layer,
+						layedit = eui.layedit,
+						laydate = eui.laydate;
+
+					//实例1:简单表格
+					table1.render({
+						elem: '#tableDemo1',
+						even: true //开启隔行背景
+							,
+						skin: 'row',
+						url: basePath + '/stock/in/out/de/findStockDetail' //数据接口
+							,
+						where: {
+							orderId: orderId,
+							state: state
+						},
+						method: 'post',
+						cols: [
+							[{
+									field: 'batchId',
+									title: '批次号',
+									minWidth: 150
+								}, {
+									field: 'inOutCode',
+									width: 100,
+									title: '物品编号',
+									sort: true
+								}, {
+									field: 'pName',
+									width: 120,
+									title: '物品名称'
+								} //增加 edit 表示开户了编辑状态
+								, {
+									field: 'pModel',
+									width: 120,
+									title: '型号'
+								}, {
+									field: 'pSpe',
+									width: 100,
+									title: '规格'
+								}, {
+									field: 'pBrand',
+									width: 90,
+									title: '品牌'
+								}, {
+									field: 'num',
+									title: '数量',
+									minWidth: 80
+								}, {
+									field: 'endTime',
+									title: '有效期至',
+									minWidth: 105,
+									templet: '<div>{{d.endTime!=null? new Date(d.endTime).Format("yyyy-MM-dd"):"" }}</div>'
+								}, {
+									field: 'filed6',
+									title: '采购单价',
+									minWidth: 100,
+									templet: '<div>{{ d.money/d.num }}</div>'
+								}, {
+									field: 'money',
+									title: '金额',
+									minWidth: 100
+								}, {
+									field: 'price',
+									title: '建议售价',
+									minWidth: 100
+								}
+							]
+						],
+						page: true,
+						limits: [5, 10, 15],
+						limit: 5 //每页默认显示的数量
+					});
+					//操作事件
+				});
+			}
+			function tanking() {
+				$.post(basePath + "/yy/manage/tanking", function(res) {
+					var dayList = res.data.dayList;
+					var monthList = res.data.monthList;
+					var dayHtml = "";
+					var monthHtml = "";
+					$.each(dayList, function(index, value) {
+						dayHtml += "<tr><td>" + value.ORG_NAME + "</td><td>" + value.NUM + "</td></tr>\n";
+					});
+					$.each(monthList, function(index, value) {
+						monthHtml += "<tr><td>" + value.ORG_NAME + "</td><td>" + value.NUM + "</td></tr>\n";
+					});
+
+					$("#dayTanking").html(dayHtml);
+//					$("#monthTanking").html(monthHtml);
+				});
+			}
+			function patientsSum() {
+				$.post(basePath + "/yy/manage/patientsSum", function(res) {
+					var yyCount = res.data.yyCount;
+					var custCount = res.data.custCount;
+					$("#yyCount").html(yyCount);
+					$("#custCount").html(custCount);
+				});
+			}
+			function tongji() {
+                $.ajax({
+                    type: "post",
+                    url: basePath + "/yy/manage/getTj",
+                    async: true,
+                    success: function(data) {
+                        var list = data.data;
+                        for (var i in list) {
+                            var obj = list[i];
+                            $("#tjTbody").append("<tr>" +
+                                "<td>" + obj.USER_NAME + "</td>" +
+                                "<td>" + obj.montha + "</td>" +
+                                "<td>" + obj.weeka + "</td>" +
+                                "<td>" + obj.daya + "</td>" +
+                                "<td>" + obj.months + "</td>" +
+                                "<td>" + obj.weeks + "</td>" +
+                                "<td>" + obj.days + "</td>" +
+                                "</tr>")
+                        }
+                    }
+                });
+            }
+            function yszs() {
+                $.post(basePath + "/cust/sfjl/findSum",
+                 function (res) {
+                        $("#dayDM").html(res.data.dayDM);
+                        $("#daySM").html(res.data.daySM);
+                        $("#monDM").html(res.data.monDM);
+                        $("#monSM").html(res.data.monSM);
+				 });
+            }
+			$(function() {
+				patientsSum();
+				tanking();
+				doSearch();
+                tongji();
+                yszs();
+			});
+		</script>
+
+	</body>
+
+</html>

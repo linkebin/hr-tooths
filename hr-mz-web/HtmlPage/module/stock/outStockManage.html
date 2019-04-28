@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>出库管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css"  media="all">
+    <link rel="stylesheet" href="../../../Styles/themes/default/cover-style.css" media="all">
+</head>
+<body>
+
+
+
+
+<!--条件搜索 start-->
+<div class="eui-form eui-form-search">
+    <!-- 查询重置按钮-->
+    <div class="eui-btn-group">
+        <button class="eui-btn" onclick="doSearch()">查询</button>
+        <button class="eui-btn eui-btn-primary" onclick="reset()">重置</button>
+    </div>
+    <!--查询条件-->
+    <div class="eui-form-item">
+        <label class="eui-form-label">出库单号：</label>
+        <div class="eui-input-block">
+            <input type="text" class="eui-input" placeholder="请输入查询关键字" id="code">
+        </div>
+    </div>
+
+    <div class="eui-form-item">
+        <label class="eui-form-label">出库状态：</label>
+        <div class="eui-input-block">
+            <select id="type" e-verify="required" e-search>
+                <option value="">全部</option>
+                <option value="领用">领用</option>
+                <option value="退货">退货</option>
+            </select>
+        </div>
+    </div>
+    <!--华丽的分割线-->
+    <div class="eui-form-item">
+        <label class="eui-form-label">出库日期：</label>
+        <div class="eui-input-block">
+            <input type="text" class="eui-input" id="dateTest" placeholder="选择日期">
+        </div>
+    </div>
+
+
+    <!--华丽的分割线-->
+    <div class="clearfix"></div>
+</div>
+
+
+<!--条件搜索 end-->
+
+<div class="infoList">
+    <!--标题 start-->
+
+    <div class="title-bar">
+        <div class="eui-btn-group float-right">
+            <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+            <a href="###" class="eui-btn eui-btn-small" data-method="stockImport" data-type="出库导入"><i class="eui-icon">&#xe654;</i>出库导入</a>
+            <a href="###" class="eui-btn eui-btn-small" data-method="inStock" data-type="新增领用"><i class="eui-icon">&#xe654;</i>新增领用</a>
+            <a href="###" class="eui-btn eui-btn-small" data-method="outStock" data-type="新增退货"><i class="eui-icon">&#xe654;</i>新增退货</a>
+            <a href="###" class="eui-btn eui-btn-small" data-method="export"><i class="eui-icon">&#xe61f;</i>导出</a>
+            <!--<a href="###" class="eui-btn eui-btn-bug eui-btn-small"><i class="eui-icon">&#xe640;</i>取消</a>-->
+        </div>
+        <span class="title-main">
+      <i class="eui-icon eui-font20">&#xe62d;</i>
+      出库记录
+    </span>
+    </div>
+
+    <!--标题 end-->
+    <!--表格 start-->
+    <script type="text/html" id="barDemo">
+        <div class="eui-btn-group">
+            <a class="eui-btn eui-btn-primary eui-btn-mini" e-event="detail"><i class="eui-icon" title="查看">&#xe615;</i></a>
+            <!--<a class="eui-btn eui-btn-bug  eui-btn-mini" e-event="del"><i class="eui-icon" title="取消">&#xe640;</i></a>-->
+        </div>
+    </script>
+    <table id="tableDemo" e-filter="tableDemoFilter"></table>
+
+    <!--表格 end-->
+
+
+
+
+</div>
+
+
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+<script src="../../../Scripts/plugins/jquery.cookie.js" type="text/javascript"></script>
+<script src="../../../Scripts/config.js" type="text/javascript"></script>
+<script src="../../../Scripts/pack.ajax.js" type="text/javascript"></script>
+<script src="../../../Scripts/date2format.js" type="text/javascript"></script>
+
+<!-- ztree-->
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+<script>
+    var form = null;
+    var table= null;
+    var txt = "";
+
+    function reset(){
+        $("#code").val("");
+        $("#type").val("");
+        $("#dateTest").val("");
+    }
+
+    $(function () {
+        fileOnclick();
+        doSearch();
+
+        var active = {
+            //当前菜单编辑
+            inStock: function (othis) {
+                var genre = othis.data('type');
+                var batch = 'M' + (new Date()).valueOf();
+                var type = "领用";
+
+                layer.open({
+                    type: 2
+                    , title: genre
+                    , area: ['1400px', '90%']  //宽度
+                    , offset: 't'             //类型,注意点击按钮的data-type属性，然后配合宽高度
+                    , id: 'pop' + type //防止重复弹出
+                    , content: "orderStock.html?batch="+batch+"&type="+type
+                    , btn: ['保存', '取消']
+                    , btnAlign: 'c' //按钮居中
+                    , shade: 0.3 //不显示遮罩
+                    , maxmin: true
+                    , yes: function () {
+                        layer.closeAll();
+                        $.post(basePath+"/stock/in/out/add",{order:batch,type:type},function (res) {
+                            if(res.code === 200){
+                                doSearch();
+                                layer.closeAll();
+                                layer.msg("保存成功！")
+                            }else{
+                                layer.msg("保存失败，请联系管理员！")
+                            }
+                        });
+                    }, btn2: function () {
+                        layer.closeAll();
+                    }
+                });
+                //如有表单类的，请带上相关的JS预加载，并在以下加上重新渲染
+                form.render();
+            },
+            outStock: function (othis) {
+                var genre = othis.data('type');
+                var batch = 'M' + (new Date()).valueOf();
+                var type = "退货";
+
+                layer.open({
+                    type: 2
+                    , title: genre
+                    , area: ['1400px', '90%']  //宽度
+                    , offset: 't'             //类型,注意点击按钮的data-type属性，然后配合宽高度
+                    , id: 'pop' + type //防止重复弹出
+                    , content: "returnStock.html?batch="+batch+"&type="+type
+                    , btn: ['保存', '取消']
+                    , btnAlign: 'c' //按钮居中
+                    , shade: 0.3 //不显示遮罩
+                    , maxmin: true
+                    , yes: function () {
+                        layer.closeAll();
+                        $.post(basePath+"/stock/in/out/returnStock",{order:batch,type:type},function (res) {
+                            if(res.code === 200){
+                                doSearch();
+                                layer.closeAll();
+                                layer.msg("保存成功！")
+                            }else{
+                                layer.msg(res.message)
+                            }
+                        });
+                    }, btn2: function () {
+                        layer.closeAll();
+                    }
+                });
+            },
+            stockImport:function () {
+                layer.open({
+                    type: 1,
+                    title: "入库导入",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['420px', '220px'], //宽高
+                    content: '<div class="eui-row eui-bg-white eui-paddingTB15 ">\n' +
+                    '       <div class="eui-form">\n' +
+                    '            <div class="eui-form-item eui-paddingT20">\n' +
+                    '              <div class="eui-col-md12">\n' +
+                    '                <div class="eui-input-inline eui-marginL20">\n' +
+                    '                 <input type="text" id="fileName" class="eui-input" readonly>\n' +
+                    '                 <input type="file" class="eui-input" style="display: none" accept=".xls">\n' +
+                    '                 </div>\n' +
+                    '                 <div class="eui-btn-group">\n' +
+                    '                   <a href="javaScript:void(0)" class="eui-btn" onclick="chooseFile()">选择文件</a>\n' +
+                    '                   <a href="javaScript:void(0)" class="eui-btn eui-btn-primary" onclick="template()">下载模板</a>\n' +
+                    '                 </div>\n' +
+                    '               </div>\n' +
+                    '             </div>\n' +
+                    '          </div>\n' +
+                    '       </div>',
+                    btn: ['上传', '取消'],
+                    btnAlign: 'c', //按钮居中
+                    shade: 0.3, //不显示遮罩
+                    maxmin: true,
+                    yes: function () {
+                        layer.load("上传中");
+                        const da = new FormData();
+                        da.append("fileToUpload", $("input[type=file]")[0].files[0]);
+                        $.ajax({
+                            url: basePath+"/stock/in/out/uploadOutStock",
+                            data: da,
+                            type: "post",
+                            async: true,
+                            contentType: false,
+                            processData: false,
+                            dataType: "json",
+                            success(res){
+                                if (res.code === 200) {
+                                    layer.closeAll();
+                                    layer.msg(res.data);
+                                    doSearch();
+                                }else{
+                                    layer.closeAll();
+                                    layer.msg(res.message);
+                                }
+                            },
+                            error(obj, msg) {
+                                layer.closeAll();
+                                layer.msg("插入失败！");
+                            },
+                        });
+                    }, btn2: function () {
+                        layer.closeAll();
+                    }
+                });
+                form.render();
+            },
+
+            export: function () {
+                window.location.href = basePath + '/stock/in/out/exportOutOrder';
+            }
+        };
+
+        $('.eui-btn').on('click', function () {
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+    });
+
+    //选择文件
+    function chooseFile() {
+        $("input[type=file]").click();
+    }
+    //下载模板
+    function template() {
+        window.location.href = basePath + '/stock/in/out/exportInventory';
+    }
+
+    function fileOnclick() {
+        $("body").on("change","input[type=file]",function () {
+            var arr=($(this).val()).split('\\');
+            var fileName=arr[arr.length-1];
+            $("#fileName").val(fileName);
+        })
+    }
+    function doSearch() {
+        eui.use(['element', 'form', 'layedit', 'laydate', 'table'], function () {
+            table = eui.table;
+            form = eui.form;
+            var element = eui.element
+                , layer = eui.layer
+                , layedit = eui.layedit
+                , laydate = eui.laydate;
+
+            //日期选择
+            laydate.render({
+                elem: '#dateTest'
+            });
+            //日期范围
+            laydate.render({
+                elem: '#dateTest2'
+                , range: true
+            });
+
+//实例1:简单表格
+            table.render({
+                elem: '#tableDemo'
+                //   ,height: 350
+                //  ,height: 'full-200'       //该项为设置表格最大化自适应高度
+                , even: true //开启隔行背景
+                , skin: 'row'
+                , url: basePath+'/stock/in/out/findOutOrder' //数据接口
+                ,method: 'post'
+                ,where:{
+                    time: $("#dateTest").val(),
+                    type: $("#type").val(),
+                    code: $("#code").val()
+                }
+                , cols: [[
+                    {field:'in_out_code', width:150, title: '出库单号', sort: true}
+                    ,{field:'in_out_time', width:120, title: '出库日期',sort: true,templet:'<div>{{ new Date(d.in_out_time).Format("yyyy-MM-dd") }}</div>'}  //增加 edit 表示开户了编辑状态
+                    ,{field:'state',width:120, title: '单据状态'}
+                    ,{field:'type', width:100, title: '出库类型'}
+                    ,{field:'num',width:100, title: '物品数量'}
+                    ,{field:'money', width:90, title: '总金额',templet: '#switchTpl'}
+                    ,{field:'creator', title: '出库人',minWidth:120}
+                    ,{field:'user_name', title: '审核人',minWidth:120}
+                    ,{field:'audit_time', title: '审核时间',minWidth:120,templet:'<div>{{ d.audit_time!=null ? new Date(d.audit_time).Format("yyyy-MM-dd") :"" }}</div>'}
+                    ,{field:'remark', title: '备注',minWidth:150}
+                    ,{field:'operation', title:'查看详情', width:120, toolbar:'#barDemo', unresize: true,fixed: 'right'}
+                ]]
+                , page: true
+                , limits: [10, 20, 30]
+                , limit: 10 //每页默认显示的数量
+                ,onLoaded: function () {
+                    $(".eui-table-body").eq(0).find("tr").each(function (index) {
+                        const state =  $(this).find("td[data-field=state]").children().html();
+                        const type = $(this).find("td[data-field=type]").children().html();
+                        if(state === "已通过" && type === "退货"){
+                            $(this).find("td[data-field=operation]")
+                                .find(".eui-btn-group").html("<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='send'><i class='eui-icon' title='物品退货寄送'>&#xe7d0;</i></a>\n" +
+                                "<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='detail'><i class='eui-icon' title='查看'>&#xe615;</i></a>");
+                            $(".eui-table-body").eq(1).find("tr").eq(index).find("td[data-field=operation]")
+                                .find(".eui-btn-group").html("<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='send'><i class='eui-icon' title='物品退货寄送'>&#xe7d0;</i></a>\n" +
+                                "<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='detail'><i class='eui-icon' title='查看'>&#xe615;</i></a>");
+                        }else if(state === "已通过"){
+                            $(this).find("td[data-field=operation]")
+                                .find(".eui-btn-group").html("<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='confirm'><i class='eui-icon' title='领用确认'>&#xe7d0;</i></a>\n" +
+                                "<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='detail'><i class='eui-icon' title='查看'>&#xe615;</i></a>");
+                            $(".eui-table-body").eq(1).find("tr").eq(index).find("td[data-field=operation]")
+                                .find(".eui-btn-group").html("<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='confirm'><i class='eui-icon' title='领用确认'>&#xe7d0;</i></a>\n" +
+                                "<a class='eui-btn eui-btn-primary eui-btn-mini' e-event='detail'><i class='eui-icon' title='查看'>&#xe615;</i></a>");
+                        }
+                    });
+                }
+            });
+
+            //监听表格复选框选择
+            table.on('checkbox(tableDemoFilter)', function (obj) {
+                console.log(obj)
+            });
+
+            //监听工具条
+            table.on('tool(tableDemoFilter)', function (obj) {
+                var data = obj.data;
+                var state = data.state;
+                if(data.type === "退货"){
+                    state = "";
+                }
+                if (obj.event === 'detail') {
+                    layer.open({
+                        type: 2,
+                        title: '明细',
+                        shadeClose: true,
+                        shade: 0.3,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['1400px', '600px'],
+                        content: 'inStockInfo.html?orderId='+data.in_out_code+'&state='+state
+                    });
+                } else if (obj.event === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del();
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'edit') {
+                    layer.alert('编辑行：<br>' + JSON.stringify(data))
+                } else if(obj.event === 'confirm'){
+                    var load=layer.load("数据处理中。。。");
+                    if(data.type === "领用"){
+                        $.post(basePath + '/stock/in/out/receiveEnd', {id: data.in_out_id}, function () {
+                            layer.close(load);
+                            doSearch();
+                            layer.msg("领用完成");
+                        })
+                    }
+                }else if(obj.event === 'send'){
+                    var load=layer.load("数据处理中。。。");
+                    $.post(basePath + '/stock/in/out/send', {id: data.in_out_id,order: data.in_out_code}, function () {
+                        layer.close(load);
+                        doSearch();
+                        layer.msg("订单物品已退还");
+                    });
+                }
+            });
+
+            //操作事件
+        });
+    }
+</script>
+
+</body>
+</html>

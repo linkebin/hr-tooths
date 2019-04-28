@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="Styles/themes/default/style.css" rel="stylesheet" type="text/css"/>
+    <link href="Styles/themes/default/modules/baseframe/baseframe.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="Styles/themes/default/cover-style.css"/>
+    <style>
+        /* 去掉后台系统的滚动条 */
+        html {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<!--顶部导航-->
+<!-- <li class="active"><a href="#"><span>首　页</span></a></li> -->
+
+
+<script id="topmenu_template" container="ul.navul" type="text/x-jsrender">   <!--id="topmenu_template hasTopMenu" 则表示菜单全部在左，没有顶部菜单-->
+	<li title="{{:name}}" ><a href="{{:url}}" menuid="{{:id}}">
+        <!--<img class="pngfix" src="{{:icon}}" alt="">-->
+         <i class="eui-icon">{{:icon}}</i>
+        <span>{{:name}}</span>
+        </a>
+	</li>
+
+
+
+</script>
+
+<!--左边导航-->
+<script id="leftmenu_template" container="#sidebar ul.rootmenu" type="text/x-jsrender">
+	<li>
+		<a href="{{:url}}" class="root" menuid="{{:id}}">
+			<img class="pngfix" src="{{:icon}}" alt="">
+            <!--<i class="eui-icon">{{:icon}}</i>-->
+
+			<span>
+			    {{:name}}
+			</span>
+
+		</a>
+		{{if childs}}
+		<ul class="submenu">
+			{{for childs}}
+				<li>
+				    <a href="{{:url}}" menuid="{{:id}}">{{:name}}</a>
+
+				{{if childs}}
+					<ul>
+						 {{for childs}}
+						 	<li><a href="{{:url}}" menuid="{{:id}}">{{:name}}</a></li>
+						 {{/for}}
+					</ul>
+					{{/if}}
+				</li>
+
+			{{/for}}
+		</ul>
+		{{/if}}
+	</li>
+
+
+
+</script>
+
+<!--退出系统-->
+<script id="shortcut_template" container="#exit" type="text/x-jsrender">
+	<a href="{{:url}}" shortcut-id="{{:id}}" class="btn-shortcut pngfix" title="{{:name}}" >
+		<span>
+			<b class="btn-text">{{:name}}</b>
+		</span>
+	</a>
+
+
+
+</script>
+
+<body>
+<!-- 头部 start -->
+<div id="header" class="header">
+    <!--logo start-->
+    <div class="nav-logo float-left">
+        <img id="webLogo" src="" alt=""/>
+        <span id="webName"></span>
+    </div>
+    <div class="nav-sreach float-left eui-marginL20 ">
+        <li class="eui-margin5 ">
+            <a href="javascript:;"  onclick="switchT()" class="eui-color-white eui-font18"><i class="eui-icon"> &#xe638; </i>切换</a>
+        </li>
+    </div>
+	 <div class="nav-sreach float-left eui-marginL20 eui-hide" id="user_type_state">
+	    <li class="eui-margin5 ">
+	        <a href="javascript:;"  onclick="rw_type(this)" class="eui-color-white eui-font18 " id="rw_type"><i class="eui-icon eui-color-green"> &#xe612; </i>空闲</a>
+	    </li>
+	</div>
+    <div class="nav-sreach float-left eui-marginL10 ">
+        <li class="lockcms eui-margin5 ">
+            <a href="javascript:;" class="eui-color-white eui-font18"><i class="eui-icon"> &#xe6d8; </i>锁屏</a>
+        </li>
+    </div>
+    <div class="nav-sreach float-left eui-marginL10 ">
+        <li class="eui-margin5 ">
+            <a href="http://120.76.57.222/hrWeb/help.html"  target="_blank" class="eui-color-white eui-font18"><i class="eui-icon"> &#xe60b; </i>帮助</a>
+        </li>
+    </div>
+
+    <div class="float-right">
+
+
+        <ul class="eui-nav eui-nav-nobg">
+            <li class="eui-nav-item">
+                <a href="###">
+                                    <span class="userImg">
+                                        <img src="Styles/images/user/user.png" class="eui-borderRadiusC" alt=""
+                                             style="height: 36px;width: 36px">
+                                        <!--<span class="eui-badge">9</span>-->
+                                    </span>
+                    <span id="userinfoName" class="eui-font14 eui-color-white"></span>
+                </a>
+                <dl class="eui-nav-child">
+                    <!--<dd><a href="HtmlPage/module/forms/personalCenter.html" target="_blank">用户中心</a></dd>-->
+                    <dd id="exit"></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <!--一级导航-->
+    <div class="navBody float-right">
+        <a href="###" class="nav-Arrow nav-leftArrow"><i class="eui-icon">&#xe603;</i></a>
+        <div class="navulBody">
+            <ul class="navul"></ul>
+        </div>
+        <a href="###" class="nav-Arrow nav-rightArrow"><i class="eui-icon">&#xe602;</i></a>
+    </div>
+    <!-- logo end -->
+</div>
+<!-- 头部 end -->
+
+<!-- 左侧导航菜单  start -->
+<div id="sidebar" class="sidebar">
+    <h2 class="sidebar-title">
+        <!--<span>操作菜单</span>-->
+        <!-- <a id="menucollapse"><i class="eui-icon eui-font14">&#xe65a;</i></a> -->
+    </h2> <!-- 左导航菜单标题 -->
+    <div class="rootmenu-div">
+        <ul class="rootmenu">
+        </ul>
+    </div>
+</div>
+<!-- 左边导航菜单  end-->
+<!--  <span class="localTime">系统当前时间</span>-->
+<!-- 中间主体内容 start -->
+<div id="content" class="content">
+
+
+    <iframe frameborder=0 name="iframeName" class='contentIframe' id="indexIframe"></iframe>
+
+    <!-- iframe start -->
+    <!--    <div class="eui-tab" e-filter="nav-tab" e-allowclose="true">
+              <ul class="eui-tab-title"></ul>
+              <div class="eui-tab-content">
+
+              </div>
+          </div>
+   -->
+    <!-- iframe end -->
+</div>
+<!-- 中间主体内容 end -->
+
+<!-- 脚部 start -->
+<!--    <div id="footer">
+        <div class="text-center font" id="copyRight"></div>
+    </div>-->
+<!-- 脚部 end -->
+
+
+<div class="loading" id="loading"></div>
+
+</body>
+
+</html>
+
+<script src="Scripts/module/eui.js" charset="utf-8"></script>
+
+<!-- script -->
+
+<script type="text/javascript" src="Scripts/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="Scripts/common.js"></script>
+<script type="text/javascript" src="Scripts/config.js"></script><!--开发者使用的js，可用于对ajax的拦截等-->
+<script type="text/javascript" src="Scripts/plugins/jsrender.js"></script>    <!-- 前端菜单渲染 -->
+<script type="text/javascript" src="Scripts/plugins/jquery.query.js"></script>   <!--获取url参数-->
+<script type="text/javascript" src="Scripts/plugins/jquery.cookie.js"></script>
+<!-- demo -->
+<script type="text/javascript" src="navConfig.js?t=2"></script>
+<script type="text/javascript" src="Scripts/index.js"></script>
+
+<script type="text/javascript" src="Scripts/module/base/baseframe.js"></script>
+<script type="text/javascript" src="Scripts/module/EUI/modules/layer.js"></script>
+<script type="text/javascript" src="Scripts/plugins/md5/md5.min.js"></script>
+<script type="text/javascript">
+    $(".lockcms").on("click", function () {
+        window.sessionStorage.setItem("lockcms", true);
+        lockPage();
+    })
+    function lockPage() {
+        layer.open({
+            title: false,
+            type: 1,
+            content: '<div class="admin-header-lock" id="lock-box">' +
+            '<div class="admin-header-lock-img"><img src="Styles/images/user/user.png" class="userAvatar"/></div>' +
+            '<div class="admin-header-lock-name" id="lockUserName">用户名</div>' +
+            '<div class="input_btn">' +
+            '<input type="password" class="admin-header-lock-input eui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />' +
+            '<button class="eui-btn" id="unlock">解锁</button>' +
+            '</div>' +
+            '<p>请输入您的密码解锁！！！</p>' +
+            '</div>',
+            closeBtn: 0,
+            shade: 0.9,
+            success: function () {
+                //设置当前用户名
+                $("#lockUserName").text(getUserName())
+            }
+        })
+        $(".admin-header-lock-input").focus();
+    }
+    // 判断是否显示锁屏
+    if (window.sessionStorage.getItem("lockcms") == "true") {
+        lockPage();
+    }
+    // 解锁
+    $("body").on("click", "#unlock", function () {
+        if ($(this).siblings(".admin-header-lock-input").val() == '') {
+            layer.msg("请输入解锁密码！");
+            $(this).siblings(".admin-header-lock-input").focus();
+        } else {
+            var pwd = $(this).siblings(".admin-header-lock-input").val();
+            var password = md5(pwd)
+                , username = getAccount();
+            $.ajax({
+                type: "POST",
+                url: basePath + "/login/checkPwd",
+                data: {
+                    username: username,
+                    password: password
+                },
+                dataType: 'json',
+                success: function (result, status, xhr) {
+                    if (result.code == 200) {
+                        window.sessionStorage.setItem("lockcms", false);
+                        $(this).siblings(".admin-header-lock-input").val('');
+                        layer.closeAll("page");
+                    } else {
+                        layer.msg("密码错误，请重新输入！");
+                        $(this).siblings(".admin-header-lock-input").val('').focus();
+                    }
+                },
+                error: function () {
+                    layer.msg("密码错误，请重新输入！");
+                    $(this).siblings(".admin-header-lock-input").val('').focus();
+                }
+
+            })
+        }
+    });
+    function switchT() {
+        window.location.href = "/hr-gl-web/index.html";
+    }
+    function loginOut() {
+        $.ajax({
+            type: "POST",
+            url: basePath + "/login/loginOut",
+            success: function (result) {
+
+            },
+            error: function () {
+                layer.msg("失败");
+            }
+        });
+    }
+
+    function personalCenter() {
+        window.open("HtmlPage/module/system/userManagement/userManage-update.html?userId=")
+    }
+
+    $.ajax({
+        type: "POST",
+        url: basePath + "/login/getOrgName",
+        data: {
+            account: getAccount()
+        },
+        dataType: 'json',
+        success: function (result, status, xhr) {
+            if(result.code == 200) {
+                $("#webName").text("华仁门诊—"+  result.data)
+            }
+        },
+        error: function () {
+            console.log("获取组织失败")
+        }
+
+    })
+    //判断是医生才显示
+    var userType = getUserType();
+    if(userType=="医生"){
+        $("#user_type_state").removeClass("eui-hide");
+
+        //初始化上班状态
+        $.ajax({
+            type: "POST",
+            url: basePath + "/sec/user/getType",
+            data: {
+                account: getAccount()
+            },
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                if(result.code == 200) {
+                    //初始化
+                    type_flag=result.data;
+                    if(type_flag==0){
+                        $("#rw_type").html("<i class=\"eui-icon eui-color-green\"> &#xe612; </i>空闲");
+                    }else{
+                        $("#rw_type").html("<i class=\"eui-icon eui-color-red\"> &#xe612; </i>忙碌");
+                    }
+                }
+            },
+            error: function () {
+                console.log("初始化状态失败！")
+            }
+
+        });
+
+    }
+	function rw_type(flag){
+		if(type_flag==0){
+			type_flag=1;
+		}else{
+			type_flag=0;
+		}
+		$.ajax({
+		    type: "POST",
+		    url: basePath + "/sec/user/updates",
+		    data: {
+		        flag: type_flag
+		    },
+		    success: function (result) {
+				if(type_flag==0){
+					$(flag).html("<i class=\"eui-icon eui-color-green\"> &#xe612; </i>空闲");
+				}else{
+					$(flag).html("<i class=\"eui-icon eui-color-red\"> &#xe612; </i>忙碌");
+				}
+		    }
+		
+		});
+	}
+
+    function go_cust(name) {
+        $.cookie('cust_find_name',name, {path: "/"});
+        //样式切换
+        $("#content iframe").attr("src","HtmlPage/module/cust/cust-manage.html");
+    }
+
+</script>

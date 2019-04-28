@@ -1,0 +1,125 @@
+/*html{
+	background-color: #f2f2f2;
+}*/
+body{
+	padding: 0 10px;
+}
+ul.navul li a{
+	padding: 5px 8px;
+}
+ul.navul li a{
+	font-size: 18px;
+}
+ul.navul li a:hover, ul.navul li.current a{
+	color: #02B1ED;
+}
+.header{
+	background: linear-gradient(to right, #5B86E5 , #3ACADD);
+}
+
+.eui-tab-card{
+	background-color: #fff;
+	/*border: 0;*/
+	box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+/*.eui-table thead tr{
+	background-color: #f5fcfe;
+}
+.eui-table[e-even] tr:nth-child(even){
+	background-color: #f5fcfe;
+}
+.eui-table tbody tr:hover{
+	background-color: #ddf2f8!important;
+}*/
+.eui-btn{
+	background-color: #02b1ed;
+}
+.eui-btn-primary{
+	background-color: #fff;
+}
+.eui-laypage .eui-laypage-curr .eui-laypage-em{
+	background-color:#02b1ed;
+}
+.eui-tab-brief>.eui-tab-title .eui-this{
+	color: #02B1ED;
+}
+.eui-tab-brief>.eui-tab-more li.eui-this:after, .eui-tab-brief>.eui-tab-title .eui-this:after{
+	border-bottom: 2px solid #02B1ED;
+}
+.eui-elem-quote{
+	border-left: 5px solid #02B1ED;
+}
+.eui-quote-nm{
+	border-color: #e2e2e2;
+}
+.eui-form-onswitch{
+	border-color:#02b1ed;
+	background-color: #02b1ed;
+}
+.eui-layer-btn .eui-layer-btn0{
+	background-color: #02b1ed!important;
+}
+#sidebar ul.rootmenu li.current a{
+	background: #02b1ed;
+	color: #fff;
+}
+.eui-form-radio i:hover, .eui-form-radioed i{
+	color: #02b1ed;
+}
+.eui-form-checked[e-skin=primary] i{
+	color: #fff;
+	border-color: #02b1ed;
+    background-color: #02b1ed;
+    
+}
+/*.eui-laydate .eui-this {
+    background-color: #666!important;
+    color: #fff!important;
+}*/
+.long50 input{
+	width: calc(50% - 20px);
+}
+.multi-line textarea{
+	width: 90%;
+	margin-left: 0;
+}
+.form-hr{
+	margin: 30px;
+	height: 1px;
+	background-color: #e8e8e8;
+}
+.float-strut{
+	overflow: auto;
+}
+.cover-border{
+	padding: 10px;
+	border: 0px;
+	/*border-bottom: 1px solid #ddd;*/
+	margin-bottom: 20px;
+	box-shadow: none;
+}
+.case-history{
+	width: 90%;
+	/*margin-left: calc(15% - 20px);*/
+	overflow: auto;
+	margin-bottom: 15px;
+}
+.case-history-input{
+	width: calc(100% - 110px);
+	float: left;
+}
+.case-history label{
+	border: 0px!important;
+	background-color: #fff!important;
+}
+.case-history textarea{
+	margin-left: 0;
+	width: calc(100% - 20px);
+}
+.case-history-margin{
+	margin-left: 110px;
+	margin-top: 15px;
+}
+.red-border{
+	border: 2px solid red!important;
+}

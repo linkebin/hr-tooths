@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>角色权限配置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../Styles/themes/default/style.css" media="all">
+    <link rel="stylesheet" href="../../../Scripts/libs/jquery-ui/jquery-ui.css">
+
+</head>
+<body class="ToolbarFixed">
+<div class="toolbarH">
+    <div class="title-bar">
+        <div class="eui-btn-group float-right">
+            <!--不需要图标时可以将<i class="eui-icon">图标字符</i>去掉；开发时请删除此注释-->
+            <!--<a href="###" class="eui-btn">保存</a>-->
+            <!--<a href="###" class="eui-btn eui-btn-primary">关闭</a>-->
+        </div>
+        <span class="title-main">
+      <i class="eui-icon eui-font24">&#xe62a;</i>
+      角色权限配置：
+    </span>
+        <span class="eui-color-red eui-font16" id="roleName">
+        部门经理
+    </span>
+        <span class="title-sub">
+
+    </span>
+
+        <a href="javaScript:selectRole()" class="eui-btn eui-btn-primary eui-btn-small eui-marginL10"><i
+                class="eui-icon">
+            &#xe613;</i>选择角色</a>
+        <!--<a href="###" class="eui-btn eui-btn-primary eui-btn-small eui-marginL10"><i class="eui-icon">&#xe630;</i>使用权限模板</a>-->
+
+
+    </div>
+</div>
+<!--layout start-->
+<!--one start-->
+<div class="outer-west eui-bg-white">
+    <h3 class="ui-widget-header">角色成员</h3>
+    <div class="ui-layout-content" id="roleUser">
+        <!--<a href="###" class="eui-btn eui-btn-primary block eui-btn-label">YD-0003：张乙浩<span class="eui-icon"   title="删除成员">&#x1006;</span></a>-->
+    </div>
+    <!--<h4 class="ui-widget-content ui-state-hover">Accordion inside DIV.ui-layout-content</h4>-->
+</div>
+<!--one end-->
+<div class="outer-center eui-bg-white">
+    <!--two start-->
+    <div class="middle-west">
+        <h3 class="ui-widget-header">菜单权限</h3>
+        <div class="ui-layout-content etree">
+            <ul id="treeDemo" class="ztree"></ul>
+        </div>
+    </div>
+    <!--two end-->
+    <!--three start-->
+    <div class="middle-center">
+        <h3 class="ui-widget-header">操作权限（不得修改角色已设定的权限）</h3>
+        <div class="ui-layout-content" >
+            <!--权限 start-->
+
+            <div class="eui-form" e-filter="test">
+                <div class="eui-colla-item">
+                        <h2 class="eui-colla-title">
+                            <span class="title-main" id="menuName">
+                                左侧树选择菜单
+                            </span>
+                             <span class="title-sub">
+                             模块下所有按钮
+                            </span>
+                        </h2>
+                    <div class="eui-colla-content eui-bg-white eui-show">
+                        <dl class="DL eui-borderB eui-paddingB20">
+                            <dt id="titleHtml">
+                                <input type="checkbox" name="system[look]" title="全部" e-skin="primary">
+                            </dt>
+                            <dd id="buttonHtml">
+                                <input type="checkbox" name="system[look]" title="编辑当前菜单" e-skin="primary">
+                                <input type="checkbox" name="system[look]" title="新建" e-skin="primary" >
+                                <input type="checkbox" name="system[look]" title="查看" e-skin="primary">
+                                <input type="checkbox" name="system[look]" title="编辑" e-skin="primary">
+                                <input type="checkbox" name="system[look]" title="启用" e-skin="primary">
+                                <input type="checkbox" name="system[look]" title="禁用" e-skin="primary">
+                                <input type="checkbox" name="system[look]" title="删除" e-skin="primary">
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <!--权限 end-->
+        </div>
+    </div>
+    <!--three end-->
+
+</div>
+<!--layout end-->
+
+<!--弹出信息-->
+<script type="text/html" id="layerContent">
+    <div class="eui-height100p">
+        <div class="eui-bg-white eui-padding10">
+            <!--右边内容 start-->
+            <!--条件搜索 start-->
+            <div class="eui-form eui-form-base eui-form-search eui-form-col2">
+                <form id="userForm">
+                    <input id="dpId" name="dpId" type="hidden">
+                    <!-- 查询重置按钮-->
+                    <div class="eui-btn-group">
+                        <a href="javaScript:void(0)" class="eui-btn" onclick="doSearch()">查询</a>
+                        <button type="reset" class="eui-btn eui-btn-primary">重置</button>
+                    </div>
+                    <!--查询条件-->
+                    <div class="eui-form-item">
+                        <label class="eui-form-label">角色名称：</label>
+                        <div class="eui-input-block">
+                            <input type="text" class="eui-input" placeholder="请输入查询关键字" id="findRoleName">
+                        </div>
+                    </div>
+                    <div class="eui-form-item">
+                        <label class="eui-form-label">是否启用：</label>
+                        <div class="eui-input-block">
+                            <select name="state" e-verify="required" id="findState">
+                                <option value="">全部</option>
+                                <option value="1">启用</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--华丽的分割线-->
+
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+
+
+            <!--条件搜索 end-->
+            <!--标题 start-->
+
+            <div class="title-bar eui-marginB10">
+            <span class="title-main">
+          <i class="eui-icon eui-font20">&#xe62d;</i>
+            <span class="eui-color-red">角色列表</span>
+          </span>
+            </div>
+
+            <!--标题 end-->
+            <div class="eui-btn-group eui-marginB10">
+            </div>
+
+
+            <!--  <div class="nodataArea">暂无相关数据 !</div>-->
+            <table id="roleTable" e-filter="roleTableFilter"></table>
+            <!--表格 end-->
+            <!--右边内容 end-->
+        </div>
+    </div>
+
+</script>
+<script type="text/html" id="switchTpl">
+
+    <!--<input type="checkbox" name="see" e-skin="switch" e-text="启用|禁用" value="{{d.id}}" disabled e-filter="openOrClose">-->
+    {{# if(d.state== "1"){ }}
+    启用
+    {{# }else { }}
+    禁用
+    {{# } }}
+
+</script>
+<script type="text/html" id="radioTpl">
+    <input type="radio" name="sexRadio" value="{{d.id+'|'+d.roleName}}" title=" " e-filter="radiodemo">
+</script>
+
+
+<script type="text/javascript" src="../../../Scripts/jquery-1.9.0.min.js"></script>
+<script src="../../../Scripts/module/eui.js" charset="utf-8"></script>
+<!--<script src="../../../Scripts/module/EUI/modules/layer.js" charset="utf-8"></script>-->
+<script src="../../../Scripts/libs/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+<script src="../../../Scripts/libs/jquery-ui/jquery.layout.js" type="text/javascript"></script>
+<script src="../../../Scripts/config.js" charset="utf-8"></script>
+<!-- ztree-->
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.core.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.excheck.js"></script>
+<script src="../../../Scripts/libs/ztree/js/jquery.ztree.exedit.js"></script>
+<script src="../../../Scripts/pack.ajax.js" charset="utf-8"></script>
+<script src="../../../Scripts/plugins/jquery.query.js" charset="utf-8"></script><!--获取url参数-->
+<script src="../../../Scripts/date2format.js" charset="utf-8"></script>
+
+<script>
+    var roleId = jQuery.query.get("id"),
+        roleName = jQuery.query.get("name"),
+        tableInit = null,
+        form = null,
+        table = null,
+        treeObj=null,
+        txt = '',
+        menuId='';
+
+    /*--用户树--*/
+    $(function () {
+        //加载用户列表
+        roleUser();
+        //加载右侧按钮权限
+        checkRole("")
+        initTree();
+
+    });
+
+
+    eui.use(['jquery', 'element', 'form', 'layedit', 'laytpl', 'laydate', 'table'], function () {
+        table = eui.table;
+        form = eui.form;
+        var jQuery = eui.jQuery
+            , element = eui.element
+
+            , layer = eui.layer
+            , layedit = eui.layedit
+            , laydate = eui.laydate
+            , laytpl = eui.laytpl;
+
+        var getTpl = $("#layerContent").html();
+        laytpl(getTpl).render({}, function (html) {
+            txt = html;
+        });
+
+        var outerLayout = $('body').layout({
+            center__paneSelector: ".outer-center"
+            , west__paneSelector: ".outer-west"
+            , west__size: 200
+            , spacing_open: 8 // ALL panes
+            , spacing_closed: 12 // ALL panes
+            , center__onresize: "middleLayout.resizeAll"
+        });
+
+        var middleLayout = $('div.outer-center').layout({
+            center__paneSelector: ".middle-center"
+            , west__paneSelector: ".middle-west"
+            , west__size: 300
+            , spacing_open: 8  // ALL panes
+            , spacing_closed: 12 // ALL panes
+            , center__onresize: "innerLayout.resizeAll"
+        });
+        form.on('radio(radiodemo)', function (obj) {
+            console.log(obj.value); //选中行的相关数据
+             var  roleInfo = obj.value;
+             var info =  roleInfo.split("|")
+             roleId = info[0];
+             roleName=info[1];
+        });
+
+        form.on('checkbox(checkedAll)', function(data){
+            var index = layer.load();
+            $.ajax({
+                type: "post",
+                url: basePath + "/sec/menu/role/updateButtonPower",
+                dataType: 'json',
+                data:{
+                    menuId:menuId,
+                    roleId:roleId,
+                    checked:data.elem.checked
+                },
+                success: function (result) {
+                    layer.close(index);
+                    if (result.code == 200) {
+                        layer.msg("权限更新成功！");
+                        checkRole(menuId)
+                    } else {
+                        layer.msg("更新权限失败！");
+                    }
+                },
+                error: function () {
+                    layer.close(index);
+                    layer.msg("更新权限失败！");
+                }
+            });
+        });
+        form.on('checkbox(checkedDemo)', function(data){
+            console.log(data.elem); //得到checkbox原始DOM对象
+            console.log(data.elem.checked); //是否被选中，true或者false
+            console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+            console.log(data.othis); //得到美化后的DOM对象
+            var index = layer.load();
+            $.ajax({
+                type: "post",
+                url: basePath + "/sec/menu/role/updateButtonPower",
+                dataType: 'json',
+                data:{
+                    buttonId:data.value,
+                    roleId:roleId,
+                    checked:data.elem.checked
+                },
+                success: function (result) {
+                    layer.close(index);
+                    if (result.code == 200) {
+                        layer.msg("权限更新成功！");
+                        checkRole(menuId)
+                    } else {
+                        layer.msg("更新权限失败！");
+                    }
+                },
+                error: function () {
+                    layer.close(index);
+                    layer.msg("更新权限失败！");
+                }
+            });
+        });
+
+    });
+    // ztree
+    var setting = {
+        view: {
+            //    addHoverDom: addHoverDom,
+            //   removeHoverDom: removeHoverDom,
+            selectedMulti: false
+        },
+        async: {
+            enable: true,
+            type: "post",
+            dataType: "json",
+            url: basePath+"/sec/menu/getMenuTreeByRole",
+            otherParam:["roleId",roleId],
+            dataFilter: null
+        },
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pid",
+                rootPid: "0"
+            }
+        },
+        edit: {
+            enable: false
+        },
+        callback:{
+            onCheck: zTreeOnCheck,
+            onClick:zTreeOnClicck
+        }
+    };
+    var zNodes = [];
+    //设置/取消权限
+    function zTreeOnCheck(event, treeId, treeNode) {
+        var changeNodes = treeObj.getChangeCheckedNodes();
+        var nodes = JSON.stringify(changeNodes);
+        var index = layer.load();
+        $.ajax({
+            type: "post",
+            url: basePath + "/sec/menu/role/updateMenuPower",
+            dataType: 'json',
+            data:{
+                nodes:nodes,
+                roleId:roleId
+            },
+            success: function (result) {
+                layer.close(index);
+                if (result.code == 200) {
+                    layer.msg("权限更新成功！");
+                    initTree();
+                } else {
+                    layer.msg("更新权限失败！");
+                }
+            },
+            error: function () {
+                layer.close(index);
+                layer.msg("更新权限失败！");
+            }
+        });
+    };
+    //树点击事件
+    function zTreeOnClicck(event, treeId, treeNode)  {
+        menuId = treeNode.id;
+        checkRole(treeNode.id)
+        $("#menuName").text(treeNode.name)
+    }
+    var newCount = 1;
+    function doSearch() {
+        if (tableInit != null) {
+            tableInit.reload({
+                where: {roleName: $("#findRoleName").val(), state: $("#findState").val()}
+            });
+        }
+    }
+    function initTree() {
+        setting.async.otherParam=["roleId",roleId];
+        treeObj = $.fn.zTree.init($("#treeDemo"), setting);
+        treeObj.expandAll(true);
+    }
+    function roleUser() {
+        $("#roleName").text(roleName);
+        $.ajax({
+            type: "get",
+            url: basePath + "/sec/user/getSecUserByRoleAll",
+            data: {
+                roleId: roleId
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 200) {
+                    $("#roleUser").empty();
+                    var data = result.data;
+                    for (var i = 0; i < data.length; i++) {
+                        var orgName = data[i].ORG_NAME
+                        if (orgName == undefined) {
+                            orgName = "无部门"
+                        }
+
+                        $("#roleUser").append(
+                            '<a href="###" class="eui-btn eui-btn-primary block eui-btn-label">' + orgName + ':' + data[i].USER_NAME + '<span class="eui-icon" onclick="removeUser(this,\'' + data[i].ID_ + '\')" title="删除成员">&#x1006;</span></a>'
+                        )
+                    }
+                } else {
+                    layer.msg("获取角色用户失败！");
+                }
+            },
+            error: function () {
+                layer.msg("获取角色用户失败！");
+            }
+        });
+    }
+    function removeUser(ithis, idStr) {
+        layer.confirm('确定移除用户？', function (index) {
+            $.ajax({
+                type: "POST",
+                url: basePath + "/sec/role/member/delete",
+                data: {
+                    idStr: idStr,
+                    roleId: roleId
+                },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.code == 200) {
+                        $(ithis).parent().remove()
+                        layer.msg("移除成功");
+                    } else {
+                        layer.msg(result.message);
+                    }
+                },
+                error: function () {
+                    layer.msg("移除失败");
+                }
+            });
+
+            layer.close(index);
+        });
+
+    }
+    function selectRole() {
+        var page = layer.open({
+            type: 1
+            , title: "选择角色"
+            , area: ['800px', '600px']  //宽度
+            , offset: "auto"              //类型,注意点击按钮的data-type属性，然后配合宽高度
+            , id: 'scheckRolePage' //防止重复弹出
+            , content: txt
+            , btn: ['确定', '取消']
+            , btnAlign: 'c' //按钮居中
+            , shade: 0.3 //不显示遮罩
+            , maxmin: true
+            , yes: function () {
+                initTree();
+                $("#menuName").text("左侧树选择菜单")
+                $("#titleHtml").empty();
+                $("#buttonHtml").empty();
+                menuId='';
+                roleUser();
+                layer.close(page);
+            }, btn2: function () {
+                layer.close(page);
+            }
+        });
+        //表格
+        tableInit = table.render({
+            elem: '#roleTable'
+            //   ,height: 350
+//        ,height: 'full-300'       //该项为设置表格最大化自适应高度
+            , even: true //开启隔行背景
+            , url: basePath + '/sec/role/list' //数据接口
+            , method: 'post' //数据接口
+            , cols: [[
+                {field: 'check', title: '选择', templet: "#radioTpl", width: 80}
+                , {field: 'roleCode', width: 120, title: '角色编号', sort: true}
+                , {field: 'roleName', width: 180, title: '角色名称'}
+                , {field: 'state', width: 80, title: '是否启用', sort: true, templet: '#switchTpl'}
+                , {field: 'creator', width: 80, title: '创建人'}
+                , {
+                    field: 'createTime', width: 120, title: '创建时间', sort: true, templet: function (d) {
+                        return dateForm(d.createTime);
+                    }
+                }
+                , {field: 'stanbyId', title: '备注', minWidth: 150}
+            ]]
+            , page: true
+        });
+        form.render();
+    }
+
+    //加载操作按钮权限
+    function checkRole(menuId){
+        $("#buttonHtml").empty();
+        $("#titleHtml").hide();
+        if(menuId==""){
+            return
+        }
+        $.ajax({
+            type: "post",
+            url: basePath + "/sec/menu/getAllButtonMenu",
+            dataType: 'json',
+            data:{
+                menuId:menuId,
+                roleId:roleId
+            },
+            success: function (result) {
+                if (result.code == 200) {
+                    console.log(result.data,null);
+                    if(result.data == null ||result.data.length==0){
+                        $("#titleHtml").html('<span class="title-sub">该模块下无按钮权限</span>');
+                        $("#titleHtml").show();
+                        return
+                    }
+                    initButtonHtml(result.data)
+                } else {
+                    layer.msg("获取按钮权限失败！");
+                }
+            },
+            error: function () {
+                layer.msg("获取按钮权限失败！");
+            }
+        });
+     }
+     //右侧按钮权限部分页面拼接
+    function initButtonHtml(list) {
+
+        $("#buttonHtml").empty();
+        var text;
+        var flag = true;
+        for(var i = 0 ; i<list.length; i++){
+            if(list[i].checked){
+                text = '<input type="checkbox" name="buttonP" title="' + list[i].MENU_NAME + '"  value="'+list[i].ID_+'" e-skin="primary" e-filter="checkedDemo" checked>';
+            }else {
+                flag = false;
+                text = '<input type="checkbox" name="buttonP" title="' + list[i].MENU_NAME + '"  value="'+list[i].ID_+'" e-skin="primary"  e-filter="checkedDemo">';
+            }
+             $("#buttonHtml").append(text)
+        }
+        if(flag){
+            $("#titleHtml").html(' <input type="checkbox" name="checkedAll" title="全部" e-skin="primary" e-filter="checkedAll" checked>');
+        }else {
+
+            $("#titleHtml").html(' <input type="checkbox" name="checkedAll" title="全部" e-skin="primary" e-filter="checkedAll">');
+        }
+        $("#titleHtml").show();
+        form.render();
+    }
+</script>
+
+</body>
+</html>

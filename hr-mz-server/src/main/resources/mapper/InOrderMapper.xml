@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidusoft.project.system.dao.InOrderMapper">
+  <resultMap id="BaseResultMap" type="com.yidusoft.project.system.domain.InOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="order_money" jdbcType="DOUBLE" property="orderMoney" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+  </resultMap>
+</mapper>
